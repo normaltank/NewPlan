@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-23",
+  "selected_root": "user skill directory: ~/.codex/skills",
+  "compared_root": "legacy parent project: ../.agents/skills",
+  "route": [
+    "ask-matt",
+    "writing-for-agents",
+    "domain-modeling",
+    "code-review",
+    "pr"
+  ],
+  "note": "Normalized comparison distinguishes content edits from line ending differences. Existing skill installations were read, not changed. These hashes record installed files, not a claim that every file equals upstream latest.",
+  "files": [
+    {
+      "skill": "ask-matt",
+      "selected_this_task": true,
+      "user_skill_sha256": "1371f5ce005de0992a44b137748bfb960a56948aa9871b405fe9d90b24332e3c",
+      "user_normalized_sha256": "1371f5ce005de0992a44b137748bfb960a56948aa9871b405fe9d90b24332e3c",
+      "parent_normalized_sha256": "74b4d8659af3a1a39e7fb8ead5a057b26241d82351af124405414e57395f488d",
+      "equal_after_newline_normalization": false
+    },
+    {
+      "skill": "writing-for-agents",
+      "selected_this_task": true,
+      "user_skill_sha256": "551adca942227b44192edba88acd4e8db911f0121ce58ad16944ccf6a896a74a",
+      "user_normalized_sha256": "551adca942227b44192edba88acd4e8db911f0121ce58ad16944ccf6a896a74a",
+      "parent_normalized_sha256": "551adca942227b44192edba88acd4e8db911f0121ce58ad16944ccf6a896a74a",
+      "equal_after_newline_normalization": true
+    },
+    {
+      "skill": "domain-modeling",
+      "selected_this_task": true,
+      "user_skill_sha256": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3",
+      "user_normalized_sha256": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3",
+      "parent_normalized_sha256": "4bba18ce02fe44d784ebc3bae5b11bf06c39924c8514494132a5b632a286bc8a",
+      "equal_after_newline_normalization": false
+    },
+    {
+      "skill": "code-review",
+      "selected_this_task": true,
+      "user_skill_sha256": "09eb147f793e4647949edd32dbad278f0554dfb56e0d46b699cd4c2c55bf0357",
+      "user_normalized_sha256": "09eb147f793e4647949edd32dbad278f0554dfb56e0d46b699cd4c2c55bf0357",
+      "parent_normalized_sha256": "a0b5ab85267c971ac9e8eb88ac0b45074618793ecfdf62d230dc4e8df771c632",
+      "equal_after_newline_normalization": false
+    },
+    {
+      "skill": "pr",
+      "selected_this_task": true,
+      "user_skill_sha256": "ab63f1cf78647389edcd386c9427c5dfca27ed2836930c24773ffee834c19bcd",
+      "user_normalized_sha256": "ab63f1cf78647389edcd386c9427c5dfca27ed2836930c24773ffee834c19bcd",
+      "parent_normalized_sha256": "3727438e9414715c9af4ef6b9c817e77324abd0ab7206b48a5fe1ec6f718c518",
+      "equal_after_newline_normalization": false
+    },
+    {
+      "skill": "diagnosing-bugs",
+      "selected_this_task": false,
+      "user_skill_sha256": "849198df88cdb65fd0d97236604c1fca7ff2f22d2f705f9724a800d0266b118d",
+      "user_normalized_sha256": "849198df88cdb65fd0d97236604c1fca7ff2f22d2f705f9724a800d0266b118d",
+      "parent_normalized_sha256": "422b017213271f1b651b494fddabeed853489c80fcaf020ce75c53cdd9520274",
+      "equal_after_newline_normalization": false
+    },
+    {
+      "skill": "research",
+      "selected_this_task": false,
+      "user_skill_sha256": "985569f15739c713d6784887c3d186d4ef9ac85bec5ad9c068d25bf0739928e4",
+      "user_normalized_sha256": "985569f15739c713d6784887c3d186d4ef9ac85bec5ad9c068d25bf0739928e4",
+      "parent_normalized_sha256": "17ab6f48f643a8584bdf4c570cf2a6135460b61d65defec048bb22d9b85e73ff",
+      "equal_after_newline_normalization": false
+    },
+    {
+      "skill": "tdd",
+      "selected_this_task": false,
+      "user_skill_sha256": "5505d25bbaa8fc14a79e4d20163936958992a2995b7f1dd1d6197edc9ed722e0",
+      "user_normalized_sha256": "5505d25bbaa8fc14a79e4d20163936958992a2995b7f1dd1d6197edc9ed722e0",
+      "parent_normalized_sha256": "459c7537365826014ea03cbf3fe265000493baa8a738972980181db94ae5420a",
+      "equal_after_newline_normalization": false
+    }
+  ]
+}
