@@ -1,0 +1,116 @@
+test_empty_formatting_anchor_keeps_name_and_link (test_directory_resume.DirectoryResumeTests.test_empty_formatting_anchor_keeps_name_and_link) ... FAIL
+test_explicit_administrative_section_remains_verifiable (test_directory_resume.DirectoryResumeTests.test_explicit_administrative_section_remains_verifiable) ... FAIL
+test_incomplete_reinterpretation_preserves_saved_people (test_directory_resume.DirectoryResumeTests.test_incomplete_reinterpretation_preserves_saved_people) ... FAIL
+test_legacy_nested_cards_recover_the_same_nine_people (test_directory_resume.DirectoryResumeTests.test_legacy_nested_cards_recover_the_same_nine_people) ... Executing <Task finished name='Task-17' coro=<DirectoryResumeTests.test_legacy_nested_cards_recover_the_same_nine_people() done, defined at D:\Agent Workspace\Intern\MyPlan\OpenSource\test_directory_resume.py:92> exception=AssertionError("Lists differ: [{'na[527 chars] 教授'}] != [{'na[527 chars] 教授'}, {'name': '郑德凤', 'profile_url': 'https:/[1208 chars]教授'}]\n\nSecond list contains 6 additional elements.\nFirst extra element 3:\n{'name': '郑德凤', 'profile_url': 'https://test.edu.cn/szdw_sw_zdf.htm', 'source_url': 'https://test.edu.cn/list', 'branch': '师资', 'source_kind': 'directory_link', 'evidence': '郑德凤 教授', 'directory_section': '张威教授'}\n\nDiff is 2022 characters long. Set self.maxDiff to None to see it.") created at C:\Python312\Lib\asyncio\runners.py:100> took 0.265 seconds
+FAIL
+test_ordinary_names_list_only_and_scope_guards_still_match (test_directory_resume.DirectoryResumeTests.test_ordinary_names_list_only_and_scope_guards_still_match) ... Executing <Task finished name='Task-22' coro=<DirectoryResumeTests.test_ordinary_names_list_only_and_scope_guards_still_match() done, defined at D:\Agent Workspace\Intern\MyPlan\OpenSource\test_directory_resume.py:109> result=None created at C:\Python312\Lib\asyncio\runners.py:100> took 0.109 seconds
+ok
+test_unqualified_source_cannot_enqueue_additional_profiles (test_directory_resume.DirectoryResumeTests.test_unqualified_source_cannot_enqueue_additional_profiles) ... ok
+
+======================================================================
+FAIL: test_empty_formatting_anchor_keeps_name_and_link (test_directory_resume.DirectoryResumeTests.test_empty_formatting_anchor_keeps_name_and_link)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Python312\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\Agent Workspace\Intern\MyPlan\OpenSource\test_directory_resume.py", line 78, in test_empty_formatting_anchor_keeps_name_and_link
+    self.assertEqual(continued.observations, initial.observations)
+AssertionError: Lists differ: [] != [{'name': '张三', 'profile_url': 'https://te[122 chars]张三'}]
+
+Second list contains 1 additional elements.
+First extra element 0:
+{'name': '张三', 'profile_url': 'https://test.edu.cn/zhang', 'source_url': 'https://test.edu.cn/list', 'branch': '师资', 'source_kind': 'directory_link', 'evidence': '张三'}
+
+- []
++ [{'branch': '师资',
++   'evidence': '张三',
++   'name': '张三',
++   'profile_url': 'https://test.edu.cn/zhang',
++   'source_kind': 'directory_link',
++   'source_url': 'https://test.edu.cn/list'}]
+
+======================================================================
+FAIL: test_explicit_administrative_section_remains_verifiable (test_directory_resume.DirectoryResumeTests.test_explicit_administrative_section_remains_verifiable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Python312\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\Agent Workspace\Intern\MyPlan\OpenSource\test_directory_resume.py", line 85, in test_explicit_administrative_section_remains_verifiable
+    self.assertEqual(continued.observations, initial.observations)
+AssertionError: Lists differ: [{'na[127 chars]irectory_link', 'evidence': '李四'}] != [{'na[127 chars]irectory_link', 'evidence': '李四', 'directory_section': '行政教辅'}]
+
+First differing element 0:
+{'nam[125 chars]directory_link', 'evidence': '李四'}
+{'nam[125 chars]directory_link', 'evidence': '李四', 'directory_section': '行政教辅'}
+
+  [{'branch': '师资',
++   'directory_section': '行政教辅',
+    'evidence': '李四',
+    'name': '李四',
+    'profile_url': 'https://test.edu.cn/li',
+    'source_kind': 'directory_link',
+    'source_url': 'https://test.edu.cn/list'}]
+
+======================================================================
+FAIL: test_incomplete_reinterpretation_preserves_saved_people (test_directory_resume.DirectoryResumeTests.test_incomplete_reinterpretation_preserves_saved_people)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Python312\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\Agent Workspace\Intern\MyPlan\OpenSource\test_directory_resume.py", line 131, in test_incomplete_reinterpretation_preserves_saved_people
+    self.assertEqual(continued.observations, initial.observations)
+AssertionError: Lists differ: [{'na[158 chars]'张三'}] != [{'na[158 chars]'张三'}, {'name': '李四', 'profile_url': 'https://[121 chars]李四'}]
+
+Second list contains 1 additional elements.
+First extra element 1:
+{'name': '李四', 'profile_url': 'https://test.edu.cn/li', 'source_url': 'https://test.edu.cn/list', 'branch': '师资', 'source_kind': 'directory_link', 'evidence': '李四'}
+
+  [{'branch': '师资',
+    'evidence': '张三',
+    'name': '张三',
+    'profile_url': 'https://test.edu.cn/zhang',
+    'source_kind': 'directory_link',
++   'source_url': 'https://test.edu.cn/list'},
++  {'branch': '师资',
++   'evidence': '李四',
++   'name': '李四',
++   'profile_url': 'https://test.edu.cn/li',
++   'source_kind': 'directory_link',
+    'source_url': 'https://test.edu.cn/list'}]
+
+======================================================================
+FAIL: test_legacy_nested_cards_recover_the_same_nine_people (test_directory_resume.DirectoryResumeTests.test_legacy_nested_cards_recover_the_same_nine_people)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Python312\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\Agent Workspace\Intern\MyPlan\OpenSource\test_directory_resume.py", line 105, in test_legacy_nested_cards_recover_the_same_nine_people
+    self.assertEqual(continued.observations, initial.observations)
+AssertionError: Lists differ: [{'na[527 chars] 教授'}] != [{'na[527 chars] 教授'}, {'name': '郑德凤', 'profile_url': 'https:/[1208 chars]教授'}]
+
+Second list contains 6 additional elements.
+First extra element 3:
+{'name': '郑德凤', 'profile_url': 'https://test.edu.cn/szdw_sw_zdf.htm', 'source_url': 'https://test.edu.cn/list', 'branch': '师资', 'source_kind': 'directory_link', 'evidence': '郑德凤 教授', 'directory_section': '张威教授'}
+
+Diff is 2022 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.610s
+
+FAILED (failures=4)

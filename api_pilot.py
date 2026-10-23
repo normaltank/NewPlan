@@ -24,7 +24,8 @@ from pypdf import PdfReader
 from benchmark import ROOT, new_run, write_json
 from deepseek_api import ApiFailure, DeepSeekJSON, DEFAULT_MODEL
 from fynu_probe import make_crawler, save_page
-from quality_fields import fields_from_text, pdf_table_rows, profile_card, profile_label_name, TITLES
+from quality_fields import fields_from_text, pdf_table_rows, profile_card
+from directory_rows import parse_directory, selected, title_name
 from collection_guards import branch_scope, robots_response, rendered_content_text
 from person_names import clean_name,is_person_name
 from university_scope import same_university
@@ -39,26 +40,6 @@ SYSTEM = '''你是高校官网采集的页面分析器。只返回指定结构�
 
 def normalized(text):
     return re.sub(r'[\s\u200b\ufeff]+','',text or '')
-
-
-def title_name(label):
-    value=profile_label_name(label)
-    value=re.sub(r'^硕士生导师[—－\-：:\s]*','',value)
-    value=re.split(r'[（(]',value,maxsplit=1)[0]
-    value=re.sub(r'[—－\-]\s*(?:学术学业导师|学业导师|学术导师|导师|教授|副教授|讲师).*$', '',value)
-    value=profile_label_name(value)
-    if value in TITLES or value in {'教职员工','教职工','外籍教师','兼职教师','专任教师','名师风采'}:return None
-    if value in {'师资队伍','教师队伍','教授','副教授','讲师','助教','博士','硕士','系主任','副主任','教学团队','研究方向','姓名','职称','学院简介','学校简介','师资简介','教师简介','个人简介','团队简介','专业简介','学科简介'}:
-        return None
-    return value if is_person_name(value) else None
-
-
-def selected(node,selector):
-    if not selector or selector=='SELF':
-        return node
-    if not isinstance(selector,str) or len(selector)>300:
-        raise ValueError('Invalid selector')
-    return node.select_one(selector)
 
 
 def page_links(soup,url):
@@ -484,40 +465,17 @@ hub指只有师资分类/系所导航而没有姓名列表，应提供branch_sel
                                             item['url'],item['branch'],'rich_roster',roster_qualified=plan.get('source_qualification')=='faculty_roster')
             count=result['accepted'] if result else 0
         elif plan['page_kind']=='directory' and plan['row_selector']:
-            from directory_rows import directory_rows
-            rows,recovery=directory_rows(soup,plan,title_name)
-            if recovery:item['row_recovery']=recovery
-            count=len(rows)
-            if not rows:
-                self.issue('roster_structure_mismatch',item['url'])
-            for row in rows:
-                node=selected(row,plan['label_selector'])
-                link=selected(row,plan['href_selector'])
-                # Word-exported tables may contain an empty formatting anchor
-                # before the real name. Only use an unambiguous nonempty label.
-                if node is not None and not node.get_text(strip=True) and plan['label_selector'] not in ('','SELF'):
-                    choices={normalized(n.get_text(' ',strip=True)):n for n in row.select(plan['label_selector']) if n.get_text(strip=True)}
-                    if len(choices)==1:node=next(iter(choices.values()))
-                if not node:
-                    if not row.get_text(strip=True) and not row.select('a[href],img'):
-                        continue
-                    self.issue('roster_label_missing',item['url'])
-                    continue
-                label=node.get_text(' ',strip=True)
-                url=urljoin(item['loaded_url'],link.get('href','')) if link and link.get('href') else ''
-                name=title_name(label)
-                if name:
-                    from roster_sections import directory_section
-                    section=directory_section(row)
-                    self.observe(name,url,item['url'],item['branch'],'directory_link',label,**({'directory_section':section} if section else {}))
-                    if url:
-                        self.register(url,'profile',item['branch'],source_url=item['url'],person_name=name,qualified=plan.get('source_qualification')=='faculty_roster')
-                elif url:
-                    # Non-person entries are retained as documents, not invented people.
-                    self.register(url,'document',item['branch'])
-                    self.issue('non_person_directory_entry',item['url'],label=label,document_url=url)
-                else:
-                    self.issue('unclassified_roster_row',item['url'],label=label)
+            parsed=parse_directory(soup,plan,item['loaded_url'])
+            if parsed.recovery:item['row_recovery']=parsed.recovery
+            count=parsed.row_count
+            for entry in parsed.items:
+                if entry.person:
+                    person=entry.person
+                    self.observe(source=item['url'],branch=item['branch'],kind='directory_link',**person)
+                    if person['url']:
+                        self.register(person['url'],'profile',item['branch'],source_url=item['url'],person_name=person['name'],qualified=plan.get('source_qualification')=='faculty_roster')
+                if entry.document:self.register(entry.document['url'],'document',item['branch'])
+                if entry.issue:self.issue(url=item['url'],**entry.issue)
         elif plan['page_kind']!='hub':
             self.issue('unsupported_roster_page',item['url'],model_kind=plan.get('page_kind'))
         for url in next_urls:

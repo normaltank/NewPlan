@@ -1,0 +1,34 @@
+{
+  "baseline_commit": "00ea5f9a5c22838faa0199ec0fb8451d76c46508",
+  "parser_version": "directory-interpretation-v1",
+  "python": "3.12.10",
+  "commands": {
+    "before": "python -m unittest test_directory_resume -v (six original cases on baseline)",
+    "after": "python -m unittest discover -s . -p 'test_*.py' -v"
+  },
+  "logs": {
+    "before.txt": {
+      "tests": 6,
+      "result": "failed",
+      "failures": [
+        "test_empty_formatting_anchor_keeps_name_and_link (test_directory_resume.DirectoryResumeTests.test_empty_formatting_anchor_keeps_name_and_link)",
+        "test_explicit_administrative_section_remains_verifiable (test_directory_resume.DirectoryResumeTests.test_explicit_administrative_section_remains_verifiable)",
+        "test_incomplete_reinterpretation_preserves_saved_people (test_directory_resume.DirectoryResumeTests.test_incomplete_reinterpretation_preserves_saved_people)",
+        "test_legacy_nested_cards_recover_the_same_nine_people (test_directory_resume.DirectoryResumeTests.test_legacy_nested_cards_recover_the_same_nine_people)"
+      ]
+    },
+    "after.txt": {
+      "tests": 203,
+      "result": "passed",
+      "failures": []
+    }
+  },
+  "source_sha256": {
+    "api_pilot.py": "205555d4989482501b0f379f503bc60fbebb472c0a9246a419d90c4600c91543",
+    "directory_rows.py": "3d15b9ed7ca8825e9542a2b4249f0d9f34da50e0c6a803327980388ab30b3ec4",
+    "resume_acquisition.py": "c4859f166190099ef83b3ee45ef6c5b5d081293a8659149bc7bea63c4702a199",
+    "test_directory_resume.py": "f8aec6403f25bccabb0442117b263834f582879b0bd88a0d7133f855148bc30d",
+    "fixtures/nested_rank_cards.html": "9202306509cf9a8db5de4eab1dc1d79c9c27301b4139eb59e455cdca4841ffa2"
+  },
+  "scope": "Isolated local tests; no live-college completeness claim. New cases use a model stub that rejects calls and hash-check the original evidence."
+}
