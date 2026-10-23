@@ -1,0 +1,12 @@
+{
+  "sequence_counter": 5,
+  "forefront_sequence_counter": 0,
+  "forefront_requests": {},
+  "regular_requests": {},
+  "in_progress_requests": [],
+  "handled_requests": [
+    "http://127.0.0.1:12805/always-fails",
+    "http://127.0.0.1:12805/retry-once",
+    "http://127.0.0.1:12805/ok"
+  ]
+}

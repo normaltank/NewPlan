@@ -1,0 +1,26 @@
+[
+  {
+    "bytes": 8722093,
+    "source": "D:\\Agent Workspace\\Intern\\MyPlan\\Sheets\\学院列表.base",
+    "destination": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\inputs\\colleges\\学院列表.base",
+    "sha256": "DCA54EA136A92090F3C70586C0B49BAE768C3498F400782F01BBA045F85B9FDB"
+  },
+  {
+    "bytes": 2084043,
+    "source": "D:\\Agent Workspace\\Intern\\MyPlan\\Sheets\\学院列表.xlsx",
+    "destination": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\inputs\\colleges\\学院列表.xlsx",
+    "sha256": "2F583C5685A15C1C6055F720ED482AB68A3F7D385B78C0028EABF98C8EF15112"
+  },
+  {
+    "bytes": 1150201,
+    "source": "D:\\Agent Workspace\\Intern\\MyPlan\\Sheets\\学院列表精简后.xlsx",
+    "destination": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\inputs\\colleges\\学院列表精简后.xlsx",
+    "sha256": "C45D7EE29A9137E0D22773B5F6C9E3D16C8DAAC240BB404F266A2B139CDD0682"
+  },
+  {
+    "bytes": 295594,
+    "source": "D:\\Agent Workspace\\Intern\\MyPlan\\Sheets\\学院师资url.xlsx",
+    "destination": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\inputs\\colleges\\学院师资url.xlsx",
+    "sha256": "A64FA16EAD76F0CFB8AE79B38E0F2AFA0E1B2B521E5145F864A81999A8B2089D"
+  }
+]

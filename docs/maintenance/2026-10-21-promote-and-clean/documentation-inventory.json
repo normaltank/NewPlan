@@ -1,0 +1,654 @@
+[
+  {
+    "path": "AGENTS.md",
+    "role": "current-entry"
+  },
+  {
+    "path": "AGENT_HANDOVER.md",
+    "role": "current-entry"
+  },
+  {
+    "path": "CONTEXT.md",
+    "role": "current-entry"
+  },
+  {
+    "path": "README.md",
+    "role": "current-entry"
+  },
+  {
+    "path": "REPORT.md",
+    "role": "historical-report"
+  },
+  {
+    "path": "WORKBENCH.md",
+    "role": "current-entry"
+  },
+  {
+    "path": "docs/architecture.md",
+    "role": "current-documentation"
+  },
+  {
+    "path": "docs/operations.md",
+    "role": "current-documentation"
+  },
+  {
+    "path": "docs/README.md",
+    "role": "current-documentation"
+  },
+  {
+    "path": "docs/review-and-delivery.md",
+    "role": "current-documentation"
+  },
+  {
+    "path": "docs/history/opensource-trial-20261014.md",
+    "role": "historical-reference"
+  },
+  {
+    "path": "docs/history/README.md",
+    "role": "current-documentation"
+  },
+  {
+    "path": "docs/history/workbench-before-20261021.md",
+    "role": "historical-reference"
+  },
+  {
+    "path": "docs/maintenance/2026-10-21-promote-and-clean/README.md",
+    "role": "maintenance-evidence"
+  },
+  {
+    "path": "docs/maintenance/2026-10-21-promote-and-clean/replay-check/report.md",
+    "role": "maintenance-evidence"
+  },
+  {
+    "path": "../AGENTS.md",
+    "role": "parent-entry-or-legacy-routing"
+  },
+  {
+    "path": "../AGENT_HANDOVER.md",
+    "role": "parent-entry-or-legacy-routing"
+  },
+  {
+    "path": "../CHANGELOG.md",
+    "role": "parent-entry-or-legacy-routing"
+  },
+  {
+    "path": "../CLAUDE.md",
+    "role": "parent-entry-or-legacy-routing"
+  },
+  {
+    "path": "../CONSTITUTION.md",
+    "role": "parent-entry-or-legacy-routing"
+  },
+  {
+    "path": "../CONTEXT.md",
+    "role": "parent-entry-or-legacy-routing"
+  },
+  {
+    "path": "../README.md",
+    "role": "parent-entry-or-legacy-routing"
+  },
+  {
+    "path": "../docs/cleanup-2026-09-29.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/improvement-plan.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/operations.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/project-access-protection.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/README.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/review-backlog.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/adr/0001-page-qualification-is-a-mandatory-gate.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/adr/0002-two-tier-hybrid-harvesting-and-reconciliation.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/adr/0003-cs-principled-deep-module-extraction.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/adr/0004-clinical-faculty-evidence-boundary.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/adr/0005-plan-driven-browser-harvest.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/agents/domain.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/agents/issue-tracker.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/agents/triage-labels.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/architecture/college-harvest-workflow.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/architecture/page-qualification.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/architecture/type-library.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/architecture/verifiable-harvest-runtime.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-24-five-perspective-review.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-26-harness-context-audit.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-26-harvest-acceptance.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-27-random-college-validation.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-27-random-sampling-method.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-27-verifiable-harvest.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-28-authenticated-image-review.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-28-live-web-launcher.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-28-marxism-live-failure.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-28-web-current-request.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-29-nxist-image-roster.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-29-nxist-recon-cost.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-29-recon-token-experiment.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-30-core-chain-continuation.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-30-core-chain-review.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-30-extractor-core-review.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-30-git-sync-review.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-09-30-two-live-college-failures.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-10-01-foundation-hardening.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-10-01-local-deployment.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-10-01-production-chain-audit.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-10-01-script-inventory.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-10-09-wxc-law-name-list.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-10-11-chain-contract-review.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-10-12-documentation-alignment.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-10-12-pr45-regression-diagnosis.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-10-13-collection-failure-analysis.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-10-13-collection-failure-handoff.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-10-13-recon-plan-transport.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-10-13-sanming-failed-image-scope.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/audits/2026-10-13-sanming-pager-scope.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/history/2026-09-22-data-assets.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/history/2026-09-24-walkthrough-round4.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/history/2026-10-10-backlog-before-guidance-refresh.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/history/2026-10-10-handover-before-guidance-refresh.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-09-30-core-chain-handover.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-09-30-email-evidence-merge-report.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-09-30-extractor-core-handover.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-09-30-token-accuracy-intake-report.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-01-foundation-hardening.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-02-claude-assignment.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-08-l1-and-image-table.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-08-misc-case-fixes.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-09-lan-employee-access-plan.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-declared-title-fields.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-empty-profile-evidence.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-full-biography-workbook.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-identity-title-reparse.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-missing-profile-image-review.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-moving-pagination.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-native-pdf-email-review.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-pdf-biography-owner-scope.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-pdf-owner-resume-sections.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-pr50-ci-incident.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-profile-repair-counterexamples.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-review-evidence-metadata.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-roster-link-boundary.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-source-role-qualification.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-three-college-structure-fixes.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-word-toc-hidden-decorations.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-10-wxc-browser-pager-repair.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-11-native-pdf-owner-retry.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-11-official-site-review.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-11-placeholder-roster-links.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-11-review-selection-controls.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-11-reviewed-nonperson-card.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-12-access-retry-deadline.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/2026-10-12-source-gate-recovery.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/implementation/harvest-runtime-improvements.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/research/2026-09-26-faculty-harvest-cases.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/research/2026-09-26-faculty-harvest-proposal.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/research/2026-09-28-image-only-faculty-examples.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/research/2026-10-01-real-site-case-library-prep.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/site-types/declared-compound-title-field.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/site-types/governance-office-directory.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/site-types/native-cms-visit-counter.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/site-types/nonpagination-forward-controls.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/site-types/pagination-control-position-shift.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/site-types/pdf-rank-grouped-name-grid.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/site-types/pdf-single-owner-biography-sections.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/site-types/source-purpose-and-faculty-relationship.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/site-types/word-toc-hidden-decorations.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/research/case-library/2026-10-01-batch-1.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/research/case-library/2026-10-01-batch-2.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/research/case-library/2026-10-02-batch-3.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/research/case-library/2026-10-02-batch-4.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/plans/2026-09-24-browser-assisted-harvest.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/plans/2026-09-24-harvest-reliability.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/plans/2026-09-24-server-agent-runtime.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/plans/2026-09-26-verifiable-harvest.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/plans/2026-09-27-pagination-resume.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/plans/2026-09-27-permanent-plan-library.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/plans/2026-09-27-random-college-validation.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/plans/2026-09-27-web-current-request.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/plans/2026-09-28-authenticated-image-review.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/plans/2026-09-28-employee-isolation.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/plans/2026-09-28-image-biography.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/plans/2026-09-28-image-review-and-acceptance.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/specs/2026-09-24-harvest-reliability-design.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/specs/2026-09-27-empty-roster-design.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/specs/2026-09-27-pagination-resume-design.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/specs/2026-09-27-permanent-plan-library-design.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/specs/2026-09-27-random-college-validation-design.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/specs/2026-09-27-verified-profile-containers-design.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/specs/2026-09-27-web-current-request-design.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/specs/2026-09-28-authenticated-image-review-design.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/specs/2026-09-28-employee-isolation-design.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "../docs/superpowers/specs/2026-10-08-ocr-table-and-university-identity-review-design.md",
+    "role": "legacy-MyPlan-reference; retain historical facts"
+  },
+  {
+    "path": "experiments/deepseek-fetch-20261018/README.md",
+    "role": "isolated-experiment; retain observations"
+  },
+  {
+    "path": "experiments/deepseek-fetch-20261018/REPORT.md",
+    "role": "isolated-experiment; retain observations"
+  },
+  {
+    "path": "experiments/jina-mcp-20261018/README.md",
+    "role": "isolated-experiment; retain observations"
+  },
+  {
+    "path": "experiments/local-tools-20261018/README.md",
+    "role": "isolated-experiment; retain observations"
+  },
+  {
+    "path": "experiments/local-tools-20261018/REPORT.md",
+    "role": "isolated-experiment; retain observations"
+  },
+  {
+    "path": "experiments/tool-comparison-20261018/README.md",
+    "role": "isolated-experiment; retain observations"
+  },
+  {
+    "path": "experiments/tool-comparison-20261018/REPORT.md",
+    "role": "isolated-experiment; retain observations"
+  },
+  {
+    "path": "Mission B/SmallMission/README.md",
+    "role": "separate-Mission-B-tool; retain independent docs"
+  },
+  {
+    "path": "Mission B/SmallMission/README_distribution.md",
+    "role": "separate-Mission-B-tool; retain independent docs"
+  },
+  {
+    "path": "Mission B/SmallMission/api_workbench/IMPLEMENTATION_REPORT.md",
+    "role": "separate-Mission-B-tool; retain independent docs"
+  },
+  {
+    "path": "Mission B/SmallMission/api_workbench/README.md",
+    "role": "separate-Mission-B-tool; retain independent docs"
+  },
+  {
+    "path": "Mission B/SmallMission/api_workbench/README_distribution.md",
+    "role": "separate-Mission-B-tool; retain independent docs"
+  },
+  {
+    "path": "../server/recon_discovery.md",
+    "role": "runtime-prompt; read-only in this task"
+  },
+  {
+    "path": "../server/recon_instructions.md",
+    "role": "runtime-prompt; read-only in this task"
+  },
+  {
+    "path": "../server/recon_provided_links.md",
+    "role": "runtime-prompt; read-only in this task"
+  }
+]

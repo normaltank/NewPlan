@@ -1,0 +1,18 @@
+{
+  "id": "p07",
+  "url": "https://civil.seu.edu.cn/dxp/list.htm",
+  "arm": "scrapling_browser",
+  "timestamp": "2026-10-18T13:16:16.210519+00:00",
+  "elapsed_seconds": 3.172,
+  "status": 420,
+  "final_url": "https://civil.seu.edu.cn/dxp/list.htm",
+  "error": null,
+  "encoding": "utf-8",
+  "raw_file": "p07.html",
+  "bytes": 4036,
+  "sha256": "e91ed4cb5f926e8e2c02488f350fe0f343aadd42b89df201d3b02605750f39ee",
+  "text": "禁止访问\n请通过校园网/VPN访问\n【URL】\ncivil.seu.edu.cn%2Fdxp%2Flist.htm\n【User-Agent】\nMozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F156.0.0.0%20Safari%2F537.36\n【访客IP】\n39.155.141.158\n【当前时间】\n2026-10-18 21:16:14",
+  "links": [],
+  "embedded_documents": [],
+  "robots_status": 420
+}

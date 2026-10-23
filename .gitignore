@@ -1,0 +1,53 @@
+.venv*/
+.cache/
+inputs/
+runs/
+__pycache__/
+*.log
+.env
+.secrets/
+.local-backups/
+.uv-cache/
+.browsers*/
+.tiktoken-cache/
+.hf-cache/
+.build*/
+.release-stage*/
+.portable-browser/
+
+# Machine configuration, credentials, and generated state
+.codex/
+.env.*
+!.env.example
+*.py[cod]
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+logs/
+
+# Install/build checks and distributable binaries remain local
+.setup-*/
+.lite-stage*/
+.lite-build-env/
+*.zip
+*.7z
+*.exe
+*.dll
+
+# Input workbooks and generated tables; keep small test fixtures
+*.xlsx
+*.xls
+*.csv
+!**/tests/fixtures/**
+
+# Independent Mission B runtime and validation outputs
+/Mission B/SmallMission/outputs/
+/Mission B/SmallMission/evidence/
+/Mission B/SmallMission/release/
+/Mission B/SmallMission/api_workbench/data/
+/Mission B/SmallMission/api_workbench/outputs/
+/Mission B/SmallMission/api_workbench/release/
+/Mission B/SmallMission/api_workbench/validation/
+/Mission B/SmallMission/api_workbench/maintenance/

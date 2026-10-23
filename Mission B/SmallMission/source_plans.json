@@ -1,0 +1,290 @@
+{
+  "version": 2,
+  "scope": "给定师资URL及同栏目的可识别分页；按学院合并链接，不扩展其他栏目、不读取个人页",
+  "plans": {
+    "https://qgxy.sdut.edu.cn/szml/list.htm": {
+      "selector": "#teacher_list_block_list",
+      "title_contains": "教师名录",
+      "review_note": "本页10个学科分组使用重复的ID，必须select全部，不能只取第一个。教师名单中英文、空格、兼职标记均保留。",
+      "review_snapshot": "evidence/initial/a2fb8e65145e419f.html"
+    },
+    "https://suc.cczu.edu.cn/18619/list.htm": {
+      "selector": ".wp_articlecontent",
+      "title_contains": "教师名录",
+      "review_note": "教师名录正文表格，排除顶部导航、栏目侧栏。",
+      "review_snapshot": "evidence/initial/b194e951e6384ee4.html"
+    },
+    "https://mksxy.jhun.edu.cn/jxkyry/list.htm": {
+      "selector": ".wp_articlecontent",
+      "title_contains": "教学科研人员",
+      "review_note": "按教研部分组的正文姓名链接；同段无链接姓名不计为URL。",
+      "review_snapshot": "evidence/initial/61c5af6a590fcf5b.html"
+    },
+    "https://design.sau.edu.cn/szdw/dstd.htm": {
+      "selector": ".people-list",
+      "title_contains": "导师团队",
+      "review_note": "本页3组导师列表全部纳入；同名但不同链接保留，不做人员身份合并。",
+      "review_snapshot": "evidence/initial/2374e3073e273832.html"
+    },
+    "https://clxy.huat.edu.cn/yjspy/ds.htm": {
+      "selector": ".v_news_content",
+      "title_contains": "导师信息",
+      "review_note": "研究方向与导师姓名表格，读取全部姓名链接。",
+      "review_snapshot": "evidence/initial/2adb9545eb5bf147.html"
+    },
+    "https://robotics.hnu.edu.cn/szdw/jsjj2.htm": {
+      "selector": ".name-list",
+      "title_contains": "教师简介",
+      "review_note": "本页14组姓名列表全部纳入；重复展示按URL合并。#占位记录但不冒充主页，有明确地址但指向首页的链接照源保留并提示。",
+      "review_snapshot": "evidence/initial/2842fcb92d2af8a1.html"
+    },
+    "https://ccc.wxc.edu.cn/610/list.htm": {
+      "selector": ".szdw_right",
+      "title_contains": "现任教师",
+      "review_note": "右侧正文按职称排列的教师名单。",
+      "review_snapshot": "evidence/initial/470c9b9697ae771e.html"
+    },
+    "https://tyxy.qhnu.edu.cn/szdw/jxkyry1.htm": {
+      "selector": "table.MsoNormalTable",
+      "title_contains": "教学科研人员",
+      "review_note": "正文Word样式名单表格；排除侧栏新闻链接。",
+      "review_snapshot": "evidence/initial/c1b1861c2b6f40bf.html"
+    },
+    "https://nd.njust.edu.cn/1854/list.htm": {
+      "selector": null,
+      "title_contains": "",
+      "review_note": "普通请求返回202，独立浏览器返回空文档；未取得名单。不可据此判零教师或删除输入。"
+    },
+    "https://chem.ahu.edu.cn/zzjs/list.htm": {
+      "selector": null,
+      "title_contains": "",
+      "review_note": "普通请求返回412，独立浏览器返回空文档；未取得名单。不可据此判零教师或删除输入。"
+    },
+    "http://lxy.njupt.edu.cn/2126/list.htm": {
+      "selector": ".wp_articlecontent",
+      "title_contains": "教师主页",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/10.html"
+    },
+    "http://lxy.njupt.edu.cn/jxms/list.htm": {
+      "selector": ".col_news_list .news_list",
+      "title_contains": "教学名师",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/11.html"
+    },
+    "http://lxy.njupt.edu.cn/bdyl/list.htm": {
+      "selector": ".wp_articlecontent",
+      "title_contains": "博导一览",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/12.html"
+    },
+    "http://lxy.njupt.edu.cn/2130/list.htm": {
+      "selector": ".wp_articlecontent",
+      "title_contains": "硕导一览",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/13.html"
+    },
+    "https://jgxy.slxy.edu.cn/szdw/jsfc1.htm": {
+      "selector": "#u_u5_imgcontent",
+      "title_contains": "教授风采-城乡规划与建筑工程学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/14.html"
+    },
+    "https://jgxy.slxy.edu.cn/szdw/jxms.htm": {
+      "selector": ".v_news_content",
+      "title_contains": "教学名师-城乡规划与建筑工程学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/15.html"
+    },
+    "https://jgxy.slxy.edu.cn/szdw/jsdw.htm": {
+      "selector": ".v_news_content",
+      "title_contains": "教师队伍-城乡规划与建筑工程学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/16.html"
+    },
+    "https://sfs.cczu.edu.cn/szdw/list.htm": {
+      "selector": ".teacher-list",
+      "title_contains": "教授风采",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/17.html"
+    },
+    "https://sfs.cczu.edu.cn/17118/list.htm": {
+      "selector": ".teacher-list",
+      "title_contains": "副教授风采",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/18.html"
+    },
+    "https://sfs.cczu.edu.cn/17119/list.htm": {
+      "selector": ".teacher-list",
+      "title_contains": "博士风采",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/19.html"
+    },
+    "https://sfs.cczu.edu.cn/18194/list.htm": {
+      "selector": ".wp_listalbumn",
+      "title_contains": "校内导师",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/20.html"
+    },
+    "https://yxy.yau.edu.cn/szdw/zjfc.htm": {
+      "selector": ".inner_s6 .list",
+      "title_contains": "专家风采-延安大学延安医学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/21.html"
+    },
+    "https://yxy.yau.edu.cn/szdw/tpjs.htm": {
+      "selector": ".inner_s6 .list",
+      "title_contains": "特聘教授-延安大学延安医学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/22.html"
+    },
+    "https://yxy.yau.edu.cn/szdw/qnyc.htm": {
+      "selector": ".inner_s6 .list",
+      "title_contains": "青年英才-延安大学延安医学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/23.html"
+    },
+    "https://yxy.zcmu.edu.cn/szdw/bd.htm": {
+      "selector": "#vsb_content",
+      "title_contains": "博导-药学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/24.html"
+    },
+    "https://yxy.zcmu.edu.cn/szdw/sd.htm": {
+      "selector": "#vsb_content",
+      "title_contains": "硕导-药学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/25.html"
+    },
+    "https://sky.zafu.edu.cn/szdw/js2.htm": {
+      "selector": ".szlb",
+      "title_contains": "教授-浙江农林大学林学院（生命科学学院）",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/26.html"
+    },
+    "https://sky.zafu.edu.cn/szdw/fjs2.htm": {
+      "selector": ".szlb",
+      "title_contains": "副教授-浙江农林大学林学院（生命科学学院）",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/27.html"
+    },
+    "https://jsjxy.xijing.edu.cn/szll.htm": {
+      "selector": ".ny_pic2 > ul",
+      "title_contains": "师资力量-西京学院-计算机学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/28.html"
+    },
+    "https://jsjxy.xijing.edu.cn/szll/4.htm": {
+      "selector": ".ny_pic2 > ul",
+      "title_contains": "师资力量-西京学院-计算机学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/29.html"
+    },
+    "https://jsjxy.xijing.edu.cn/szll/3.htm": {
+      "selector": ".ny_pic2 > ul",
+      "title_contains": "师资力量-西京学院-计算机学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/30.html"
+    },
+    "https://jsjxy.xijing.edu.cn/szll/2.htm": {
+      "selector": ".ny_pic2 > ul",
+      "title_contains": "师资力量-西京学院-计算机学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/31.html"
+    },
+    "https://jsjxy.xijing.edu.cn/szll/1.htm": {
+      "selector": ".ny_pic2 > ul",
+      "title_contains": "师资力量-西京学院-计算机学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/32.html"
+    },
+    "https://guanli.xaufe.edu.cn/szdw1/jxms.htm": {
+      "selector": ".main_conRCa",
+      "title_contains": "教学名师-西安财经大学管理学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/33.html"
+    },
+    "https://guanli.xaufe.edu.cn/szdw1/jsdw.htm": {
+      "selector": ".main_conR",
+      "title_contains": "教师队伍-西安财经大学管理学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/34.html"
+    },
+    "https://guanli.xaufe.edu.cn/yjsjy/dsdw/tjygljcds.htm": {
+      "selector": ".main_conRCb",
+      "title_contains": "统计与管理决策导师-西安财经大学管理学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/35.html"
+    },
+    "https://guanli.xaufe.edu.cn/yjsjy/dsdw/gcglssds.htm": {
+      "selector": ".main_conRCb",
+      "title_contains": "工程管理硕士导师-西安财经大学管理学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/36.html"
+    },
+    "https://guanli.xaufe.edu.cn/yjsjy/dsdw/ncfzssds.htm": {
+      "selector": ".main_conRCb",
+      "title_contains": "农村发展硕士导师-西安财经大学管理学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/37.html"
+    },
+    "https://ibs.snnu.edu.cn/Teacher_list/zzjs/jjxx/jiaoshou.htm": {
+      "selector": ".dangzheng-list",
+      "title_contains": "教授-陕西师范大学国际商学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/38.html"
+    },
+    "https://ibs.snnu.edu.cn/Teacher_list/jzjs.htm": {
+      "selector": ".dangzheng-list",
+      "title_contains": "兼职教师-陕西师范大学国际商学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/39.html"
+    },
+    "https://rwxy.snut.edu.cn/szdw/sssdszl.htm": {
+      "selector": "#vsb_content",
+      "title_contains": "硕士生导师专栏-陕西理工大学人文学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/40.html"
+    },
+    "https://rwxy.snut.edu.cn/szdw/zwx.htm": {
+      "selector": ".pic-list",
+      "title_contains": "中文系-陕西理工大学人文学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/41.html"
+    },
+    "https://rwxy.snut.edu.cn/szdw/lsx.htm": {
+      "selector": ".pic-list",
+      "title_contains": "历史系-陕西理工大学人文学院",
+      "review_note": "核对2026-10-15实际失败批次的名单正文区域，排除导航、页脚及分页按钮。目标链接依原文保留，不判断目标页面内容。",
+      "review_snapshot": "evidence/site-support-20261015/42.html"
+    },
+    "https://rwxy.snut.edu.cn/szdw/xwcbx.htm": {
+      "selector": ".pic-list",
+      "title_contains": "新闻传播系-陕西理工大学人文学院",
+      "review_note": "2026-10-15恢复访问后核实正文区域，分页在独立分页区域读取。",
+      "review_snapshot": "evidence/site-support-20261015/43.html"
+    },
+    "https://rwxy.snut.edu.cn/szdw/lydlx.htm": {
+      "selector": ".pic-list",
+      "title_contains": "旅游地理系-陕西理工大学人文学院",
+      "review_note": "2026-10-15恢复访问后核实正文区域，分页在独立分页区域读取。",
+      "review_snapshot": "evidence/site-support-20261015/44.html"
+    },
+    "https://rwxy.snut.edu.cn/szdw/wpjs.htm": {
+      "selector": ".pic-list",
+      "title_contains": "外聘教授-陕西理工大学人文学院",
+      "review_note": "2026-10-15恢复访问后核实正文区域，分页在独立分页区域读取。",
+      "review_snapshot": "evidence/site-support-20261015/45.html"
+    },
+    "https://rwxy.snut.edu.cn/info/1640/18514.htm": {
+      "selector": ".v_news_content",
+      "title_contains": "汉江学者-陕西理工大学人文学院",
+      "review_note": "给定来源是汉江学者介绍正文，不含正文链接。只有正文标记仍存在时计0条；不把来源URL自身当作提取到的链接。",
+      "review_snapshot": "evidence/site-support-20261015/46.html",
+      "empty_confirmation_text": [
+        "王伟",
+        "研究专长"
+      ]
+    }
+  }
+}

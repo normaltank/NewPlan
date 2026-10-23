@@ -1,0 +1,63 @@
+{
+  "checked_at": "2026-10-21T18:33:04.509391+08:00",
+  "status": "passed",
+  "source_baseline_files": 85,
+  "changed_source_or_config_files": [
+    "benchmark.py",
+    ".gitignore"
+  ],
+  "copied_fixtures": 7,
+  "tests_passed": 196,
+  "replay_roster_reference_count": 60,
+  "replay_missing": [],
+  "replay_extra": [],
+  "database_counts": {
+    "batches": 9,
+    "jobs": 92,
+    "decisions": 56,
+    "audit": 85,
+    "sqlite_sequence": 1,
+    "manual_people": 0,
+    "schedule_runs": 0,
+    "batch_requests": 4
+  },
+  "database_counts_unchanged": true,
+  "decision_sha256_unchanged": true,
+  "sqlite_quick_check": "ok",
+  "referenced_job_run_directories_present": 91,
+  "release_packages_unchanged": 13,
+  "archived_legacy_files": 79831,
+  "archive_bytes": 2237442731,
+  "archive_verified_all_file_sha256": true,
+  "rebuildable_logical_bytes_removed": 11197461495,
+  "legacy_logical_bytes_removed": 3982247132,
+  "disk_free_before": {
+    "C:/": 24914444288,
+    "D:/": 16452714496
+  },
+  "disk_free_after": {
+    "C:/": 7508463616,
+    "D:/": 29683458048
+  },
+  "disk_free_delta": {
+    "C:/": -17405980672,
+    "D:/": 13230743552
+  },
+  "current_docs_checked": 13,
+  "local_links_checked": 109,
+  "broken_links": [],
+  "paid_api_calls_this_task": 0,
+  "real_college_crawls_this_task": 0,
+  "limits": [
+    "Disk delta includes concurrent operating-system activity and hard-link effects.",
+    "Replay verifies saved samples, not whole-college completeness.",
+    "No deployment, Git commit, push, or repository migration performed."
+  ],
+  "c_drive_observation": {
+    "pagefile_path": "C:/pagefile.sys",
+    "pagefile_file_bytes": 48694648832,
+    "free_bytes_at_final_check": 7508463616,
+    "changed_system_settings": false,
+    "note": "Read-only observation. No baseline pagefile-size measurement; cannot assign the C: free-space change to a specific process."
+  }
+}

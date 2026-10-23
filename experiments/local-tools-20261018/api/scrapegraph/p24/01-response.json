@@ -1,0 +1,42 @@
+{
+  "status": 200,
+  "seconds": 0.969,
+  "usage": {
+    "prompt_tokens": 1230,
+    "completion_tokens": 34,
+    "total_tokens": 1264,
+    "prompt_tokens_details": {
+      "cached_tokens": 768
+    },
+    "prompt_cache_hit_tokens": 768,
+    "prompt_cache_miss_tokens": 462
+  },
+  "response": {
+    "id": "946dbcb5-5979-49c5-b74f-b43b8e2481bd",
+    "object": "chat.completion",
+    "created": 1792329685,
+    "model": "deepseek-flash",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"teachers\": [], \"attachment_urls\": [], \"pagination_urls\": [], \"notes\": [\"页面为学科建设栏目，未列出任何教师信息\"]}"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1230,
+      "completion_tokens": 34,
+      "total_tokens": 1264,
+      "prompt_tokens_details": {
+        "cached_tokens": 768
+      },
+      "prompt_cache_hit_tokens": 768,
+      "prompt_cache_miss_tokens": 462
+    },
+    "system_fingerprint": "e72d3c7f663d3e1383b00b3884cb4501"
+  }
+}

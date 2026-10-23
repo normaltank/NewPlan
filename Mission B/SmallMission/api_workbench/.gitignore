@@ -1,0 +1,6 @@
+.lite-build-env/
+.lite-stage-*/
+lite-data/
+lite_config.json
+validation/lite-20261022/portable-*/
+validation/lite-20261023/portable-*/

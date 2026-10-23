@@ -1,0 +1,42 @@
+{
+  "status": 200,
+  "seconds": 5.781,
+  "usage": {
+    "prompt_tokens": 2047,
+    "completion_tokens": 2018,
+    "total_tokens": 4065,
+    "prompt_tokens_details": {
+      "cached_tokens": 768
+    },
+    "prompt_cache_hit_tokens": 768,
+    "prompt_cache_miss_tokens": 1279
+  },
+  "response": {
+    "id": "226b83f8-0eb6-400b-83a4-36b93d993049",
+    "object": "chat.completion",
+    "created": 1792329676,
+    "model": "deepseek-flash",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"teachers\":[{\"name\":\"马继龙\",\"title\":null,\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 **马继龙**\"},{\"name\":\"凡素华\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4751.htm\",\"biography\":\"\",\"evidence\":\"[**凡素华**](../info/1047/4751.htm)\"},{\"name\":\"王洪涛\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4112.htm\",\"biography\":\"\",\"evidence\":\"[**王洪涛**](../info/1047/4112.htm)\"},{\"name\":\"李慧泉\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4099.htm\",\"biography\":\"\",\"evidence\":\"[**李慧泉**](../info/1047/4099.htm)\"},{\"name\":\"陈水生\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4094.htm\",\"biography\":\"\",\"evidence\":\"[**陈水生**](../info/1047/4094.htm)\"},{\"name\":\"张宏\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4106.htm\",\"biography\":\"\",\"evidence\":\"[**张\\n****宏**](../info/1047/4106.htm)\"},{\"name\":\"张淑萍\",\"title\":null,\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"**张淑萍******\"},{\"name\":\"张颖\",\"title\":null,\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"**张 ****颖 ****\"},{\"name\":\"邵思常\",\"title\":null,\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"****邵****思常 ****\"},{\"name\":\"范少华\",\"title\":null,\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"范少华\\n**\"},{\"name\":\"罗春华\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4107.htm\",\"biography\":\"\",\"evidence\":\"[**罗春华**](../info/1047/4107.htm)\"},{\"name\":\"金凤\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4096.htm\",\"biography\":\"\",\"evidence\":\"[**金 ****凤**](../info/1047/4096.htm)\"},{\"name\":\"陶栋梁\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4100.htm\",\"biography\":\"\",\"evidence\":\"[**陶栋梁**](../info/1047/4100.htm)\"},{\"name\":\"盛良全\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4101.htm\",\"biography\":\"\",\"evidence\":\"[**盛良全**](../info/1047/4101.htm)\"},{\"name\":\"崔玉民\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4111.htm\",\"biography\":\"\",\"evidence\":\"[**崔玉民**](../info/1047/4111.htm)\"},{\"name\":\"郝扶影\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1049&wbnewsid=4178\",\"biography\":\"\",\"evidence\":\"[**郝扶影**](../content.jsp?urltype=news.NewsContentUrl&wbtreeid;=1049&wbnewsid;=4178)\"},{\"name\":\"金晓艳\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4754.htm\",\"biography\":\"\",\"evidence\":\"[**金晓艳**](../info/1047/4754.htm)\"},{\"name\":\"刘昭第\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4116.htm\",\"biography\":\"\",\"evidence\":\"[**刘昭第**](../info/1047/4116.htm)\"},{\"name\":\"乔瑞\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4753.htm\",\"biography\":\"\",\"evidence\":\"[****乔\\n******瑞******](../info/1047/4753.htm)\"},{\"name\":\"宋崇富\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4110.htm\",\"biography\":\"\",\"evidence\":\"[**宋崇富**](../info/1047/4110.htm)\"},{\"name\":\"武海\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/5671.htm\",\"biography\":\"\",\"evidence\":\"[******武 ******海********](../info/1047/5671.htm)\"},{\"name\":\"黄德乾\",\"title\":null,\"email\":null,\"homepage\":\"http://www.fynu.edu.cn/hxycl/info/1047/4117.htm\",\"biography\":\"\",\"evidence\":\"[**黄德乾**](http://www.fynu.edu.cn/hxycl/info/1047/4117.htm)\"},{\"name\":\"管清梅\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4098.htm\",\"biography\":\"\",\"evidence\":\"[**管清梅**](../info/1047/4098.htm)\"},{\"name\":\"苗慧\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4755.htm\",\"biography\":\"\",\"evidence\":\"[**苗****** ****慧****](../info/1047/4755.htm)\"},{\"name\":\"吴福芳\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4095.htm\",\"biography\":\"\",\"evidence\":\"[吴福芳](../info/1047/4095.htm)\"},{\"name\":\"金仁成\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/6199.htm\",\"biography\":\"\",\"evidence\":\"[金仁成](../info/1047/6199.htm)\"},{\"name\":\"董秋静\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1047&wbnewsid=4115\",\"biography\":\"\",\"evidence\":\"[**董秋静**](https://www.fynu.edu.cn/hxycl/content.jsp?urltype=news.NewsContentUrl&wbtreeid;=1047&wbnewsid;=4115)\"},{\"name\":\"王洪刚\",\"title\":null,\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"**王洪刚 牛贵宏 许巧玲\"},{\"name\":\"牛贵宏\",\"title\":null,\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"**王洪刚 牛贵宏 许巧玲\"},{\"name\":\"许巧玲\",\"title\":null,\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"**王洪刚 牛贵宏 许巧玲\"},{\"name\":\"白翠冰\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4756.htm\",\"biography\":\"\",\"evidence\":\"[白翠冰](../info/1047/4756.htm)\"},{\"name\":\"康红卫\",\"title\":null,\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/7721.htm\",\"biography\":\"\",\"evidence\":\"[康红卫](../info/1047/7721.htm)\"},{\"name\":\"张甲甲\",\"title\":null,\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"张甲甲\\n[徐华杰](../info/1047/4105.htm)（正高级实验师）\"},{\"name\":\"徐华杰\",\"title\":\"正高级实验师\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4105.htm\",\"biography\":\"\",\"evidence\":\"[徐华杰](../info/1047/4105.htm)（正高级实验师）\"}],\"attachment_urls\":[],\"pagination_urls\":[],\"notes\":[\"页面为教授名单页，未提供个人简介、邮箱及职称（徐华杰除外）。\",\"部分教师姓名在原文中被空白或星号断开，已按原文拼接。\"]}"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2047,
+      "completion_tokens": 2018,
+      "total_tokens": 4065,
+      "prompt_tokens_details": {
+        "cached_tokens": 768
+      },
+      "prompt_cache_hit_tokens": 768,
+      "prompt_cache_miss_tokens": 1279
+    },
+    "system_fingerprint": "e72d3c7f663d3e1383b00b3884cb4501"
+  }
+}

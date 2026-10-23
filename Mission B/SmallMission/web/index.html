@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mission B · 师资链接核验</title><link rel="stylesheet" href="/app.css"><script src="/app.js" defer></script></head>
+<body>
+<aside class="sidebar">
+  <div class="brand"><span class="mark">B</span><div>师资链接核验<small>MISSION B · 独立工具</small></div></div>
+  <nav aria-label="工作台导航"><button class="nav active" data-view="new">＋ 新建核验</button><button class="nav" data-view="history">◷ 任务记录</button><button class="nav" data-view="help">? 使用说明</button></nav>
+  <div class="side-bottom"><span class="live-dot"></span> 本机运行 · 无需 API<div class="muted">数据保存在工具文件夹内</div><button id="quit" class="quiet">退出工具</button><small id="version">VERSION 2.0</small></div>
+</aside>
+<main>
+  <div id="error" class="alert error" role="alert" hidden></div>
+  <section id="view-new" class="view">
+    <header><div class="eyebrow">ROSTER LINK AUDIT</div><h1>把名单和链接，对清楚。</h1><p class="lead">导入已有教师链接，检查指定师资页上有没有漏采、多采，并生成修正表。</p></header>
+    <div class="scope"><strong>核验范围</strong><span>只对账给定师资页上的教师链接。不访问个人主页，不以主页能否打开决定保留。</span></div>
+    <article class="panel input-panel">
+      <div class="panel-heading"><h2><span class="step">01</span> 导入数据</h2><div class="links"><a href="/api/template.xlsx">Excel 模板 ↓</a><a href="/api/template.tsv">文本模板 ↓</a></div></div>
+      <p class="muted">支持两种格式：四列 <strong>学校　学院　师资URL　教师URL</strong>；或 Excel 双表 <strong>个人url（学校、学院、教师个人URL）＋师资url（学校、学院、师资URL）</strong>。双表会按学院合并所有提供的师资页进行核验。</p>
+      <div class="input-grid"><div><label for="paste">粘贴文本</label><textarea id="paste" spellcheck="false" placeholder="学校&#9;学院&#9;师资url&#9;教师url&#10;示例大学&#9;示例学院&#9;https://example.edu/faculty/&#9;https://example.edu/person/1"></textarea><div class="under-input"><small>支持 Excel 复制、制表符、CSV、Markdown 表格和空格分列。</small><button id="example" class="text-button">填入示例</button></div></div>
+      <div><label for="files">上传表格或文本</label><label class="dropzone" id="dropzone" for="files"><span class="upload-icon">↑</span><strong>点击选择，或将文件拖到这里</strong><span>可多选 XLSX / XLSM / XLS / CSV / TSV / TXT</span><small>单文件 ≤ 10 MB · 每批 ≤ 50,000 行</small><input id="files" type="file" multiple accept=".xlsx,.xlsm,.xls,.csv,.tsv,.txt"></label><ul id="file-list" class="file-list"></ul></div></div>
+      <div class="actions"><button id="preview-button" class="primary">解析并预览 →</button><span class="muted">预览不会访问学校网站。文本和文件会合并为一批。</span></div>
+    </article>
+    <article id="preview-panel" class="panel" hidden>
+      <div class="panel-heading"><h2><span class="step">02</span> 检查输入</h2><button id="start-button" class="primary">开始核验 →</button></div>
+      <div id="preview-stats" class="summary"></div><div id="preview-errors"></div><div id="preview-warnings"></div>
+      <div id="preview-groups" class="table-wrap"></div>
+      <details><summary>查看前 100 行输入</summary><div id="preview-rows" class="table-wrap"></div></details>
+    </article>
+  </section>
+  <section id="view-job" class="view" hidden>
+    <header><div class="eyebrow">AUDIT WORKSPACE</div><h1>本次核验</h1><p class="lead" id="job-date"></p></header>
+    <article class="panel"><div class="panel-heading"><h2 id="job-message">正在准备</h2><button id="cancel-button" class="secondary">停止任务</button></div><progress id="job-progress" value="0" max="1"></progress><div class="progress-caption"><span id="job-count"></span><span id="job-status" class="badge"></span></div><p class="muted" id="job-hint">逐个读取师资页。个别学校响应较慢时，需要等待浏览器重试；已完成的学院会先显示。</p></article>
+    <div id="job-stats" class="metrics"></div>
+    <div id="input-summary" class="input-summary" aria-live="polite"></div>
+    <div id="downloads" class="download-bar" hidden><div><strong>结果已保存</strong><small>三列汇总只判断原表是否有错；每个学院一行。</small></div><a id="download-summary" class="primary">原表是否出错 · 汇总表 ↓</a><a id="download-excel" class="secondary">详细核验表 ↓</a><a id="download-corrected" class="secondary">分学院修正表 ↓</a><a id="download-all" class="secondary">完整结果与证据 ↓</a></div>
+    <article class="panel"><div class="panel-heading"><h2>学院结论</h2><span class="muted">点击一行查看缺少、多出和重复链接</span></div><div id="result-table" class="table-wrap"></div></article>
+    <article id="college-panel" class="panel" hidden><div class="panel-heading"><h2 id="college-title"></h2><button id="close-college" class="text-button">收起</button></div><div id="college-content"></div></article>
+  </section>
+  <section id="view-history" class="view" hidden><header><div class="eyebrow">LOCAL HISTORY</div><h1>任务记录</h1><p class="lead">核验结果随工具文件夹保存，可随时返回查看或下载。</p></header><div id="history-list"></div></section>
+  <section id="view-help" class="view" hidden><header><div class="eyebrow">A SMALL, FOCUSED TOOL</div><h1>使用说明</h1><p class="lead">回答一个问题：通过这个师资页获得教师主页链接，还需不需要人工介入？</p></header>
+    <article class="panel help"><h2>三步完成</h2><ol><li>上传“个人url＋师资url”双表 Excel，或粘贴／上传原有四列格式。双表的两张表按学校、学院名称对应，不按行号配对；可上传多个学院的文件。</li><li>查看预览，修正行号提示的格式问题，再开始核验。</li><li>下载“原表是否出错”汇总表：只有大学名、学院名、是否出错三列，同一批多个学院放在一张表中。需要追溯时另下载详细核验表。</li></ol>
+    <h2>汇总表怎么看？</h2><p><strong>Yes</strong>：原表和官网URL分别去重后，确认有缺少或多出，即使已自动修正仍为 Yes。重复本身不判错；仅 http/https 不同且其余地址相同也不单独判错。<strong>No</strong>：全部指定来源及其分页已核验且原表吻合。<strong>学院网页无法访问</strong>：来源访问失败，不能据此认定原表错误。网页可访问但名单结构尚未适配等情况显示“未完成核验”，原因在工作台查看。</p><h2>详细结论怎么看？</h2><p><span class="badge good">原表吻合</span> 原输入与当前源页面的链接逐项一致。<span class="badge changed">已自动修正</span> 原输入有缺少、范围外、重复或协议写法差异，已按源页面生成新表。两种都可以是“无需人工”。</p><p><span class="badge pending">需人工介入</span> 来源无法读取、名单区域尚未适配、分页未读全或脚本目标不确定等。此时“不确定”不会被当成零链接；请查看原因与原始输入。</p>
+    <h2>本版适用范围</h2><p id="support-note">已配置本批验证过的名单页面。新师资URL需要核实其名单区域后才能自动判定。</p><p>输入格式兼容不等于网站结构通用。本版不调用大模型，不会凭猜测把整页导航、新闻和其他栏目当作教师链接；陌生页面会明确留待处理。</p>
+    <h2>计数与边界</h2><ul><li>统计的是链接，不是人数。同一URL展示多次只保留一条；同名不同URL不会按名字合并。</li><li>给定师资页及同栏目的分页合并去重后对账，跨页重复不会重复计入。未读取全部来源时不自动删除原表链接；不自行扩展到未提供的栏目。</li><li>空链接、#占位和没有可见内容的空锚点单独记证据。已给出HTTP地址但疑似指向首页的姓名链接按源保留并提示。</li><li>HTTP/HTTPS差异显式记录为“按源修正协议”，不推断目标页面等价。</li><li>核验基于本次取得的页面。不能据此推断历史采集当时的准确度，也不验证邮箱、职称、教师身份或全院完整性。</li></ul>
+    <h2>运行与保存</h2><p>无需 DeepSeek API、账号或付费服务。抓取学校网站仍需要网络；页面响应慢或限制访问时可能无法完成。工作台只监听本机，关闭浏览器标签不会结束任务；通过左下角“退出工具”关闭后台。</p><p>数据与结果在工具文件夹的 data 子目录，原始输入不会被覆盖。发给其他人时使用干净的发行压缩包；不要把自己的 data 文件夹一起发出。</p><p>macOS/Linux 自动安装版首次运行会联网安装独立 Python 环境、依赖与 Chromium。浏览器组件无法安装时，请按压缩包内说明处理。</p></article>
+  </section>
+  <footer>Mission B <span>·</span> 来源可追溯，修改有记录。</footer>
+</main>
+</body></html>

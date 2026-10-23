@@ -1,0 +1,12 @@
+ M AGENTS.md
+ M docs/README.md
+?? .planning/
+?? .playwright-mcp/
+?? "Claude outputs/"
+?? OpenSource/
+?? Sheets/
+?? docs/audits/2026-10-12-pr45-regression-diagnosis.md
+?? docs/audits/2026-10-13-collection-failure-analysis.md
+?? docs/audits/2026-10-13-collection-failure-handoff.md
+?? docs/implementation/2026-10-09-lan-employee-access-plan.md
+?? docs/project-access-protection.md

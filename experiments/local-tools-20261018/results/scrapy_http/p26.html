@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>谢应明-上海交通大学物理与天文学院</title>
+    <meta name="description" content="上海交通大学物理与天文学院" />
+    <meta name="keywords" content="上海交通大学物理与天文学院" />
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="/public/image/favicon.ico">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/icons/bootstrap-icons.css">
+    <link type="text/css" rel="stylesheet" href="/assets/css/css.css?v=1.2.3" />
+    <link type="text/css" rel="stylesheet" href="/assets/css/user.css?v=1.2.3" />
+    <script src="/assets/js/jquery.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/assets/js/swiper/swiper-bundle.min.css" />
+    <script src="/assets/js/swiper/swiper-bundle.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/new.css?v=1.2.3" />
+
+    <!-- 美化alert -->
+    <link rel="stylesheet" href="/public/js/alert/BeAlert.css">
+    <script src="/public/js/alert/BeAlert.js"></script>
+    <script type="text/javascript">
+        function search_validate(){
+            if(document.getElementById('search_keywords').value == ''){
+                alert('请输入搜索关键字');
+                return false;
+            }
+        }
+    </script>
+    <!--视频-->
+    <link href="/public/css/css.css?v=1.2.3" rel="stylesheet">
+    <link href="/public/css/video-js.css" rel="stylesheet">
+    <script src="/public/js/video.min.js"></script>
+    <script src="/public/js/zh-CN.js"></script>
+
+    <!-- 美化alert -->
+    <!-- <link href="/public/js/jqueryxtiper/css/xtiper.css" type="text/css" rel="stylesheet" /> -->
+    <!-- <script src="/public/js/jqueryxtiper/js/xtiper.min.js" type="text/javascript"></script> -->
+
+</head>
+
+<body>
+    <div class="top">
+        <div class="main">
+            <a href="/" title="" class="logo">
+                <img src="/assets/images/logo.png">
+            </a>
+            <span class="menuMob" id="menu2"><a href="javascript:void(0)">&nbsp;</a></span>
+            <span class="logo_lz"></span>
+        </div>
+        <div id=navk>
+            <div class="ss">
+                <a href="javascript:void(0)" class="cd_ss pc" id="ss"></a>
+                <form method="get" action="https://www.physics.sjtu.edu.cn/active/search.html" onsubmit="return search_validate();">
+                <div class="txtk" id="ss_nr"><input type="text" class="form-control" placeholder="Search" id="search_keywords" name="search_keywords">
+                    <button class="an_ss" type="submit"></button>
+                </div>
+                </form>
+            </div>
+            <div class="top_nav">
+                                <a href='https://www.physics.sjtu.edu.cn/user/jaccount_login.html'>jAccount登录</a>
+                                |
+                <a href="/en">English</a>
+            </div>
+            <ul class="menu">
+                <!--当前栏目请在Li里引用on-->
+                <li class=""><a href="/" class="dbt">首页</a></li>
+                                <li class=""><a href="https://www.physics.sjtu.edu.cn/xygk.html" class="dbt">学院概况</a>
+                                        <dl>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/xyjj.html">学院简介</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/dzbz.html">党政班子</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/lrld.html">历任领导</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/jgsz.html">机构设置</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/xywyh.html">学院委员会</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/xydt.html">学院地图</a></dd>
+                                            </dl>
+                                        </li>
+                                <li class="on"><a href="https://www.physics.sjtu.edu.cn/szdw.html" class="dbt">师资队伍</a>
+                                        <dl>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/lyys.html">两院院士</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/yjfx-lzyhwl.html">博导名录（2027级）</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/jsml.html">教师名录</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/jsml_sp.html">教师名录(双聘)</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/jsml_fwxz.html">教师名录(访问学者)</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/jfry.html">教辅人员</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/bhml.html">博后名录</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/bhldz.html">博后流动站</a></dd>
+                                            </dl>
+                                        </li>
+                                <li class=""><a href="https://www.physics.sjtu.edu.cn/rcpy.html" class="dbt">人才培养</a>
+                                        <dl>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/bkspy.html">本科生培养</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/yjspy.html">研究生培养</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/zsxx.html">招生信息</a></dd>
+                                                <dd><a href="http://phycai.sjtu.edu.cn/">教学基地</a></dd>
+                                            </dl>
+                                        </li>
+                                <li class=""><a href="https://www.physics.sjtu.edu.cn/kxyj.html" class="dbt">科学研究</a>
+                                        <dl>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/kygk.html">科研概况</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/kyjd.html">科研基地</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/yjfx.html">研究方向</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/kydt.html">科研动态</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/ggpt.html">公共平台</a></dd>
+                                                <dd><a href="https://tdli.sjtu.edu.cn/dark-matter/overview/about" target="_blank">暗物质物理全国重点实验室</a></dd>
+                                            </dl>
+                                        </li>
+                                <li class=""><a href="https://www.physics.sjtu.edu.cn/djgz.html" class="dbt">党建工作</a>
+                                        <dl>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/zzgl.html">组织概况</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/djdt.html">党建动态	</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/xxyd.html">学习园地</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/bslc.html">办事流程</a></dd>
+                                            </dl>
+                                        </li>
+                                <li class=""><a href="https://www.physics.sjtu.edu.cn/xsyd.html" class="dbt">学生园地</a>
+                                        <dl>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/xgxw.html">学工新闻</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/xsfc.html">学生风采</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/txgz.html">团学工作</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/xssw.html">学生事务</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/gzzd.html">规章制度</a></dd>
+                                            </dl>
+                                        </li>
+                                <li class=""><a href="https://www.physics.sjtu.edu.cn/xywh.html" class="dbt">校友文化</a>
+                                        <dl>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/xyh.html">校友会</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/jcxy.html">杰出校友</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/xyml.html">校友名录</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/xyzj.html">校友之家</a></dd>
+                                                <dd><a href="https://alumni.sjtu.edu.cn/web/index" target="_blank">校友信息系统</a></dd>
+                                            </dl>
+                                        </li>
+                                <li class=""><a href="https://www.physics.sjtu.edu.cn/jzzc.html" class="dbt">捐赠支持</a>
+                                        <dl>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/zcxm.html">众筹项目</a></dd>
+                                            </dl>
+                                        </li>
+                                <li class=""><a href="https://www.physics.sjtu.edu.cn/bszn.html" class="dbt">办事指南</a>
+                                        <dl>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/rsfw.html">人事服务</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/kyws.html">科研外事</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/zcaq.html">资产安全</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/ghfl.html">工会福利</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/cwbx.html">财务报销</a></dd>
+                                                <dd><a href="https://www.physics.sjtu.edu.cn/wjxz.html">文件下载</a></dd>
+                                            </dl>
+                                        </li>
+                            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="top_jg mob"></div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var pk = document.body.clientWidth;
+            if (pk < 1200) {
+                //手机菜单
+                $("#menu2").click(function () {
+                    if ($("#navk").css("display") == "none") {
+                        $(this).find("a").addClass("on");
+                        $("#navk").css("display", "block").stop().animate({left: '0%'});
+                    } else {
+                        $(this).find("a").removeClass("on");
+                        $("#navk").css("display", "none").stop().animate({left: '100%'});
+                    }
+                });
+            } else {
+                //下拉
+                $(".menu li").hover(function () {
+                    $(this).find("dl").stop().css("display", "block").animate({
+                        opacity: '1',
+                    });
+                }, function () {
+                    $(this).find("dl").stop().css("display", "none").animate({
+                        opacity: '0',
+                    });
+                });
+            };
+        });
+    </script>
+<div class="ban">
+    <div class="banpic" style="background-image: url(/upload/image/20220623/20220623155522.png);">
+        <!-- 移动端当前栏目名称及入口 -->
+        <div class="lm1_bt mob"><a href="javascript:void(0)" id="cd_lm">教师名录</a></div>
+    </div>
+    <div class="ny_nav1" id="lm">
+        <ul>
+                        <li><a href="https://www.physics.sjtu.edu.cn/lyys.html" class="">两院院士</a>
+                <!-- 三级导航 仅在移动端显示 -->
+                                            </li>
+                        <li><a href="https://www.physics.sjtu.edu.cn/yjfx-lzyhwl.html" class="">博导名录（2027级）</a>
+                <!-- 三级导航 仅在移动端显示 -->
+                                            </li>
+                        <li><a href="https://www.physics.sjtu.edu.cn/jsml.html" class="on">教师名录</a>
+                <!-- 三级导航 仅在移动端显示 -->
+                                            </li>
+                        <li><a href="https://www.physics.sjtu.edu.cn/jsml_sp.html" class="">教师名录(双聘)</a>
+                <!-- 三级导航 仅在移动端显示 -->
+                                            </li>
+                        <li><a href="https://www.physics.sjtu.edu.cn/jsml_fwxz.html" class="">教师名录(访问学者)</a>
+                <!-- 三级导航 仅在移动端显示 -->
+                                            </li>
+                        <li><a href="https://www.physics.sjtu.edu.cn/jfry.html" class="">教辅人员</a>
+                <!-- 三级导航 仅在移动端显示 -->
+                                            </li>
+                        <li><a href="https://www.physics.sjtu.edu.cn/bhml.html" class="">博后名录</a>
+                <!-- 三级导航 仅在移动端显示 -->
+                                            </li>
+                        <li><a href="https://www.physics.sjtu.edu.cn/bhldz.html" class="">博后流动站</a>
+                <!-- 三级导航 仅在移动端显示 -->
+                                                <ul>
+                                        <li><a href="https://www.physics.sjtu.edu.cn/ldzgs.html" >流动站概述</a>
+                                                                </li>
+                                        <li><a href="https://www.physics.sjtu.edu.cn/zpqs.html" >招聘启事</a>
+                                                                    <ul>
+                                                        <li><a href="https://www.physics.sjtu.edu.cn/wlxldz.html" >物理学流动站</a></li>
+                                                        <li><a href="https://www.physics.sjtu.edu.cn/twxldz.html" >天文学流动站</a></li>
+                                                    </ul>
+                                            </li>
+                                        <li><a href="https://www.physics.sjtu.edu.cn/kyxm.html" >科研项目</a>
+                                                                </li>
+                                    </ul>
+                            </li>
+                    </ul>
+        <div class="clear"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#cd_lm").click(function () {
+        if ($("#lm").css("display") == "none") {
+            $(this).addClass("on");
+            $("#lm").slideDown("slow");
+        } else {
+            $(this).removeClass("on");
+            $("#lm").slideUp("slow");
+        }
+    });
+</script>
+<div class="ny">
+    <div class="ny_main">
+        <div class="ny_kk mh">
+            <div class="ny_bt pc">教师名录</div>
+            <div class="mh p60">
+                <div class="js_top mh m-b-40">
+                    <div class="img_scale img_content">
+                                                <img src="/upload/image/20260707/20260707000115.jpg">
+                                            </div>
+                    <div class="text_content">
+                        <div class="bt">
+                            <b>谢应明</b>
+                                                        <span class="s1">
+                                副教授                            </span>
+                                                                                </div>
+                        <ul>
+                                                        <li class="l1">凝聚态物理研究所</li>
+                                                                                    <li class="l2">凝聚态理论与计算</li>
+                                                                                                                <li class="l7">理科楼1号楼213室</li>
+                                                                                    <li class="l4">yingming.xie@sjtu.edu.cn</li>
+                                                                                    <li class="l5">https://yingmingxie.github.io/</li>
+                                                                                </ul>
+                    </div>
+                </div>
+                <div class="js_content mh">
+                    <!-- nav -->
+                    <ul class="nav">
+                                                <li>
+                            <a href="javascript:void(0)">个人经历</a>
+                        </li>
+                                                                                                <li>
+                            <a href="javascript:void(0)">代表性论文著作</a>
+                        </li>
+                                                                                                                                                <li>
+                            <a href="javascript:void(0)">招生信息</a>
+                        </li>
+                                            </ul>
+                    <!-- content -->
+                                        <div class="item">
+                        <div class="ab_nr ab_nrs">
+                            <p style="margin: 0px 0px 11px; font-size: 16px; font-family: Calibri, sans-serif; white-space: normal; line-height: 1.5em;"><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">&nbsp; &nbsp; &nbsp; &nbsp; 2016年获得北京师范大学物理学学士学位。2021年获得香港科技大学物理学博士学位，博士期间师从 Kam Tuen Law（罗锦团）教授，与 MIT 的 Patrick A. Lee 教授保持密切合作。博士毕业后，先后在香港科技大学（2021.10-2023.04）及日本理化研究所 Naoto Nagaosa 教授课题组（2023.07-2026.06）开展博士后研究，期间曾作为访问博士后在 Caltech 的 Jason Alicea 教授课题组开展合作研究。2026年6月加入上海交通大学物理与天文学院凝聚态物理研究所，担任长聘教轨副教授、博导、独立PI。&nbsp;</span></p><p style="text-align: start; margin: 0px 0px 11px; font-size: 16px; font-family: Calibri, sans-serif; white-space: normal; line-height: 1.5em;"><span style="text-align: justify; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">&nbsp; &nbsp; &nbsp; &nbsp; 从事凝聚态理论与计算研究，用场论、群论及数值计算等方法预测和理解物质的量子特性，并与实验研究员合作，探索量子物质的奥秘及其在量子科技的潜在应用。目前的研究兴趣包括低维关联及拓扑量子体系理论、非常规超导及超导器件输运理论、拓扑超导及拓扑量子计算、量子材料的输运及调控理论等。</span></p><p style="text-align: start; margin: 0px 0px 11px; font-size: 16px; font-family: Calibri, sans-serif; white-space: normal; line-height: 1.5em;"><span style="text-align: justify; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">&nbsp; &nbsp; &nbsp; &nbsp; 已累计发表论文30余篇。其中以第一作者或通讯作者（含共同）发表论文20余篇，包括&nbsp;Nature 大子刊两篇（Nature Physics 1篇、Nature Materials 1篇）、Physical Review Letters 7篇、PNAS 1篇，Nature Communications 1篇等。并多次担任 Nature、Nature Physics、Physical Review Letters、Nature Communications 等期刊审稿人。</span></p>                        </div>
+                    </div>
+                                                                                <div class="item">
+                        <div class="ab_nr ab_nrs">
+                            <p><span style="font-family:&#39;微软雅黑&#39;,sans-serif">&nbsp; &nbsp; &nbsp; 截至</span><span style="font-family:&#39;Times New Roman&#39;,serif">2026</span><span style="font-family:&#39;微软雅黑&#39;,sans-serif">年</span><span style="font-family:&#39;Times New Roman&#39;,serif">6</span><span style="font-family:&#39;微软雅黑&#39;,sans-serif">月，已发表学术论文</span><span style="font-family:&#39;Times New Roman&#39;,serif">30</span><span style="font-family:&#39;微软雅黑&#39;,sans-serif">余篇，</span><span style="font-family:&#39;Times New Roman&#39;,serif">Google Scholar </span><span style="font-family:&#39;微软雅黑&#39;,sans-serif">总引用</span><span style="font-family:&#39;Times New Roman&#39;,serif">1900</span><span style="font-family:&#39;微软雅黑&#39;,sans-serif">余次，</span><span style="font-family:&#39;Times New Roman&#39;,serif">h-index </span><span style="font-family:&#39;微软雅黑&#39;,sans-serif">为</span><span style="font-family:&#39;Times New Roman&#39;,serif">21</span><span style="font-family:&#39;微软雅黑&#39;,sans-serif">。以下为部分代表性论文：</span><span style="font-family:&#39;Times New Roman&#39;,serif"> &nbsp;<strong> &nbsp;</strong></span></p><p style="margin-top:auto;margin-bottom:auto;text-indent:28px"><span style="font-family:&#39;Times New Roman&#39;,serif">1. <strong>Ying-Ming Xie</strong>&nbsp;and Naoto Nagaosa, Photon Drag Photovoltaic Effects and Quantum Geometric Nature,&nbsp;<strong><em>PNAS&nbsp;</em></strong>122, e2424294122 (2025).</span></p><p style="margin-top:auto;margin-bottom:auto;text-indent:28px"><span style="font-family:&#39;Times New Roman&#39;,serif">2.&nbsp;<strong>Ying-Ming Xie</strong>, Yizhou Liu, and Naoto Nagaosa, Sliding Dynamics of Current-Driven Skyrmion Crystal and Helix in Chiral Magnets,&nbsp;<strong><em>Phys. Rev. Lett.</em></strong>&nbsp;133, 096702 (2024).</span></p><p style="margin-top:auto;margin-bottom:auto;text-indent:28px"><span style="font-family: &#39;Times New Roman&#39;,serif">3. Zi-Ting Sun, Jin-Xin Hu,&nbsp;<strong>Ying-Ming Xie</strong>#, and K. T. Law#, Anomalous h/2e Periodicity and Majorana Zero Modes in Chiral Josephson Junctions,&nbsp;<strong><em>Phys. Rev. Lett.&nbsp;</em></strong>133, 056601 (2024). # corresponding author.</span></p><p style="margin-top:auto;margin-bottom:auto;text-indent:28px"><span style="font-family: &#39;Times New Roman&#39;,serif">4. J. Diez-Merida, A. Diez-Carlon, S. Y. Yang,&nbsp;<strong>Y.-M. Xie</strong>, X.-J. Gao, K. Watanabe, T. Taniguchi, X. Lu, K. T. Law, and Dmitri K. Efetov, Magnetic Josephson Junctions and Superconducting Diodes in Magic Angle Twisted Bilayer Graphene,&nbsp;<strong><em>Nat. Commun.</em></strong>&nbsp;14, 2396 (2023). theoretical explanation/collaboration.</span></p><p style="margin-top:auto;margin-bottom:auto;text-indent:28px"><span style="font-family: &#39;Times New Roman&#39;,serif">5. Enze Zhang*,&nbsp;<strong>Ying-Ming Xie</strong>*, Yuqiang Fang*, Jinglei Zhang*, Xian Xu, Yi-Chao Zou, Pengliang Leng, Xue-Jian Gao, Yong Zhang, Linfeng Ai, Yuda Zhang, Zehao Jia, Shanshan Liu, Wei Zhao, Sarah J. Haigh, Xufeng Kou, Jinshan Yang, Fuqiang Huang, K. T. Law, Faxian Xiu, and Shaoming Dong, Spin-Orbit-Parity Coupled Superconductivity in Atomically thin 2M-WS2,&nbsp;<strong><em>Nat. Phys.</em></strong>&nbsp;19, 106-113 (2023). * co-first author.</span></p><p style="margin-top:auto;margin-bottom:auto;text-indent:28px"><span style="font-family: &#39;Times New Roman&#39;,serif">6.<strong>&nbsp;Ying-Ming Xie</strong>, Étienne Lantagne-Hurtubise, Andrea F. Young, Stevan Nadj-Perge, and Jason Alicea, Gate-Defined Topological Josephson Junctions in Bernal Bilayer Graphene,&nbsp;<strong><em>Phys. Rev. Lett.&nbsp;</em></strong>131, 146601 (2023).</span></p><p style="margin-top:auto;margin-bottom:auto;text-indent:28px"><span style="font-family: &#39;Times New Roman&#39;,serif">7.&nbsp;<strong>Ying-Ming Xie</strong>&nbsp;and K. T. Law, Orbital Fulde-Ferrell pairing state in moire Ising superconductors,&nbsp;<strong><em>Phys. Rev. Lett.</em></strong>&nbsp;131, 016001 (2023).</span></p><p style="margin-top:auto;margin-bottom:auto;text-indent:28px"><span style="font-family: &#39;Times New Roman&#39;,serif">8. Jin-Xin Hu, Zi-Ting Sun,&nbsp;<strong>Ying-Ming Xie</strong>#, and K. T. Law#, Josephson Diode Effect Induced by Valley Polarization in Twisted Bilayer Graphene,&nbsp;<strong><em>Phys. Rev. Lett.</em></strong>&nbsp;130, 266003 (2023). # corresponding author.</span></p><p style="margin-top:auto;margin-bottom:auto;text-indent:28px"><span style="font-family: &#39;Times New Roman&#39;,serif">9.&nbsp;<strong>Ying-Ming Xie</strong>, Cheng-Ping Zhang, Jin-Xin Hu, Kin Fai Mak, and K. T. Law, Valley-Polarized Quantum Anomalous Hall State in Moiré MoTe2/WSe2 Heterobilayers,&nbsp;<strong><em>Phys. Rev. Lett.</em></strong>&nbsp;128, 026402 (2022).</span></p><p style="margin-top:auto;margin-bottom:auto;text-indent:28px"><span style="font-family: &#39;Times New Roman&#39;,serif">10.&nbsp;<strong>Ying-Ming Xie</strong>, Xue-Jian Gao, Xiao Yan Xu, Cheng-Ping Zhang, Jin-Xin Hu, and K. T. Law, Kramers nodal line metals,&nbsp;<strong><em>Nat. Commun.&nbsp;</em></strong>12, 3064 (2021).</span></p><p style="margin-top:auto;margin-bottom:auto;text-indent:28px"><span style="font-family: &#39;Times New Roman&#39;,serif">11. Yong-Bin Choi*,&nbsp;<strong>Ying-Ming Xie</strong>*, Chui-Zhen Chen, Jinho Park, Su-Beom Song, Jiho Yoon, Bum Joon Kim, Takashi Taniguchi, Kenji Watanabe, Jonghwan Kim, Kin Chung Fong, Mazhar N. Ali, K. T. Law, and Gil-Ho Lee, Evidence of higher-order topology in multilayer WTe2 from Josephson coupling through anisotropic hinge states,&nbsp;<strong><em>Nat. Mater.&nbsp;</em></strong>19, 974-979 (2020). * co-first author.</span></p><p style="margin-top:auto;margin-bottom:auto;text-indent:28px"><span style="font-family: &#39;Times New Roman&#39;,serif">12.&nbsp;<strong>Ying-Ming Xie</strong>, Benjamin T. Zhou, and K. T. Law, Spin-orbit-parity coupled superconductivity in topological monolayer WTe2,&nbsp;<strong><em>Phys. Rev. Lett.&nbsp;</em></strong>125, 107001 (2020).</span></p>                        </div>
+                    </div>
+                                                                                                                        <div class="item">
+                        <div class="ab_nr ab_nrs">
+                            <p style="line-height:50%"><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">课题组诚邀本科生、硕/博研究生和博士后的加入，有意者请发送个人简介至邮箱 yingming.xie@sjtu.edu.cn 。</span></p><p style="margin: 0 0 11px;line-height: 18.4px;font-size: 16px;font-family: Calibri, sans-serif;white-space: normal"><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;"><br/></span></p><p style="margin: 0 0 11px;line-height: 18.4px;font-size: 16px;font-family: Calibri, sans-serif;white-space: normal"><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">- 每年计划招收1-2名学生攻读<span style="color: rgb(255, 0, 0);"><strong>硕士、博士</strong></span>学位，欢迎对凝聚态理论和计算感兴趣、尤其是今后有志于科学研究工作的同学加入。</span></p><p style="margin: 0 0 11px;line-height: 18.4px;font-size: 16px;font-family: Calibri, sans-serif;white-space: normal"><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">- 欢迎</span><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(255, 0, 0);"><strong>本科生</strong></span><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">加入</span><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">科研训练项目，课题组长期提供本科生科研及暑期研究机会，欢迎上海交通大学或其他高校的优秀本科生咨询。</span></p><p style="margin: 0 0 11px;line-height: 18.4px;font-size: 16px;font-family: Calibri, sans-serif;white-space: normal"><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">- 组内</span><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(255, 0, 0);"><strong>博士后</strong></span><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">研究员名额充足，课题组和学校将提供具有国际竞争力的薪资待遇、科研条件及其他福利，欢迎各种专业背景的博士生及青年学者申请。</span></p><p style="line-height:50%"><span style="font-family: 微软雅黑, sans-serif;"><br/></span></p><p><br/></p>                        </div>
+                    </div>
+                                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<style>
+    .ab_nrs li:before{
+        content:none;
+    }
+    .ab_nrs li{
+        list-style: decimal;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+    $(".nav li:first").find("a").addClass("on");
+    $(".js_content .item:first").css("display","block");
+    $(".nav li").mouseover(function(){
+        $(this).find("a").addClass("on");
+        $(this).siblings().find("a").removeClass("on");
+        var index = $(this).index();
+        $(".js_content").find(".item").hide().eq(index).show();
+    });
+});
+</script>
+
+
+    <div class="foot">
+        <div class="ny_main">
+            <div class="d1">
+                                <p>地址：上海市东川路800号理科实验楼群<br/>邮编：200240</p>                <p><a href="http://beian.miit.gov.cn" target="_blank">沪交ICP备05010</a> <br>© 上海交通大学物理与天文学院 版权所有 </p>
+                <div class="foot_fx">
+                    <a href="javascript:;" class="a3 cd_wx"></a>
+                    <a href="javascript:;" class="a2 cd_wb"></a>
+                    <a href="javascript:;" class="a1 cd_qq"></a>
+                </div>
+            </div>  
+            <div class="d2"></div>
+            <div class="d3">
+                                                <div class="item">
+                    <img src="/upload/image/20221009/20221009181303.png">
+                    <p>微信公众号</p>
+                </div>
+                                                                <div class="item">
+                    <a href="javascript:void(0)">
+                    <img src="/upload/image/20221009/20221009181318.png">
+                    <p>微视频</p>
+                    </a>
+                </div>
+                            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <script language="javascript">
+        $(document).ready(function () {
+            //解决IOS手机端hover兼容问题
+            document.body.addEventListener('touchstart', function () {
+            });
+        });
+    </script>
+
+    <script>
+        $('.cd_qq').click(function(){
+            $(this).attr('href','https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+encodeURIComponent(document.location.href)+'&amp;title='+encodeURIComponent(document.title));
+        })
+        $('.cd_wx').click(function(){
+            $(this).attr('href','https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='+encodeURIComponent(document.location.href)+'&amp;title='+encodeURIComponent(document.title));
+        })
+        $('.cd_wb').click(function(){
+            $(this).attr('href','http://service.weibo.com/share/share.php?appkey=&title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(document.location.href)+'&searchPic=false&style=simple');
+        })
+    </script>
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1a07eeca5162054d739cbb48acd696f8";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <script defer src="https://speedtest.sjtu.edu.cn/nettest/performance.js"></script>
+</body>
+</html>

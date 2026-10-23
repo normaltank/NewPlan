@@ -1,0 +1,152 @@
+[
+  {
+    "sample": "nxmu-0",
+    "engine": "trafilatura-default",
+    "chars": 3418,
+    "error": null,
+    "seconds": 0.0199,
+    "reference_units": 111,
+    "retained_units": 111,
+    "missing_units": []
+  },
+  {
+    "sample": "nxmu-0",
+    "engine": "trafilatura-recall",
+    "chars": 3418,
+    "error": null,
+    "seconds": 0.0323,
+    "reference_units": 111,
+    "retained_units": 111,
+    "missing_units": []
+  },
+  {
+    "sample": "nxmu-0",
+    "engine": "crawl4ai-markdown",
+    "chars": 8182,
+    "error": null,
+    "seconds": 0.0135,
+    "reference_units": 111,
+    "retained_units": 111,
+    "missing_units": []
+  },
+  {
+    "sample": "nxmu-1",
+    "engine": "trafilatura-default",
+    "chars": 1998,
+    "error": null,
+    "seconds": 0.0153,
+    "reference_units": 55,
+    "retained_units": 55,
+    "missing_units": []
+  },
+  {
+    "sample": "nxmu-1",
+    "engine": "trafilatura-recall",
+    "chars": 1998,
+    "error": null,
+    "seconds": 0.01,
+    "reference_units": 55,
+    "retained_units": 55,
+    "missing_units": []
+  },
+  {
+    "sample": "nxmu-1",
+    "engine": "crawl4ai-markdown",
+    "chars": 5516,
+    "error": null,
+    "seconds": 0.0095,
+    "reference_units": 55,
+    "retained_units": 55,
+    "missing_units": []
+  },
+  {
+    "sample": "cuc-1",
+    "engine": "trafilatura-default",
+    "chars": 4986,
+    "error": null,
+    "seconds": 0.0348,
+    "reference_units": 124,
+    "retained_units": 124,
+    "missing_units": []
+  },
+  {
+    "sample": "cuc-1",
+    "engine": "trafilatura-recall",
+    "chars": 4986,
+    "error": null,
+    "seconds": 0.0278,
+    "reference_units": 124,
+    "retained_units": 124,
+    "missing_units": []
+  },
+  {
+    "sample": "cuc-1",
+    "engine": "crawl4ai-markdown",
+    "chars": 9671,
+    "error": null,
+    "seconds": 0.0145,
+    "reference_units": 124,
+    "retained_units": 124,
+    "missing_units": []
+  },
+  {
+    "sample": "cuc-2",
+    "engine": "trafilatura-default",
+    "chars": 1307,
+    "error": null,
+    "seconds": 0.0229,
+    "reference_units": 44,
+    "retained_units": 44,
+    "missing_units": []
+  },
+  {
+    "sample": "cuc-2",
+    "engine": "trafilatura-recall",
+    "chars": 1307,
+    "error": null,
+    "seconds": 0.0148,
+    "reference_units": 44,
+    "retained_units": 44,
+    "missing_units": []
+  },
+  {
+    "sample": "cuc-2",
+    "engine": "crawl4ai-markdown",
+    "chars": 5380,
+    "error": null,
+    "seconds": 0.0064,
+    "reference_units": 44,
+    "retained_units": 44,
+    "missing_units": []
+  },
+  {
+    "sample": "stbu-1",
+    "engine": "trafilatura-default",
+    "chars": 433,
+    "error": null,
+    "seconds": 0.0148,
+    "reference_units": 5,
+    "retained_units": 5,
+    "missing_units": []
+  },
+  {
+    "sample": "stbu-1",
+    "engine": "trafilatura-recall",
+    "chars": 433,
+    "error": null,
+    "seconds": 0.0131,
+    "reference_units": 5,
+    "retained_units": 5,
+    "missing_units": []
+  },
+  {
+    "sample": "stbu-1",
+    "engine": "crawl4ai-markdown",
+    "chars": 5311,
+    "error": null,
+    "seconds": 0.0064,
+    "reference_units": 5,
+    "retained_units": 5,
+    "missing_units": []
+  }
+]

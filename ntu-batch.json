@@ -1,0 +1,16 @@
+{
+  "name": "南通大学 · 11 学院试采",
+  "targets": [
+    {"university":"南通大学","college":"医学院","url":"https://yxy.ntu.edu.cn/"},
+    {"university":"南通大学","college":"护理与康复学院","url":"https://ntdxhk.ntu.edu.cn/"},
+    {"university":"南通大学","college":"公共卫生学院","url":"https://gw.ntu.edu.cn/"},
+    {"university":"南通大学","college":"历史文化学院（法学院）","url":"https://lfxy.ntu.edu.cn/"},
+    {"university":"南通大学","college":"商学院（管理学院）","url":"https://sem.ntu.edu.cn/"},
+    {"university":"南通大学","college":"机械工程学院","url":"https://sme.ntu.edu.cn/"},
+    {"university":"南通大学","college":"交通与土木工程学院","url":"https://jttm.ntu.edu.cn/"},
+    {"university":"南通大学","college":"张謇学院","url":"https://zjxy.ntu.edu.cn/"},
+    {"university":"南通大学","college":"国际教育学院","url":"https://sie.ntu.edu.cn/"},
+    {"university":"南通大学","college":"继续教育学院","url":"https://jxjy.ntu.edu.cn/"},
+    {"university":"南通大学","college":"体育科学学院","url":"https://tky.ntu.edu.cn/"}
+  ]
+}

@@ -1,0 +1,360 @@
+{
+  "root": "D:\\Agent Workspace\\Intern\\MyPlan",
+  "items": [
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\.runtime\\dev-venv",
+      "relative": ".runtime\\dev-venv",
+      "reason": "旧 MyPlan 可重新安装的 Python 环境",
+      "bytes": 868795286,
+      "files": 10081
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\.runtime\\worker-venv",
+      "relative": ".runtime\\worker-venv",
+      "reason": "旧 MyPlan 可重新安装的 Python 环境",
+      "bytes": 833547918,
+      "files": 9472
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.build-cache",
+      "relative": "OpenSource\\Mission B\\SmallMission\\.build-cache",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 56594575,
+      "files": 153
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.build-spec",
+      "relative": "OpenSource\\Mission B\\SmallMission\\.build-spec",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 1864,
+      "files": 1
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.build-venv",
+      "relative": "OpenSource\\Mission B\\SmallMission\\.build-venv",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 174235872,
+      "files": 5852
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.build-work",
+      "relative": "OpenSource\\Mission B\\SmallMission\\.build-work",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 19981515,
+      "files": 16
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.portable-browser",
+      "relative": "OpenSource\\Mission B\\SmallMission\\.portable-browser",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 295202225,
+      "files": 299
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.release-stage",
+      "relative": "OpenSource\\Mission B\\SmallMission\\.release-stage",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 447679011,
+      "files": 637
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-164854",
+      "relative": "OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-164854",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 447766791,
+      "files": 639
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-171724",
+      "relative": "OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-171724",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 447783151,
+      "files": 639
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-181144",
+      "relative": "OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-181144",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 173972,
+      "files": 24
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-185710",
+      "relative": "OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-185710",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 447858066,
+      "files": 643
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-203624",
+      "relative": "OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-203624",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 447940349,
+      "files": 644
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文\\MissionB-Windows-x64-v2.0.0\\.browsers",
+      "relative": "OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文\\MissionB-Windows-x64-v2.0.0\\.browsers",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 295201707,
+      "files": 297
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文\\MissionB-Windows-x64-v2.0.0\\_internal",
+      "relative": "OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文\\MissionB-Windows-x64-v2.0.0\\_internal",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 145865482,
+      "files": 266
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-165243\\MissionB-Windows-x64-v2.0.0\\.browsers",
+      "relative": "OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-165243\\MissionB-Windows-x64-v2.0.0\\.browsers",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 295201707,
+      "files": 297
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-165243\\MissionB-Windows-x64-v2.0.0\\_internal",
+      "relative": "OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-165243\\MissionB-Windows-x64-v2.0.0\\_internal",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 145865679,
+      "files": 266
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-172234\\MissionB-Windows-x64-v2.1.0\\.browsers",
+      "relative": "OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-172234\\MissionB-Windows-x64-v2.1.0\\.browsers",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 295201707,
+      "files": 297
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-172234\\MissionB-Windows-x64-v2.1.0\\_internal",
+      "relative": "OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-172234\\MissionB-Windows-x64-v2.1.0\\_internal",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 145870375,
+      "files": 266
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-185943\\MissionB-Windows-x64-v2.2.0\\.browsers",
+      "relative": "OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-185943\\MissionB-Windows-x64-v2.2.0\\.browsers",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 295201707,
+      "files": 297
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-185943\\MissionB-Windows-x64-v2.2.0\\_internal",
+      "relative": "OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-185943\\MissionB-Windows-x64-v2.2.0\\_internal",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 145883349,
+      "files": 266
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-203932\\MissionB-Windows-x64-v2.3.0\\.browsers",
+      "relative": "OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-203932\\MissionB-Windows-x64-v2.3.0\\.browsers",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 295201707,
+      "files": 297
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-203932\\MissionB-Windows-x64-v2.3.0\\_internal",
+      "relative": "OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-203932\\MissionB-Windows-x64-v2.3.0\\_internal",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 145908095,
+      "files": 266
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\.build-spec",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\.build-spec",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 2307,
+      "files": 1
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\.build-work",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\.build-work",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 20077533,
+      "files": 16
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\.release-stage-20261015-225727",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\.release-stage-20261015-225727",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 448023970,
+      "files": 651
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\.release-stage-20261015-230850",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\.release-stage-20261015-230850",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 448026282,
+      "files": 651
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\.release-stage-20261016-175710",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\.release-stage-20261016-175710",
+      "reason": "Mission B 可重建的打包中间目录；正式 ZIP 保留",
+      "bytes": 448042045,
+      "files": 653
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261015-230301\\MissionB-Windows-x64-v3.0.0\\.browsers",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261015-230301\\MissionB-Windows-x64-v3.0.0\\.browsers",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 295201707,
+      "files": 297
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261015-230301\\MissionB-Windows-x64-v3.0.0\\_internal",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261015-230301\\MissionB-Windows-x64-v3.0.0\\_internal",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 145941264,
+      "files": 269
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261015-231056\\MissionB-Windows-x64-v3.0.0\\.browsers",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261015-231056\\MissionB-Windows-x64-v3.0.0\\.browsers",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 295201707,
+      "files": 297
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261015-231056\\MissionB-Windows-x64-v3.0.0\\_internal",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261015-231056\\MissionB-Windows-x64-v3.0.0\\_internal",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 145941892,
+      "files": 269
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261016-175923\\MissionB-Windows-x64-v3.0.1\\.browsers",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261016-175923\\MissionB-Windows-x64-v3.0.1\\.browsers",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 295202103,
+      "files": 298
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261016-175923\\MissionB-Windows-x64-v3.0.1\\_internal",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261016-175923\\MissionB-Windows-x64-v3.0.1\\_internal",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 145943577,
+      "files": 269
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\validation\\exe-api-20261015-230259\\MissionB-Windows-x64-v3.0.0\\.browsers",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\validation\\exe-api-20261015-230259\\MissionB-Windows-x64-v3.0.0\\.browsers",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 295201707,
+      "files": 297
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\validation\\exe-api-20261015-230259\\MissionB-Windows-x64-v3.0.0\\_internal",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\validation\\exe-api-20261015-230259\\MissionB-Windows-x64-v3.0.0\\_internal",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 145941264,
+      "files": 269
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\validation\\exe-api-20261015-231054\\MissionB-Windows-x64-v3.0.0\\.browsers",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\validation\\exe-api-20261015-231054\\MissionB-Windows-x64-v3.0.0\\.browsers",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 295201707,
+      "files": 297
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\api_workbench\\validation\\exe-api-20261015-231054\\MissionB-Windows-x64-v3.0.0\\_internal",
+      "relative": "OpenSource\\Mission B\\SmallMission\\api_workbench\\validation\\exe-api-20261015-231054\\MissionB-Windows-x64-v3.0.0\\_internal",
+      "reason": "历史解压验证包中的浏览器或依赖副本；验证记录和正式 ZIP 保留",
+      "bytes": 145941892,
+      "files": 269
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.setup-runtime-20261015-180904\\.browsers",
+      "relative": "OpenSource\\Mission B\\SmallMission\\.setup-runtime-20261015-180904\\.browsers",
+      "reason": "一次性安装验证的浏览器和依赖；verification.json 保留",
+      "bytes": 295201976,
+      "files": 299
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.setup-runtime-20261015-180904\\.venv",
+      "relative": "OpenSource\\Mission B\\SmallMission\\.setup-runtime-20261015-180904\\.venv",
+      "reason": "一次性安装验证的浏览器和依赖；verification.json 保留",
+      "bytes": 143349899,
+      "files": 2282
+    },
+    {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\local-tools-20261018\\.uv-cache",
+      "relative": "OpenSource\\experiments\\local-tools-20261018\\.uv-cache",
+      "reason": "隔离试验的依赖下载缓存；虚拟环境、源码、锁文件和结果保留",
+      "bytes": 496056553,
+      "files": 14104
+    }
+  ],
+  "retained_release_packages": [
+    {
+      "path": "OpenSource\\Mission B\\SmallMission\\release\\MissionB-CrossPlatform-v2.0.0.zip",
+      "bytes": 60001,
+      "sha256": "46bcd4b29c49fa6f32c457eba818a63524e4094d102afa14b89d08a06b33175b"
+    },
+    {
+      "path": "OpenSource\\Mission B\\SmallMission\\release\\MissionB-CrossPlatform-v2.1.0.zip",
+      "bytes": 62664,
+      "sha256": "ae7d741727162c7c46ff5e5ea7e9f84a5a5f9db639da754d0950a86ef108bacb"
+    },
+    {
+      "path": "OpenSource\\Mission B\\SmallMission\\release\\MissionB-Mac-Linux-v2.1.0-setup1.zip",
+      "bytes": 70763,
+      "sha256": "28ffbce13e66e2ffc51fb649328de19aa91f7a808cbfd33a5d58dc700a1141cf"
+    },
+    {
+      "path": "OpenSource\\Mission B\\SmallMission\\release\\MissionB-Mac-Linux-v2.2.0.zip",
+      "bytes": 79097,
+      "sha256": "191cce94c85f71060976d167a27abf860d8a83b9557b0d71b17282bf6835872e"
+    },
+    {
+      "path": "OpenSource\\Mission B\\SmallMission\\release\\MissionB-Mac-Linux-v2.3.0.zip",
+      "bytes": 85951,
+      "sha256": "932f143902b64976b71c0fa27b6c83681fc628f1dbf82053c1a12945dcef55b1"
+    },
+    {
+      "path": "OpenSource\\Mission B\\SmallMission\\release\\MissionB-Windows-x64-v2.0.0.zip",
+      "bytes": 186827807,
+      "sha256": "2dfce9036b23bb2b76dc67a61ead72d701f61bc1567499dd5a98f0760b466113"
+    },
+    {
+      "path": "OpenSource\\Mission B\\SmallMission\\release\\MissionB-Windows-x64-v2.1.0.zip",
+      "bytes": 186833557,
+      "sha256": "43e8518f3f7ee5820b94f41613c4d5dd692ae55a302111ea725739fbacbceb5d"
+    },
+    {
+      "path": "OpenSource\\Mission B\\SmallMission\\release\\MissionB-Windows-x64-v2.2.0.zip",
+      "bytes": 186848027,
+      "sha256": "f0ae6e4017c4eeac72e0c0598f25ce24f92b3683268841eb27ce6bab001b403f"
+    },
+    {
+      "path": "OpenSource\\Mission B\\SmallMission\\release\\MissionB-Windows-x64-v2.3.0.zip",
+      "bytes": 186856511,
+      "sha256": "f928e2181771f9ef6871254d581b3280a9155ca6f3423f75dfbb5d96596ada06"
+    },
+    {
+      "path": "OpenSource\\Mission B\\SmallMission\\api_workbench\\release\\MissionB-Mac-Linux-v3.0.0.zip",
+      "bytes": 97788,
+      "sha256": "7330371e885a91c198467322b0ede555fecf061162bc159750c3e3287a992f7d"
+    },
+    {
+      "path": "OpenSource\\Mission B\\SmallMission\\api_workbench\\release\\MissionB-Mac-Linux-v3.0.1.zip",
+      "bytes": 101813,
+      "sha256": "ed2a3ff7ca806c21cb273a393aa5443fce6a364f625b7416566c4be20cb449b9"
+    },
+    {
+      "path": "OpenSource\\Mission B\\SmallMission\\api_workbench\\release\\MissionB-Windows-x64-v3.0.0.zip",
+      "bytes": 186897961,
+      "sha256": "3a341e0f563426cec50fed9eed0f08858a1b5f2f2f4d03c953623856c19f3b47"
+    },
+    {
+      "path": "OpenSource\\Mission B\\SmallMission\\api_workbench\\release\\MissionB-Windows-x64-v3.0.1.zip",
+      "bytes": 186899123,
+      "sha256": "ab03c09f86cc9b1b6f5fe78d5b00a193e42529d96f81f9c86df488cd3c7f366a"
+    }
+  ],
+  "logical_bytes": 11197461495
+}

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>名单核验</title><link rel="stylesheet" href="/app.css"><script src="/app.js" defer></script></head>
+<body><main>
+  <header><div class="mark" aria-hidden="true">✓</div><h1>名单核验</h1><p>放入名单，下载结果。</p></header>
+  <section class="card">
+    <form id="input-form">
+      <fieldset id="inputs" disabled>
+        <label class="upload" for="files"><span class="upload-icon" aria-hidden="true">↑</span><strong>选择文件</strong><span>支持 Excel 和文本文件，可多选</span><input id="files" type="file" multiple accept=".xlsx,.xls,.csv,.tsv,.txt"></label>
+        <p id="file-names" class="hint" aria-live="polite">还没有选择文件</p>
+        <div class="input-help"><details><summary>直接粘贴名单</summary><label class="sr-only" for="text">粘贴名单</label><textarea id="text" rows="5" placeholder="把带有表头的表格内容粘贴到这里"></textarea></details><a href="/api/template.xlsx" download>下载输入模板</a></div>
+        <button id="start" class="primary" type="submit">开始核验</button>
+      </fieldset>
+    </form>
+    <p id="error" class="error" role="alert" hidden></p>
+    <section id="result" aria-live="polite" hidden>
+      <h2 id="status-title">正在核验…</h2><p id="status-text"></p>
+      <div id="progress-area" hidden>
+        <div class="progress-label"><span id="progress-text"></span><span id="progress-percent"></span></div>
+        <progress id="progress" max="100" value="0" aria-label="核验进度" aria-describedby="progress-text"></progress>
+      </div>
+      <a id="download" class="primary" hidden>下载结果</a>
+      <button id="cancel" class="text-button" type="button" hidden>停止核验</button>
+    </section>
+  </section>
+  <footer><p>遇到问题，把文件夹里的 <strong>MissionB.log</strong> 发给我们。</p><button id="quit" class="text-button" type="button">退出</button></footer>
+</main></body></html>

@@ -1,0 +1,47 @@
+[
+  {
+    "case": "fynu",
+    "historical_run": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\runs\\20261014-234417-835765-671bc22b-api-pilot",
+    "current_run": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-766385-2a619c58-api-pilot",
+    "old_names": 136,
+    "current_names": 136,
+    "only_old": [],
+    "only_current": [],
+    "note": "Historical observations are a regression reference, not authoritative total faculty counts."
+  },
+  {
+    "case": "ntu",
+    "historical_run": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\runs\\20261014-223947-979472-d55dd4ac-api-pilot",
+    "current_run": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-771904-92616d04-api-pilot",
+    "old_names": 61,
+    "current_names": 61,
+    "only_old": [],
+    "only_current": [],
+    "note": "Historical observations are a regression reference, not authoritative total faculty counts."
+  },
+  {
+    "case": "seu",
+    "historical_run": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\runs\\20261015-seu-structured-profile-reparse-v2",
+    "current_run": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot",
+    "old_names": 834,
+    "current_names": 834,
+    "only_old": [
+      "戚哓芳"
+    ],
+    "only_current": [
+      "戚晓芳"
+    ],
+    "note": "Historical observations are a regression reference, not authoritative total faculty counts.",
+    "reviewed_difference": {
+      "historical_official_anchor": {
+        "name": "戚哓芳",
+        "url": "https://wjx.seu.edu.cn/2026/0421/c68020a564734/page.htm"
+      },
+      "current_official_anchor": {
+        "name": "戚晓芳",
+        "url": "https://cs.seu.edu.cn/xfqi/main.htm"
+      },
+      "finding": "Both observations match their own saved official roster. The official name spelling and link changed between captures; this is not an observed crawler name-loss regression."
+    }
+  }
+]

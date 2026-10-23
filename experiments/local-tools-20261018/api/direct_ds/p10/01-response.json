@@ -1,0 +1,42 @@
+{
+  "status": 200,
+  "seconds": 1.813,
+  "usage": {
+    "prompt_tokens": 17093,
+    "completion_tokens": 359,
+    "total_tokens": 17452,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 17093
+  },
+  "response": {
+    "id": "091304b4-df07-4c11-8c56-0d4e0e34d36c",
+    "object": "chat.completion",
+    "created": 1792329581,
+    "model": "deepseek-flash",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"teachers\":[{\"name\":\"王海兵\",\"title\":\"教授\",\"email\":\"hbwang@seu.edu.cn\",\"homepage\":\"https://math.seu.edu.cn/whb/list.htm\",\"biography\":\"王海兵，男，教授，博士研究生导师，主要从事偏微分方程反问题的研究。2012年获得北海道大学和东南大学的理学博士学位，2014年获得江苏省优秀博士学位论文，2016年入选江苏高校“青蓝工程”中青年学术带头人培养对象，2017年作为第二完成人获得教育部自然科学二等奖，2018年获得江苏省工业与应用数学学会第二届“工业与应用数学奖青年奖”，2020年获得江苏省数学会第七届江苏省“数学成就奖”，2024年入选江苏省高层次人才培养计划（“333工程”）第七期第三层次培养对象。现任中国数学会计算数学分会常务理事。已作为负责人获得四项国家自然科学基金和一项江苏省自然科学基金，在SIAM Journal on Numerical Analysis、SIAM Journal on Applied Mathematics、SIAM Journal on Mathematical Analysis、SIAM Multiscale Modeling and Simulation、Inverse Problems、Journal of Computational Physics、Journal of Differential Equations等国内外刊物上发表四十余篇学术论文。\",\"evidence\":\"王海兵 教授 数学学院 计算数学系 邮箱： hbwang@seu.edu.cn\"}],\"attachment_urls\":[],\"pagination_urls\":[],\"notes\":[\"页面为个人主页，仅包含王海兵一位教师信息。\",\"电话02552090590、地址新文科楼528-3、邮编211189未纳入JSON字段。\",\"研究成果、项目与荣誉、社会兼职等标签页内容未作为biography主体，biography仅保留“基本信息”中的完整简介原文。\"]}"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 17093,
+      "completion_tokens": 359,
+      "total_tokens": 17452,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 17093
+    },
+    "system_fingerprint": "e72d3c7f663d3e1383b00b3884cb4501"
+  }
+}

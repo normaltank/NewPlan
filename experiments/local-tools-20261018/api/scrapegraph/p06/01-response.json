@@ -1,0 +1,42 @@
+{
+  "status": 200,
+  "seconds": 2.985,
+  "usage": {
+    "prompt_tokens": 12888,
+    "completion_tokens": 614,
+    "total_tokens": 13502,
+    "prompt_tokens_details": {
+      "cached_tokens": 768
+    },
+    "prompt_cache_hit_tokens": 768,
+    "prompt_cache_miss_tokens": 12120
+  },
+  "response": {
+    "id": "d32e1b2a-f668-4c1c-9ddf-ed1a827815a4",
+    "object": "chat.completion",
+    "created": 1792329668,
+    "model": "deepseek-flash",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"teachers\":[{\"name\":\"陈震\",\"title\":\"教授\",\"email\":\"zhenchen@seu.edu.cn\",\"homepage\":\"https://sites.google.com/site/zchen0203/\",\"biography\":\"陈震，东南大学青年首席教授，中央组织部人才计划青年项目（2016年）。 Website: https://sites.google.com/site/zchen0203/ ORCID: https://orcid.org/0000-0002-5422-8807 Google Scholar: https://scholar.google.com/citations?user=qKZKCIgAAAAJ 2014年于加州大学伯克利分校机械工程系获博士学位，后于斯坦福大学应用物理系Ginzton实验室从事博士后研究。研究专长为通过对光子、声子、电子、分子等基本能量载子的热输运进行调控，解决芯片散热、新能源和淡水等工程问题。多次受邀主持美国机械工程师协会、中国工程热物理年会等分会场会议，并作邀请报告；出版英文专著一部(World Scientific Publishing Co. 2018)；以第一或通讯作者在Joule，Nature Communications等权威期刊发表原创性文章，其中包括2篇被列为前1%的高被引论文，SCI他引近4000次（Google Scholar）。 陈震教授于2016年和2018年底分别发表在Nature Communications和Joule上的关于利用宇宙超低温背景散热的论文引发了全球新一轮的绿色能源热，被全球多个媒体报道，包括英国的New Scientists，德国的Welt Der Physik，美国的Science Daily，世界顶尖学术杂志Cell Press以及中国知网，雅虎（Yahoo）科技频道和商业频道等。目前与珈伟创投有限公司合作将该技术应用于锂电池存储仓的无源热管理。 部分课题组成员毕业去向： 1、陈恒锐（2022硕）：新加坡国立大学（博士）； 2、陈子杰（2022硕）：TP-Link深圳； 3、顾中天（2023硕）：University of Notre Dame （博士）； 4、潘立（2023硕）：TP-Link南京； 5、董铭豪（2023博）：香港大学（博士后）； 6、姜波（博士在读）：宾夕法尼亚州立大学（博士联培）。 7、李涛（博士在读）：加州大学伯克利分校（博士联培）。\",\"evidence\":\"陈震教授博士生导师 所在院系:设计科学系 办公室:机械楼356 电话: 邮箱:zhenchen@seu.edu.cn 个人简介 __ 陈震，东南大学青年首席教授，中央组织部人才计划青年项目（2016年）。\"}],\"attachment_urls\":[],\"pagination_urls\":[],\"notes\":[\"页面为陈震个人主页，仅提取页面主人陈震。\",\"职称依据页面“陈震教授博士生导师”提取为教授。\",\"个人主页依据页面中 Website 链接提取。\"]}"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 12888,
+      "completion_tokens": 614,
+      "total_tokens": 13502,
+      "prompt_tokens_details": {
+        "cached_tokens": 768
+      },
+      "prompt_cache_hit_tokens": 768,
+      "prompt_cache_miss_tokens": 12120
+    },
+    "system_fingerprint": "e72d3c7f663d3e1383b00b3884cb4501"
+  }
+}

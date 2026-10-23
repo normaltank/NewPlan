@@ -1,0 +1,12 @@
+test_continuation_header_people_are_not_lost (test_adapters.AdapterEvidenceTests.test_continuation_header_people_are_not_lost) ... ok
+test_embed_pdf_discovery_without_anchor_link (test_adapters.AdapterEvidenceTests.test_embed_pdf_discovery_without_anchor_link) ... ok
+test_full_markdown_keeps_card_emails (test_adapters.AdapterEvidenceTests.test_full_markdown_keeps_card_emails) ... ok
+test_jina_html_field_keeps_embedded_document_url (test_adapters.AdapterEvidenceTests.test_jina_html_field_keeps_embedded_document_url) ... ok
+test_jina_link_pairs_and_split_bold_names (test_adapters.AdapterEvidenceTests.test_jina_link_pairs_and_split_bold_names) ... ok
+test_plain_pdf_page_join_does_not_lose_first_row (test_adapters.AdapterEvidenceTests.test_plain_pdf_page_join_does_not_lose_first_row) ... ok
+test_scan_control_preserves_fields (test_adapters.AdapterEvidenceTests.test_scan_control_preserves_fields) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.170s
+
+OK

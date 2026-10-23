@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<title id="pageTitle">禁止访问</title>
+<style>html,body{margin:0;padding:0;background:#f7f7f7}.wrap{width:100%;position:relative;margin:auto;text-align:center;margin-top:6.5%}.wrap img{max-width:1000px}.content{margin-top:-5%;margin-bottom:43px}.content p.title{font-size:25px;color:#444}.content .center{text-align:center;color:#999}.content .reason{font:16px;color:#999;line-height:12px;text-align:left;margin-left:43%}span.line{display:inline-block;content:""}.footer{width:55%;border-top:2px solid #e3e3e3;margin:auto;word-break:break-all}.footer p{font:16px;color:#999;line-height:15px;text-align:left;padding:0 20px}.footer p span{line-height:20px;white-space:normal}@media screen and (max-width:992px){.wrap{margin-top:8%}.footer{width:80%}.content .reason{margin-left:30%}}@media screen and (max-width:768px){.wrap{margin-top:12%;padding:0 20px}.wrap img{max-width:100%}.content{margin-top:0;margin-bottom:24px}.content p.title{font-size:18px;line-height:1.5;margin:12px 0;padding:0 8px}.content .reason{font-size:14px;line-height:1.7;text-align:left;margin-left:0;width:auto;padding:0 8px}.footer{width:92%;padding-top:16px;box-sizing:border-box}.footer p{font-size:14px;line-height:1.7;text-align:left;padding:0 10px;word-break:break-all}.footer p span{line-height:1.7}#callBack{font-size:14px;display:inline-block;padding:6px 12px;word-break:break-word}}@media screen and (max-width:375px){.wrap{margin-top:16%;padding:0 12px}.content p.title{font-size:16px}.content .reason,.footer p,#callBack{font-size:13px}}</style>
+</head>
+<body>
+<div class="wrap">
+<img src="https://error.websaas.cn/img/420s.png" />
+<div class="content">
+  <p class="title" id="title">请通过校园网/VPN访问</p>
+</div>
+<div class="footer">
+  <p id="current-url">【URL】<a class="url" style="color: #1e80ff">civil.seu.edu.cn%2Fdxp%2Flist.htm</a></p>
+  <p id="client-info">【User-Agent】<span class="user_agent"></span>FacultyCompatibilityStudy%2F1.0%20(bounded%20public%20university%20page%20comparison)</p>
+  <p id="client-ip">【访客IP】<span id="client_ip"></span>39.155.141.158</p>
+  <p id="current-time">【当前时间】<span class="now"></span>2026-10-18 21:14:27</p>
+</div>
+</div>
+<script type="text/javascript">const translations={zh:{pageTitle:"禁止访问",title:"请通过校园网/VPN访问",currentUrl:"【URL】",clientInfo:"【User-Agent】",clientIp:"【访客IP】",currentTime:"【当前时间】"},"zh-tw":{pageTitle:"禁止訪問",title:"請通過校園網/VPN訪問",currentUrl:"【URL】",clientInfo:"【User-Agent】",clientIp:"【訪客IP】",currentTime:"【當前時間】"},en:{pageTitle:"Forbidden",title:"You should access this system via the campus network or VPN",currentUrl:"【URL】",clientInfo:"【User-Agent】",clientIp:"【Your IP Address】",currentTime:"【Current Time】"},};function setLanguageContent(){const userLang=(navigator.language||"en").toLowerCase();const baseLang=userLang.split("-")[0];const lang=translations[userLang]||translations[baseLang]||translations.en;if(navigator.language==undefined){document.documentElement.lang="en"}else{document.documentElement.lang=translations[userLang]||translations[baseLang]?navigator.language:"en"}
+document.getElementById("pageTitle").innerText=lang.pageTitle;document.getElementById("title").innerText=lang.title;document.getElementById("current-url").childNodes[0].nodeValue=lang.currentUrl;document.getElementById("client-info").childNodes[0].nodeValue=lang.clientInfo;document.getElementById("client-ip").childNodes[0].nodeValue=lang.clientIp;document.getElementById("current-time").childNodes[0].nodeValue=lang.currentTime;document.getElementById("callBack").childNodes[0].nodeValue=lang.adminAction}setLanguageContent()</script>
+</body>
+</html>

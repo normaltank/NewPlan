@@ -1,0 +1,230 @@
+{
+  "scrapegraph": {
+    "records": 8,
+    "api_calls": 8,
+    "usage": {
+      "prompt_tokens": 46106,
+      "completion_tokens": 7664,
+      "total_tokens": 53770,
+      "prompt_cache_hit_tokens": 5376,
+      "prompt_cache_miss_tokens": 40730
+    },
+    "details": [
+      {
+        "id": "p01",
+        "url": "https://www.fynu.edu.cn/hxycl/info/1047/4105.htm",
+        "success": true,
+        "error": null,
+        "checks": {
+          "name": true,
+          "unexpected_people": [],
+          "email": true,
+          "biography_chars": 5881
+        }
+      },
+      {
+        "id": "p06",
+        "url": "https://me.seu.edu.cn/cz_31654/list.htm",
+        "success": true,
+        "error": null,
+        "checks": {
+          "name": true,
+          "unexpected_people": [],
+          "email": true,
+          "biography_chars": 931
+        }
+      },
+      {
+        "id": "p07",
+        "url": "https://civil.seu.edu.cn/dxp/list.htm",
+        "success": true,
+        "error": null,
+        "checks": {
+          "name": true,
+          "unexpected_people": [],
+          "email": true,
+          "biography_chars": 244
+        }
+      },
+      {
+        "id": "p10",
+        "url": "https://math.seu.edu.cn/whb/list.htm",
+        "success": true,
+        "error": null,
+        "checks": {
+          "name": true,
+          "unexpected_people": [],
+          "biography_marker": false,
+          "biography_chars": 535
+        }
+      },
+      {
+        "id": "p18",
+        "url": "https://www.fynu.edu.cn/hxycl/szdw/jstd.htm",
+        "success": true,
+        "error": null,
+        "checks": {
+          "names_matched": 34,
+          "names_expected": 34,
+          "unexpected_names": [],
+          "missing_names": [],
+          "links_matched": 25,
+          "links_expected": 25,
+          "duplicate_names": []
+        }
+      },
+      {
+        "id": "p23",
+        "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/1.htm",
+        "success": true,
+        "error": null,
+        "checks": {
+          "names_matched": 1,
+          "names_expected": 1,
+          "unexpected_names": [],
+          "missing_names": [],
+          "links_matched": 0,
+          "links_expected": 1,
+          "duplicate_names": []
+        }
+      },
+      {
+        "id": "p24",
+        "url": "https://ntdxhk.ntu.edu.cn/xkjs/list.htm",
+        "success": true,
+        "error": null,
+        "checks": {
+          "embedded_document": false,
+          "unexpected_people": []
+        }
+      },
+      {
+        "id": "p25",
+        "url": "https://www.physics.sjtu.edu.cn/jsml/tanghao.html",
+        "success": true,
+        "error": null,
+        "checks": {
+          "name": true,
+          "unexpected_people": [],
+          "email": true,
+          "title": true,
+          "biography_chars": 4998
+        }
+      }
+    ]
+  },
+  "direct_ds": {
+    "records": 8,
+    "api_calls": 8,
+    "usage": {
+      "prompt_tokens": 147446,
+      "completion_tokens": 7918,
+      "total_tokens": 155364,
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 147190
+    },
+    "details": [
+      {
+        "id": "p01",
+        "url": "https://www.fynu.edu.cn/hxycl/info/1047/4105.htm",
+        "success": true,
+        "error": null,
+        "checks": {
+          "name": true,
+          "unexpected_people": [],
+          "email": true,
+          "biography_chars": 5848
+        }
+      },
+      {
+        "id": "p06",
+        "url": "https://me.seu.edu.cn/cz_31654/list.htm",
+        "success": true,
+        "error": null,
+        "checks": {
+          "name": true,
+          "unexpected_people": [],
+          "email": true,
+          "biography_chars": 935
+        }
+      },
+      {
+        "id": "p07",
+        "url": "https://civil.seu.edu.cn/dxp/list.htm",
+        "success": true,
+        "error": null,
+        "checks": {
+          "name": true,
+          "unexpected_people": [],
+          "email": true,
+          "biography_chars": 244
+        }
+      },
+      {
+        "id": "p10",
+        "url": "https://math.seu.edu.cn/whb/list.htm",
+        "success": true,
+        "error": null,
+        "checks": {
+          "name": true,
+          "unexpected_people": [],
+          "biography_marker": false,
+          "biography_chars": 535
+        }
+      },
+      {
+        "id": "p18",
+        "url": "https://www.fynu.edu.cn/hxycl/szdw/jstd.htm",
+        "success": true,
+        "error": null,
+        "checks": {
+          "names_matched": 34,
+          "names_expected": 34,
+          "unexpected_names": [],
+          "missing_names": [],
+          "links_matched": 25,
+          "links_expected": 25,
+          "duplicate_names": []
+        }
+      },
+      {
+        "id": "p23",
+        "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/1.htm",
+        "success": true,
+        "error": null,
+        "checks": {
+          "names_matched": 1,
+          "names_expected": 1,
+          "unexpected_names": [],
+          "missing_names": [],
+          "links_matched": 0,
+          "links_expected": 1,
+          "duplicate_names": []
+        }
+      },
+      {
+        "id": "p24",
+        "url": "https://ntdxhk.ntu.edu.cn/xkjs/list.htm",
+        "success": true,
+        "error": null,
+        "checks": {
+          "embedded_document": true,
+          "unexpected_people": []
+        }
+      },
+      {
+        "id": "p25",
+        "url": "https://www.physics.sjtu.edu.cn/jsml/tanghao.html",
+        "success": true,
+        "error": null,
+        "checks": {
+          "name": true,
+          "unexpected_people": [],
+          "email": true,
+          "title": true,
+          "biography_chars": 5001
+        }
+      }
+    ]
+  }
+}

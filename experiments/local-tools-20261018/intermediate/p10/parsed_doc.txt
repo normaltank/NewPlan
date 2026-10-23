@@ -1,0 +1,217 @@
+[English](http://math.seu.edu.cn/whb_en/list.htm)[返回首页](/main.htm)
+[欢迎登录](http://webplus.seu.edu.cn/_web/_platform/teacherHome/web/login.jsp)
+![头像](/_upload/article/images/e3/cb/2ef2890b497dab3757f81d86ffe2/81d29d05-9139-4a15-a875-675ed508237b_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s_s.jpg)
+王海兵 教授 数学学院 计算数学系 电话： 02552090590 邮箱： hbwang@seu.edu.cn 地址： 新文科楼528-3 邮编：
+211189 * 基本信息 * 研究成果 * 项目与荣誉 * 社会兼职 *
+王海兵，男，教授，博士研究生导师，主要从事偏微分方程反问题的研究。2012年获得北海道大学和东南大学的理学博士学位，2014年获得江苏省优秀博士学位论文，2016年入选江苏高校“青蓝工程”中青年学术带头人培养对象，2017年作为第二完成人获得教育部自然科学二等奖，2018年获得江苏省工业与应用数学学会第二届“工业与应用数学奖青年奖”，2020年获得江苏省数学会第七届江苏省“数学成就奖”，2024年入选江苏省高层次人才培养计划（“333工程”）第七期第三层次培养对象。现任中国数学会计算数学分会常务理事。已作为负责人获得四项国家自然科学基金和一项江苏省自然科学基金，在SIAM
+Journal on Numerical Analysis、SIAM Journal on Applied Mathematics、SIAM Journal
+on Mathematical Analysis、SIAM Multiscale Modeling and Simulation、Inverse
+Problems、Journal of Computational Physics、Journal of Differential
+Equations等国内外刊物上发表四十余篇学术论文。 * 51\\. [Shiwei Sun, Gen Nakamura, Haibing Wang*,
+On the convergence of the no-response test for the heat equation, _Inverse
+Problems and Imaging_ , early
+access.](https://www.aimsciences.org/article/doi/10.3934/ipi.2026067)50\\.
+[Yunxin Gao, Haibing Wang*, Qingyun Yao, The MFS for the forward and inverse
+problems of the time-fractional diffusion equation, _Engineering Analysis with
+Boundary Elements_ , 194 (2027),
+107093.](https://www.sciencedirect.com/science/article/abs/pii/S0955799726004637)49\\.
+[Shutong Hou, Mourad Sini, Haibing Wang*, Efficient numerical reconstruction
+of wave equation sources via droplet-induced asymptotics, _SIAM Journal on
+Numerical Analysis_ , 64 (2026), No. 3, 1018--
+1042.](https://epubs.siam.org/doi/10.1137/25M1794899)48\\. [Junjian Fang,
+Shiwei Sun, Haibing Wang*, A learning-based hybrid reconstruction scheme for
+an inverse boundary value problem, 42 (2026), _Inverse Problems_ , No. 5,
+055004.](https://iopscience.iop.org/article/10.1088/1361-6420/ae6478)47\\.
+[Shutong Hou, Jijun Liu, Haibing Wang*, On the computation of time-domain
+acoustic scattering by multiple obstacles using a decomposition method, _SIAM
+Journal on Applied Mathematics_ , 85 (2025), No. 6, 2683--
+2703.](https://epubs.siam.org/doi/10.1137/24M1714873)46\\. [Shiwei Sun,
+Haibing Wang*, A novel approach for locating point sources in a diffusive
+medium, _SIAM Journal on Applied Mathmatics_ , 85 (2025), No. 4, 1667--
+1689.](https://epubs.siam.org/doi/10.1137/24M1692678)45\\. [Jiahao Hu, Jijun
+Liu, Haibing Wang*, Min Zhong, Enhanced inversion of nonsmooth initial status
+for the convection-diffusion equation utilizing multitemporal observations,
+_SIAM Journal on Applied Mathematics_ , 85 (2025), No. 4, 1572--
+1595.](https://epubs.siam.org/doi/10.1137/25M1731873)44\\. [Shuli Chen, Gen
+Nakamura, Haibing Wang*, Simultaneously identifying piecewise smooth
+conductivity and initial value for a heat conduction equation, _Inverse
+Problems and Imaging_ , 19 (2025), No. 1, 142--
+173.](https://www.aimsciences.org/article/doi/10.3934/ipi.2024029) 43\\.
+[刘继军，王海兵，反问题的正则化理论和应用，科学出版社，北京，2024.](https://www.ecsponline.com/goods.php?id=226516)42\\.
+[Shiwei Sun, Gen Nakamura, Haibing Wang*, Domain sampling methods for an
+inverse boundary value problem of the heat equation, _Inverse Problems_ , 40
+(2024), No. 12,
+125009.](https://iopscience.iop.org/article/10.1088/1361-6420/ad8d78)41\\.
+[Shutong Hou, Haibing Wang*, An efficient algorithm for time-domain acoustic
+scattering in three dimensions by layer potentials, _Journal of Computational
+Physics_ , 514 (2024),
+113258.](https://www.sciencedirect.com/science/article/pii/S0021999124005060)40\\.
+[Mourad Sini, Haibing Wang, Qingyun Yao, Wave propagation in pure-time
+modulated step media with applications to temporal-aiming, _Communications on
+Analysis and Computation_ , 2 (2024), No. 1, 48--
+70.](https://www.aimsciences.org/article/doi/10.3934/cac.2024004)39\\. [Soumen
+Senapati, Mourad Sini, Haibing Wang, Recovering both the wave speed and the
+source function in a time-domain wave equation by injecting contrasting
+droplets, _Discrete and Continuous Dynamical Systems_ , 44 (2024), No. 5, 1446
+--1474.](https://www.aimsciences.org/article/doi/10.3934/dcds.2023151)38\\.
+[Shiwei Sun, Gen Nakamura, Haibing Wang*, Numerical studies of domain sampling
+methods for inverse boundary value problems by one measurement, _Journal of
+Computational Physics_ , 485 (2023),
+112099.](https://www.sciencedirect.com/science/article/pii/S0021999123001948)37\\.
+[Shuli Chen, Daijun Jiang, Haibing Wang*, Simultaneous identification of
+initial value and source strength in a transmission problem for a parabolic
+equation, _Advances in Computational Mathematics_ , (48) 2022, No. 6,
+77.](https://link.springer.com/article/10.1007/s10444-022-09983-x)36\\.
+[Mourad Sini, Haibing Wang*, The inverse source problem for the wave equation
+revisited: A new approach, _SIAM Journal on Mathematical Analysis_ , 54
+(2022), No. 5, 5160--5181.](https://epubs.siam.org/doi/10.1137/21M1463689)35.
+[Jun Guo, Haibing Wang*, On the direct and inverse electromagnetic scattering
+by chiral media, _Journal of Differential Equations_ , 317 (2022), 495--
+523.](https://www.sciencedirect.com/science/article/pii/S0022039622000973)34\\.
+[Qingyun Yao, Haibing Wang*, A numerical scheme for the time-fractional
+diffusion equation by layer potentials, _Journal of Computational Physics_ ,
+448 (2022),
+110763.](https://www.sciencedirect.com/science/article/pii/S0021999121006586)33\\.
+[Mourad Sini, Haibing Wang*, Qingyun Yao, Analysis of the acoustic waves
+reflected by a cluster of small holes in the time-domain and the equivalent
+mass density, _SIAM Multiscale Modeling and Simulation_ , 19 (2021), No. 2,
+1083--1114.](https://epubs.siam.org/doi/abs/10.1137/20M1319693) 32\\. [Lixin
+Feng, Haibing Wang*, Lei Zhang, The forward and inverse problems for the
+scattering of obliquely incident electromagnetic waves in a chiral medium,
+_Journal of Differential Equations_ , 284 (2021), 102--
+125.](https://www.sciencedirect.com/science/article/pii/S0022039621001388)31\\.
+[Yi-Hsuan Lin, Gen Nakamura, Roland Potthast, Haibing Wang, Duality between
+range and no-responses tests and its application for inverse problems,
+_Inverse Problems and Imaging_ , 15 (2021), No. 2, 367--
+386.](https://www.aimsciences.org/article/doi/10.3934/ipi.2020072)30\\. [Yu
+Jiang, Gen Nakamura, Haibing Wang*, Locating small inclusions in diffuse
+optical tomography by a direct imaging method, _IMA Journal of Applied
+Mathematics_ , 85 (2020), No. 6, 840--
+864.](https://academic.oup.com/imamat/article/85/6/840/5896976)29\\. [Qingyun
+Yao, Yi Li, Haibing Wang*, Numerical solutions of the forward and inverse
+problems arising in diffuse optical tomography, _Applied Numerical
+Mathematics_ , 154 (2020),
+70–89.](https://www.sciencedirect.com/science/article/abs/pii/S0168927420300878)28\\.
+[Mourad Sini, Haibing Wang*, Estimation of the heat conducted by a cluster of
+small cavities and characterization of the equivalent heat conduction, _SIAM
+Multiscale Modeling and Simulation_ , 17 (2019), No. 4,
+1214–1251.](https://epubs.siam.org/doi/abs/10.1137/19M1248145)27\\. [Gen
+Nakamura, Haibing Wang*, Solvability of interior transmission problem for the
+diffusion equation by constructing its Green function, _Journal of Inverse and
+Ill-posed Problems_ , 27 (2019), No. 5,
+671–701.](https://www.degruyter.com/view/journals/jiip/27/5/article-p671.xml)26\\.
+[Haibing Wang*, Yi Li, Numerical solution of an inverse boundary value problem
+for the heat equation with unknown inclusions, _Journal of Computational
+Physics_ , 369 (2018),
+1–15.](https://www.sciencedirect.com/science/article/pii/S0021999118303000)25.
+[Gen Nakamura, Haibing Wang*, Numerical reconstruction of unknown Robin
+inclusions inside a heat conductor by a non-iterative method, _Inverse
+Problems_ , 33 (2017), No. 5,
+055002.](https://iopscience.iop.org/article/10.1088/1361-6420/aa5fc0)24\\.
+[Haibing Wang, Jijun Liu, An inverse scattering problem with generalized
+oblique derivative boundary condition, _Applied Numerical Mathematics_ , 108
+(2016),
+226–241.](https://www.sciencedirect.com/science/article/abs/pii/S0168927416300915)23.
+[Haibing Wang, Jijun Liu, The two-dimensional direct and inverse scattering
+problems with generalized oblique derivative boundary condition, _SIAM J.
+Appl. Math._ , 75 (2015), No. 2,
+313–334.](https://epubs.siam.org/doi/abs/10.1137/14097598X)22. [Gen Nakamura,
+Haibing Wang*, Reconstruction of an impedance cylinder at oblique incidence
+from the far-field data, _SIAM J. Appl. Math._ , 75 (2015), No. 1,
+252–274.](https://epubs.siam.org/doi/abs/10.1137/140985457)21. [Gen Nakamura,
+Haibing Wang*, Reconstruction of an unknown cavity with Robin boundary
+condition inside a heat conductor, _Inverse Problems_ , 31 (2015), No. 12,
+125001.](https://iopscience.iop.org/article/10.1088/0266-5611/31/12/125001)20.
+[Zenwen Wang, Haibing Wang, Shufang Qiu, A new method for numerical
+differentiation based on direct and inverse problems of partial differential
+equations, _Appl. Math. Letters_ , 43 (2015),
+61–67.](https://www.sciencedirect.com/science/article/pii/S0893965914003851)19.
+[Junichi Nakagawa, Gen Nakamura, Satoshi Sasayama, Haibing Wang, Local maxima
+of solutions to some nonsymmetric reaction-diffusion systems, _Math. Meth.
+Appl. Sci._ , 37 (2014), No. 5,
+752–767.](https://onlinelibrary.wiley.com/doi/10.1002/mma.2838)18. [Haibing
+Wang*, Bin Wu, On the Well-Posedness of Determination of Two Coefficients in a
+Fractional Integrodifferential Equation, _Chinese Ann. Math._ , 35B (2014),
+No. 3,
+447–468.](https://link.springer.com/article/10.1007/s11401-014-0832-1)17. [Gen
+Nakamura, Haibing Wang, Linear sampling method for the heat equation with
+inclusions, _Inverse Problems_ , 29 (2013), No. 10, 104015. (_This paper is
+selected as one of the highlights from IP in
+2013_)](https://doi.org/10.1088/0266-5611/29/10/104015)16. [Gen Nakamura,
+Haibing Wang, The direct electromagnetic scattering problem from an
+imperfectly conducting cylinder at oblique incidence, _J. Math. Anal. Appl._ ,
+397 (2013),
+142–155.](https://www.sciencedirect.com/science/article/pii/S0022247X12006129)15\\.
+[Haibing Wang, Jijun Liu, On decomposition method for acoustic wave scattering
+by multiple obstacles, _Acta Mathematica Scientia (Ser. B)_ , 33 (2013), No.
+1,
+1–22.](https://www.sciencedirect.com/science/article/abs/pii/S025296021260191X)14.
+[Haibing Wang, Jijun Liu, A decomposition scheme for acoustic obstacle
+scattering in a multilayered medium, _Applicable Analysis_ , 92 (2013), No. 4,
+831–854.](https://www.tandfonline.com/doi/full/10.1080/00036811.2011.640630)13.
+[Gen Nakamura, Haibing Wang, Inverse scattering for obliquely incident
+polarized electromagnetic waves, _Inverse Problems_ , 28 (2012), No. 10,
+105004.](https://doi.org/10.1088/0266-5611/28/10/105004)12\\. [Horst Heck, Gen
+Nakamura, Haibing Wang, Linear sampling method for identifying cavities in a
+heat conductor, _Inverse Problems_ , 28 (2012), No. 7,
+075014.](https://iopscience.iop.org/article/10.1088/0266-5611/28/7/075014)11.
+[Gen Nakamura, Brian D. Sleeman, Haibing Wang, On uniqueness of an inverse
+problem in electromagnetic obstacle scattering for an impedance cylinder,
+_Inverse Problems_ , 28 (2012), No. 5, 055012. (_This paper is selected as a
+featured article by IP_)](https://doi.org/10.1088/0266-5611/28/5/055012)10.
+[Haibing Wang, Jijun Liu, On the reconstruction of surface impedance from the
+far-field data in inverse scattering problems, _Applicable Analysis_ , 91
+(2012), No. 4,
+787–806.](https://www.tandfonline.com/doi/full/10.1080/00036811.2011.649729)9.
+[Haibing Wang, Gen Nakamura, The integral equation method for electromagnetic
+scattering problem at oblique incidence, _Applied Numerical Mathematics_ , 62
+(2012), No. 7,
+860–873.](https://www.sciencedirect.com/science/article/abs/pii/S0168927412000499)8.
+[Haibing Wang, Jijun Liu, Recovering the Dirichlet-to-Neumann map in inverse
+scattering problems using integral equation methods, _Advances in
+Computational Mathematics_ , 36 (2012), No. 2, 279–297.
+](https://link.springer.com/article/10.1007/s10444-011-9191-6)7. [Jishan Fan,
+Gen Nakamura, Haibing Wang*, Blow-up criteria of smooth solutions to the 3D
+Boussinesq system with zero viscosity in a bounded domain, _Nonlinear
+Analysis: TMA_ , 75 (2012), No. 7,
+3436–3442.](https://www.sciencedirect.com/science/article/abs/pii/S0362546X12000132)6.
+Haibing Wang, Jijun Liu, Splitting method for acoustic scattering by a two-
+layered obstacle (in Chinese), _J. Southeast University (Natural Science
+Edition)_ , 41 (2011), No. 3, 652–658.5. [Haibing Wang, Jijun Liu, On the
+reconstruction of Dirichlet-to-Neumann map in inverse scattering problems with
+stability estimates, _Science China Mathematics_ , 53 (2010), No. 8,
+2069–2084.](https://link.springer.com/article/10.1007/s11425-010-3154-0)4\\.
+Jijun Liu, Haibing Wang, Some Reconstruction Methods for Inverse Scattering
+Problems, _Optimization and Regularization for Computational Inverse Problems
+and Applications_ , Edited by Y.F. Wang etc., Springer-Verlag, Berlin and
+Higher Education Press, Beijing, 2010.3. Haibing Wang, Jijun Liu, Numerical
+solution for the Helmholtz equation with mixed boundary condition, _Numerical
+Mathematics: A Journal of Chinese Universities_ , 16 (2007), No. 3, 203–214.2.
+Haibing Wang, Jijun Liu, Numerical realization of probe method for multiple
+obstacles (in Chinese), _Mathematica Numerica Sinica_ , 29 (2007), No.2,
+189–202.1. Haibing Wang, Jijun Liu, Asymptotic Behavior of Eigenvalues of a
+Sturm-Liouville Problem with Robin Boundary (in Chinese), _Mathematica
+Applicata_ , 18 (2005), No. 4, 654–661. * **科研项目：** 1\\.
+基于渐近分析的三维波动方程反问题数值方法，国家自然科学基金（面上项目，No.12471395），2025.01-2028.12，主持；2\\.
+大气数据同化的高效数值算法及数学理论分析，国家自然科学基金（专项项目，No.12241102），2023.01-2026.12，参与；3\\.
+基于渐近分析的扩散方程反边值问题数值方法及其应用，国家自然科学基金（面上项目，No.12071072），2021.01-2024.12，主持；4\\.
+带斜导数边界条件的偏微分方程定解问题的边界反演，国家自然科学基金（面上项目，No.11671082），2017.01-2020.12，主持；5\\.
+介质不连续性的反演方法及其数值实现，国家自然科学基金（青年项目，No.11301075），2014.01-2016.12， 主持；6\\.
+基于微分方程模型的介质成像和图像处理的数值方法，国家自然科学基金（重大研究计划培育项目，No.91330109），2014.01-2016.12，
+参与；7\\.
+基于Helmholtz方程组的波场逆散射及数值解，江苏省自然科学基金（青年项目，BK20130594），2013.07-2016.06，主持。
+**奖励和荣誉：** 1\\. 2026年，指导博士生孙师伟完成的学位论文获东南大学优秀博士学位论文；2\\.
+2024年，入选江苏省高层次人才培养计划（“333工程”）第七期第三层次培养对象；3\\. 2020年，获得江苏省数学会第七届江苏省“数学成就奖”；4\\.
+2018年，获得江苏省工业与应用数学学会第二届“工业与应用数学奖青年奖”；5\\.
+2017年，获得教育部高等学校科学研究优秀成果（自然科学）二等奖，第二完成人；6\\.
+2016年，入选江苏高校“青蓝工程”中青年学术带头人培养对象；7\\. 2015年，获得东南大学第22届青年教师授课竞赛三等奖；8\\.
+2014年，获得江苏省优秀博士学位论文；9\\. 2014年，获得东南大学2013-2014学年首开课培训优秀奖。 ******研究生培养：******
+1\\. 王艳艳，15级硕士，2018年3月毕业；2\\. 姚青云，16级硕士转18级博士，2022年9月毕业； 3\\. 李
+毅，17级硕士，2020年6月毕业；4\\. 许勤凯，18级硕士，2021年6月毕业；5\\. 孙师伟，19级硕士转21级博士，2025年3月毕业；6\\.
+陈树立，20级博士，2024年8月毕业；7\\. 罗佳军，20级硕士，2023年6月毕业；8\\. 王艺儒，21级硕士，2024年6月毕业；9\\.
+侯书通，22级博士，2026年6月毕业；10\\. 胡家豪，22级硕士转24级博士，在读；11\\. 冯浩，22级硕士，在读；12\\.
+依力，23级博士，在读；13\\. 杨凯辰，23级硕士，2026年6月毕业；14\\. 魏金涛，23级硕士，2026年6月毕业；15\\.
+高云鑫，24级硕士转26级博士，在读；16\\. 方骏健，24级硕士，在读；17\\. 乔立，25级博士，在读；18\\.
+李媛熙，25级硕士，在读；19\\. 周充，25级硕士，在读。 * 中国数学会计算数学分会常务理事。 版权所有 © 东南大学 \---
+![](/_visitcount?siteId=256&type;=2&columnId;=16529)
+

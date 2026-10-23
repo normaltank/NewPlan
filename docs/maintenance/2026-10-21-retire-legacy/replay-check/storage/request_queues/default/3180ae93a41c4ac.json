@@ -1,0 +1,16 @@
+{
+  "unique_key": "http://127.0.0.1:12805/retry-once",
+  "url": "http://127.0.0.1:12805/retry-once",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {
+      "state": 4
+    }
+  },
+  "retry_count": 1,
+  "no_retry": false,
+  "loaded_url": "http://127.0.0.1:12805/retry-once",
+  "handled_at": "2026-10-21 10:46:11.672485+00:00"
+}

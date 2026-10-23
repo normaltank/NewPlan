@@ -1,0 +1,54 @@
+[
+  {
+    "id": "nxmu-0",
+    "original": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\fixtures\\legacy-replay\\profile_content_scope\\nxmu-0.html",
+    "sha256": "cbb324efedd01c160544959fdde1221d1b8a36862ee49f9a72bd4140c3dd5979",
+    "selector": ".v_news_content",
+    "start_selector": null,
+    "reference": "Existing regression DOM scope, NOT independently annotated full biography",
+    "original_url": null
+  },
+  {
+    "id": "nxmu-1",
+    "original": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\fixtures\\legacy-replay\\profile_content_scope\\nxmu-1.html",
+    "sha256": "ff3d6f594b96a489b9822fba008c5a8a3493862d31af116dfe2beae9936b2270",
+    "selector": ".v_news_content",
+    "start_selector": null,
+    "reference": "Existing regression DOM scope, NOT independently annotated full biography",
+    "original_url": null
+  },
+  {
+    "id": "cuc-1",
+    "original": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\fixtures\\legacy-replay\\profile_content_scope\\cuc-1.html",
+    "sha256": "0408803ec2820718b99f6c911dc908196fea93fb81b72e1e7140e0d38786b51a",
+    "selector": ".wp_articlecontent",
+    "start_selector": null,
+    "reference": "Existing regression DOM scope, NOT independently annotated full biography",
+    "original_url": null
+  },
+  {
+    "id": "cuc-2",
+    "original": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\fixtures\\legacy-replay\\profile_content_scope\\cuc-2.html",
+    "sha256": "7eab9ec10ae36367d4c4a5d7e9968380113cad74f40e8be1aee213ff04875cc4",
+    "selector": ".wp_articlecontent",
+    "start_selector": null,
+    "reference": "Existing regression DOM scope, NOT independently annotated full biography",
+    "original_url": null
+  },
+  {
+    "id": "stbu-1",
+    "original": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\fixtures\\legacy-replay\\profile_content_scope\\stbu-1.html",
+    "sha256": "7bf5d4af666b7279673e4f651338dde29089c928368e28a65c120cf3af21ad20",
+    "selector": ".content",
+    "start_selector": "hr",
+    "reference": "Existing regression DOM scope, NOT independently annotated full biography",
+    "original_url": null
+  },
+  {
+    "id": "hnucm-roster",
+    "original": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\fixtures\\legacy-replay\\harvest_acceptance\\real_hnucm_directory.html",
+    "sha256": "eb18c971322ec011d3bc6074998f7c4aaf28b41c0fdb4056134d65bedfdeb4f7",
+    "original_url": "https://xxgc.hnucm.edu.cn/szdw.htm",
+    "reference_file": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\fixtures\\legacy-replay\\harvest_acceptance\\real_source.json"
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "id": "p11",
+  "url": "https://automation.seu.edu.cn/zjx/list.htm",
+  "arm": "scrapy_http",
+  "timestamp": "2026-10-18T13:14:26.903591+00:00",
+  "elapsed_seconds": 4.375,
+  "status": 420,
+  "final_url": "https://automation.seu.edu.cn/zjx/list.htm",
+  "error": null,
+  "encoding": "utf-8",
+  "raw_file": "p11.html",
+  "bytes": 3970,
+  "sha256": "da066cbd5da1eeedc4625fb11ed1e30ed58d7cc6025df9f9eef00ce5905d06be",
+  "text": "禁止访问\n请通过校园网/VPN访问\n【URL】\nautomation.seu.edu.cn%2Fzjx%2Flist.htm\n【User-Agent】\nFacultyCompatibilityStudy%2F1.0%20(bounded%20public%20university%20page%20comparison)\n【访客IP】\n39.155.141.158\n【当前时间】\n2026-10-18 21:14:27",
+  "links": [],
+  "embedded_documents": []
+}

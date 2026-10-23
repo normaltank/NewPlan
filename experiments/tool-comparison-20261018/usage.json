@@ -1,0 +1,62 @@
+{
+  "native": {
+    "saved_requests": 27,
+    "request_seconds_total": 6.705,
+    "median_seconds": 0.282
+  },
+  "firecrawl": {
+    "saved_requests": 27,
+    "request_seconds_total": 202.378,
+    "median_seconds": 6.947,
+    "reported_credits_saved_calls": 29,
+    "unpersisted_successful_initial_calls": 4,
+    "unpersisted_ids": [
+      "p02",
+      "p03",
+      "p04",
+      "p05"
+    ],
+    "reason": "Initial result subdirectory absent. Writes failed; four calls repeated after folder creation. Repeat costs included; missing first responses excluded from quality scoring.",
+    "total_attempts": 31,
+    "credit_balance_before": 927,
+    "credit_balance_after": 894,
+    "observed_balance_change": 33
+  },
+  "jina": {
+    "saved_requests": 27,
+    "request_seconds_total": 197.235,
+    "median_seconds": 6.937,
+    "reported_output_tokens": 124979,
+    "authentication": "anonymous, no API key supplied"
+  },
+  "jina_body": {
+    "saved_requests": 6,
+    "request_seconds_total": 36.25,
+    "median_seconds": 5.804,
+    "reported_output_tokens": 21872,
+    "authentication": "anonymous, no API key supplied"
+  },
+  "jina_full": {
+    "saved_requests": 27,
+    "request_seconds_total": 195.03,
+    "median_seconds": 7.218,
+    "reported_output_tokens": 168102,
+    "authentication": "anonymous, no API key supplied"
+  },
+  "jina_html": {
+    "saved_requests": 1,
+    "request_seconds_total": 4.312,
+    "median_seconds": 4.312,
+    "reported_output_tokens": 3613,
+    "authentication": "anonymous, no API key supplied"
+  },
+  "deepseek_model_calls": 0,
+  "docling": {
+    "local_conversions": 5,
+    "remote_model_api_calls": 0,
+    "model_download_seconds": 93.65700000000652,
+    "conversion_seconds_total": 110.21799999999999,
+    "local_model_bytes": 732979564
+  },
+  "billing_note": "Firecrawl credits are not dollars; no account currency bill independently reconciled. Jina token counters are response usage, not DeepSeek tokens."
+}

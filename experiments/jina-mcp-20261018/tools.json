@@ -1,0 +1,129 @@
+{
+  "result": {
+    "tools": [
+      {
+        "name": "read_url",
+        "description": "Fetch a URL (page or PDF) as clean markdown. Pass `question` to get only the passages answering it instead of the whole page - far cheaper than reading the full body into context.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uri"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "minItems": 1,
+                  "maxItems": 5
+                }
+              ],
+              "description": "Page or PDF URL, or up to 5 URLs to read in parallel."
+            },
+            "withAllLinks": {
+              "type": "boolean",
+              "description": "Also return every link on the page."
+            },
+            "withAllImages": {
+              "type": "boolean",
+              "description": "Also return every image on the page."
+            },
+            "question": {
+              "type": "string",
+              "description": "Return only the passages answering this question, instead of the full body. Omit for the whole page."
+            },
+            "chunk_size": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4096,
+              "description": "Passage size in words, default 100. Larger gives more surrounding context, smaller pinpoints the answer. Comparable across scripts. Needs `question`."
+            },
+            "topk": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "description": "Passages to return, default 1. Needs `question`."
+            },
+            "ocr": {
+              "type": "boolean",
+              "description": "Read the rendered page as an image with jina-ocr-v1 instead of its HTML. Use for scanned documents and PDFs whose text is not in the markup, and to keep formulas and table structure. Parses ONE page per call, page 1 unless `page` says otherwise, and costs about 40x the tokens per page, so leave off unless the HTML path has failed you."
+            },
+            "page": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Which page the OCR pass should parse, 1-based. Needs `ocr`; the HTML path returns the whole document at once."
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "search_web",
+        "description": "Search the web. Returns titles, URLs and search-engine snippets.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "maxItems": 5
+                }
+              ]
+            },
+            "num": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10,
+              "default": 10
+            },
+            "tbs": {
+              "type": "string",
+              "description": "Age limit: qdr:h, qdr:d, qdr:w, qdr:m, qdr:y (hour to year)."
+            },
+            "location": {
+              "type": "string"
+            },
+            "gl": {
+              "type": "string",
+              "description": "Country code, e.g. 'de'."
+            },
+            "hl": {
+              "type": "string",
+              "description": "Language code, e.g. 'zh-cn'."
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

@@ -1,0 +1,84 @@
+{
+  "prepared_at": "2026-10-18T12:08:18.414100+00:00",
+  "docling_requested": "2.140.0",
+  "firecrawl": {
+    "transport": "MCP hosted",
+    "version": "server version not exposed",
+    "config": {
+      "formats": [
+        "markdown",
+        "rawHtml",
+        "links"
+      ],
+      "onlyMainContent": false,
+      "maxAge": 0
+    },
+    "tool_schema_sha256": "6c75799bc941528dd34b9a9f0336976d221d1b39467bc3ff688081f8afdaf242"
+  },
+  "jina": {
+    "transport": "https://r.jina.ai",
+    "version": "server version not exposed",
+    "config": {
+      "Accept": "application/json",
+      "x-no-cache": "true",
+      "x-retain-links": "all",
+      "x-with-links-summary": "all"
+    },
+    "tested_variants": {
+      "jina": "automatic readable content, 27 URLs",
+      "jina_body": "x-target-selector: body, 6 targeted follow-up URLs",
+      "jina_full": "x-respond-with: markdown, 27 URLs",
+      "jina_html": "x-respond-with: html, one embedded PDF landing page"
+    }
+  },
+  "isolation": "Local packages/models/output isolated; remote versions cannot be pinned. No production imports or DB writes.",
+  "docling_actual": {
+    "docling": "2.140.0",
+    "docling-core": "2.102.0",
+    "docling-ibm-models": "4.0.3",
+    "rapidocr": "3.10.0",
+    "onnxruntime": "1.31.0",
+    "torch": "2.14.1",
+    "transformers": "5.20.1"
+  },
+  "model_manifest": {
+    "models\\docling-project--docling-layout-heron\\.gitattributes": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361",
+    "models\\docling-project--docling-layout-heron\\config.json": "fdea30805ce2f5666b147fca941dcdd27ad468e27d6ed21902207d3da056a97d",
+    "models\\docling-project--docling-layout-heron\\docling_heron_400.png": "e7f78610372b32a7938e480d2c7fa1c3037ee170bd82282a5bd026232f6e6f9e",
+    "models\\docling-project--docling-layout-heron\\model.safetensors": "00333a43451945aaf89db8ca9c0a17e75d1537c17db60fdb91aa95f4c7929e0c",
+    "models\\docling-project--docling-layout-heron\\preprocessor_config.json": "cd38cd59999e7a95d68e487fbe5132df3d4e5c32a0836add57e6126ba0c4eaf1",
+    "models\\docling-project--docling-layout-heron\\README.md": "175700839bc7808eac6af1d0c23e4f483606ab2276fe01122f4093e61a1a65b6",
+    "models\\docling-project--docling-layout-heron-onnx\\.gitattributes": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361",
+    "models\\docling-project--docling-layout-heron-onnx\\config.json": "c6e67b6cdf64fa245779d0409bb994aa96e8c1790e15ec07a65843628e232180",
+    "models\\docling-project--docling-layout-heron-onnx\\model.onnx": "59c81a3a2923042d85034ffc487f8f47e4854117e879aef89b2b9f728fb4922a",
+    "models\\docling-project--docling-layout-heron-onnx\\preprocessor_config.json": "54d086cf0d7d371f7fac36e5d3a0dae31e211298affc816106cc376506799d58",
+    "models\\docling-project--docling-layout-heron-onnx\\README.md": "48de0f07390f6823a225ce8aab348e7b57408534b56b71f1433ed6280456597f",
+    "models\\docling-project--docling-models\\.gitattributes": "360aba3ff7ce75396f13f0a77925fe9e79997e8d4bac064595ebb00c82700386",
+    "models\\docling-project--docling-models\\.gitignore": "b44b404189eaff3631c470946e7350c2e88cead304d332a8ad50325e6f56e95d",
+    "models\\docling-project--docling-models\\config.json": "9c34024dc28ff47b75818f415e769809798c29bf9bde6f2ccc63a4acb62396d9",
+    "models\\docling-project--docling-models\\README.md": "d17f233378eff1240b623b36da76ee8b40afcca05d505949713bf03f7e00822a",
+    "models\\RapidOcr\\ch_ppocr_mobile_v2.0_cls_mobile.onnx": "e47acedf663230f8863ff1ab0e64dd2d82b838fceb5957146dab185a89d6215c",
+    "models\\RapidOcr\\PP-OCRv6_det_small.onnx": "090f04abcd9d9a7498bc4ebf677e4cb9bdce1fe4197ddb7e529f1ef44e1ff94f",
+    "models\\RapidOcr\\PP-OCRv6_rec_small.onnx": "6f327246b50388f3c176ae304bd95767ea6dc0c9ae92153ef8cbe210b3c14884",
+    "models\\docling-project--docling-models\\model_artifacts\\tableformer\\accurate\\tableformer_accurate.safetensors": "2a7d6c924b3cd12fb99a09280ca9c33a89c5d60b93253617d2e088c1a40374d9",
+    "models\\docling-project--docling-models\\model_artifacts\\tableformer\\accurate\\tm_config.json": "984e122ceb8ccf84d84c9d2882f6f2302a44b4f1e577babd6289892c36f3cffd",
+    "models\\docling-project--docling-models\\model_artifacts\\tableformer\\fast\\tableformer_fast.safetensors": "3119563aab5a7c96fda4d621119b63fd8806272b86c30936d15507616422f718",
+    "models\\docling-project--docling-models\\model_artifacts\\tableformer\\fast\\tm_config.json": "dca6762508dddfae6d57d6cb4ef822c6000119dff0f3b6489db7413118c2622a"
+  },
+  "experiment_code_sha256": {
+    "docling_runner.py": "a363fabdca4a04fe9813a70b6f7ee74014b0135ab2346e33eb67923fbcfd532b",
+    "evaluate.py": "763bd60b9f59ebec982bd4520638e729b905e902b9d829a60e4300b55731e015",
+    "evaluate_documents.py": "0ee934884e754db7ccf44a1bab5125c366d1b91c0e2a011c9db4cec870124069",
+    "finalize.py": "1df2968372c9fac06dff481caf4755a82b3da57e99115ea113d348aa18f77651",
+    "prepare.py": "6b0201486bac9ab761fc3a7a78ddbdd222a49347655ab38502be4030ae713891",
+    "select_documents.py": "87d8760b723e251bac4651381f173047b64637ac858ef1317495ced4f1e703e6",
+    "test_adapters.py": "d8bf8a1efdeb49443de98ce699fe28b171c6b34338eb570078e153dc7e2d8d48",
+    "verify_documents.py": "98e0f2d76628add91635c98fb5ad26f90f7a9835b986d5990d9d3cc3a1bdedcf",
+    "web_runner.py": "8dbaf8d9bb5a5333fc5fd515109a4717cd7967931a9bf8eea4f2e23a7a4e3275"
+  },
+  "lock_sha256": {
+    "requirements-docling.lock": "54988701e278e1a7190a97e7b1b9a3b30709219ec4eb6476e57e4b8a9305ff85",
+    "requirements-web.lock": "faa6f6e9c053869d31a8ae7a645d69e13b5bc1821531e06dfd5c5788ba0b8ce1"
+  },
+  "completed_at": "2026-10-18T12:32:05.518704+00:00"
+}

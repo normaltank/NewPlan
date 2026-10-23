@@ -1,0 +1,10 @@
+{
+  "checked_files": 306,
+  "changed_existing_files": [],
+  "new_baseline_files": [],
+  "human_decisions_before": 56,
+  "human_decisions_after": 56,
+  "human_decisions_unchanged": true,
+  "original_git_head_unchanged": true,
+  "scope": "Checks OpenSource source/static/dependency metadata and MyPlan/server Python/runtime Markdown. Database accessed read-only; only legacy workbench decisions are hashed."
+}

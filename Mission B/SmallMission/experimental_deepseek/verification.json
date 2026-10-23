@@ -1,0 +1,24 @@
+{
+  "report_links": [
+    {
+      "file": "overview.html",
+      "local_links_valid": true
+    },
+    {
+      "file": "runs\\snapshot-v1\\report.html",
+      "local_links_valid": true
+    },
+    {
+      "file": "runs\\live-v1\\report.html",
+      "local_links_valid": true
+    }
+  ],
+  "model_calls": 116,
+  "model_calls_normal": true,
+  "returned_model": "deepseek-flash",
+  "reference_checked_colleges": 6,
+  "live_checked_colleges": 3,
+  "official_input_files_unchanged": true,
+  "production_package_replaced": false,
+  "unfinished_count_only_source_used": false
+}

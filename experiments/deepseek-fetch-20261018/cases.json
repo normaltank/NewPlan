@@ -1,0 +1,51 @@
+[
+  {
+    "case": "fynu",
+    "university": "阜阳师范大学",
+    "college": "化学与材料工程学院",
+    "url": "https://www.fynu.edu.cn/hxycl/",
+    "entries": [],
+    "reason": "常规多分支名单、PDF和受限个人页",
+    "historical_comparison": {
+      "id": "58c7743176a84fd6",
+      "target": "{\"university\": \"阜阳师范大学\", \"college\": \"化学与材料工程学院\", \"url\": \"https://www.fynu.edu.cn/hxycl/\", \"max_pages\": 500, \"max_calls\": 60, \"max_images\": 400}",
+      "state": "finished",
+      "run_dir": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\runs\\20261014-234417-835765-671bc22b-api-pilot",
+      "created": "2026-10-14T14:33:05.170068+00:00"
+    }
+  },
+  {
+    "case": "ntu",
+    "university": "南通大学",
+    "college": "护理与康复学院",
+    "url": "https://ntdxhk.ntu.edu.cn/",
+    "entries": [
+      "https://ntdxhk.ntu.edu.cn/xkjs/list.htm"
+    ],
+    "reason": "特殊师资页面、多人材料",
+    "historical_comparison": {
+      "id": "4285cf8cd94242ae",
+      "target": "{\"university\": \"南通大学\", \"college\": \"护理与康复学院\", \"url\": \"https://ntdxhk.ntu.edu.cn/\", \"entries\": [\"https://ntdxhk.ntu.edu.cn/xkjs/list.htm\"], \"max_pages\": 500, \"max_calls\": 60, \"max_images\": 400}",
+      "state": "finished",
+      "run_dir": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\runs\\20261014-223947-979472-d55dd4ac-api-pilot",
+      "created": "2026-10-14T14:33:05.170068+00:00"
+    }
+  },
+  {
+    "case": "seu",
+    "university": "东南大学",
+    "college": "吴健雄学院",
+    "url": "https://wjx.seu.edu.cn/",
+    "entries": [
+      "https://wjx.seu.edu.cn/xyds/list.htm"
+    ],
+    "reason": "跨学院教师主页、分散的联系方式",
+    "historical_comparison": {
+      "id": "1ec501fc1d79412c",
+      "target": "{\"university\": \"东南大学\", \"college\": \"吴健雄学院\", \"url\": \"https://wjx.seu.edu.cn/\", \"entries\": [\"https://wjx.seu.edu.cn/xyds/list.htm\"], \"max_pages\": 1200, \"max_calls\": 60, \"max_images\": 1200, \"resume_from\": \"D:\\\\Agent Workspace\\\\Intern\\\\MyPlan\\\\OpenSource\\\\runs\\\\20261015-seu-structured-profile-reparse\", \"maintenance_reparse\": \"named_profile_layouts_v1\"}",
+      "state": "finished",
+      "run_dir": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\runs\\20261015-seu-structured-profile-reparse-v2",
+      "created": "2026-10-15T07:07:34.526936+00:00"
+    }
+  }
+]

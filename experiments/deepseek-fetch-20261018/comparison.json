@@ -1,0 +1,306 @@
+{
+  "created": "2026-10-18T11:54:54.094534+00:00",
+  "scope": {
+    "baseline": "OpenSource/api_pilot.py and workbench snapshot; not the parent MyPlan/server workflow",
+    "paired_input": "One live discovery/capture with identical rosters and source artifacts for both arms",
+    "candidate": "Fetch-priority eligible personal-page body, original PDF/OCR, same identity/quality/export policies",
+    "not_tested": [
+      "Independent Fetch-only discovery and pagination",
+      "DS Search",
+      "DS vision",
+      "parent MyPlan/server integration"
+    ],
+    "completeness": "unverified",
+    "human_decisions_reused": false
+  },
+  "cases": [
+    {
+      "case": "fynu",
+      "university": "阜阳师范大学",
+      "college": "化学与材料工程学院",
+      "baseline": {
+        "observed_names": 136,
+        "person_records": 255,
+        "review_statuses": {
+          "duplicate": 5,
+          "pending": 156,
+          "auto_accepted": 94
+        },
+        "delivered": 94,
+        "with_email": 59,
+        "with_title": 49,
+        "with_biography": 90,
+        "unresolved_issues": 31
+      },
+      "fetch": {
+        "observed_names": 136,
+        "person_records": 255,
+        "review_statuses": {
+          "pending": 161,
+          "auto_accepted": 92,
+          "duplicate": 2
+        },
+        "delivered": 92,
+        "with_email": 54,
+        "with_title": 47,
+        "with_biography": 88,
+        "unresolved_issues": 31
+      },
+      "changed_records": 106,
+      "field_or_status_changes": 13,
+      "fetch_statuses": {
+        "ok": 123,
+        "not_requested_access_or_scope_restriction": 28,
+        "provider_no_usable_content": 1
+      },
+      "fetch_applied": 106,
+      "raw_sources_modified": [],
+      "whole_college_completeness": "unverified",
+      "capture": {
+        "pages": 152,
+        "roster_pages": 16,
+        "profile_pages": 133,
+        "profile_bodies": 106,
+        "pending_pages": 0,
+        "not_saved": [],
+        "issues_by_kind": {
+          "non_person_directory_entry": 2,
+          "ocr_review_required": 14,
+          "plan_repair_attempt": 1,
+          "permission_denied": 28,
+          "image_ocr_failed": 11
+        },
+        "continuation_required": false
+      },
+      "status_transitions": [
+        {
+          "before": "auto_accepted",
+          "after": "pending",
+          "records": 3
+        },
+        {
+          "before": "duplicate",
+          "after": "pending",
+          "records": 3
+        },
+        {
+          "before": "pending",
+          "after": "auto_accepted",
+          "records": 1
+        }
+      ]
+    },
+    {
+      "case": "ntu",
+      "university": "南通大学",
+      "college": "护理与康复学院",
+      "baseline": {
+        "observed_names": 61,
+        "person_records": 61,
+        "review_statuses": {
+          "auto_accepted": 60,
+          "pending": 1
+        },
+        "delivered": 60,
+        "with_email": 60,
+        "with_title": 60,
+        "with_biography": 60,
+        "unresolved_issues": 0
+      },
+      "fetch": {
+        "observed_names": 61,
+        "person_records": 61,
+        "review_statuses": {
+          "auto_accepted": 60,
+          "pending": 1
+        },
+        "delivered": 60,
+        "with_email": 60,
+        "with_title": 60,
+        "with_biography": 60,
+        "unresolved_issues": 0
+      },
+      "changed_records": 0,
+      "field_or_status_changes": 0,
+      "fetch_statuses": {
+        "ok": 2,
+        "provider_no_usable_content": 1
+      },
+      "fetch_applied": 0,
+      "raw_sources_modified": [],
+      "whole_college_completeness": "unverified",
+      "capture": {
+        "pages": 3,
+        "roster_pages": 1,
+        "profile_pages": 0,
+        "profile_bodies": 0,
+        "pending_pages": 0,
+        "not_saved": [],
+        "issues_by_kind": {
+          "source_not_faculty_roster": 1
+        },
+        "continuation_required": false
+      },
+      "status_transitions": []
+    },
+    {
+      "case": "seu",
+      "university": "东南大学",
+      "college": "吴健雄学院",
+      "baseline": {
+        "observed_names": 834,
+        "person_records": 841,
+        "review_statuses": {
+          "auto_accepted": 624,
+          "pending": 217
+        },
+        "delivered": 624,
+        "with_email": 299,
+        "with_title": 321,
+        "with_biography": 340,
+        "unresolved_issues": 351
+      },
+      "fetch": {
+        "observed_names": 834,
+        "person_records": 841,
+        "review_statuses": {
+          "auto_accepted": 599,
+          "pending": 242
+        },
+        "delivered": 599,
+        "with_email": 261,
+        "with_title": 288,
+        "with_biography": 316,
+        "unresolved_issues": 261
+      },
+      "changed_records": 537,
+      "field_or_status_changes": 356,
+      "fetch_statuses": {
+        "ok": 832,
+        "provider_no_usable_content": 7
+      },
+      "fetch_applied": 537,
+      "raw_sources_modified": [],
+      "whole_college_completeness": "unverified",
+      "capture": {
+        "pages": 839,
+        "roster_pages": 2,
+        "profile_pages": 815,
+        "profile_bodies": 553,
+        "pending_pages": 0,
+        "not_saved": [
+          "https://ee.seu.edu.cn/2015/1228/c25410a139867/page.htm",
+          "https://ee.seu.edu.cn/2016/0104/c25391a140712/page.htm",
+          "https://ee.seu.edu.cn/2017/0529/c25406a283844/page.htm",
+          "https://ee.seu.edu.cn/2019/0910/c25401a285534/page.htm",
+          "https://ee.seu.edu.cn/2019/0916/c25335a286144/page.htm",
+          "https://ee.seu.edu.cn/2020/0102/c27267a309922/page.htm",
+          "https://ee.seu.edu.cn/2020/0314/c25408a562327/page.htm",
+          "https://ee.seu.edu.cn/2020/0805/c25392a341454/page.htm",
+          "https://ee.seu.edu.cn/2021/0331/c25248a366894/page.htm",
+          "https://ee.seu.edu.cn/2021/0331/c25248a366926/page.htm",
+          "https://ee.seu.edu.cn/2021/0406/c33342a367459/page.htm",
+          "https://ee.seu.edu.cn/2021/1104/c25407a492389/page.htm",
+          "https://ee.seu.edu.cn/2022/0328/c38733a402931/page.htm",
+          "https://ee.seu.edu.cn/2023/0504/c25362a443967/page.htm",
+          "https://ee.seu.edu.cn/2023/1204/c25360a473856/page.htm",
+          "https://ee.seu.edu.cn/2024/1016/c25334a506747/page.htm",
+          "https://ee.seu.edu.cn/2025/0403/c25388a523907/page.htm",
+          "https://ee.seu.edu.cn/2025/1118/c25337a546054/page.htm",
+          "https://radio.seu.edu.cn/2018/0423/c19938a213566/page.htm",
+          "https://radio.seu.edu.cn/2020/1120/c19950a353816/page.htm",
+          "https://radio.seu.edu.cn/2022/0411/c19938a404281/page.htm",
+          "https://radio.seu.edu.cn/2022/0411/c19938a409604/page.htm",
+          "https://radio.seu.edu.cn/2022/0411/c19950a404284/page.htm"
+        ],
+        "issues_by_kind": {
+          "out_of_host_scope": 4,
+          "unclassified_roster_row": 3,
+          "source_not_faculty_roster": 21,
+          "roster_label_missing": 1,
+          "profile_without_text": 260,
+          "image_ocr_failed": 659,
+          "attachment_out_of_scope": 95,
+          "profile_title_conflict": 1,
+          "request_failed": 23,
+          "image_out_of_scope": 32,
+          "profile_pdf_failed": 499,
+          "profile_structure_mismatch": 2
+        },
+        "continuation_required": false
+      },
+      "status_transitions": [
+        {
+          "before": "pending",
+          "after": "auto_accepted",
+          "records": 136
+        },
+        {
+          "before": "auto_accepted",
+          "after": "pending",
+          "records": 161
+        }
+      ]
+    }
+  ],
+  "costs": {
+    "model_calls": 63,
+    "usage": {
+      "prompt_tokens": 460564,
+      "completion_tokens": 11519,
+      "total_tokens": 472083,
+      "prompt_cache_hit_tokens": 11136,
+      "prompt_cache_miss_tokens": 449428
+    },
+    "capture_segments": [
+      {
+        "run": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-766385-2a619c58-api-pilot",
+        "calls": 9,
+        "summary_exists": true
+      },
+      {
+        "run": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-771904-92616d04-api-pilot",
+        "calls": 2,
+        "summary_exists": true
+      },
+      {
+        "run": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191112-744062-19040fe2-api-pilot",
+        "calls": 25,
+        "summary_exists": false
+      },
+      {
+        "run": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot",
+        "calls": 27,
+        "summary_exists": true
+      }
+    ],
+    "fetch_attempts_including_probes": 969,
+    "fetch_successful_nonempty_responses": 958,
+    "fetch_statuses": {
+      "ok": 958,
+      "provider_no_usable_content": 10,
+      "provider_error": 1
+    },
+    "fetch_estimated_usd": 0.7185,
+    "model_estimated_usd_off_peak": 0.074359,
+    "model_estimated_usd_peak_upper_bound": 0.148718,
+    "total_estimated_usd_off_peak": 0.792859,
+    "total_estimated_usd_peak_upper_bound": 0.867218,
+    "account_bill_verified": false,
+    "token_pricing_model": "deepseek-flash / DeepSeek-V4.1-Flash-1017",
+    "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "pricing_note": "2026-10-18 is Sunday; official weekend rates are off-peak. Standalone Fetch successful calls are estimated at $0.00075 each. Account balance was not used as proof of deductions."
+  },
+  "isolation": {
+    "source_files_changed": [],
+    "snapshot_files_changed": [],
+    "human_decisions_count_before": 56,
+    "human_decisions_count_after": 56,
+    "human_decisions_hash_unchanged": true,
+    "raw_source_differences_between_arms": {
+      "fynu": [],
+      "ntu": [],
+      "seu": []
+    }
+  }
+}

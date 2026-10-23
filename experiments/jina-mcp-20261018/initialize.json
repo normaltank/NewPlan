@@ -1,0 +1,17 @@
+{
+  "result": {
+    "protocolVersion": "2025-03-26",
+    "capabilities": {
+      "tools": {
+        "listChanged": true
+      }
+    },
+    "serverInfo": {
+      "name": "Jina AI Official MCP Server",
+      "version": "1.9.0"
+    },
+    "instructions": "Web access: search the live web, read URLs, search academic papers, and run Jina embedding/reranker utilities.\n\nUse for anything online - current events, a URL the user pasted, a claim needing a source. Not for local files, code execution, or databases.\n\nPicking a tool:\n- search_web returns titles, URLs and engine snippets. For page-level passages, pass `question` to read_url on the results you chose. A snippet is not a source for exact values: verify version numbers, commands and error strings against the page.\n- read_url fetches one page as markdown. Pass its `question` to get only the answering passages instead of the whole body; this is much cheaper than reading a full page into context.\n- `search_web`, `search_arxiv`, `search_ssrn` and `read_url` accept an array on `query`/`url`; pass an array to run them concurrently instead of repeating single calls.\n- search_arxiv for preprints, search_ssrn for social science and finance, search_jina_blog for Jina's own models and releases.\n- primer supplies the current time and user location; call it before answering anything time- or location-dependent."
+  },
+  "jsonrpc": "2.0",
+  "id": 1
+}

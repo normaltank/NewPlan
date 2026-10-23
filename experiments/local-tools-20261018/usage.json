@@ -1,0 +1,42 @@
+{
+  "page_attempts": {
+    "scrapy_http": 26,
+    "scrapling_http": 26,
+    "scrapling_browser": 26
+  },
+  "model_arms": {
+    "scrapegraph": {
+      "calls": 8,
+      "usage": {
+        "prompt_tokens": 46106,
+        "completion_tokens": 7664,
+        "total_tokens": 53770,
+        "prompt_cache_hit_tokens": 5376,
+        "prompt_cache_miss_tokens": 40730
+      }
+    },
+    "direct_ds": {
+      "calls": 8,
+      "usage": {
+        "prompt_tokens": 147446,
+        "completion_tokens": 7918,
+        "total_tokens": 155364,
+        "prompt_cache_hit_tokens": 256,
+        "prompt_cache_miss_tokens": 147190
+      }
+    }
+  },
+  "model_calls": 16,
+  "model_tokens": 209134,
+  "model": "deepseek-flash",
+  "model_endpoint": "https://api.deepseek.com",
+  "new_paid_subscriptions": 0,
+  "jina_recheck_calls": 2,
+  "jina_authentication": "anonymous",
+  "jina_tokens": 31450,
+  "notes": [
+    "Model usage from actual provider responses, not an account currency invoice.",
+    "Scrapy elapsed_seconds includes queue waiting; do not compare its per-page timing with synchronous arms.",
+    "First ScrapeGraphAI startup interrupted before model call while downloading tokenizer; later restart completed. Cold download time is not steady-state model latency."
+  ]
+}

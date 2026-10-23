@@ -1,0 +1,36 @@
+{
+  "source": "https://jina.ai/api-dashboard/pricing/",
+  "date": "2026-10-18",
+  "standard_package_usd": 50,
+  "standard_package_tokens": 1000000000,
+  "usd_per_million_tokens": 0.05,
+  "sample_requests": 27,
+  "sample_tokens": 168102,
+  "mean_tokens_per_request": 6226.0,
+  "estimates": [
+    {
+      "requests": 10000,
+      "tokens": 62260000.0,
+      "usage_equivalent_usd": 3.113
+    },
+    {
+      "requests": 100000,
+      "tokens": 622600000.0,
+      "usage_equivalent_usd": 31.13
+    },
+    {
+      "requests": 1000000,
+      "tokens": 6226000000.0,
+      "usage_equivalent_usd": 311.3
+    }
+  ],
+  "anonymous_rpm": 20,
+  "anonymous_minimum_hours_for_100000": 83.33333333333333,
+  "limitations": [
+    "Diagnostic sample mix, not a random estimate of all pages.",
+    "Usage-equivalent cost differs from prepaid package purchase amount.",
+    "Excludes retries, extra HTML calls, optional OCR, downstream model usage and tax.",
+    "Number of page requests is not number of teachers; updates add more requests.",
+    "Free key trial is labelled non-commercial on the public package page; not a basis for long-term production budgeting."
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "sha": "b938c00f0870a75b39a78d5dff1f5bf645151a6e",
+  "url": "https://api.github.com/repos/jina-ai/MCP/git/trees/b938c00f0870a75b39a78d5dff1f5bf645151a6e",
+  "tree": [
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "210d1af0d923164be388d1244f38ae5901fa646d",
+      "size": 2509,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/210d1af0d923164be388d1244f38ae5901fa646d"
+    },
+    {
+      "path": ".readme",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "69cbde83f344c8e05120a1f619686efe8c128012",
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/trees/69cbde83f344c8e05120a1f619686efe8c128012"
+    },
+    {
+      "path": ".readme/image.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ab8eb8513ece7be220a2b84e30e54af0a1130a1d",
+      "size": 163051,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/ab8eb8513ece7be220a2b84e30e54af0a1130a1d"
+    },
+    {
+      "path": ".readme/image2.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c99c54f3229024c1ba8fa8b0a358f4a128f425eb",
+      "size": 83987,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/c99c54f3229024c1ba8fa8b0a358f4a128f425eb"
+    },
+    {
+      "path": ".readme/image3.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c447235ccaf58fdf5226327a0c800cb89c7eed62",
+      "size": 10331,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/c447235ccaf58fdf5226327a0c800cb89c7eed62"
+    },
+    {
+      "path": ".vscode",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "24a504eb93c9a18b5b81817c75454e676f4e7bb5",
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/trees/24a504eb93c9a18b5b81817c75454e676f4e7bb5"
+    },
+    {
+      "path": ".vscode/settings.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0126e59b82d7cfc3d82de202aa248dcea9b6820b",
+      "size": 58,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/0126e59b82d7cfc3d82de202aa248dcea9b6820b"
+    },
+    {
+      "path": "LICENSE",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+      "size": 11357,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c2b0795126c422939c2da72b5183a5773fa6bf53",
+      "size": 18155,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/c2b0795126c422939c2da72b5183a5773fa6bf53"
+    },
+    {
+      "path": "biome.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "64e72ec185c91d2139329efe05c0f313ed118d89",
+      "size": 1015,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/64e72ec185c91d2139329efe05c0f313ed118d89"
+    },
+    {
+      "path": "package-lock.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aad1010fbdb7ece916ff45ba4c564a0a941950d6",
+      "size": 108192,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/aad1010fbdb7ece916ff45ba4c564a0a941950d6"
+    },
+    {
+      "path": "package.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dadcbafaf88ea047f19f40dbbd413fe7831b5eb5",
+      "size": 560,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/dadcbafaf88ea047f19f40dbbd413fe7831b5eb5"
+    },
+    {
+      "path": "src",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "94127252450cf43bfe53a902739ca3a73d4a00bc",
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/trees/94127252450cf43bfe53a902739ca3a73d4a00bc"
+    },
+    {
+      "path": "src/index.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "31bbae0dec67ba8823c77fdb33556a93bbd6f790",
+      "size": 12607,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/31bbae0dec67ba8823c77fdb33556a93bbd6f790"
+    },
+    {
+      "path": "src/tools",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "731b237c2412c975d9981a3a235f0bcbfecf991f",
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/trees/731b237c2412c975d9981a3a235f0bcbfecf991f"
+    },
+    {
+      "path": "src/tools/jina-tools.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2f8c653c5ba70525577fc724a88f7846990b1189",
+      "size": 31462,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/2f8c653c5ba70525577fc724a88f7846990b1189"
+    },
+    {
+      "path": "src/utils",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "bb5adc70ff02ef74be295e215c9b8d500eb7c865",
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/trees/bb5adc70ff02ef74be295e215c9b8d500eb7c865"
+    },
+    {
+      "path": "src/utils/api-error-handler.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "110286c7b296165a9bd41edaf8ce49378b8ad5ff",
+      "size": 3137,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/110286c7b296165a9bd41edaf8ce49378b8ad5ff"
+    },
+    {
+      "path": "src/utils/guess-datetime.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "550a93a210fe861b7583d45369340bb664c6cc8a",
+      "size": 46538,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/550a93a210fe861b7583d45369340bb664c6cc8a"
+    },
+    {
+      "path": "src/utils/image-downloader.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "22754d570a62fb371fe1c9acf03a68e8cdac4635",
+      "size": 5141,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/22754d570a62fb371fe1c9acf03a68e8cdac4635"
+    },
+    {
+      "path": "src/utils/read.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ea8a6934d28234cabc620a0bb75b708c54c5925a",
+      "size": 13892,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/ea8a6934d28234cabc620a0bb75b708c54c5925a"
+    },
+    {
+      "path": "src/utils/search.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bffa76b3fdca8562775e489f674dced55f7dd307",
+      "size": 19984,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/bffa76b3fdca8562775e489f674dced55f7dd307"
+    },
+    {
+      "path": "src/utils/submodular-optimization.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2a76687bbbcfa3baf110331cdb581d9136248bdc",
+      "size": 9702,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/2a76687bbbcfa3baf110331cdb581d9136248bdc"
+    },
+    {
+      "path": "src/utils/timeout.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3550bffc1445eea0f71547de6ec4b635993b5532",
+      "size": 1090,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/3550bffc1445eea0f71547de6ec4b635993b5532"
+    },
+    {
+      "path": "src/utils/token-guardrail.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "276fa08e3019cee26a688194bbac776b045dcabd",
+      "size": 11968,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/276fa08e3019cee26a688194bbac776b045dcabd"
+    },
+    {
+      "path": "tsconfig.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "95b77c0f76bca74fe4acbdf924030f780d77cf7d",
+      "size": 507,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/95b77c0f76bca74fe4acbdf924030f780d77cf7d"
+    },
+    {
+      "path": "worker-configuration.d.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "90d6979d4dd94f940e53b0167295bf1651bb6f74",
+      "size": 292516,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/90d6979d4dd94f940e53b0167295bf1651bb6f74"
+    },
+    {
+      "path": "wrangler.jsonc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "60f9ffe02d24d71ae7cf936db0b83c87b06781a9",
+      "size": 1720,
+      "url": "https://api.github.com/repos/jina-ai/MCP/git/blobs/60f9ffe02d24d71ae7cf936db0b83c87b06781a9"
+    }
+  ],
+  "truncated": false
+}

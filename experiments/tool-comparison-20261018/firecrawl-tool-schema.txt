@@ -1,0 +1,99 @@
+Hosted keyless sessions expose firecrawl_search, firecrawl_scrape, and firecrawl_parse with usage limits. firecrawl_search searches the web. For programming questions, firecrawl_search with categories: ["developer"] searches indexed public repositories, GitHub issues, merged pull requests, repository READMEs, and code documentation. For legal or regulatory questions, firecrawl_search with categories: ["gov"] searches US government legal and regulatory sources and cannot be combined with other categories. For biomedical, life-science, clinical, or arXiv literature, firecrawl_search with categories: ["research"] filters ordinary web results to research-affiliated websites. firecrawl_scrape retrieves one supplied page and can return JSON matching a supplied schema. firecrawl_parse processes supported local files through its two-phase upload flow. An Authorization bearer API key can provide higher usage limits and expose additional tools, subject to plan, deployment, and team policy, including firecrawl_map for site URL discovery, firecrawl_agent and firecrawl_agent_status for multi-source research that returns structured data when the URLs are not known, firecrawl_research_* for paper-index and repository research, and firecrawl_find_tools as the progressive Alexandria catalogue lookup alongside the Alexandria options of firecrawl_search and firecrawl_scrape for catalogued data providers.
+
+
+Scrape one URL and return its content: markdown by default, or HTML, links, screenshots, branding data, a targeted answer, or JSON matching a supplied schema. Use it when the request identifies a page and needs its content or defined fields. Use `firecrawl_search` when additional web sources are needed; on an authenticated session, `firecrawl_map` lists a site's URLs and `firecrawl_crawl` collects a set of pages.
+
+Firecrawl may serve recently indexed content; set `maxAge: 0` for a live fetch or a smaller `maxAge` to bound staleness. A successful response does not by itself confirm the page is still current. A named browser profile loads saved session data without saving changes to it. Authenticated responses can include a `metadata.scrapeId` for optional scrape feedback.
+
+On an authenticated session with Alexandria access, `firecrawl_search` and `firecrawl_find_tools` can discover providers for the same fields across several pages; a matching provider returns typed records in one call. Keyless sessions have no provider matches.
+
+Alexandria mode, on an authenticated session with Alexandria access: `alexandria` selects catalogued capability execution and is mutually exclusive with `url`.
+
+
+exec tool declaration:
+```ts
+declare const tools: { mcp__firecrawl__firecrawl_scrape(args: { alexandria?: { capability: string; options?: { [key: string]: unknown; }; provider: string; version?: string; } | Array<{ capability: string; options?: { [key: string]: unknown; }; provider: string; version?: string; }>; domainTools?: boolean; excludeTags?: Array<string>; formats?: Array<"markdown" | "html" | "rawHtml" | "screenshot" | "links" | "images" | "summary" | "changeTracking" | "branding" | "json" | "query" | "audio">; includeTags?: Array<string>; jsonOptions?: { prompt?: string; schema?: {}; }; location?: { country?: string; languages?: Array<string>; }; lockdown?: boolean; maxAge?: number; mobile?: boolean; objective: string; onlyMainContent?: boolean; parsers?: Array<"pdf">; pdfOptions?: { maxPages?: number; }; profile?: { name: string; }; proxy?: "basic" | "stealth" | "enhanced" | "auto"; queryOptions?: { mode?: "directQuote" | "freeform"; prompt: string; }; redactPII?: boolean; removeBase64Images?: boolean; requestId?: string; screenshotOptions?: { fullPage?: boolean; quality?: number; viewport?: { height: number; width: number; }; }; skipTlsVerification?: boolean; storeInCache?: boolean; timeout?: number; toolDetail?: "compact" | "summary" | "full"; url?: string; waitFor?: number; zeroDataRetention?: boolean; }): Promise<CallToolResult<{
+  // Results of the browser actions that ran during the scrape.
+  actions?: unknown;
+  // Optional response guidance from the Firecrawl API.
+  agent_hints?: Array<string>;
+  // Targeted answer to the question that was asked of the page.
+  answer?: string | null;
+  // Values collected by the requested attribute selectors.
+  attributes?: unknown;
+  // Audio extracted from the page.
+  audio?: unknown;
+  // Typed PDF layout blocks, when `parsers[].blocks` is set.
+  blocks?: unknown;
+  // Branding data extracted from the page.
+  branding?: unknown;
+  // Change-tracking comparison against the previous scrape.
+  changeTracking?: unknown;
+  // Credits this call consumed.
+  creditsCost?: number | null;
+  // Alexandria mode: per-capability results in `data.alexandria`, each with `data`, `records`, or an `error`.
+  data?: unknown;
+  // `retained` when the full result stayed server-side instead of being inlined.
+  delivery?: string | null;
+  // Error message or error object when the call did not succeed.
+  error?: unknown;
+  // Estimated token cost of the full result.
+  estimatedTokens?: number | null;
+  // Pointer to the feedback tool for reporting how this result served the task.
+  feedbackTool?: unknown;
+  // Highlighted passages from the page.
+  highlights?: unknown;
+  // Processed HTML of the page.
+  html?: string | null;
+  // Seconds a retained workspace stays available while idle.
+  idleTtlSeconds?: number | null;
+  // Images found on the page.
+  images?: unknown;
+  // Token budget above which a result is retained rather than inlined.
+  inlineTokenBudget?: number | null;
+  // Structured data matching the requested JSON schema or prompt.
+  json?: unknown;
+  // Links found on the page.
+  links?: unknown;
+  // Page content as markdown.
+  markdown?: string | null;
+  // Menu data extracted from the page.
+  menu?: unknown;
+  // Guidance that accompanies the result.
+  message?: string | null;
+  // Page metadata; authenticated responses can include `metadata.scrapeId` for scrape feedback.
+  metadata?: unknown;
+  // A follow-up tool call (`{name, arguments}`) that continues or inspects this result.
+  nextTool?: unknown;
+  // Physical PDF pages, when `parsers[].pages` is set.
+  pages?: unknown;
+  // Product data extracted from the page.
+  product?: unknown;
+  // Unprocessed HTML of the page.
+  rawHtml?: string | null;
+  // Billing receipt for the execution.
+  receipt?: unknown;
+  // Identifier of this Alexandria execution.
+  requestId?: string | null;
+  // Size of the full result in bytes.
+  responseBytes?: number | null;
+  // Identifier of the underlying scrape.
+  scrape_id?: string | null;
+  // Screenshot of the page.
+  screenshot?: unknown;
+  // Whether the API call succeeded.
+  success?: boolean | null;
+  // Summary of the page content.
+  summary?: string | null;
+  // How `estimatedTokens` was derived.
+  tokenEstimateMethod?: string | null;
+  // Domain-matched Alexandria tools for the page, when `domainTools` is set.
+  tools?: unknown;
+  // Video extracted from the page.
+  video?: unknown;
+  // Non-fatal warning about the result.
+  warning?: string | null;
+  // Workspace holding a retained result, for inspection through virtual Bash.
+  workspaceId?: string | null;
+}>>; };
+```

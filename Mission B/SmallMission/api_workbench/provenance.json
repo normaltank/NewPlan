@@ -1,0 +1,47 @@
+{
+  "baseline": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-203624\\MissionB-Mac-Linux-v2.3.0",
+  "origin": "正式2.3.0源码副本；新增API适配于本目录",
+  "files": [
+    {
+      "name": "app.py",
+      "baseline_sha256": "d5587b07ad7ddac83eed26acc8b328e65117879ee5a7a325aa83a453b7507b10",
+      "current_sha256": "d5a8b9dba53336b318097e50e060f69589d6e25b10306e9f6b1aa4cd297f6f33"
+    },
+    {
+      "name": "audit.py",
+      "baseline_sha256": "5cb9708a9ef3954a2c6bde6ad9739ba85f3768d3f3d7faa6ff77b7b5b4844992",
+      "current_sha256": "aeb3e7f2b11900a1ab2c12bb592e4b36846bfc760f9859743118ddf8abca4e78"
+    },
+    {
+      "name": "input_adapter.py",
+      "baseline_sha256": "76cdc129e1a9b1003cf29a6b0abeb611b7d19fefe262f6c60b6b03c40fba078e",
+      "current_sha256": "76cdc129e1a9b1003cf29a6b0abeb611b7d19fefe262f6c60b6b03c40fba078e"
+    },
+    {
+      "name": "reporting.py",
+      "baseline_sha256": "4ca37c32b7adeb1429f9aa70a34c57f153c2e61b1919d43298e65ba34a5c3661",
+      "current_sha256": "4ca37c32b7adeb1429f9aa70a34c57f153c2e61b1919d43298e65ba34a5c3661"
+    },
+    {
+      "name": "runtime_paths.py",
+      "baseline_sha256": "a117540b034005c1dd9bbf1f5203c3ad94dd07eb75c1b02f3d32a089bc342a96",
+      "current_sha256": "bd469814168daaa57f2213a8af81f3da8022ade26ed9d866a5cb125a61a6ce44"
+    },
+    {
+      "name": "bootstrap.py",
+      "baseline_sha256": "1b785259f7394b71f3ca422751e79a53c983604909905e2e9f65fbb20279b987",
+      "current_sha256": "1b785259f7394b71f3ca422751e79a53c983604909905e2e9f65fbb20279b987"
+    },
+    {
+      "name": "source_plans.json",
+      "baseline_sha256": "6be73424911bf2b9700adff80a5c1b9ff47b9feec5ff840d3a20a31a01cbe2e5",
+      "current_sha256": "6be73424911bf2b9700adff80a5c1b9ff47b9feec5ff840d3a20a31a01cbe2e5"
+    }
+  ],
+  "api_client_origin": "OpenSource/deepseek_api.py，适配内存密钥参数；客户端本体复用，主教师处理流程未导入",
+  "api_client_initial_sha256": "bb66b2149f2f9b9353ebb22da38c5c821d07f7080ddfcc90b86d2582076da0f2",
+  "new_modules": [
+    "api_engine.py",
+    "ai_regions.py"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "whole_college_completeness": "unverified",
+  "checks": [
+    {
+      "case": "ntu",
+      "method": "independent PDF line/sex/date pattern",
+      "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-771904-92616d04-api-pilot\\documents\\96f0619884f3b4e265ed\\pdf-text.json",
+      "rows": 61,
+      "distinct_names": 61,
+      "source_names_missing_from_observations": [],
+      "observations_not_in_pdf_rows": [],
+      "limit": "Text-layer row coverage only; no claim about undiscovered college branches."
+    },
+    {
+      "case": "seu",
+      "method": "saved official grouped-list anchors, independent DOM selection",
+      "url": "https://wjx.seu.edu.cn/xyds/list.htm",
+      "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot\\1f827446e6b3505f\\source.html",
+      "link_rows": 837,
+      "distinct_link_labels": 830,
+      "source_labels_missing_from_observations": [],
+      "observations_outside_selected_anchor_region": [],
+      "whitespace_only_label_differences": [
+        "Simone Baldi"
+      ],
+      "limit": "Other faculty branches and final identity decisions require separate checks."
+    },
+    {
+      "case": "fynu",
+      "method": "independent dated directory rows over all six masters pages",
+      "pages": [
+        {
+          "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds.htm",
+          "rows": 10,
+          "missing_links": []
+        },
+        {
+          "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/5.htm",
+          "rows": 10,
+          "missing_links": []
+        },
+        {
+          "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/4.htm",
+          "rows": 10,
+          "missing_links": []
+        },
+        {
+          "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/3.htm",
+          "rows": 10,
+          "missing_links": []
+        },
+        {
+          "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/2.htm",
+          "rows": 10,
+          "missing_links": []
+        },
+        {
+          "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/1.htm",
+          "rows": 1,
+          "missing_links": []
+        }
+      ],
+      "rows": 51,
+      "official_declared_total": 51,
+      "limit": "Checks the masters branch only, not every teacher category or its current affiliation."
+    }
+  ]
+}

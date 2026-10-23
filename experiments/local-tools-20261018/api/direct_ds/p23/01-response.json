@@ -1,0 +1,42 @@
+{
+  "status": 200,
+  "seconds": 1.266,
+  "usage": {
+    "prompt_tokens": 6088,
+    "completion_tokens": 168,
+    "total_tokens": 6256,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 5960
+  },
+  "response": {
+    "id": "b8e1785d-b281-40cb-9c68-81b5248dc651",
+    "object": "chat.completion",
+    "created": 1792329590,
+    "model": "deepseek-flash",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"teachers\":[{\"name\":\"刘杰\",\"title\":\"硕士生导师\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/info/1047/4102.htm\",\"biography\":\"\",\"evidence\":\"硕士生导师——刘杰\"}],\"attachment_urls\":[],\"pagination_urls\":[\"https://www.fynu.edu.cn/hxycl/szdw/sssds.htm\",\"https://www.fynu.edu.cn/hxycl/szdw/sssds/2.htm\"],\"notes\":[\"当前页面为硕士生导师名单第6页（共51条，6/6），仅列出刘杰一位教师，无简介、职称、邮箱等详细信息。\",\"名单页未提供教师简介，biography留空。\",\"未发现附件链接。\"]}"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 6088,
+      "completion_tokens": 168,
+      "total_tokens": 6256,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 5960
+    },
+    "system_fingerprint": "e72d3c7f663d3e1383b00b3884cb4501"
+  }
+}

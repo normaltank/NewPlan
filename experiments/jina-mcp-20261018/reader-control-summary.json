@@ -1,0 +1,19 @@
+{
+  "time_utc": "2026-10-18T13:58:21.223079+00:00",
+  "http_status": 200,
+  "content_calls": 1,
+  "sample_url": "https://civil.seu.edu.cn/dxp/list.htm",
+  "elapsed_seconds": 3.64,
+  "characters": 25546,
+  "name_found": true,
+  "email_found": true,
+  "usage": {
+    "outputTokens": 16580,
+    "measuredTokens": 16580,
+    "scaledTokens": 16580,
+    "tokens": 16580
+  },
+  "response_sha256": "8c161e373e220e56646965d285879d29d60810e78d3d80bf27b11e207ceb4593",
+  "changed_option": "X-Respond-With: markdown",
+  "account_bill_queried": false
+}

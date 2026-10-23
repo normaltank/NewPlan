@@ -1,0 +1,18 @@
+﻿Mission B 师资链接核验 · 自动环境安装版
+
+请先完整解压到自己可写的文件夹。
+
+macOS 14+：双击 install-macos.command，自动安装并打开工作台。
+以后双击 start-macos.command。若无法双击，在此文件夹终端运行 bash run.sh。
+
+Linux：在此文件夹终端运行 bash install-linux.sh。
+以后运行 bash run.sh。推荐 Debian 12/13 或 Ubuntu 22.04/24.04/26.04，64位 x86/ARM。
+缺少系统组件时会询问是否安装，可能需要管理员密码。
+
+Mac/Linux 无需预装 Python，无需 API；首次下载需联网，可能需要数分钟。
+环境保存在当前工具文件夹，不更改系统 Python。
+Windows 源码版仍需要 Python 3.11+，使用 start-windows.cmd；普通 Windows 用户请使用原独立 exe 包。
+
+失败后可重试；安装日志在隐藏文件夹 .runtime 内。
+详细说明与支持范围见 README.md。Mac/Linux 尚未实机验收。
+本包不包含你的任务数据。

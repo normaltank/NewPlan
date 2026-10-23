@@ -1,0 +1,48 @@
+{
+  "model_calls": 63,
+  "usage": {
+    "prompt_tokens": 460564,
+    "completion_tokens": 11519,
+    "total_tokens": 472083,
+    "prompt_cache_hit_tokens": 11136,
+    "prompt_cache_miss_tokens": 449428
+  },
+  "capture_segments": [
+    {
+      "run": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-766385-2a619c58-api-pilot",
+      "calls": 9,
+      "summary_exists": true
+    },
+    {
+      "run": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-771904-92616d04-api-pilot",
+      "calls": 2,
+      "summary_exists": true
+    },
+    {
+      "run": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191112-744062-19040fe2-api-pilot",
+      "calls": 25,
+      "summary_exists": false
+    },
+    {
+      "run": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot",
+      "calls": 27,
+      "summary_exists": true
+    }
+  ],
+  "fetch_attempts_including_probes": 969,
+  "fetch_successful_nonempty_responses": 958,
+  "fetch_statuses": {
+    "ok": 958,
+    "provider_no_usable_content": 10,
+    "provider_error": 1
+  },
+  "fetch_estimated_usd": 0.7185,
+  "model_estimated_usd_off_peak": 0.074359,
+  "model_estimated_usd_peak_upper_bound": 0.148718,
+  "total_estimated_usd_off_peak": 0.792859,
+  "total_estimated_usd_peak_upper_bound": 0.867218,
+  "account_bill_verified": false,
+  "token_pricing_model": "deepseek-flash / DeepSeek-V4.1-Flash-1017",
+  "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "2026-10-18 is Sunday; official weekend rates are off-peak. Standalone Fetch successful calls are estimated at $0.00075 each. Account balance was not used as proof of deductions."
+}

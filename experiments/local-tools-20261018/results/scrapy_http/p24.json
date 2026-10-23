@@ -1,0 +1,88 @@
+{
+  "id": "p24",
+  "url": "https://ntdxhk.ntu.edu.cn/xkjs/list.htm",
+  "arm": "scrapy_http",
+  "timestamp": "2026-10-18T13:14:30.904631+00:00",
+  "elapsed_seconds": 8.359,
+  "status": 200,
+  "final_url": "https://ntdxhk.ntu.edu.cn/xkjs/list.htm",
+  "error": null,
+  "encoding": "utf-8",
+  "raw_file": "p24.html",
+  "bytes": 14421,
+  "sha256": "aa68d63d4a586c7a69c9eb5f349a25dcb1eef1f7af7f08925a23400129a13c50",
+  "text": "学科建设\n首页\n学院概况\n学院简介\n内设机构\n党建工作\n组织机构\n党建动态\n师资队伍\n学科建设\n科学研究\n学团工作\n教育教学\n服务地方\n相关下载\n学科建设\n当前位置：\n首页\n学科建设\n学科建设\n地 址：江苏省南通市启秀路19号  邮政编码：226001  联系电话：86-(0513)85051868、86-(0513)85051898",
+  "links": [
+    {
+      "name": "",
+      "url": "https://www.ntu.edu.cn"
+    },
+    {
+      "name": "首页",
+      "url": "https://ntdxhk.ntu.edu.cn"
+    },
+    {
+      "name": "学院概况",
+      "url": "https://ntdxhk.ntu.edu.cn/xygk/list.htm"
+    },
+    {
+      "name": "学院简介",
+      "url": "https://ntdxhk.ntu.edu.cn/xyjj/list.htm"
+    },
+    {
+      "name": "内设机构",
+      "url": "https://ntdxhk.ntu.edu.cn/nsjg/list.htm"
+    },
+    {
+      "name": "党建工作",
+      "url": "https://ntdxhk.ntu.edu.cn/djgz/list.htm"
+    },
+    {
+      "name": "组织机构",
+      "url": "https://ntdxhk.ntu.edu.cn/zzjg/list.htm"
+    },
+    {
+      "name": "党建动态",
+      "url": "https://ntdxhk.ntu.edu.cn/djdt/list.htm"
+    },
+    {
+      "name": "师资队伍",
+      "url": "https://ntdxhk.ntu.edu.cn/szdw/list.htm"
+    },
+    {
+      "name": "学科建设",
+      "url": "https://ntdxhk.ntu.edu.cn/xkjs/list.htm"
+    },
+    {
+      "name": "科学研究",
+      "url": "https://ntdxhk.ntu.edu.cn/kxyj/list.htm"
+    },
+    {
+      "name": "学团工作",
+      "url": "https://ntdxhk.ntu.edu.cn/xtgz/list.htm"
+    },
+    {
+      "name": "教育教学",
+      "url": "https://ntdxhk.ntu.edu.cn/jyjx/list.htm"
+    },
+    {
+      "name": "服务地方",
+      "url": "https://ntdxhk.ntu.edu.cn/fwdf/list.htm"
+    },
+    {
+      "name": "相关下载",
+      "url": "https://ntdxhk.ntu.edu.cn/xgxz/list.htm"
+    },
+    {
+      "name": "首页",
+      "url": "https://ntdxhk.ntu.edu.cn/main.htm"
+    },
+    {
+      "name": "学科建设",
+      "url": "https://ntdxhk.ntu.edu.cn/xkjs/list.htm"
+    }
+  ],
+  "embedded_documents": [
+    "https://ntdxhk.ntu.edu.cn/_upload/article/files/c7/73/fccafbe54f0eb873fe38fdcaabf2/f4503ae9-8dfe-4d99-abf5-c4ef981c9998.pdf"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "unique_key": "http://127.0.0.1:12805/ok",
+  "url": "http://127.0.0.1:12805/ok",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {
+      "state": 4
+    }
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": "http://127.0.0.1:12805/ok",
+  "handled_at": "2026-10-21 10:46:11.593088+00:00"
+}

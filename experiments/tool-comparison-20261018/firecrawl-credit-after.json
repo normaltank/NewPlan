@@ -1,0 +1,14 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"remainingCredits\": 894,\n  \"planCredits\": 1000,\n  \"billingPeriodStart\": \"2026-10-16T10:38:42.531Z\",\n  \"billingPeriodEnd\": \"2026-11-16T10:38:42.531Z\"\n}"
+    }
+  ],
+  "structuredContent": {
+    "remainingCredits": 894,
+    "planCredits": 1000,
+    "billingPeriodStart": "2026-10-16T10:38:42.531Z",
+    "billingPeriodEnd": "2026-11-16T10:38:42.531Z"
+  }
+}

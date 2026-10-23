@@ -1,0 +1,2506 @@
+{
+  "scope": "Evidence retention only, not extraction precision, identity correctness or whole-college completeness. Previous native/DS arms are historical, current native controls source drift.",
+  "pages": [
+    {
+      "id": "p01",
+      "kind": "profile",
+      "url": "https://www.fynu.edu.cn/hxycl/info/1047/4105.htm",
+      "name": "徐华杰",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.297,
+          "embedded_document_urls": [],
+          "characters": 6504,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 6151,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 5890,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 9.88,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 6226,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "email_retained": true,
+          "email_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 8.312,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 3177,
+            "measuredTokens": 3177,
+            "scaledTokens": 3177,
+            "tokens": 3177
+          },
+          "error": null,
+          "characters": 5968,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 8.484,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 4444,
+            "measuredTokens": 4444,
+            "scaledTokens": 4444,
+            "tokens": 4444
+          },
+          "error": null,
+          "characters": 6557,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p02",
+      "kind": "profile",
+      "url": "https://www.fynu.edu.cn/hxycl/info/1049/8931.htm",
+      "name": "解金旋",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.046,
+          "embedded_document_urls": [],
+          "characters": 3534,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 3195,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 3092,
+          "name_retained": true,
+          "email_retained": false,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 6.659,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 3461,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "email_retained": true,
+          "email_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 4.985,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1495,
+            "measuredTokens": 1495,
+            "scaledTokens": 1495,
+            "tokens": 1495
+          },
+          "error": null,
+          "characters": 3123,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 7.032,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 2752,
+            "measuredTokens": 2752,
+            "scaledTokens": 2752,
+            "tokens": 2752
+          },
+          "error": null,
+          "characters": 3704,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p03",
+      "kind": "profile",
+      "url": "https://www.fynu.edu.cn/hxycl/info/1047/4115.htm",
+      "name": "董秋静",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.047,
+          "embedded_document_urls": [],
+          "characters": 2662,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 2309,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 2237,
+          "name_retained": true,
+          "email_retained": false,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 6.086,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 2558,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "email_retained": true,
+          "email_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 6.937,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1347,
+            "measuredTokens": 1347,
+            "scaledTokens": 1347,
+            "tokens": 1347
+          },
+          "error": null,
+          "characters": 2178,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 4.453,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 2616,
+            "measuredTokens": 2616,
+            "scaledTokens": 2616,
+            "tokens": 2616
+          },
+          "error": null,
+          "characters": 2767,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p04",
+      "kind": "profile",
+      "url": "https://www.fynu.edu.cn/hxycl/info/1049/7431.htm",
+      "name": "杨池",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.547,
+          "embedded_document_urls": [],
+          "characters": 1368,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 1031,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 1016,
+          "name_retained": true,
+          "email_retained": false,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 4.177,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 1325,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "email_retained": true,
+          "email_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 5.938,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 841,
+            "measuredTokens": 841,
+            "scaledTokens": 841,
+            "tokens": 841
+          },
+          "error": null,
+          "characters": 1006,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 7.938,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 2097,
+            "measuredTokens": 2097,
+            "scaledTokens": 2097,
+            "tokens": 2097
+          },
+          "error": null,
+          "characters": 1587,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p05",
+      "kind": "profile",
+      "url": "https://me.seu.edu.cn/cxl/list.htm",
+      "name": "仇晓黎",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.375,
+          "embedded_document_urls": [],
+          "characters": 10212,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": [
+            {
+              "excerpt": "1xiaoliqiuxianqiangchengpenghaodonghuachenpengyanxingandxinzhousensitivityanalysisofjohnsoncookmater",
+              "count": 2
+            },
+            {
+              "excerpt": "2donglianghuangqingchaixiaoliqiuyanxingstudyonprofileoflasercoaxialpowderfeedingadditivemanufacturin",
+              "count": 2
+            },
+            {
+              "excerpt": "6qiuxiaolisungang2014theapproachmentfordevelopingacadsystemforcammechanismsofatc2014internationalcon",
+              "count": 2
+            },
+            {
+              "excerpt": "7liuxiaojunhongyizhonghuanijianchangqixiaoliqiu2013processplanningoptimizationofholemakingoperations",
+              "count": 2
+            },
+            {
+              "excerpt": "10xiaoliqiuxingyanshuangfeng2013theimplementofroboticcuttingtrajectoryplanforpressurevessel3rdintern",
+              "count": 2
+            }
+          ]
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 4974,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 9336,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": [
+            {
+              "excerpt": "仇晓黎博士学位东南大学机械工程学院教授专业方向机械制造及其自动化主要研究方向数字化设计与制造cadcappcam数控加工及数控系统智能制造微纳加工医疗器械生产管理工业工程等",
+              "count": 2
+            },
+            {
+              "excerpt": "1xiaoliqiuxianqiangchengpenghaodonghuachenpengyanxingandxinzhousensitivityanalysisofjohnsoncookmater",
+              "count": 2
+            },
+            {
+              "excerpt": "2donglianghuangqingchaixiaoliqiuyanxingstudyonprofileoflasercoaxialpowderfeedingadditivemanufacturin",
+              "count": 2
+            },
+            {
+              "excerpt": "4孙刚仇晓黎彭子平sungangqiuxiaolipengziping2015基于solidworks的atc凸轮机构cad系统开发机械制造与自动化1p9193",
+              "count": 2
+            },
+            {
+              "excerpt": "6qiuxiaolisungang2014theapproachmentfordevelopingacadsystemforcammechanismsofatc2014internationalcon",
+              "count": 2
+            }
+          ]
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 7.383,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 10647,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "email_retained": true,
+          "email_in_raw_html": true,
+          "repeated_long_passages": [
+            {
+              "excerpt": "1xiaoliqiuxianqiangchengpenghaodonghuachenpengyanxingandxinzhousensitivityanalysisofjohnsoncookmater",
+              "count": 2
+            },
+            {
+              "excerpt": "2donglianghuangqingchaixiaoliqiuyanxingstudyonprofileoflasercoaxialpowderfeedingadditivemanufacturin",
+              "count": 2
+            },
+            {
+              "excerpt": "4孙刚仇晓黎彭子平sungangqiuxiaolipengziping2015基于solidworks的atc凸轮机构cad系统开发机械制造与自动化1p9193",
+              "count": 2
+            },
+            {
+              "excerpt": "6qiuxiaolisungang2014theapproachmentfordevelopingacadsystemforcammechanismsofatc2014internationalcon",
+              "count": 2
+            },
+            {
+              "excerpt": "7liuxiaojunhongyizhonghuanijianchangqixiaoliqiu2013processplanningoptimizationofholemakingoperations",
+              "count": 2
+            }
+          ]
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 7.36,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 8608,
+            "measuredTokens": 8608,
+            "scaledTokens": 8608,
+            "tokens": 8608
+          },
+          "error": null,
+          "characters": 10087,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": [
+            {
+              "excerpt": "博士学位东南大学机械工程学院教授专业方向机械制造及其自动化主要研究方向数字化设计与制造cadcappcam数控加工及数控系统智能制造微纳加工医疗器械生产管理工业工程等",
+              "count": 2
+            },
+            {
+              "excerpt": "1xiaoliqiuxianqiangchengpenghaodonghuachenpengyanxingandxinzhousensitivityanalysisofjohnsoncookmater",
+              "count": 2
+            },
+            {
+              "excerpt": "2donglianghuangqingchaixiaoliqiuyanxingstudyonprofileoflasercoaxialpowderfeedingadditivemanufacturin",
+              "count": 2
+            },
+            {
+              "excerpt": "4孙刚仇晓黎彭子平sungangqiuxiaolipengziping2015基于solidworks的atc凸轮机构cad系统开发机械制造与自动化1p9193",
+              "count": 2
+            },
+            {
+              "excerpt": "6qiuxiaolisungang2014theapproachmentfordevelopingacadsystemforcammechanismsofatc2014internationalcon",
+              "count": 2
+            }
+          ]
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 4.75,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 8608,
+            "measuredTokens": 8608,
+            "scaledTokens": 8608,
+            "tokens": 8608
+          },
+          "error": null,
+          "characters": 10087,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": [
+            {
+              "excerpt": "博士学位东南大学机械工程学院教授专业方向机械制造及其自动化主要研究方向数字化设计与制造cadcappcam数控加工及数控系统智能制造微纳加工医疗器械生产管理工业工程等",
+              "count": 2
+            },
+            {
+              "excerpt": "1xiaoliqiuxianqiangchengpenghaodonghuachenpengyanxingandxinzhousensitivityanalysisofjohnsoncookmater",
+              "count": 2
+            },
+            {
+              "excerpt": "2donglianghuangqingchaixiaoliqiuyanxingstudyonprofileoflasercoaxialpowderfeedingadditivemanufacturin",
+              "count": 2
+            },
+            {
+              "excerpt": "4孙刚仇晓黎彭子平sungangqiuxiaolipengziping2015基于solidworks的atc凸轮机构cad系统开发机械制造与自动化1p9193",
+              "count": 2
+            },
+            {
+              "excerpt": "6qiuxiaolisungang2014theapproachmentfordevelopingacadsystemforcammechanismsofatc2014internationalcon",
+              "count": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "p06",
+      "kind": "profile",
+      "url": "https://me.seu.edu.cn/cz_31654/list.htm",
+      "name": "陈震",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.109,
+          "embedded_document_urls": [],
+          "characters": 27483,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": [
+            {
+              "excerpt": "inlessonsfromnanosciencealecturenotesseriesedmlundstromworldscientificpublishingco2018",
+              "count": 2
+            },
+            {
+              "excerpt": "acomplexthermalconductivitytomodelquasiballisticphonontransportunderperiodicheating",
+              "count": 2
+            },
+            {
+              "excerpt": "anisotropicklemensmodelforthethermalconductivitytensoranditssizeeffectinternational",
+              "count": 2
+            },
+            {
+              "excerpt": "energyscavengingfromthediurnalcyclewithatemperaturedoublercircuitandaselfadaptivephotonicdesign",
+              "count": 2
+            },
+            {
+              "excerpt": "shockleyqueisseranalysisofthetemperatureefficiencycorrelationofsolarcellsinthepresenceofnonradiative",
+              "count": 2
+            }
+          ]
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 13974,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": [
+            {
+              "excerpt": "lzhuwliandsfansimultaneouslyandsynergisticallyharvestenergyfromthesunandouterspace",
+              "count": 2
+            }
+          ]
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 26110,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": [
+            {
+              "excerpt": "2014年于加州大学伯克利分校机械工程系获博士学位后于斯坦福大学应用物理系ginzton实验室从事博士后研究研究专长为通过对光子声子电子分子等基本能量载子的热输运进行调控解决芯片散热新能源和淡水等工程",
+              "count": 2
+            },
+            {
+              "excerpt": "陈震教授于2016年和2018年底分别发表在naturecommunications和joule上的关于利用宇宙超低温背景散热的论文引发了全球新一轮的绿色能源热被全球多个媒体报道包括英国的newsci",
+              "count": 2
+            },
+            {
+              "excerpt": "1zchenandcdamesappliedthermalmeasurementsatthenanoscaleinlessonsfromnanosciencealecturenotesseriesed",
+              "count": 2
+            },
+            {
+              "excerpt": "overallcitationisover3000accordingtogooglescholarhttpscholargooglecomcitationsuserqkzkcigaaaajhlen",
+              "count": 2
+            },
+            {
+              "excerpt": "24tlibjiangandzchenacomplexthermalconductivitytomodelquasiballisticphonontransportunderperiodicheati",
+              "count": 2
+            }
+          ]
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 6.947,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 27462,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "email_retained": true,
+          "email_in_raw_html": true,
+          "repeated_long_passages": [
+            {
+              "excerpt": "2014年于加州大学伯克利分校机械工程系获博士学位后于斯坦福大学应用物理系ginzton实验室从事博士后研究研究专长为通过对光子声子电子分子等基本能量载子的热输运进行调控解决芯片散热新能源和淡水等工程",
+              "count": 2
+            },
+            {
+              "excerpt": "陈震教授于2016年和2018年底分别发表在naturecommunications和joule上的关于利用宇宙超低温背景散热的论文引发了全球新一轮的绿色能源热被全球多个媒体报道包括英国的newsci",
+              "count": 2
+            },
+            {
+              "excerpt": "inlessonsfromnanosciencealecturenotesseriesedmlundstromworldscientificpublishingco2018",
+              "count": 2
+            },
+            {
+              "excerpt": "acomplexthermalconductivitytomodelquasiballisticphonontransportunderperiodicheating",
+              "count": 2
+            },
+            {
+              "excerpt": "anisotropicklemensmodelforthethermalconductivitytensoranditssizeeffectinternational",
+              "count": 2
+            }
+          ]
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 8.422,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 3320,
+            "measuredTokens": 3320,
+            "scaledTokens": 3320,
+            "tokens": 3320
+          },
+          "error": null,
+          "characters": 10184,
+          "name_retained": true,
+          "email_retained": false,
+          "repeated_long_passages": [
+            {
+              "excerpt": "lzhuwliandsfansimultaneouslyandsynergisticallyharvestenergyfromthesunandouterspace",
+              "count": 2
+            }
+          ]
+        },
+        "jina_body": {
+          "status": 200,
+          "seconds": 4.703,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 3320,
+            "measuredTokens": 3320,
+            "scaledTokens": 3320,
+            "tokens": 3320
+          },
+          "error": null,
+          "characters": 10184,
+          "name_retained": true,
+          "email_retained": false,
+          "repeated_long_passages": [
+            {
+              "excerpt": "lzhuwliandsfansimultaneouslyandsynergisticallyharvestenergyfromthesunandouterspace",
+              "count": 2
+            }
+          ]
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 9.921,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 14281,
+            "measuredTokens": 14281,
+            "scaledTokens": 14281,
+            "tokens": 14281
+          },
+          "error": null,
+          "characters": 27119,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": [
+            {
+              "excerpt": "2014年于加州大学伯克利分校机械工程系获博士学位后于斯坦福大学应用物理系ginzton实验室从事博士后研究研究专长为通过对光子声子电子分子等基本能量载子的热输运进行调控解决芯片散热新能源和淡水等工程",
+              "count": 2
+            },
+            {
+              "excerpt": "陈震教授于2016年和2018年底分别发表在naturecommunications和joule上的关于利用宇宙超低温背景散热的论文引发了全球新一轮的绿色能源热被全球多个媒体报道包括英国的newsci",
+              "count": 2
+            },
+            {
+              "excerpt": "inlessonsfromnanosciencealecturenotesseriesedmlundstromworldscientificpublishingco2018",
+              "count": 2
+            },
+            {
+              "excerpt": "acomplexthermalconductivitytomodelquasiballisticphonontransportunderperiodicheating",
+              "count": 2
+            },
+            {
+              "excerpt": "anisotropicklemensmodelforthethermalconductivitytensoranditssizeeffectinternational",
+              "count": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "p07",
+      "kind": "profile",
+      "url": "https://civil.seu.edu.cn/dxp/list.htm",
+      "name": "邓小鹏",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 420,
+          "seconds": 0.328,
+          "embedded_document_urls": [],
+          "characters": 208,
+          "name_retained": false,
+          "email_retained": false,
+          "repeated_long_passages": []
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 18420,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 17757,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 9.152,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 24100,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "email_retained": true,
+          "email_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 8.672,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 12743,
+            "measuredTokens": 12743,
+            "scaledTokens": 12743,
+            "tokens": 12743
+          },
+          "error": null,
+          "characters": 17672,
+          "name_retained": true,
+          "email_retained": false,
+          "repeated_long_passages": []
+        },
+        "jina_body": {
+          "status": 200,
+          "seconds": 7.094,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 12743,
+            "measuredTokens": 12743,
+            "scaledTokens": 12743,
+            "tokens": 12743
+          },
+          "error": null,
+          "characters": 17672,
+          "name_retained": true,
+          "email_retained": false,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 7.593,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 22455,
+            "measuredTokens": 22455,
+            "scaledTokens": 22455,
+            "tokens": 22455
+          },
+          "error": null,
+          "characters": 22213,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p08",
+      "kind": "profile",
+      "url": "https://arch.seu.edu.cn/lyc/main.psp",
+      "name": "李迎成",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 1.0,
+          "embedded_document_urls": [],
+          "characters": 3498,
+          "name_retained": true,
+          "repeated_long_passages": []
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 1029,
+          "name_retained": true,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 1995,
+          "name_retained": false,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 8.32,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 5540,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 7.719,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 17402,
+            "measuredTokens": 17402,
+            "scaledTokens": 17402,
+            "tokens": 17402
+          },
+          "error": null,
+          "characters": 5499,
+          "name_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 10.11,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 17402,
+            "measuredTokens": 17402,
+            "scaledTokens": 17402,
+            "tokens": 17402
+          },
+          "error": null,
+          "characters": 5499,
+          "name_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p09",
+      "kind": "profile",
+      "url": "https://arch.seu.edu.cn/2019/1228/c16785a304635/page.htm",
+      "name": "淳庆",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.062,
+          "embedded_document_urls": [],
+          "characters": 3247,
+          "name_retained": true,
+          "repeated_long_passages": []
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 970,
+          "name_retained": true,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 1071,
+          "name_retained": true,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 6.851,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 5174,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 10.687,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 16428,
+            "measuredTokens": 16428,
+            "scaledTokens": 16428,
+            "tokens": 16428
+          },
+          "error": null,
+          "characters": 5164,
+          "name_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 9.797,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 16428,
+            "measuredTokens": 16428,
+            "scaledTokens": 16428,
+            "tokens": 16428
+          },
+          "error": null,
+          "characters": 5164,
+          "name_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p10",
+      "kind": "profile",
+      "url": "https://math.seu.edu.cn/whb/list.htm",
+      "name": "王海兵",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.328,
+          "embedded_document_urls": [],
+          "characters": 11674,
+          "name_retained": true,
+          "biography_marker_retained": true,
+          "repeated_long_passages": []
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 11537,
+          "name_retained": true,
+          "biography_marker_retained": true,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 2906,
+          "name_retained": true,
+          "biography_marker_retained": false,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 6.772,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 11691,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "biography_marker_retained": true,
+          "biography_marker_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 6.657,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 5846,
+            "measuredTokens": 5846,
+            "scaledTokens": 5846,
+            "tokens": 5846
+          },
+          "error": null,
+          "characters": 11416,
+          "name_retained": true,
+          "biography_marker_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 5.797,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 5846,
+            "measuredTokens": 5846,
+            "scaledTokens": 5846,
+            "tokens": 5846
+          },
+          "error": null,
+          "characters": 11416,
+          "name_retained": true,
+          "biography_marker_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p11",
+      "kind": "profile",
+      "url": "https://automation.seu.edu.cn/zjx/list.htm",
+      "name": "张金霞",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 420,
+          "seconds": 0.406,
+          "embedded_document_urls": [],
+          "characters": 213,
+          "name_retained": false,
+          "biography_marker_retained": false,
+          "repeated_long_passages": []
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 7405,
+          "name_retained": true,
+          "biography_marker_retained": true,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 1699,
+          "name_retained": true,
+          "biography_marker_retained": false,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 8.818,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 15776,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "biography_marker_retained": true,
+          "biography_marker_in_raw_html": true,
+          "repeated_long_passages": [
+            {
+              "excerpt": "张金霞东南大学自动化学院副教授破格博士生导师东南大学至善青年学者a类研究方向为多模态计算机视觉具身智能感知作为项目负责人主持国家自然科学基金项目江苏省自然科学基金项目若干项企业合作项目和重点实验室开放",
+              "count": 2
+            },
+            {
+              "excerpt": "jinxiazhangzechaozhandehonggaojialehuangyanghuxinwangtramdifftextureretentionfashionimageeditingwith",
+              "count": 2
+            },
+            {
+              "excerpt": "chaoyangsongjinxiazhangshixiongfanglipingchenadomainguidedfoundationframeworkforcellleveldefectsegme",
+              "count": 2
+            },
+            {
+              "excerpt": "xinyueleijinxiazhangetclknowledgedistillationbasedonfastnormalizationattentionandauxiliarymultilabel",
+              "count": 2
+            },
+            {
+              "excerpt": "jinxiazhangyinyuanxuwenzhuyanghukaihuazhangpartitionedobservationnetworkforcamouflagedobjectdetectio",
+              "count": 2
+            }
+          ]
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 6.172,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 3311,
+            "measuredTokens": 3311,
+            "scaledTokens": 3311,
+            "tokens": 3311
+          },
+          "error": null,
+          "characters": 7361,
+          "name_retained": true,
+          "biography_marker_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 8.625,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 8995,
+            "measuredTokens": 8995,
+            "scaledTokens": 8995,
+            "tokens": 8995
+          },
+          "error": null,
+          "characters": 16176,
+          "name_retained": true,
+          "biography_marker_retained": true,
+          "repeated_long_passages": [
+            {
+              "excerpt": "张金霞东南大学自动化学院副教授破格博士生导师东南大学至善青年学者a类研究方向为多模态计算机视觉具身智能感知作为项目负责人主持国家自然科学基金项目江苏省自然科学基金项目若干项企业合作项目和重点实验室开放",
+              "count": 2
+            },
+            {
+              "excerpt": "xjinxiazhangzechaozhandehonggaojialehuangyanghuxinwangtramdifftextureretentionfashionimageeditingwit",
+              "count": 2
+            },
+            {
+              "excerpt": "xchaoyangsongjinxiazhangshixiongfanglipingchenadomainguidedfoundationframeworkforcellleveldefectsegm",
+              "count": 2
+            },
+            {
+              "excerpt": "xxinyueleijinxiazhangetclknowledgedistillationbasedonfastnormalizationattentionandauxiliarymultilabe",
+              "count": 2
+            },
+            {
+              "excerpt": "xjinxiazhangyinyuanxuwenzhuyanghukaihuazhangpartitionedobservationnetworkforcamouflagedobjectdetecti",
+              "count": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "p12",
+      "kind": "profile",
+      "url": "https://radio.seu.edu.cn/2019/0613/c19937a277743/page.htm",
+      "name": "曾勇",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.39,
+          "embedded_document_urls": [],
+          "characters": 25827,
+          "name_retained": true,
+          "biography_marker_retained": true,
+          "repeated_long_passages": []
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 24868,
+          "name_retained": true,
+          "biography_marker_retained": true,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 6971,
+          "name_retained": true,
+          "biography_marker_retained": false,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 8.604,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 26397,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "biography_marker_retained": true,
+          "biography_marker_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 7.015,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 7689,
+            "measuredTokens": 7689,
+            "scaledTokens": 7689,
+            "tokens": 7689
+          },
+          "error": null,
+          "characters": 19222,
+          "name_retained": false,
+          "biography_marker_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 5.516,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 14250,
+            "measuredTokens": 14250,
+            "scaledTokens": 14250,
+            "tokens": 14250
+          },
+          "error": null,
+          "characters": 25865,
+          "name_retained": true,
+          "biography_marker_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p13",
+      "kind": "profile",
+      "url": "https://cs.seu.edu.cn/weiweiwu/main.htm",
+      "name": "吴巍炜",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.453,
+          "embedded_document_urls": [],
+          "characters": 1023,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 473,
+          "name_retained": true,
+          "email_retained": false,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 532,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 6.965,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 1210,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "email_retained": true,
+          "email_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 6.156,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 3228,
+            "measuredTokens": 3228,
+            "scaledTokens": 3228,
+            "tokens": 3228
+          },
+          "error": null,
+          "characters": 1233,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 5.078,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 3228,
+            "measuredTokens": 3228,
+            "scaledTokens": 3228,
+            "tokens": 3228
+          },
+          "error": null,
+          "characters": 1233,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p14",
+      "kind": "profile",
+      "url": "https://cs.seu.edu.cn/qilei/main.htm",
+      "name": "祁磊",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.063,
+          "embedded_document_urls": [],
+          "characters": 1025,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 500,
+          "name_retained": true,
+          "email_retained": false,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 552,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 4.169,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 1215,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "email_retained": true,
+          "email_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 6.734,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 3236,
+            "measuredTokens": 3236,
+            "scaledTokens": 3236,
+            "tokens": 3236
+          },
+          "error": null,
+          "characters": 1231,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 14.359,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 3236,
+            "measuredTokens": 3236,
+            "scaledTokens": 3236,
+            "tokens": 3236
+          },
+          "error": null,
+          "characters": 1231,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p15",
+      "kind": "profile",
+      "url": "https://electronic.seu.edu.cn/zl/list.htm",
+      "name": "朱利",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.329,
+          "embedded_document_urls": [],
+          "characters": 10341,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 162,
+          "name_retained": false,
+          "email_retained": false,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 9964,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 13.728,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 10442,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "email_retained": true,
+          "email_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 8.907,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 9754,
+            "measuredTokens": 9754,
+            "scaledTokens": 9754,
+            "tokens": 9754
+          },
+          "error": null,
+          "characters": 10167,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 7.218,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 9754,
+            "measuredTokens": 9754,
+            "scaledTokens": 9754,
+            "tokens": 9754
+          },
+          "error": null,
+          "characters": 10167,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p16",
+      "kind": "profile",
+      "url": "https://smse.seu.edu.cn/2011/1121/c2590a83608/page.htm",
+      "name": "晏井利",
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.313,
+          "embedded_document_urls": [],
+          "characters": 3581,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "native_previous": {
+          "status": "saved_previous_body",
+          "characters": 2851,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "deepseek_previous": {
+          "status": "saved_previous_response",
+          "characters": 2738,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 8.847,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 3976,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "email_retained": true,
+          "email_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 9.406,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 7027,
+            "measuredTokens": 7027,
+            "scaledTokens": 7027,
+            "tokens": 7027
+          },
+          "error": null,
+          "characters": 3977,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 7.204,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 7027,
+            "measuredTokens": 7027,
+            "scaledTokens": 7027,
+            "tokens": 7027
+          },
+          "error": null,
+          "characters": 3977,
+          "name_retained": true,
+          "email_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p17",
+      "kind": "roster",
+      "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds.htm",
+      "name": null,
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.312,
+          "embedded_document_urls": [],
+          "characters": 575,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 2,
+          "retained_pagination_urls": 2,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 4.173,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 618,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 2,
+          "retained_pagination_urls": 2,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 6.86,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1746,
+            "measuredTokens": 1746,
+            "scaledTokens": 1746,
+            "tokens": 1746
+          },
+          "error": null,
+          "characters": 814,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 2,
+          "retained_pagination_urls": 2,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 9.265,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1746,
+            "measuredTokens": 1746,
+            "scaledTokens": 1746,
+            "tokens": 1746
+          },
+          "error": null,
+          "characters": 814,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 2,
+          "retained_pagination_urls": 2,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p18",
+      "kind": "roster",
+      "url": "https://www.fynu.edu.cn/hxycl/szdw/jstd.htm",
+      "name": null,
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.047,
+          "embedded_document_urls": [],
+          "characters": 489,
+          "expected_names": 34,
+          "names_retained": 34,
+          "names_recoverable_after_format_cleanup": 34,
+          "expected_profile_links": 25,
+          "profile_links_retained": 25,
+          "missing_names": [],
+          "missing_links": [],
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 5.256,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 468,
+          "expected_names": 34,
+          "names_retained": 34,
+          "names_recoverable_after_format_cleanup": 34,
+          "expected_profile_links": 25,
+          "profile_links_retained": 25,
+          "missing_names": [],
+          "missing_links": [],
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 8.859,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 819,
+            "measuredTokens": 819,
+            "scaledTokens": 819,
+            "tokens": 819
+          },
+          "error": null,
+          "characters": 178,
+          "expected_names": 34,
+          "names_retained": 32,
+          "names_recoverable_after_format_cleanup": 34,
+          "expected_profile_links": 25,
+          "profile_links_retained": 25,
+          "missing_names": [
+            "张宏",
+            "金凤"
+          ],
+          "missing_links": [],
+          "repeated_long_passages": []
+        },
+        "jina_body": {
+          "status": 200,
+          "seconds": 6.906,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 819,
+            "measuredTokens": 819,
+            "scaledTokens": 819,
+            "tokens": 819
+          },
+          "error": null,
+          "characters": 178,
+          "expected_names": 34,
+          "names_retained": 32,
+          "names_recoverable_after_format_cleanup": 34,
+          "expected_profile_links": 25,
+          "profile_links_retained": 25,
+          "missing_names": [
+            "张宏",
+            "金凤"
+          ],
+          "missing_links": [],
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 4.125,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 2069,
+            "measuredTokens": 2069,
+            "scaledTokens": 2069,
+            "tokens": 2069
+          },
+          "error": null,
+          "characters": 747,
+          "expected_names": 34,
+          "names_retained": 32,
+          "names_recoverable_after_format_cleanup": 34,
+          "expected_profile_links": 25,
+          "profile_links_retained": 25,
+          "missing_names": [
+            "张宏",
+            "金凤"
+          ],
+          "missing_links": [],
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p19",
+      "kind": "roster",
+      "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/5.htm",
+      "name": null,
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.047,
+          "embedded_document_urls": [],
+          "characters": 576,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 3,
+          "retained_pagination_urls": 3,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 5.773,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 620,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 3,
+          "retained_pagination_urls": 3,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 4.703,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1793,
+            "measuredTokens": 1793,
+            "scaledTokens": 1793,
+            "tokens": 1793
+          },
+          "error": null,
+          "characters": 815,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 3,
+          "retained_pagination_urls": 3,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 5.781,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1793,
+            "measuredTokens": 1793,
+            "scaledTokens": 1793,
+            "tokens": 1793
+          },
+          "error": null,
+          "characters": 815,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 3,
+          "retained_pagination_urls": 3,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p20",
+      "kind": "roster",
+      "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/4.htm",
+      "name": null,
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.032,
+          "embedded_document_urls": [],
+          "characters": 576,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 4,
+          "retained_pagination_urls": 4,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 4.177,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 620,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 4,
+          "retained_pagination_urls": 4,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 5.734,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1791,
+            "measuredTokens": 1791,
+            "scaledTokens": 1791,
+            "tokens": 1791
+          },
+          "error": null,
+          "characters": 815,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 4,
+          "retained_pagination_urls": 4,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 6.984,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1791,
+            "measuredTokens": 1791,
+            "scaledTokens": 1791,
+            "tokens": 1791
+          },
+          "error": null,
+          "characters": 815,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 4,
+          "retained_pagination_urls": 4,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p21",
+      "kind": "roster",
+      "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/3.htm",
+      "name": null,
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.047,
+          "embedded_document_urls": [],
+          "characters": 575,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 4,
+          "retained_pagination_urls": 4,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 6.045,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 619,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 4,
+          "retained_pagination_urls": 4,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 6.157,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1796,
+            "measuredTokens": 1796,
+            "scaledTokens": 1796,
+            "tokens": 1796
+          },
+          "error": null,
+          "characters": 814,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 4,
+          "retained_pagination_urls": 4,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 8.188,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1796,
+            "measuredTokens": 1796,
+            "scaledTokens": 1796,
+            "tokens": 1796
+          },
+          "error": null,
+          "characters": 814,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 4,
+          "retained_pagination_urls": 4,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p22",
+      "kind": "roster",
+      "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/2.htm",
+      "name": null,
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.046,
+          "embedded_document_urls": [],
+          "characters": 578,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 3,
+          "retained_pagination_urls": 3,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 4.685,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 622,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 3,
+          "retained_pagination_urls": 3,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 6.562,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1802,
+            "measuredTokens": 1802,
+            "scaledTokens": 1802,
+            "tokens": 1802
+          },
+          "error": null,
+          "characters": 817,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 3,
+          "retained_pagination_urls": 3,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 5.438,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1802,
+            "measuredTokens": 1802,
+            "scaledTokens": 1802,
+            "tokens": 1802
+          },
+          "error": null,
+          "characters": 817,
+          "expected_names": 10,
+          "names_retained": 10,
+          "names_recoverable_after_format_cleanup": 10,
+          "expected_profile_links": 10,
+          "profile_links_retained": 10,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 3,
+          "retained_pagination_urls": 3,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p23",
+      "kind": "roster",
+      "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/1.htm",
+      "name": null,
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.047,
+          "embedded_document_urls": [],
+          "characters": 380,
+          "expected_names": 1,
+          "names_retained": 1,
+          "names_recoverable_after_format_cleanup": 1,
+          "expected_profile_links": 1,
+          "profile_links_retained": 1,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 2,
+          "retained_pagination_urls": 2,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 3.901,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 422,
+          "expected_names": 1,
+          "names_retained": 1,
+          "names_recoverable_after_format_cleanup": 1,
+          "expected_profile_links": 1,
+          "profile_links_retained": 1,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 2,
+          "retained_pagination_urls": 2,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 5.407,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1372,
+            "measuredTokens": 1372,
+            "scaledTokens": 1372,
+            "tokens": 1372
+          },
+          "error": null,
+          "characters": 619,
+          "expected_names": 1,
+          "names_retained": 1,
+          "names_recoverable_after_format_cleanup": 1,
+          "expected_profile_links": 1,
+          "profile_links_retained": 1,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 2,
+          "retained_pagination_urls": 2,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 3.797,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1372,
+            "measuredTokens": 1372,
+            "scaledTokens": 1372,
+            "tokens": 1372
+          },
+          "error": null,
+          "characters": 619,
+          "expected_names": 1,
+          "names_retained": 1,
+          "names_recoverable_after_format_cleanup": 1,
+          "expected_profile_links": 1,
+          "profile_links_retained": 1,
+          "missing_names": [],
+          "missing_links": [],
+          "expected_pagination_urls": 2,
+          "retained_pagination_urls": 2,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p24",
+      "kind": "attachment_landing",
+      "url": "https://ntdxhk.ntu.edu.cn/xkjs/list.htm",
+      "name": null,
+      "group": "known_diagnostic",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.282,
+          "embedded_document_urls": [
+            "https://ntdxhk.ntu.edu.cn/_upload/article/files/c7/73/fccafbe54f0eb873fe38fdcaabf2/f4503ae9-8dfe-4d99-abf5-c4ef981c9998.pdf"
+          ],
+          "characters": 168,
+          "attachment_link_retained": false,
+          "attachment_link_in_raw_html": false,
+          "attachment_discoverable_from_embed": true,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 8.974,
+          "credits": 1,
+          "embedded_document_urls": [
+            "https://ntdxhk.ntu.edu.cn/_upload/article/files/c7/73/fccafbe54f0eb873fe38fdcaabf2/f4503ae9-8dfe-4d99-abf5-c4ef981c9998.pdf"
+          ],
+          "usage": null,
+          "error": null,
+          "characters": 1008,
+          "attachment_link_retained": false,
+          "attachment_link_in_raw_html": false,
+          "attachment_discoverable_from_embed": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 8.672,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 533,
+            "measuredTokens": 533,
+            "scaledTokens": 533,
+            "tokens": 533
+          },
+          "error": null,
+          "characters": 161,
+          "attachment_link_retained": false,
+          "attachment_link_in_raw_html": false,
+          "attachment_discoverable_from_embed": false,
+          "repeated_long_passages": []
+        },
+        "jina_body": {
+          "status": 200,
+          "seconds": 9.0,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 533,
+            "measuredTokens": 533,
+            "scaledTokens": 533,
+            "tokens": 533
+          },
+          "error": null,
+          "characters": 161,
+          "attachment_link_retained": false,
+          "attachment_link_in_raw_html": false,
+          "attachment_discoverable_from_embed": false,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 9.437,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 533,
+            "measuredTokens": 533,
+            "scaledTokens": 533,
+            "tokens": 533
+          },
+          "error": null,
+          "characters": 161,
+          "attachment_link_retained": false,
+          "attachment_link_in_raw_html": false,
+          "attachment_discoverable_from_embed": false,
+          "repeated_long_passages": []
+        },
+        "jina_html": {
+          "status": 200,
+          "seconds": 4.312,
+          "credits": null,
+          "embedded_document_urls": [
+            "https://ntdxhk.ntu.edu.cn/_upload/article/files/c7/73/fccafbe54f0eb873fe38fdcaabf2/f4503ae9-8dfe-4d99-abf5-c4ef981c9998.pdf"
+          ],
+          "usage": {
+            "outputTokens": 4,
+            "measuredTokens": 4,
+            "scaledTokens": 3613,
+            "tokens": 3613
+          },
+          "error": null,
+          "characters": 168,
+          "attachment_link_retained": false,
+          "attachment_link_in_raw_html": false,
+          "attachment_discoverable_from_embed": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p25",
+      "kind": "profile",
+      "url": "https://www.physics.sjtu.edu.cn/jsml/tanghao.html",
+      "name": "唐豪",
+      "group": "new_validation",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.438,
+          "embedded_document_urls": [],
+          "characters": 5660,
+          "name_retained": true,
+          "email_retained": true,
+          "title_retained": true,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 8.931,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 5598,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "email_retained": true,
+          "email_in_raw_html": true,
+          "title_retained": true,
+          "title_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 11.312,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 2583,
+            "measuredTokens": 2583,
+            "scaledTokens": 2583,
+            "tokens": 2583
+          },
+          "error": null,
+          "characters": 4989,
+          "name_retained": true,
+          "email_retained": false,
+          "title_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_body": {
+          "status": 200,
+          "seconds": 4.266,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 2583,
+            "measuredTokens": 2583,
+            "scaledTokens": 2583,
+            "tokens": 2583
+          },
+          "error": null,
+          "characters": 4989,
+          "name_retained": true,
+          "email_retained": false,
+          "title_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 8.016,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 4574,
+            "measuredTokens": 4574,
+            "scaledTokens": 4574,
+            "tokens": 4574
+          },
+          "error": null,
+          "characters": 5900,
+          "name_retained": true,
+          "email_retained": true,
+          "title_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    },
+    {
+      "id": "p26",
+      "kind": "profile",
+      "url": "https://www.physics.sjtu.edu.cn/jsml/xieyingming.html",
+      "name": "谢应明",
+      "group": "new_validation",
+      "providers": {
+        "native": {
+          "status": 200,
+          "seconds": 0.11,
+          "embedded_document_urls": [],
+          "characters": 4267,
+          "name_retained": true,
+          "email_retained": true,
+          "title_retained": true,
+          "repeated_long_passages": []
+        },
+        "firecrawl": {
+          "status": 200,
+          "seconds": 12.309,
+          "credits": 1,
+          "embedded_document_urls": [],
+          "usage": null,
+          "error": null,
+          "characters": 4233,
+          "name_retained": true,
+          "name_in_raw_html": true,
+          "email_retained": true,
+          "email_in_raw_html": true,
+          "title_retained": true,
+          "title_in_raw_html": true,
+          "repeated_long_passages": []
+        },
+        "jina": {
+          "status": 200,
+          "seconds": 7.578,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1874,
+            "measuredTokens": 1874,
+            "scaledTokens": 1874,
+            "tokens": 1874
+          },
+          "error": null,
+          "characters": 3663,
+          "name_retained": false,
+          "email_retained": true,
+          "title_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_body": {
+          "status": 200,
+          "seconds": 4.281,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 1874,
+            "measuredTokens": 1874,
+            "scaledTokens": 1874,
+            "tokens": 1874
+          },
+          "error": null,
+          "characters": 3663,
+          "name_retained": false,
+          "email_retained": true,
+          "title_retained": true,
+          "repeated_long_passages": []
+        },
+        "jina_full": {
+          "status": 200,
+          "seconds": 7.359,
+          "credits": null,
+          "embedded_document_urls": [],
+          "usage": {
+            "outputTokens": 3789,
+            "measuredTokens": 3789,
+            "scaledTokens": 3789,
+            "tokens": 3789
+          },
+          "error": null,
+          "characters": 4475,
+          "name_retained": true,
+          "email_retained": true,
+          "title_retained": true,
+          "repeated_long_passages": []
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{"files":10081,"bytes":868795286,"path":".runtime\\dev-venv","removed_at":"2026-10-21T18:10:33.5224569+08:00"}
+{"files":9472,"bytes":833547918,"path":".runtime\\worker-venv","removed_at":"2026-10-21T18:10:35.9096188+08:00"}
+{"files":153,"bytes":56594575,"path":"OpenSource\\Mission B\\SmallMission\\.build-cache","removed_at":"2026-10-21T18:10:36.0862733+08:00"}
+{"files":1,"bytes":1864,"path":"OpenSource\\Mission B\\SmallMission\\.build-spec","removed_at":"2026-10-21T18:10:36.0899935+08:00"}
+{"files":5852,"bytes":174235872,"path":"OpenSource\\Mission B\\SmallMission\\.build-venv","removed_at":"2026-10-21T18:10:37.3493082+08:00"}
+{"files":16,"bytes":19981515,"path":"OpenSource\\Mission B\\SmallMission\\.build-work","removed_at":"2026-10-21T18:10:37.3593458+08:00"}
+{"files":299,"bytes":295202225,"path":"OpenSource\\Mission B\\SmallMission\\.portable-browser","removed_at":"2026-10-21T18:10:37.4216614+08:00"}
+{"files":637,"bytes":447679011,"path":"OpenSource\\Mission B\\SmallMission\\.release-stage","removed_at":"2026-10-21T18:10:37.5605720+08:00"}
+{"files":639,"bytes":447766791,"path":"OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-164854","removed_at":"2026-10-21T18:10:37.7023624+08:00"}
+{"files":639,"bytes":447783151,"path":"OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-171724","removed_at":"2026-10-21T18:10:37.8839376+08:00"}
+{"files":24,"bytes":173972,"path":"OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-181144","removed_at":"2026-10-21T18:10:37.9113421+08:00"}
+{"files":643,"bytes":447858066,"path":"OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-185710","removed_at":"2026-10-21T18:10:38.2994913+08:00"}
+{"files":644,"bytes":447940349,"path":"OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-203624","removed_at":"2026-10-21T18:10:38.6102672+08:00"}
+{"files":297,"bytes":295201707,"path":"OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文\\MissionB-Windows-x64-v2.0.0\\.browsers","removed_at":"2026-10-21T18:10:38.7184294+08:00"}
+{"files":266,"bytes":145865482,"path":"OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文\\MissionB-Windows-x64-v2.0.0\\_internal","removed_at":"2026-10-21T18:10:38.8218348+08:00"}
+{"files":297,"bytes":295201707,"path":"OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-165243\\MissionB-Windows-x64-v2.0.0\\.browsers","removed_at":"2026-10-21T18:10:38.8914808+08:00"}
+{"files":266,"bytes":145865679,"path":"OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-165243\\MissionB-Windows-x64-v2.0.0\\_internal","removed_at":"2026-10-21T18:10:38.9778378+08:00"}
+{"files":297,"bytes":295201707,"path":"OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-172234\\MissionB-Windows-x64-v2.1.0\\.browsers","removed_at":"2026-10-21T18:10:39.0403875+08:00"}
+{"files":266,"bytes":145870375,"path":"OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-172234\\MissionB-Windows-x64-v2.1.0\\_internal","removed_at":"2026-10-21T18:10:39.1187210+08:00"}
+{"files":297,"bytes":295201707,"path":"OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-185943\\MissionB-Windows-x64-v2.2.0\\.browsers","removed_at":"2026-10-21T18:10:39.1838057+08:00"}
+{"files":266,"bytes":145883349,"path":"OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-185943\\MissionB-Windows-x64-v2.2.0\\_internal","removed_at":"2026-10-21T18:10:39.2641719+08:00"}
+{"files":297,"bytes":295201707,"path":"OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-203932\\MissionB-Windows-x64-v2.3.0\\.browsers","removed_at":"2026-10-21T18:10:39.3364260+08:00"}
+{"files":266,"bytes":145908095,"path":"OpenSource\\Mission B\\SmallMission\\outputs\\portable validation 中文 20261015-203932\\MissionB-Windows-x64-v2.3.0\\_internal","removed_at":"2026-10-21T18:10:39.4280191+08:00"}
+{"files":1,"bytes":2307,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\.build-spec","removed_at":"2026-10-21T18:10:39.4337005+08:00"}
+{"files":16,"bytes":20077533,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\.build-work","removed_at":"2026-10-21T18:10:39.4528703+08:00"}
+{"files":651,"bytes":448023970,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\.release-stage-20261015-225727","removed_at":"2026-10-21T18:10:39.6329868+08:00"}
+{"files":651,"bytes":448026282,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\.release-stage-20261015-230850","removed_at":"2026-10-21T18:10:39.7829487+08:00"}
+{"files":653,"bytes":448042045,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\.release-stage-20261016-175710","removed_at":"2026-10-21T18:10:39.9377399+08:00"}
+{"files":297,"bytes":295201707,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261015-230301\\MissionB-Windows-x64-v3.0.0\\.browsers","removed_at":"2026-10-21T18:10:39.9963822+08:00"}
+{"files":269,"bytes":145941264,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261015-230301\\MissionB-Windows-x64-v3.0.0\\_internal","removed_at":"2026-10-21T18:10:40.0717611+08:00"}
+{"files":297,"bytes":295201707,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261015-231056\\MissionB-Windows-x64-v3.0.0\\.browsers","removed_at":"2026-10-21T18:10:40.1397722+08:00"}
+{"files":269,"bytes":145941892,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261015-231056\\MissionB-Windows-x64-v3.0.0\\_internal","removed_at":"2026-10-21T18:10:40.2187857+08:00"}
+{"files":298,"bytes":295202103,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261016-175923\\MissionB-Windows-x64-v3.0.1\\.browsers","removed_at":"2026-10-21T18:10:40.2829304+08:00"}
+{"files":269,"bytes":145943577,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\outputs\\portable validation 中文 20261016-175923\\MissionB-Windows-x64-v3.0.1\\_internal","removed_at":"2026-10-21T18:10:40.3556288+08:00"}
+{"files":297,"bytes":295201707,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\validation\\exe-api-20261015-230259\\MissionB-Windows-x64-v3.0.0\\.browsers","removed_at":"2026-10-21T18:10:40.4204944+08:00"}
+{"files":269,"bytes":145941264,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\validation\\exe-api-20261015-230259\\MissionB-Windows-x64-v3.0.0\\_internal","removed_at":"2026-10-21T18:10:40.4967282+08:00"}
+{"files":297,"bytes":295201707,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\validation\\exe-api-20261015-231054\\MissionB-Windows-x64-v3.0.0\\.browsers","removed_at":"2026-10-21T18:10:40.5704361+08:00"}
+{"files":269,"bytes":145941892,"path":"OpenSource\\Mission B\\SmallMission\\api_workbench\\validation\\exe-api-20261015-231054\\MissionB-Windows-x64-v3.0.0\\_internal","removed_at":"2026-10-21T18:10:40.6506818+08:00"}
+{"files":299,"bytes":295201976,"path":"OpenSource\\Mission B\\SmallMission\\.setup-runtime-20261015-180904\\.browsers","removed_at":"2026-10-21T18:10:40.7120765+08:00"}
+{"files":2282,"bytes":143349899,"path":"OpenSource\\Mission B\\SmallMission\\.setup-runtime-20261015-180904\\.venv","removed_at":"2026-10-21T18:10:41.4044481+08:00"}
+{"files":14104,"bytes":496056553,"path":"OpenSource\\experiments\\local-tools-20261018\\.uv-cache","removed_at":"2026-10-21T18:10:44.9148138+08:00"}
+{"archive":"D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.local-backups\\2026-10-21-promotion\\legacy-server-outputs.zip","removed_at":"2026-10-21T18:32:48.5859904+08:00","path":"server/outputs","files":79831,"bytes":3982247132}

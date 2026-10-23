@@ -1,0 +1,31 @@
+{
+  "time_utc": "2026-10-18T13:54:16.583429+00:00",
+  "configured_server": "jina_test",
+  "credential_helper_valid": true,
+  "server_info": {
+    "name": "Jina AI Official MCP Server",
+    "version": "1.9.0"
+  },
+  "tools": [
+    "read_url",
+    "search_web"
+  ],
+  "content_calls": 0,
+  "exchanges": [
+    {
+      "method": "initialize",
+      "status": 200,
+      "elapsed_seconds": 1.11
+    },
+    {
+      "method": "notifications/initialized",
+      "status": 202,
+      "elapsed_seconds": 0.797
+    },
+    {
+      "method": "tools/list",
+      "status": 200,
+      "elapsed_seconds": 0.797
+    }
+  ]
+}

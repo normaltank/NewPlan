@@ -1,0 +1,12 @@
+{
+  "source_files_changed": [],
+  "snapshot_files_changed": [],
+  "human_decisions_count_before": 56,
+  "human_decisions_count_after": 56,
+  "human_decisions_hash_unchanged": true,
+  "raw_source_differences_between_arms": {
+    "fynu": [],
+    "ntu": [],
+    "seu": []
+  }
+}

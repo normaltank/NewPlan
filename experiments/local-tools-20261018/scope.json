@@ -1,0 +1,22 @@
+{
+  "html_samples": 26,
+  "retrieval": [
+    "scrapy_http",
+    "scrapling_http",
+    "scrapling_browser"
+  ],
+  "retrieval_max_requests_per_arm": 26,
+  "scrapegraph_cases": [
+    "p01",
+    "p06",
+    "p07",
+    "p10",
+    "p18",
+    "p23",
+    "p24",
+    "p25"
+  ],
+  "scrapegraph_initial_model_call_cap": 24,
+  "scrapegraph_model": "deepseek-flash",
+  "limits": "Fixed page evidence retention and bounded field extraction; no whole-college completeness claim; no paid new-provider subscription."
+}

@@ -1,0 +1,366 @@
+{
+  "id": "p25",
+  "url": "https://www.physics.sjtu.edu.cn/jsml/tanghao.html",
+  "arm": "scrapy_http",
+  "timestamp": "2026-10-18T13:14:25.575046+00:00",
+  "elapsed_seconds": 3.031,
+  "status": 200,
+  "final_url": "https://www.physics.sjtu.edu.cn/jsml/tanghao.html",
+  "error": null,
+  "encoding": "utf-8",
+  "raw_file": "p25.html",
+  "bytes": 47383,
+  "sha256": "799be4bdd5f01b6a481d5477e9f65fabdd073ce51614b6c3f0e6e96962075aec",
+  "text": "唐豪-上海交通大学物理与天文学院\njAccount登录\n|\nEnglish\n首页\n学院概况\n学院简介\n党政班子\n历任领导\n机构设置\n学院委员会\n学院地图\n师资队伍\n两院院士\n博导名录（2027级）\n教师名录\n教师名录(双聘)\n教师名录(访问学者)\n教辅人员\n博后名录\n博后流动站\n人才培养\n本科生培养\n研究生培养\n招生信息\n教学基地\n科学研究\n科研概况\n科研基地\n研究方向\n科研动态\n公共平台\n暗物质物理全国重点实验室\n党建工作\n组织概况\n党建动态\n学习园地\n办事流程\n学生园地\n学工新闻\n学生风采\n团学工作\n学生事务\n规章制度\n校友文化\n校友会\n杰出校友\n校友名录\n校友之家\n校友信息系统\n捐赠支持\n众筹项目\n办事指南\n人事服务\n科研外事\n资产安全\n工会福利\n财务报销\n文件下载\n教师名录\n两院院士\n博导名录（2027级）\n教师名录\n教师名录(双聘)\n教师名录(访问学者)\n教辅人员\n博后名录\n博后流动站\n流动站概述\n招聘启事\n物理学流动站\n天文学流动站\n科研项目\n教师名录\n唐豪\n教授\n教育部“国家高层次青年人才学者”（2022年）\n光科学与技术研究所\n集成光学，量子计算\n理科楼5号楼432室\nhtang2015@sjtu.edu.cn\n个人经历\n科研项目\n代表性论文著作\n荣誉奖励\n学术兼职\n教学工作\n招生信息\n唐豪于\n2010\n年获得华中科技大学电子科学与技术系本科学位、金融学本科双学位。于2014年获得英国谢菲尔德大学光电半导体物理方向博士学位。并于伦敦商学院进修金融量化分析。于2015年6月加入上海交通大学物理与天文学院工作至今，先后为博士后、助理研究员、副研究员。现为教授，博士生导师。\n研究方向：\n（1）面向容错通用光量子信息与AI计算网络的光子器件底层技术\n（2）\n基于集成光子芯片的\n协同设计\n量子计算\n实验与高性能光计算\n（3）非平衡系统量子模拟、量子计算人工智能等应用研究\n此外，与英国帝国理工学院、牛津大学、新加坡国立大学、香港大学等十余所国际名校学者建立广泛学术交流合作，全面深入挖掘和开拓理论与实验合作。\n2026年在研主持科技部国家重点研发计划课题、\n国家自然科学基金面上项目、\n上海市科委量子专项等国家级、省部级项目。曾先后主持博士后特别资助、国家自然科学基金青年项目、国家重点研发计划变革性项目子课题、上海市科委面上项目、横向项目等科研项目。\n基于光子芯片的量子计算实验与光计算实验：\n1. Shang, X. W., Chen. X., Hegade, N. N., Lan, Z. F.,\nTang, H.\n#\n, Dou, J. P., Li, X. K., Peng, Y. Q., Solano, E., Jin, X. M.\n#\nCodesigned Counterdiabatic Quantum Optimization on a Photonic Quantum Processor.\nPhysical Review Applied\n25, 064026(2026).\n2.\nCao, Z. Y., Du, H. J., Yuan, X. J., Wu, B., Zhang, J. L., Fu, Y. X., Zhang, S. J., Zhang, W. K., Zhou, H. L., Jin, X. M., Xu, X. Y.\n#\n,\nTang, H.\n#\n, Dong, J. J.\n#\n, Zhang, X. L.\n#\n, Programmable Three-dimensional Photonic Neural Network Chip.\nNature Communications\n17, 5476 (2026).\n3.\nTang, H.\n, Banchi, L., Wang, T. Y., Shang, X. W., Tan, X., Zhou, W. H., Feng, Z., Pal, A., Li, H., Hu, C. Q., Kim, M. S. and Jin, X. M.\n#\nGenerating Haar-Uniform Randomness Using Stochastic Quantum Walks on a Photonic Chip.\nPhysical Review Letters\n12, 050503 (2022).\n4. Shi, Z. Y.,\nTang, H.\n, Feng, Z., Wang, Y., Li, Z. M., Gao, J., Chang, Y. J., Wang, T. Y., Dou, J. P., Zhang, Z. Y., Jiao, Z. Q., Zhou, W. H., and Jin, X, M.\n#\nQuantum Fast Hitting on Glued Trees Mapped on a Photonic chip.\nOptica\n7, 613-618 (2020).\n5.\nTang, H.\n, Lin, X. F., Feng, Z., Chen, J. Y., Gao, J., Sun, K., Wang, C. Y., Lai, P. C., Xu, X. Y., Wang, Y., Qiao, L. F., Yang, A. L., and Jin, X. M.\n#\nExperimental Two-dimensional Quantum Walk on a Photonic Chip.\nScience Advances\n4, eaat3174 (2018).\n6.\nTang, H.\n, Di Franco, C., Shi, Z. Y., He, T. S., Feng, Z., Gao, J., Sun, K., Li, Z. M., Jiao Z. Q., Wang, T. Y., Kim, M. S., and Jin, X. M.\n#\nExperimental quantum fast hitting on hexagonal graphs.\nNature Photonics\n12, 754-758 (2018).\n非平衡系统量子模拟的实验与理论研究：\n1.\nTang, H.\n*\n, Shang, X. W.\n*\n, Shi, Z. Y., He, T. S., Feng, Z., Wang, T. Y., Shi, R. X., Wang, H. M., Tan, X., Xu, X. Y., Wang, Y., Gao, J., Kim, M. S. and Jin, X. M.\n#\nSimulating photosynthetic energy transport on a photonic network.\nnpj Quantum Information\n10, 29 (2024).\n2.\nTang, H.\n*, Wang, T. Y.*, Shi, Z. Y., Feng, Z., Wang, Y., Shang, X. W., Gao, J., Jiao, Z. Q., Li, Z. M., Chang, Y. J., Lu, Y. H., Yang, Y. L,, Ren, R. J., Qiao, L. F. and Jin, X. M.# Experimental quantum simulation of dynamic localization on curved photonic lattices.\nPhotonics Research\n10, 1430-1439 (2022) (Editor's Pick).\n3.\nTang, H.\n*, Shi, R. X.*, He, T. S.*, Zhu, Y. Y., Wang, T. Y., Lee, M., and Jin, X. M.\n#\nTensorFlow Solver for Quantum PageRank in Large-Scale Networks.\nScience Bulletin\n66, 120-126 (2021).\n4.\nTang, H\n., Feng, Z., Wang, Y. H., Lai, P. C., Wang, C. Y., Ye, Z. Y., Wang, C. K., Shi, Z. Y., Wang, T. Y., Chen, Y., Gao, J., and Jin, X, M.\n#\nExperimental quantum stochastic walks simulating associative memory of Hopfield neural networks.\nPhysical Review Applied\n11, 024020 (2019).\n量子计算用于金融、机器学习等应用研究：\n1.\nGuo, Y.,  Guo, F., Zhong, B.,  Chen, X., Yuan, X., Jin,\nX.M.\n#\n, and\nTang, H.\n#\nQuantum-Enhanced Computing for the Antiferromagnetic J\n1\n−J\n2\nHeisenberg Model.\nAdvanced Quantum Technologies\n8\n,\n2300240(2025).\n2. Yuan, X. J.\n*\n, Chen, Z. Q.\n*\n, Liu, Y. D., Xie, Z., Jin, X. M.\n#\n, Liu, Y. Z., Wen, X.\n#\n, and\nTang, H.\n#\nQuantum support vector machines for aerodynamic classification.\nIntelligent Computing\n2,0057(2023).\n3.\nTang, H.\n#\n, Anurag, P., Wang, T. Y., Qiao, L. F., Gao, J., and Jin, X. M.\n#\nQuantum Computation for Pricing the Collateralized Debt Obligations.\nQuantum Engineering\n3, e84 (2021).\n4. Shi, R. X.\n#\n,\nTang, H.\n#\n, & Jin, X. M.\n#\nTraining a Quantum PointNet with Nesterov Accelerated Gradient Estimation by Projection. Paper No. 8 of the 1st Workshop on Quantum Tensor Networks in Machine Learning at 34th Conference on Neural Information Processing Systems (\nNeurIPS 2020 Workshop\n)\n5. Gao, J., Qiao, L. F., Jiao, Z. Q., Ma, Y. C., Hu, C. Q., Ren, R. J., Yang, A. L.,\nTang, H.\n, Yung, M. H., and Jin, X. M.\n#\nExperimental Machine Learning of Quantum States.\nPhysical Review Letters\n120, 240501 (2018).\n论文列表详见：\nhttps://scholar.google.com/citations?hl=en&user=G7LyfAMAAAAJ\n第一作者研究工作[Nature Photonics, 12, 754-758 (2018)]入选“2018年度中国光学十大进展”；入选2019年福布斯中国“30位30岁以下精英榜”、2021年“上海科技青年35人引领计划”、2022年上海市“科技启明星计划”、2022年教育部“国家高层次青年人才学者”。\n担任《Chip》国际期刊编委、中国计算机学会CCF量子计算专委执委\n期刊审稿：Physical Review Letters, Physical Review Applied, Physical Review Research, Physical Review A , PRX Quantum\n,\nIEEE Transactions on Computers, Quantum Science and Technology, Intelligent Computing.\n目前讲授课程包括：\n（1）本科生MS331+MS333《量子信息技术及实践》英文课程（课程介绍：https://v.sjtu.edu.cn/course/opencourseshare10613.html，入选校一流课程。并入选“交∙通全球课堂”面向环太平洋联盟大学(APRU)本科生开放）。\n（2）致远学院本科生《前沿探索实验课--高品质量子纠缠光源》\n（3）研究生《量子光学》课程\n招硕士生、博士生若干名，面向迅猛发展的AI科技浪潮，量子技术与光互连技术等成为日益重要的AI时代基建，诚挚欢迎对量子信息、\n集成光学\n与人工智能深度融合方向感兴趣的同学加入！同时欢迎本科同学参与相关PRP项目、致远“未来学者计划”等本科生科研实践活动。\n地址：上海市东川路800号理科实验楼群\n邮编：200240\n沪交ICP备05010\n© 上海交通大学物理与天文学院 版权所有\n微信公众号\n微视频",
+  "links": [
+    {
+      "name": "",
+      "url": "https://www.physics.sjtu.edu.cn/"
+    },
+    {
+      "name": "",
+      "url": "javascript:void(0)"
+    },
+    {
+      "name": "",
+      "url": "javascript:void(0)"
+    },
+    {
+      "name": "jAccount登录",
+      "url": "https://www.physics.sjtu.edu.cn/user/jaccount_login.html"
+    },
+    {
+      "name": "English",
+      "url": "https://www.physics.sjtu.edu.cn/en"
+    },
+    {
+      "name": "首页",
+      "url": "https://www.physics.sjtu.edu.cn/"
+    },
+    {
+      "name": "学院概况",
+      "url": "https://www.physics.sjtu.edu.cn/xygk.html"
+    },
+    {
+      "name": "学院简介",
+      "url": "https://www.physics.sjtu.edu.cn/xyjj.html"
+    },
+    {
+      "name": "党政班子",
+      "url": "https://www.physics.sjtu.edu.cn/dzbz.html"
+    },
+    {
+      "name": "历任领导",
+      "url": "https://www.physics.sjtu.edu.cn/lrld.html"
+    },
+    {
+      "name": "机构设置",
+      "url": "https://www.physics.sjtu.edu.cn/jgsz.html"
+    },
+    {
+      "name": "学院委员会",
+      "url": "https://www.physics.sjtu.edu.cn/xywyh.html"
+    },
+    {
+      "name": "学院地图",
+      "url": "https://www.physics.sjtu.edu.cn/xydt.html"
+    },
+    {
+      "name": "师资队伍",
+      "url": "https://www.physics.sjtu.edu.cn/szdw.html"
+    },
+    {
+      "name": "两院院士",
+      "url": "https://www.physics.sjtu.edu.cn/lyys.html"
+    },
+    {
+      "name": "博导名录（2027级）",
+      "url": "https://www.physics.sjtu.edu.cn/yjfx-lzyhwl.html"
+    },
+    {
+      "name": "教师名录",
+      "url": "https://www.physics.sjtu.edu.cn/jsml.html"
+    },
+    {
+      "name": "教师名录(双聘)",
+      "url": "https://www.physics.sjtu.edu.cn/jsml_sp.html"
+    },
+    {
+      "name": "教师名录(访问学者)",
+      "url": "https://www.physics.sjtu.edu.cn/jsml_fwxz.html"
+    },
+    {
+      "name": "教辅人员",
+      "url": "https://www.physics.sjtu.edu.cn/jfry.html"
+    },
+    {
+      "name": "博后名录",
+      "url": "https://www.physics.sjtu.edu.cn/bhml.html"
+    },
+    {
+      "name": "博后流动站",
+      "url": "https://www.physics.sjtu.edu.cn/bhldz.html"
+    },
+    {
+      "name": "人才培养",
+      "url": "https://www.physics.sjtu.edu.cn/rcpy.html"
+    },
+    {
+      "name": "本科生培养",
+      "url": "https://www.physics.sjtu.edu.cn/bkspy.html"
+    },
+    {
+      "name": "研究生培养",
+      "url": "https://www.physics.sjtu.edu.cn/yjspy.html"
+    },
+    {
+      "name": "招生信息",
+      "url": "https://www.physics.sjtu.edu.cn/zsxx.html"
+    },
+    {
+      "name": "教学基地",
+      "url": "http://phycai.sjtu.edu.cn/"
+    },
+    {
+      "name": "科学研究",
+      "url": "https://www.physics.sjtu.edu.cn/kxyj.html"
+    },
+    {
+      "name": "科研概况",
+      "url": "https://www.physics.sjtu.edu.cn/kygk.html"
+    },
+    {
+      "name": "科研基地",
+      "url": "https://www.physics.sjtu.edu.cn/kyjd.html"
+    },
+    {
+      "name": "研究方向",
+      "url": "https://www.physics.sjtu.edu.cn/yjfx.html"
+    },
+    {
+      "name": "科研动态",
+      "url": "https://www.physics.sjtu.edu.cn/kydt.html"
+    },
+    {
+      "name": "公共平台",
+      "url": "https://www.physics.sjtu.edu.cn/ggpt.html"
+    },
+    {
+      "name": "暗物质物理全国重点实验室",
+      "url": "https://tdli.sjtu.edu.cn/dark-matter/overview/about"
+    },
+    {
+      "name": "党建工作",
+      "url": "https://www.physics.sjtu.edu.cn/djgz.html"
+    },
+    {
+      "name": "组织概况",
+      "url": "https://www.physics.sjtu.edu.cn/zzgl.html"
+    },
+    {
+      "name": "党建动态",
+      "url": "https://www.physics.sjtu.edu.cn/djdt.html"
+    },
+    {
+      "name": "学习园地",
+      "url": "https://www.physics.sjtu.edu.cn/xxyd.html"
+    },
+    {
+      "name": "办事流程",
+      "url": "https://www.physics.sjtu.edu.cn/bslc.html"
+    },
+    {
+      "name": "学生园地",
+      "url": "https://www.physics.sjtu.edu.cn/xsyd.html"
+    },
+    {
+      "name": "学工新闻",
+      "url": "https://www.physics.sjtu.edu.cn/xgxw.html"
+    },
+    {
+      "name": "学生风采",
+      "url": "https://www.physics.sjtu.edu.cn/xsfc.html"
+    },
+    {
+      "name": "团学工作",
+      "url": "https://www.physics.sjtu.edu.cn/txgz.html"
+    },
+    {
+      "name": "学生事务",
+      "url": "https://www.physics.sjtu.edu.cn/xssw.html"
+    },
+    {
+      "name": "规章制度",
+      "url": "https://www.physics.sjtu.edu.cn/gzzd.html"
+    },
+    {
+      "name": "校友文化",
+      "url": "https://www.physics.sjtu.edu.cn/xywh.html"
+    },
+    {
+      "name": "校友会",
+      "url": "https://www.physics.sjtu.edu.cn/xyh.html"
+    },
+    {
+      "name": "杰出校友",
+      "url": "https://www.physics.sjtu.edu.cn/jcxy.html"
+    },
+    {
+      "name": "校友名录",
+      "url": "https://www.physics.sjtu.edu.cn/xyml.html"
+    },
+    {
+      "name": "校友之家",
+      "url": "https://www.physics.sjtu.edu.cn/xyzj.html"
+    },
+    {
+      "name": "校友信息系统",
+      "url": "https://alumni.sjtu.edu.cn/web/index"
+    },
+    {
+      "name": "捐赠支持",
+      "url": "https://www.physics.sjtu.edu.cn/jzzc.html"
+    },
+    {
+      "name": "众筹项目",
+      "url": "https://www.physics.sjtu.edu.cn/zcxm.html"
+    },
+    {
+      "name": "办事指南",
+      "url": "https://www.physics.sjtu.edu.cn/bszn.html"
+    },
+    {
+      "name": "人事服务",
+      "url": "https://www.physics.sjtu.edu.cn/rsfw.html"
+    },
+    {
+      "name": "科研外事",
+      "url": "https://www.physics.sjtu.edu.cn/kyws.html"
+    },
+    {
+      "name": "资产安全",
+      "url": "https://www.physics.sjtu.edu.cn/zcaq.html"
+    },
+    {
+      "name": "工会福利",
+      "url": "https://www.physics.sjtu.edu.cn/ghfl.html"
+    },
+    {
+      "name": "财务报销",
+      "url": "https://www.physics.sjtu.edu.cn/cwbx.html"
+    },
+    {
+      "name": "文件下载",
+      "url": "https://www.physics.sjtu.edu.cn/wjxz.html"
+    },
+    {
+      "name": "教师名录",
+      "url": "javascript:void(0)"
+    },
+    {
+      "name": "两院院士",
+      "url": "https://www.physics.sjtu.edu.cn/lyys.html"
+    },
+    {
+      "name": "博导名录（2027级）",
+      "url": "https://www.physics.sjtu.edu.cn/yjfx-lzyhwl.html"
+    },
+    {
+      "name": "教师名录",
+      "url": "https://www.physics.sjtu.edu.cn/jsml.html"
+    },
+    {
+      "name": "教师名录(双聘)",
+      "url": "https://www.physics.sjtu.edu.cn/jsml_sp.html"
+    },
+    {
+      "name": "教师名录(访问学者)",
+      "url": "https://www.physics.sjtu.edu.cn/jsml_fwxz.html"
+    },
+    {
+      "name": "教辅人员",
+      "url": "https://www.physics.sjtu.edu.cn/jfry.html"
+    },
+    {
+      "name": "博后名录",
+      "url": "https://www.physics.sjtu.edu.cn/bhml.html"
+    },
+    {
+      "name": "博后流动站",
+      "url": "https://www.physics.sjtu.edu.cn/bhldz.html"
+    },
+    {
+      "name": "流动站概述",
+      "url": "https://www.physics.sjtu.edu.cn/ldzgs.html"
+    },
+    {
+      "name": "招聘启事",
+      "url": "https://www.physics.sjtu.edu.cn/zpqs.html"
+    },
+    {
+      "name": "物理学流动站",
+      "url": "https://www.physics.sjtu.edu.cn/wlxldz.html"
+    },
+    {
+      "name": "天文学流动站",
+      "url": "https://www.physics.sjtu.edu.cn/twxldz.html"
+    },
+    {
+      "name": "科研项目",
+      "url": "https://www.physics.sjtu.edu.cn/kyxm.html"
+    },
+    {
+      "name": "个人经历",
+      "url": "javascript:void(0)"
+    },
+    {
+      "name": "科研项目",
+      "url": "javascript:void(0)"
+    },
+    {
+      "name": "代表性论文著作",
+      "url": "javascript:void(0)"
+    },
+    {
+      "name": "荣誉奖励",
+      "url": "javascript:void(0)"
+    },
+    {
+      "name": "学术兼职",
+      "url": "javascript:void(0)"
+    },
+    {
+      "name": "教学工作",
+      "url": "javascript:void(0)"
+    },
+    {
+      "name": "招生信息",
+      "url": "javascript:void(0)"
+    },
+    {
+      "name": "https://scholar.google.com/citations?hl=en&user=G7LyfAMAAAAJ",
+      "url": "https://scholar.google.com/citations?hl=en&user=G7LyfAMAAAAJ"
+    },
+    {
+      "name": "沪交ICP备05010",
+      "url": "http://beian.miit.gov.cn"
+    },
+    {
+      "name": "",
+      "url": "javascript:;"
+    },
+    {
+      "name": "",
+      "url": "javascript:;"
+    },
+    {
+      "name": "",
+      "url": "javascript:;"
+    },
+    {
+      "name": "微视频",
+      "url": "javascript:void(0)"
+    }
+  ],
+  "embedded_documents": []
+}

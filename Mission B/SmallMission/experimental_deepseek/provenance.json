@@ -1,0 +1,26 @@
+[
+  {
+    "file": "audit.py",
+    "origin": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-203624\\MissionB-Mac-Linux-v2.3.0\\audit.py",
+    "sha256": "5cb9708a9ef3954a2c6bde6ad9739ba85f3768d3f3d7faa6ff77b7b5b4844992",
+    "copy_identical": true
+  },
+  {
+    "file": "input_adapter.py",
+    "origin": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-203624\\MissionB-Mac-Linux-v2.3.0\\input_adapter.py",
+    "sha256": "76cdc129e1a9b1003cf29a6b0abeb611b7d19fefe262f6c60b6b03c40fba078e",
+    "copy_identical": true
+  },
+  {
+    "file": "runtime_paths.py",
+    "origin": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission B\\SmallMission\\.release-stage-20261015-203624\\MissionB-Mac-Linux-v2.3.0\\runtime_paths.py",
+    "sha256": "a117540b034005c1dd9bbf1f5203c3ad94dd07eb75c1b02f3d32a089bc342a96",
+    "copy_identical": true
+  },
+  {
+    "file": "deepseek_api.py",
+    "origin": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\deepseek_api.py",
+    "sha256": "bb66b2149f2f9b9353ebb22da38c5c821d07f7080ddfcc90b86d2582076da0f2",
+    "copy_identical": true
+  }
+]

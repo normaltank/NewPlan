@@ -1,0 +1,12 @@
+{
+  "source_files_checked": 189,
+  "changed_source_files": [],
+  "global_config_unchanged": true,
+  "git_head_unchanged": true,
+  "credential_scan_files": 21,
+  "credential_leaks": [],
+  "credential_location": "outside repository, Windows user profile; DPAPI",
+  "new_dependencies_installed": false,
+  "python_version": "3.12.10",
+  "scope": "source/config/templates only; collection outputs were not rewritten or exhaustively rehashed"
+}

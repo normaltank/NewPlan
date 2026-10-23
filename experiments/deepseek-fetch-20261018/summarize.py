@@ -1,0 +1,116 @@
+"""Create the experiment summary from completed, isolated evidence only."""
+from collections import Counter
+from datetime import datetime, timezone
+import hashlib
+import json
+from pathlib import Path
+import sqlite3
+import sys
+
+ROOT=Path(__file__).resolve().parent
+SOURCE=ROOT.parent.parent
+
+
+def read(path,default=None):
+    return json.loads(path.read_text(encoding='utf8')) if path.is_file() else default
+
+
+def save(path,value):
+    path.write_text(json.dumps(value,ensure_ascii=False,indent=2),encoding='utf8')
+
+
+def main():
+    comparisons=[read(ROOT/'runs'/case/'comparison.json') for case in ('fynu','ntu','seu')]
+    if any(row is None for row in comparisons):
+        raise RuntimeError('All three comparison cases must finish first')
+    for row in comparisons:
+        capture=read(ROOT/'runs'/row['case']/'capture-result.json')
+        summary=capture['summary']
+        row['capture']={key:summary.get(key) for key in ('pages','roster_pages','profile_pages',
+            'profile_bodies','pending_pages','not_saved','issues_by_kind','continuation_required')}
+        differences=read(ROOT/'runs'/row['case']/'person-differences.json',[])
+        row['status_transitions']=[{'before':a,'after':b,'records':count}
+            for (a,b),count in Counter((d['before_status'],d['after_status']) for d in differences
+                                      if d['before_status']!=d['after_status']).items()]
+    model_calls=[]
+    segments=[]
+    for run in sorted((ROOT/'runtime/runs').iterdir()):
+        calls=read(run/'api/calls.json',[])
+        model_calls.extend(calls)
+        segments.append({'run':str(run),'calls':len(calls),'summary_exists':(run/'summary.json').is_file()})
+    usage=Counter()
+    for call in model_calls:
+        for field in ('prompt_tokens','completion_tokens','total_tokens','prompt_cache_hit_tokens','prompt_cache_miss_tokens'):
+            usage[field]+=call.get('usage',{}).get(field,0)
+    fetch_ledgers=[ROOT/'fetch-api/calls.json',*sorted((ROOT/'probe').glob('*/calls.json'))]
+    fetch_calls=[call for ledger in fetch_ledgers for call in read(ledger,[])]
+    model_peak=(usage['prompt_cache_hit_tokens']*.006+usage['prompt_cache_miss_tokens']*.30+usage['completion_tokens']*1.20)/1_000_000
+    fetch_usd=sum(call.get('estimated_fetch_usd',0) for call in fetch_calls)
+    costs={'model_calls':len(model_calls),'usage':dict(usage),'capture_segments':segments,
+           'fetch_attempts_including_probes':len(fetch_calls),
+           'fetch_successful_nonempty_responses':sum(call.get('billable_success',False) for call in fetch_calls),
+           'fetch_statuses':dict(Counter(call['status'] for call in fetch_calls)),
+           'fetch_estimated_usd':round(fetch_usd,6),'model_estimated_usd_off_peak':round(model_peak/2,6),
+           'model_estimated_usd_peak_upper_bound':round(model_peak,6),
+           'total_estimated_usd_off_peak':round(fetch_usd+model_peak/2,6),
+           'total_estimated_usd_peak_upper_bound':round(fetch_usd+model_peak,6),
+           'account_bill_verified':False,'token_pricing_model':'deepseek-flash / DeepSeek-V4.1-Flash-1017',
+           'pricing_source':'https://api-docs.deepseek.com/quick_start/pricing/',
+           'pricing_note':'2026-10-18 is Sunday; official weekend rates are off-peak. Standalone Fetch successful calls are estimated at $0.00075 each. Account balance was not used as proof of deductions.'}
+    save(ROOT/'costs.json',costs)
+    manifest=read(ROOT/'source-manifest.json')
+    changed=[name for name,digest in manifest['files'].items() if hashlib.sha256((SOURCE/name).read_bytes()).hexdigest()!=digest]
+    snapshot_changed=[name for name,digest in manifest['files'].items() if hashlib.sha256((ROOT/'runtime'/name).read_bytes()).hexdigest()!=digest]
+    db=SOURCE/'runs/workbench/workbench.db'
+    with sqlite3.connect(db.as_uri()+'?mode=ro',uri=True) as con:
+        decisions=[tuple(row) for row in con.execute('SELECT * FROM decisions ORDER BY job_id,item_id')]
+    human_hash=hashlib.sha256(json.dumps(decisions,ensure_ascii=False).encode()).hexdigest()
+    isolation={'source_files_changed':changed,'snapshot_files_changed':snapshot_changed,
+               'human_decisions_count_before':manifest['live_decisions_count'],
+               'human_decisions_count_after':len(decisions),
+               'human_decisions_hash_unchanged':human_hash==manifest['live_decisions_sha256'],
+               'raw_source_differences_between_arms':{r['case']:r['raw_sources_modified'] for r in comparisons}}
+    save(ROOT/'isolation-check.json',isolation)
+    scope={'baseline':'OpenSource/api_pilot.py and workbench snapshot; not the parent MyPlan/server workflow',
+           'paired_input':'One live discovery/capture with identical rosters and source artifacts for both arms',
+           'candidate':'Fetch-priority eligible personal-page body, original PDF/OCR, same identity/quality/export policies',
+           'not_tested':['Independent Fetch-only discovery and pagination','DS Search','DS vision','parent MyPlan/server integration'],
+           'completeness':'unverified','human_decisions_reused':False}
+    save(ROOT/'comparison.json',{'created':datetime.now(timezone.utc).isoformat(),'scope':scope,'cases':comparisons,'costs':costs,'isolation':isolation})
+    lines=['# DeepSeek Fetch 隔离试验结果','',
+        '本轮基线为 OpenSource 采集工作台的当前副本。已跑真实入口发现、名单/分页、个人页、原有图片/PDF读取，再分别核验、去重和按大学导出。没有接入上层 MyPlan/server 主流程。','',
+        '两组共用同一次实时采集的名单与原件。A 用现有正文；B 对符合本人绑定条件的个人页优先用 Fetch 正文，失败时保留 A 的正文。B 继续使用原有附件和质量规则。名单页的 Fetch 结果只作诊断，不用于删改名单。这不是一个 Fetch 独立爬虫的验收。Fetch 只返回标题和正文，未提供可与本地 HTML 校对的原件哈希；同时间采集也不能完全排除页面更新或服务缓存差异。','',
+        '| 学院 | 观察姓名数 | 可导出记录 A → B | 有邮箱记录 A → B | 有职称记录 A → B | 待核记录 A → B |',
+        '|---|---:|---:|---:|---:|---:|']
+    for row in comparisons:
+        a,b=row['baseline'],row['fetch']
+        lines.append(f"| {row['university']}·{row['college']} | {a['observed_names']} | {a['delivered']} → {b['delivered']} | {a['with_email']} → {b['with_email']} | {a['with_title']} → {b['with_title']} | {a['review_statuses'].get('pending',0)} → {b['review_statuses'].get('pending',0)} |")
+    lines += ['',
+        '观察姓名数不是确认教师总数；待核记录包含同一姓名的多份材料。两组都不套用旧人工决定，不能把待核数量直接与日常工作台比较。**三个学院均为完整性未验证**，接口成功、自动通过和导出条数都不等于准确率。','',
+        '## 已核对的实际差异','',
+        '- 阜阳：原方案可导出 94 人，Fetch 优先方案为 92 人；有邮箱记录从 59 降至 54。徐华杰被拆成多段的邮箱由 Fetch 还原，但解金旋、董秋静、杨池等人在原始 HTML 中存在的邮箱没有出现在 Fetch 正文中。部分同人材料因提取文本差异重新进入待核。','- 阜阳硕导名单：原网页六页合计 51 条，现有方案全部取得；Fetch 对这六页返回的内容主要为页脚，姓名和个人页链接缺失。教授团队的纯文字姓名能保留，但个人主页链接没有保留。','- 南通：61 个 PDF 行对应 61 个姓名，60 人自动进入试验导出，1 人因原材料文本中的邮箱不完整保留待核。名单页和直接 PDF 地址的 Fetch 均返回服务侧 404，原 PDF 读取路径保证了 A/B 结果相同。服务侧 404 没有被写成原主页失效。','- 东南指定的仇晓黎、陈震、邓小鹏页面，Fetch 能返回正文及联系方式；本轮原方案也已取得这些页面。仇晓黎/陈震的返回文本明显变长，但抽查出现重复段落，不能按字数增长判断更完整。','',
+        '## 对接建议','',
+        '东南同时有 136 条记录由待核转为自动通过、161 条反向转为待核。这是现行规则的状态变化，不是 136 条已由人工验收的提升。抽查确认，Fetch 读到了吴巍炜、祁磊原方案漏掉的信息卡邮箱；朱利的可读正文由 162 字符扩展至 9,964 字符，包含本人信息卡与科研履历。晏井利的原导出邮箱少了开头的 j，Fetch 的 jlyan@seu.edu.cn 与保存的原始 HTML 一致。这些属于有实际补益的样本，也暴露了原方案仍需维护的地方。','',
+        '保留现有名单、分页、原件与附件流程。Fetch 值得作为现有读取失败时的补救来源；暂不以 Fetch 全量覆盖已有正文或邮箱。正式接入前应验证缺失字段保护、同人材料比较稳定性和正文重复控制；字段选择仍以可归属本人的原件为准，原结果也不能因为先前已通过就无条件保留。本轮没有发布这些生产改动。','',
+        '## 范围与证据','',
+        '采集覆盖：'+ '；'.join(f"{row['college']}保存 {row['capture']['pages']} 页，排队待续 {row['capture']['pending_pages']} 页，未保存网址 {len(row['capture']['not_saved'] or [])} 个" for row in comparisons)+'。未保存网址及错误原因在各运行的 summary.json、issues.json 中保留，不能算作正文已取得。','',
+        '- [独立来源检查](source-audit.json)：南通 PDF 61 行；阜阳硕导 6 页、51 条；东南主名单 837 个链接条目的规范化姓名均进入观察。其他分支资格、全部字段和全院完整性未逐条人工验收。',
+        '- [具体页面抽查](spot-checks.json)：保存了十六个个人页的原件路径、Fetch 响应路径、邮箱对照、重复长段落和完整简介缺项。王海兵、张金霞、曾勇页面中的若干本人论文条目在 Fetch 正文中缺失，不能只检查姓名/邮箱就认为完整简介合格。',
+        '- [历史姓名对照](historical-name-comparison.json)：阜阳、南通姓名集合一致；东南原件中的“戚哓芳”及学院内部链接已更新为“戚晓芳”及计算机学院个人页，两次观察各自与当次官方名单相符。',
+        '- 吴健雄学院规模较大，初始串行段在保存断点后停止，使用同一源码继续剩余队列；续采阶段仅在试验启动器中设置 3 个并发、导航间隔至少 1.1 秒，并保留 robots 规则。各段证据与费用分别保留。',
+        '- 每组均检查大学文件包及三个 Sheet：有邮箱教师、无邮箱教师、主页失效教师；沿用十列、采集人“自动采集”。这些是对照试验结果，不作为已经人工验收的正式交付。',
+        '- [隔离核对](isolation-check.json)：生产采集源码、冻结副本与原人工决定的前后哈希；A/B 原始材料保持一致。',
+        '- [逐项比较和费用](comparison.json)，各学院目录另有 person-differences.json、fetch-pages.json、两组 catalog 和导出验证记录。','',
+        '## 调用与费用','',
+        f"Fetch 共 {costs['fetch_attempts_including_probes']} 次尝试（含接口探测和重试），{costs['fetch_successful_nonempty_responses']} 次返回非空成功内容，按官方价格估算 ${costs['fetch_estimated_usd']:.5f}。模型 {len(model_calls)} 次，{usage['total_tokens']:,} tokens，按当日周末低峰价估算 ${costs['model_estimated_usd_off_peak']:.5f}。合计约 **${costs['total_estimated_usd_off_peak']:.4f}**；不是账户扣费核验结果。旧单段 summary 的峰值估计没有覆盖续采总费用，应以本目录 costs.json 为准。",
+        '','价格来源：[DeepSeek 官方价格表](https://api-docs.deepseek.com/quick_start/pricing/)。本轮未把集成工具的免费期套用到独立 Fetch API。','',
+        '## 查看输出','']
+    for row in comparisons:
+        case=row['case']
+        lines.append(f"- {row['university']}·{row['college']}：[现有方案](runs/{case}/baseline-试验结果.zip) / [Fetch 优先方案](runs/{case}/fetch-试验结果.zip) / [字段和状态差异](runs/{case}/person-differences.json)。")
+    (ROOT/'REPORT.md').write_text('\n'.join(lines)+'\n',encoding='utf8')
+    print(json.dumps({'costs':costs,'isolation':isolation,'report':str(ROOT/'REPORT.md')},ensure_ascii=False))
+
+
+if __name__=='__main__':
+    main()

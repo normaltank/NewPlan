@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "checked_at": "2026-10-21T18:48:12.864875+08:00",
+  "deleted_targets": 35,
+  "deleted_logical_bytes": 3668372924,
+  "reparse_points_unlinked_without_following": 1439,
+  "remaining_parent_entries": [
+    ".agents",
+    ".git",
+    ".gitignore",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "OpenSource",
+    "README.md",
+    "skills-lock.json"
+  ],
+  "protected_files_unchanged": 94,
+  "retained_college_inputs": 4,
+  "database_counts": {
+    "batches": 9,
+    "jobs": 92,
+    "decisions": 56,
+    "audit": 85,
+    "sqlite_sequence": 1,
+    "manual_people": 0,
+    "schedule_runs": 0,
+    "batch_requests": 4
+  },
+  "decisions_sha256_unchanged": true,
+  "sqlite_quick_check": "ok",
+  "referenced_run_directories_present": 91,
+  "tests_passed": 196,
+  "replay_roster_reference_count": 60,
+  "replay_missing": [],
+  "replay_extra": [],
+  "current_documents_checked": 17,
+  "local_links_checked": 113,
+  "broken_links": [],
+  "git_head": "30c13c31d00000fa6510c6418846d1fa9bdcb2e8",
+  "linked_worktrees_retained": 11,
+  "disk_free_before": {
+    "C:/": 8537382912,
+    "D:/": 31061397504
+  },
+  "disk_free_after": {
+    "C:/": 22135574528,
+    "D:/": 34735755264
+  },
+  "disk_free_delta": {
+    "C:/": 13598191616,
+    "D:/": 3674357760
+  },
+  "paid_api_calls": 0,
+  "real_college_crawls": 0,
+  "current_app_path_changed": false,
+  "notes": [
+    "Disk free delta may include other local processes.",
+    "No Git commit, push or remote repository deletion.",
+    "Historical old-MyPlan evidence archives deleted per owner request."
+  ]
+}

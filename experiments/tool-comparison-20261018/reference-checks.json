@@ -1,0 +1,721 @@
+[
+  {
+    "id": "p01",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://www.fynu.edu.cn/hxycl/info/1047/4105.htm",
+    "case": "fynu",
+    "expected": {
+      "name": "徐华杰",
+      "email": "2000xhj@163.com",
+      "biography_marker": null
+    },
+    "source_sha256": "2dd512c776331558e1626f7dc600d4a0d998d9d005003d2be421c861123a1b99",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-766385-2a619c58-api-pilot\\42b910bc24cacd3b\\source.html"
+  },
+  {
+    "id": "p02",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://www.fynu.edu.cn/hxycl/info/1049/8931.htm",
+    "case": "fynu",
+    "expected": {
+      "name": "解金旋",
+      "email": "xiejinxuan2025@163.com",
+      "biography_marker": null
+    },
+    "source_sha256": "a065a3e3719a7d1488d0f059a6b91344d488ea21c01f1680d1093badce765ff8",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-766385-2a619c58-api-pilot\\65e0df2ba6ec1de8\\source.html"
+  },
+  {
+    "id": "p03",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://www.fynu.edu.cn/hxycl/info/1047/4115.htm",
+    "case": "fynu",
+    "expected": {
+      "name": "董秋静",
+      "email": "dongqj1980@163.com",
+      "biography_marker": null
+    },
+    "source_sha256": "b5f814adf3490f5a3516b6b7535f80f3f7036f3341176d09892a0fa57458d046",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-766385-2a619c58-api-pilot\\54c1a6f2a6c0c57e\\source.html"
+  },
+  {
+    "id": "p04",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://www.fynu.edu.cn/hxycl/info/1049/7431.htm",
+    "case": "fynu",
+    "expected": {
+      "name": "杨池",
+      "email": "youngchi0724@gmail.com",
+      "biography_marker": null
+    },
+    "source_sha256": "cf4ff0ce9f9537766b5bc147b75e66e3978fc62447391aabd8760c64bdd4c116",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-766385-2a619c58-api-pilot\\9e1edfe28f3b0fb7\\source.html"
+  },
+  {
+    "id": "p05",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://me.seu.edu.cn/cxl/list.htm",
+    "case": "seu",
+    "expected": {
+      "name": "仇晓黎",
+      "email": "qiuxiaoli@seu.edu.cn",
+      "biography_marker": null
+    },
+    "source_sha256": "54bcc9d6bca9c17e10ec62ae3bc83fe13d78e98dcd5f0e2eebe404a03448f62b",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot\\9b254980981b14d9\\source.html"
+  },
+  {
+    "id": "p06",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://me.seu.edu.cn/cz_31654/list.htm",
+    "case": "seu",
+    "expected": {
+      "name": "陈震",
+      "email": "zhenchen@seu.edu.cn",
+      "biography_marker": null
+    },
+    "source_sha256": "d0d8862e05480e9b13abfb99056a56482ec29e4d7830cf68ad4372003af95eda",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot\\0d37f615ed9c6700\\source.html"
+  },
+  {
+    "id": "p07",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://civil.seu.edu.cn/dxp/list.htm",
+    "case": "seu",
+    "expected": {
+      "name": "邓小鹏",
+      "email": "dxp@seu.edu.cn",
+      "biography_marker": null
+    },
+    "source_sha256": "4ea2dd811922d69be777f67f6e5c074c98b9ae02afe6b19a0f9dd685d233a5bf",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot\\83eedeaa00d0ab50\\source.html"
+  },
+  {
+    "id": "p08",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://arch.seu.edu.cn/lyc/main.psp",
+    "case": "seu",
+    "expected": {
+      "name": "李迎成",
+      "email": null,
+      "biography_marker": null
+    },
+    "source_sha256": "b140a977328d38debd4bda1f9a02811147283cb90040184e286f59e349ba41da",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot\\e4f602bea548c716\\source.html"
+  },
+  {
+    "id": "p09",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://arch.seu.edu.cn/2019/1228/c16785a304635/page.htm",
+    "case": "seu",
+    "expected": {
+      "name": "淳庆",
+      "email": null,
+      "biography_marker": null
+    },
+    "source_sha256": "6f6684546d34149db65f83eeee8f60a8852f0002244324f2c71bd147f58323db",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot\\c9e7c261921361de\\source.html"
+  },
+  {
+    "id": "p10",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://math.seu.edu.cn/whb/list.htm",
+    "case": "seu",
+    "expected": {
+      "name": "王海兵",
+      "email": null,
+      "biography_marker": "On the convergence of the no-response test for the heat equation"
+    },
+    "source_sha256": "62d565df6130b0003ce121e4e79d626b464ae3148d1b0f3bff0941ca05136dd7",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot\\ace29197e838d8d0\\source.html"
+  },
+  {
+    "id": "p11",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://automation.seu.edu.cn/zjx/list.htm",
+    "case": "seu",
+    "expected": {
+      "name": "张金霞",
+      "email": null,
+      "biography_marker": "A prior-based graph for salient object detection"
+    },
+    "source_sha256": "429d267273a782934d983ae64e25282c488c4c6d4b31a65dd805b1384b7e0a0a",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot\\ba30fa35852257b6\\source.html"
+  },
+  {
+    "id": "p12",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://radio.seu.edu.cn/2019/0613/c19937a277743/page.htm",
+    "case": "seu",
+    "expected": {
+      "name": "曾勇",
+      "email": null,
+      "biography_marker": "Joint base station selection and linear precoding for networks with multi-cell processing"
+    },
+    "source_sha256": "5cbe9cd9f8817156f76e4a2add2797f61f794c307b2a5bd97d9036d32ee12983",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot\\0a8dc4f72d73d34d\\source.html"
+  },
+  {
+    "id": "p13",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://cs.seu.edu.cn/weiweiwu/main.htm",
+    "case": "seu",
+    "expected": {
+      "name": "吴巍炜",
+      "email": "weiweiwu@seu.edu.cn",
+      "biography_marker": null
+    },
+    "source_sha256": "d8dbebda71ebf3eb83995356a3bfcac9b346c00e9165589ad3f54074f54d1cb4",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot\\f3b8686833e7c244\\source.html"
+  },
+  {
+    "id": "p14",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://cs.seu.edu.cn/qilei/main.htm",
+    "case": "seu",
+    "expected": {
+      "name": "祁磊",
+      "email": "qilei@seu.edu.cn",
+      "biography_marker": null
+    },
+    "source_sha256": "bb1c7551f24d44b6e2de2ce97e0c070db5f160331c86ba60ef25e2b6c0015ceb",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot\\c6406c4e6e4566a4\\source.html"
+  },
+  {
+    "id": "p15",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://electronic.seu.edu.cn/zl/list.htm",
+    "case": "seu",
+    "expected": {
+      "name": "朱利",
+      "email": "li-zhu@seu.edu.cn",
+      "biography_marker": null
+    },
+    "source_sha256": "26a34686b98a1109204f2ae9ad4e6eefbd80eddcfd757215e66f817995b2984c",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot\\93cb9bb647d03ad2\\source.html"
+  },
+  {
+    "id": "p16",
+    "kind": "profile",
+    "group": "known_diagnostic",
+    "url": "https://smse.seu.edu.cn/2011/1121/c2590a83608/page.htm",
+    "case": "seu",
+    "expected": {
+      "name": "晏井利",
+      "email": "jlyan@seu.edu.cn",
+      "biography_marker": null
+    },
+    "source_sha256": "0dd51f8b3985d638cedc4867e23552198ebf18bb95612a68e499498dcec947dc",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-192516-541404-ff98b2ff-api-pilot\\7beda045a7bd3860\\source.html"
+  },
+  {
+    "id": "p17",
+    "kind": "roster",
+    "group": "known_diagnostic",
+    "case": "fynu",
+    "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds.htm",
+    "expected": {
+      "rows": [
+        {
+          "name": "于会珠",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/9372.htm"
+        },
+        {
+          "name": "吴雷",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/9167.htm"
+        },
+        {
+          "name": "李少川",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/9093.htm"
+        },
+        {
+          "name": "杨薇",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/8682.htm"
+        },
+        {
+          "name": "杨正",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/8681.htm"
+        },
+        {
+          "name": "苏婷",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/8665.htm"
+        },
+        {
+          "name": "耿仁勇",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/8664.htm"
+        },
+        {
+          "name": "张甲甲",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/8662.htm"
+        },
+        {
+          "name": "沈晓宝",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/8651.htm"
+        },
+        {
+          "name": "张彤彤",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/8377.htm"
+        }
+      ],
+      "pagination_urls": [
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds/1.htm",
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds/5.htm"
+      ]
+    },
+    "source_sha256": "a72f3a06cc76da6770667f9d60adb847dd0270e3794ba583847325ce5b7aff41",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-766385-2a619c58-api-pilot\\f7546ae23ccf302c\\source.html"
+  },
+  {
+    "id": "p18",
+    "kind": "roster",
+    "group": "known_diagnostic",
+    "case": "fynu",
+    "url": "https://www.fynu.edu.cn/hxycl/szdw/jstd.htm",
+    "expected": {
+      "rows": [
+        {
+          "name": "凡素华",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4751.htm"
+        },
+        {
+          "name": "王洪涛",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4112.htm"
+        },
+        {
+          "name": "李慧泉",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4099.htm"
+        },
+        {
+          "name": "陈水生",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4094.htm"
+        },
+        {
+          "name": "张宏",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4106.htm"
+        },
+        {
+          "name": "罗春华",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4107.htm"
+        },
+        {
+          "name": "金凤",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4096.htm"
+        },
+        {
+          "name": "陶栋梁",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4100.htm"
+        },
+        {
+          "name": "盛良全",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4101.htm"
+        },
+        {
+          "name": "崔玉民",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4111.htm"
+        },
+        {
+          "name": "郝扶影",
+          "url": "https://www.fynu.edu.cn/hxycl/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1049&wbnewsid=4178"
+        },
+        {
+          "name": "金晓艳",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4754.htm"
+        },
+        {
+          "name": "刘昭第",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4116.htm"
+        },
+        {
+          "name": "乔瑞",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4753.htm"
+        },
+        {
+          "name": "宋崇富",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4110.htm"
+        },
+        {
+          "name": "武海",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/5671.htm"
+        },
+        {
+          "name": "黄德乾",
+          "url": "http://www.fynu.edu.cn/hxycl/info/1047/4117.htm"
+        },
+        {
+          "name": "管清梅",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4098.htm"
+        },
+        {
+          "name": "苗慧",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4755.htm"
+        },
+        {
+          "name": "吴福芳",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4095.htm"
+        },
+        {
+          "name": "金仁成",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/6199.htm"
+        },
+        {
+          "name": "董秋静",
+          "url": "https://www.fynu.edu.cn/hxycl/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1047&wbnewsid=4115"
+        },
+        {
+          "name": "白翠冰",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4756.htm"
+        },
+        {
+          "name": "康红卫",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/7721.htm"
+        },
+        {
+          "name": "徐华杰",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4105.htm"
+        }
+      ],
+      "all_names": [
+        "马继龙",
+        "凡素华",
+        "王洪涛",
+        "李慧泉",
+        "陈水生",
+        "张宏",
+        "张淑萍",
+        "张颖",
+        "邵思常",
+        "范少华",
+        "罗春华",
+        "金凤",
+        "陶栋梁",
+        "盛良全",
+        "崔玉民",
+        "郝扶影",
+        "金晓艳",
+        "刘昭第",
+        "乔瑞",
+        "宋崇富",
+        "武海",
+        "黄德乾",
+        "管清梅",
+        "苗慧",
+        "吴福芳",
+        "金仁成",
+        "董秋静",
+        "王洪刚",
+        "牛贵宏",
+        "许巧玲",
+        "白翠冰",
+        "康红卫",
+        "张甲甲",
+        "徐华杰"
+      ]
+    },
+    "source_sha256": "b9b22a8ed6ee11f88cf4633770ae8901e274c19f2013ae4d3c0c1c19258bfa4a",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-766385-2a619c58-api-pilot\\53d4da1854f7fa29\\source.html"
+  },
+  {
+    "id": "p19",
+    "kind": "roster",
+    "group": "known_diagnostic",
+    "case": "fynu",
+    "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/5.htm",
+    "expected": {
+      "rows": [
+        {
+          "name": "李倩倩",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/8374.htm"
+        },
+        {
+          "name": "徐国皓",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/8371.htm"
+        },
+        {
+          "name": "高雨",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/8099.htm"
+        },
+        {
+          "name": "尹坤",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/8039.htm"
+        },
+        {
+          "name": "康红卫",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/7721.htm"
+        },
+        {
+          "name": "张颖",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/7522.htm"
+        },
+        {
+          "name": "刘昭第",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4116.htm"
+        },
+        {
+          "name": "徐华杰",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4105.htm"
+        },
+        {
+          "name": "白翠冰",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4756.htm"
+        },
+        {
+          "name": "李瑞乾",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4113.htm"
+        }
+      ],
+      "pagination_urls": [
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds.htm",
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds/1.htm",
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds/4.htm"
+      ]
+    },
+    "source_sha256": "6d8dd44d69cd60452d267155338069c078174eca9ccae39436048311d4bfc900",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-766385-2a619c58-api-pilot\\5ed85ffc3bf2954d\\source.html"
+  },
+  {
+    "id": "p20",
+    "kind": "roster",
+    "group": "known_diagnostic",
+    "case": "fynu",
+    "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/4.htm",
+    "expected": {
+      "rows": [
+        {
+          "name": "钱朋",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/6203.htm"
+        },
+        {
+          "name": "金仁成",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/6199.htm"
+        },
+        {
+          "name": "高继兴",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/6198.htm"
+        },
+        {
+          "name": "盛良全",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4101.htm"
+        },
+        {
+          "name": "张宏",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4106.htm"
+        },
+        {
+          "name": "陶栋梁",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4100.htm"
+        },
+        {
+          "name": "陈水生",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4094.htm"
+        },
+        {
+          "name": "武海",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/5671.htm"
+        },
+        {
+          "name": "邵爱龙",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4760.htm"
+        },
+        {
+          "name": "姜广鹏",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4759.htm"
+        }
+      ],
+      "pagination_urls": [
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds.htm",
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds/1.htm",
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds/3.htm",
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds/5.htm"
+      ]
+    },
+    "source_sha256": "bbd7efcc26db41787ead8a6cb47ef913b423ef33e96e44c648e77ce6ed73357c",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-766385-2a619c58-api-pilot\\60e83e24abe46acd\\source.html"
+  },
+  {
+    "id": "p21",
+    "kind": "roster",
+    "group": "known_diagnostic",
+    "case": "fynu",
+    "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/3.htm",
+    "expected": {
+      "rows": [
+        {
+          "name": "夏娟",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4758.htm"
+        },
+        {
+          "name": "苗慧",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4755.htm"
+        },
+        {
+          "name": "金晓艳",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4754.htm"
+        },
+        {
+          "name": "乔瑞",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4753.htm"
+        },
+        {
+          "name": "杜娜娜",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4752.htm"
+        },
+        {
+          "name": "凡素华",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4751.htm"
+        },
+        {
+          "name": "陈继堂",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4114.htm"
+        },
+        {
+          "name": "王洪涛",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4112.htm"
+        },
+        {
+          "name": "金凤",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4096.htm"
+        },
+        {
+          "name": "李慧泉",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4099.htm"
+        }
+      ],
+      "pagination_urls": [
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds.htm",
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds/1.htm",
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds/2.htm",
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds/4.htm"
+      ]
+    },
+    "source_sha256": "8cf6d95e7b9c8acf4b44ce53712db237405e0831bdeae8cb101f2ef9bbfdd7ad",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-766385-2a619c58-api-pilot\\8647080af8d48953\\source.html"
+  },
+  {
+    "id": "p22",
+    "kind": "roster",
+    "group": "known_diagnostic",
+    "case": "fynu",
+    "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/2.htm",
+    "expected": {
+      "rows": [
+        {
+          "name": "崔玉民",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4111.htm"
+        },
+        {
+          "name": "刘俊龙",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4109.htm"
+        },
+        {
+          "name": "师瑞娟",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4103.htm"
+        },
+        {
+          "name": "吴福芳",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4095.htm"
+        },
+        {
+          "name": "黄德乾",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4117.htm"
+        },
+        {
+          "name": "罗春华",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4107.htm"
+        },
+        {
+          "name": "管清梅",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4098.htm"
+        },
+        {
+          "name": "董秋静",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4115.htm"
+        },
+        {
+          "name": "张琳",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4104.htm"
+        },
+        {
+          "name": "宋崇富",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4110.htm"
+        }
+      ],
+      "pagination_urls": [
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds.htm",
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds/1.htm",
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds/3.htm"
+      ]
+    },
+    "source_sha256": "0146992969202ecc5b9a5e2f7e4160437c651444f8f76c3bd9b4c0b09dbaf413",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-766385-2a619c58-api-pilot\\a199162e610f1bad\\source.html"
+  },
+  {
+    "id": "p23",
+    "kind": "roster",
+    "group": "known_diagnostic",
+    "case": "fynu",
+    "url": "https://www.fynu.edu.cn/hxycl/szdw/sssds/1.htm",
+    "expected": {
+      "rows": [
+        {
+          "name": "刘杰",
+          "url": "https://www.fynu.edu.cn/hxycl/info/1047/4102.htm"
+        }
+      ],
+      "pagination_urls": [
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds.htm",
+        "https://www.fynu.edu.cn/hxycl/szdw/sssds/2.htm"
+      ]
+    },
+    "source_sha256": "ad42cbd3de9bf36d29d84744238fffe2bd1fdeab058be6284709ea6721002de7",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-766385-2a619c58-api-pilot\\edab2a60e2871927\\source.html"
+  },
+  {
+    "id": "p24",
+    "kind": "attachment_landing",
+    "group": "known_diagnostic",
+    "case": "ntu",
+    "url": "https://ntdxhk.ntu.edu.cn/xkjs/list.htm",
+    "expected": {
+      "attachment_url": "https://ntdxhk.ntu.edu.cn/_upload/article/files/c7/73/fccafbe54f0eb873fe38fdcaabf2/f4503ae9-8dfe-4d99-abf5-c4ef981c9998.pdf"
+    }
+  },
+  {
+    "id": "p25",
+    "kind": "profile",
+    "group": "new_validation",
+    "case": "sjtu",
+    "url": "https://www.physics.sjtu.edu.cn/jsml/tanghao.html",
+    "expected": {
+      "name": "唐豪",
+      "email": "htang2015@sjtu.edu.cn",
+      "title": "教授"
+    }
+  },
+  {
+    "id": "p26",
+    "kind": "profile",
+    "group": "new_validation",
+    "case": "sjtu",
+    "url": "https://www.physics.sjtu.edu.cn/jsml/xieyingming.html",
+    "expected": {
+      "name": "谢应明",
+      "email": "yingming.xie@sjtu.edu.cn",
+      "title": "副教授"
+    }
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "status": 200,
+  "seconds": 1.344,
+  "usage": {
+    "prompt_tokens": 4267,
+    "completion_tokens": 154,
+    "total_tokens": 4421,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 4267
+  },
+  "response": {
+    "id": "ac6abf36-489a-4070-8259-8059c718fa6e",
+    "object": "chat.completion",
+    "created": 1792329592,
+    "model": "deepseek-flash",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"teachers\":[],\"attachment_urls\":[\"https://ntdxhk.ntu.edu.cn/_upload/article/files/c7/73/fccafbe54f0eb873fe38fdcaabf2/f4503ae9-8dfe-4d99-abf5-c4ef981c9998.pdf\"],\"pagination_urls\":[],\"notes\":[\"当前页面为“学科建设”栏目，内容仅嵌入一个PDF文件（护理与康复学院硕士研究生导师简介.pdf），页面未直接列出任何教师姓名、职称、邮箱或简介。\",\"教师信息可能位于该PDF附件中，但页面文本未提供可提取的师资名单，故teachers为空。\",\"页面未提供分页链接。\"]}"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 4267,
+      "completion_tokens": 154,
+      "total_tokens": 4421,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 4267
+    },
+    "system_fingerprint": "e72d3c7f663d3e1383b00b3884cb4501"
+  }
+}

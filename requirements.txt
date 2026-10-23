@@ -1,0 +1,9 @@
+trafilatura==2.3.1
+crawlee[beautifulsoup,httpx]==1.10.4
+crawl4ai==0.9.4
+pypdf==6.10.0
+fastapi==0.115.12
+uvicorn==0.34.2
+rapidocr-onnxruntime==1.4.4
+pypdfium2==4.30.0
+openpyxl==3.1.5

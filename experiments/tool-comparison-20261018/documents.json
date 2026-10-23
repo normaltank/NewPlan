@@ -1,0 +1,91 @@
+[
+  {
+    "id": "d01",
+    "kind": "multi_person_pdf",
+    "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\tool-comparison-20261018\\sources\\d01\\source.pdf",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\deepseek-fetch-20261018\\runtime\\runs\\20261018-191058-771904-92616d04-api-pilot\\documents\\96f0619884f3b4e265ed\\source.pdf",
+    "sha256": "6b283b1bd8cf85665596ceaa98ba78f88699207cd01fcf9a88cd433433a8f140",
+    "expected_rows": 61,
+    "url": "https://ntdxhk.ntu.edu.cn/_upload/article/files/c7/73/fccafbe54f0eb873fe38fdcaabf2/f4503ae9-8dfe-4d99-abf5-c4ef981c9998.pdf",
+    "visual_checks": {
+      "page": 1,
+      "rows": 24,
+      "first_name": "王芳",
+      "last_name": "季建红",
+      "incomplete_email": {
+        "name": "严海鸥",
+        "visible": "yho0704@163.",
+        "status": "incomplete_in_visible_original"
+      },
+      "scope": "Page 1 visual verification; all pages separately compared with original table rows."
+    }
+  },
+  {
+    "id": "d02",
+    "kind": "image_biography",
+    "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\tool-comparison-20261018\\sources\\d02\\source.jpg",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\runs\\20261015-182309-870955-179d3716-api-pilot\\media\\cf8837be6a6fee84696d\\source.jpg",
+    "url": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2024/03/07/b60f48a6ed424e70b1478494d5edb138.jpg",
+    "sha256": "3bb5137f794b6684919a8cfcd36b5573ffa7d338c5846409d11e6ad91464ebea",
+    "expected": {
+      "name": "张红岩",
+      "title": "副教授",
+      "email": null,
+      "email_status": "not_shown_in_this_image",
+      "markers": [
+        "装饰艺术研究",
+        "美术学科教学",
+        "2006年6月",
+        "副教授",
+        "2016"
+      ]
+    },
+    "visual_verification": "name, declared title and section boundaries verified from original image"
+  },
+  {
+    "id": "d03",
+    "kind": "image_biography",
+    "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\tool-comparison-20261018\\sources\\d03\\source.png",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\runs\\20261015-182309-870955-179d3716-api-pilot\\media\\d023be69e386ae6984e4\\source.png",
+    "url": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2026/06/22/c48f0652d947498bb2634c44eda2c21b.png",
+    "sha256": "b2687be9d3088b7cd802ed50faeabb14cac6cdbf7a2bb4cb93f692a19ca45424",
+    "expected": {
+      "name": "鲍相志",
+      "title": "讲师",
+      "email": null,
+      "email_status": "not_shown_in_this_image",
+      "markers": [
+        "历史学博士",
+        "讲师",
+        "中国古代书画鉴定与研究",
+        "明清文化史",
+        "2025"
+      ]
+    },
+    "visual_verification": "name, declared title and section boundaries verified from original image"
+  },
+  {
+    "id": "d04",
+    "kind": "negative_photo_with_text",
+    "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\tool-comparison-20261018\\sources\\d04\\source.jpg",
+    "previous_source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\runs\\20261014-173012-668246-9285842d-api-pilot\\media\\70ff24d2f5dfbbcad2a4\\source.jpg",
+    "url": "https://env.fjnu.edu.cn/_upload/article/images/c5/f3/b179c7154694a59d243836f21bd9/b0ec4173-8507-49af-94e2-452d0a29e305.jpg",
+    "sha256": "641279ed4c7068c86631962fbdc48225c5171cc133080bea9e236d63baa15ece",
+    "expected": {
+      "name": "",
+      "title": "",
+      "should_create_person_from_text": false
+    },
+    "visual_verification": "portrait with decorative restaurant inscription; no faculty biography/contact statement in image"
+  },
+  {
+    "id": "d05",
+    "kind": "derived_scan_control",
+    "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\experiments\\tool-comparison-20261018\\sources\\d05\\source.png",
+    "sha256": "eca75b6b174451fb89280fa916605139027140c73d6e58c394bc2bb7b63b5a97",
+    "derived_from": "d01 page 1, rasterized with pdftoppm at 2200-pixel maximum dimension",
+    "expected_rows": 24,
+    "independent_real_document": false,
+    "purpose": "Same known table without a PDF text layer; not a new independent field case."
+  }
+]

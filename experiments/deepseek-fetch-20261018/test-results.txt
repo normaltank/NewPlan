@@ -1,0 +1,11 @@
+test_candidate_preserves_original_and_attachment (test_fetch_adapter.AdapterTests.test_candidate_preserves_original_and_attachment) ... ok
+test_failure_does_not_mutate_origin_or_saved_body (test_fetch_adapter.AdapterTests.test_failure_does_not_mutate_origin_or_saved_body) ... ok
+test_mailto_label_keeps_address (test_fetch_adapter.AdapterTests.test_mailto_label_keeps_address) ... ok
+test_real_commonmark_email_escapes (test_fetch_adapter.AdapterTests.test_real_commonmark_email_escapes) ... ok
+test_wrong_person_stays_unapplied (test_fetch_adapter.AdapterTests.test_wrong_person_stays_unapplied) ... ok
+test_404_is_provider_failure_with_unknown_origin_status (test_fetch_adapter.ClientTests.test_404_is_provider_failure_with_unknown_origin_status) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.087s
+
+OK

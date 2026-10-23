@@ -1,0 +1,42 @@
+{
+  "status": 200,
+  "seconds": 6.828,
+  "usage": {
+    "prompt_tokens": 4729,
+    "completion_tokens": 2082,
+    "total_tokens": 6811,
+    "prompt_tokens_details": {
+      "cached_tokens": 768
+    },
+    "prompt_cache_hit_tokens": 768,
+    "prompt_cache_miss_tokens": 3961
+  },
+  "response": {
+    "id": "b3eba9dc-70a5-47fb-ad02-8cae92276bac",
+    "object": "chat.completion",
+    "created": 1792329687,
+    "model": "deepseek-flash",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"teachers\":[{\"name\":\"唐豪\",\"title\":\"教授\",\"email\":\"htang2015@sjtu.edu.cn\",\"homepage\":\"https://www.physics.sjtu.edu.cn/jsml/tanghao.html\",\"biography\":\"唐豪于2010年获得华中科技大学电子科学与技术系本科学位、金融学本科双学位。于2014年获得英国谢菲尔德大学光电半导体物理方向博士学位。并于伦敦商学院进修金融量化分析。于2015年6月加入上海交通大学物理与天文学院工作至今，先后为博士后、助理研究员、副研究员。现为教授，博士生导师。 研究方向： （1）面向容错通用光量子信息与AI计算网络的光子器件底层技术 （2）基于集成光子芯片的协同设计量子计算实验与高性能光计算 （3）非平衡系统量子模拟、量子计算人工智能等应用研究 此外，与英国帝国理工学院、牛津大学、新加坡国立大学、香港大学等十余所国际名校学者建立广泛学术交流合作，全面深入挖掘和开拓理论与实验合作。 2026年在研主持科技部国家重点研发计划课题、国家自然科学基金面上项目、上海市科委量子专项等国家级、省部级项目。曾先后主持博士后特别资助、国家自然科学基金青年项目、国家重点研发计划变革性项目子课题、上海市科委面上项目、横向项目等科研项目。 基于光子芯片的量子计算实验与光计算实验： 1. Shang, X. W., Chen. X., Hegade, N. N., Lan, Z. F., Tang, H.# , Dou, J. P., Li, X. K., Peng, Y. Q., Solano, E., Jin, X. M.# Codesigned Counterdiabatic Quantum Optimization on a Photonic Quantum Processor. Physical Review Applied 25, 064026(2026). 2. Cao, Z. Y., Du, H. J., Yuan, X. J., Wu, B., Zhang, J. L., Fu, Y. X., Zhang, S. J., Zhang, W. K., Zhou, H. L., Jin, X. M., Xu, X. Y.#, Tang, H.# , Dong, J. J.#, Zhang, X. L.#, Programmable Three-dimensional Photonic Neural Network Chip. Nature Communications 17, 5476 (2026). 3. Tang, H. , Banchi, L., Wang, T. Y., Shang, X. W., Tan, X., Zhou, W. H., Feng, Z., Pal, A., Li, H., Hu, C. Q., Kim, M. S. and Jin, X. M.# Generating Haar-Uniform Randomness Using Stochastic Quantum Walks on a Photonic Chip. Physical Review Letters 12, 050503 (2022). 4. Shi, Z. Y., Tang, H. , Feng, Z., Wang, Y., Li, Z. M., Gao, J., Chang, Y. J., Wang, T. Y., Dou, J. P., Zhang, Z. Y., Jiao, Z. Q., Zhou, W. H., and Jin, X, M.# Quantum Fast Hitting on Glued Trees Mapped on a Photonic chip. Optica 7, 613-618 (2020). 5. Tang, H. , Lin, X. F., Feng, Z., Chen, J. Y., Gao, J., Sun, K., Wang, C. Y., Lai, P. C., Xu, X. Y., Wang, Y., Qiao, L. F., Yang, A. L., and Jin, X. M.# Experimental Two-dimensional Quantum Walk on a Photonic Chip. Science Advances 4, eaat3174 (2018). 6. Tang, H. , Di Franco, C., Shi, Z. Y., He, T. S., Feng, Z., Gao, J., Sun, K., Li, Z. M., Jiao Z. Q., Wang, T. Y., Kim, M. S., and Jin, X. M.# Experimental quantum fast hitting on hexagonal graphs. Nature Photonics 12, 754-758 (2018). 非平衡系统量子模拟的实验与理论研究： 1. Tang, H.*, Shang, X. W.*, Shi, Z. Y., He, T. S., Feng, Z., Wang, T. Y., Shi, R. X., Wang, H. M., Tan, X., Xu, X. Y., Wang, Y., Gao, J., Kim, M. S. and Jin, X. M.# Simulating photosynthetic energy transport on a photonic network. npj Quantum Information 10, 29 (2024). 2. Tang, H. *, Wang, T. Y.*, Shi, Z. Y., Feng, Z., Wang, Y., Shang, X. W., Gao, J., Jiao, Z. Q., Li, Z. M., Chang, Y. J., Lu, Y. H., Yang, Y. L,, Ren, R. J., Qiao, L. F. and Jin, X. M.# Experimental quantum simulation of dynamic localization on curved photonic lattices. Photonics Research 10, 1430-1439 (2022) (Editor's Pick). 3. Tang, H. *, Shi, R. X.*, He, T. S.*, Zhu, Y. Y., Wang, T. Y., Lee, M., and Jin, X. M.# TensorFlow Solver for Quantum PageRank in Large-Scale Networks. Science Bulletin 66, 120-126 (2021). 4. Tang, H., Feng, Z., Wang, Y. H., Lai, P. C., Wang, C. Y., Ye, Z. Y., Wang, C. K., Shi, Z. Y., Wang, T. Y., Chen, Y., Gao, J., and Jin, X, M.# Experimental quantum stochastic walks simulating associative memory of Hopfield neural networks. Physical Review Applied 11, 024020 (2019). 量子计算用于金融、机器学习等应用研究： 1.Guo, Y., Guo, F., Zhong, B., Chen, X., Yuan, X., Jin, X.M.#, and Tang, H. # Quantum-Enhanced Computing for the Antiferromagnetic J1−J2 Heisenberg Model. Advanced Quantum Technologies 8, 2300240(2025). 2. Yuan, X. J.*, Chen, Z. Q.*, Liu, Y. D., Xie, Z., Jin, X. M.#, Liu, Y. Z., Wen, X.#, and Tang, H. # Quantum support vector machines for aerodynamic classification. Intelligent Computing 2,0057(2023). 3. Tang, H. #, Anurag, P., Wang, T. Y., Qiao, L. F., Gao, J., and Jin, X. M.# Quantum Computation for Pricing the Collateralized Debt Obligations. Quantum Engineering 3, e84 (2021). 4. Shi, R. X.#, Tang, H. #, & Jin, X. M.# Training a Quantum PointNet with Nesterov Accelerated Gradient Estimation by Projection. Paper No. 8 of the 1st Workshop on Quantum Tensor Networks in Machine Learning at 34th Conference on Neural Information Processing Systems (NeurIPS 2020 Workshop) 5. Gao, J., Qiao, L. F., Jiao, Z. Q., Ma, Y. C., Hu, C. Q., Ren, R. J., Yang, A. L., Tang, H. , Yung, M. H., and Jin, X. M.# Experimental Machine Learning of Quantum States. Physical Review Letters 120, 240501 (2018). 论文列表详见：https://scholar.google.com/citations?hl=en&user=G7LyfAMAAAAJ 第一作者研究工作[Nature Photonics, 12, 754-758 (2018)]入选“2018年度中国光学十大进展”；入选2019年福布斯中国“30位30岁以下精英榜”、2021年“上海科技青年35人引领计划”、2022年上海市“科技启明星计划”、2022年教育部“国家高层次青年人才学者”。 担任《Chip》国际期刊编委、中国计算机学会CCF量子计算专委执委 期刊审稿：Physical Review Letters, Physical Review Applied, Physical Review Research, Physical Review A , PRX Quantum, IEEE Transactions on Computers, Quantum Science and Technology, Intelligent Computing. 目前讲授课程包括： （1）本科生MS331+MS333《量子信息技术及实践》英文课程（课程介绍：https://v.sjtu.edu.cn/course/opencourseshare10613.html，入选校一流课程。并入选“交∙通全球课堂”面向环太平洋联盟大学(APRU)本科生开放）。 （2）致远学院本科生《前沿探索实验课--高品质量子纠缠光源》 （3）研究生《量子光学》课程 招硕士生、博士生若干名，面向迅猛发展的AI科技浪潮，量子技术与光互连技术等成为日益重要的AI时代基建，诚挚欢迎对量子信息、集成光学与人工智能深度融合方向感兴趣的同学加入！同时欢迎本科同学参与相关PRP项目、致远“未来学者计划”等本科生科研实践活动。 地址：上海市东川路800号理科实验楼群 邮编：200240\",\"evidence\":\"**唐豪** 教授 教育部“国家高层次青年人才学者”（2022年） * 光科学与技术研究所 * 集成光学，量子计算 * 理科楼5号楼432室 * htang2015@sjtu.edu.cn\"}],\"attachment_urls\":[],\"pagination_urls\":[],\"notes\":[]}"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 4729,
+      "completion_tokens": 2082,
+      "total_tokens": 6811,
+      "prompt_tokens_details": {
+        "cached_tokens": 768
+      },
+      "prompt_cache_hit_tokens": 768,
+      "prompt_cache_miss_tokens": 3961
+    },
+    "system_fingerprint": "e72d3c7f663d3e1383b00b3884cb4501"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "status": 200,
+  "seconds": 5.516,
+  "usage": {
+    "prompt_tokens": 6850,
+    "completion_tokens": 1909,
+    "total_tokens": 8759,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 6722
+  },
+  "response": {
+    "id": "5bb54841-dbb2-4b33-aa71-1c711c28d603",
+    "object": "chat.completion",
+    "created": 1792329583,
+    "model": "deepseek-flash",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"teachers\":[{\"name\":\"马继龙\",\"title\":\"教授\",\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 马继龙\"},{\"name\":\"凡素华\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4751.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 凡素华\"},{\"name\":\"王洪涛\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4112.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 王洪涛\"},{\"name\":\"李慧泉\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4099.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 李慧泉\"},{\"name\":\"陈水生\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4094.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 陈水生\"},{\"name\":\"张宏\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4106.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 张 宏\"},{\"name\":\"张淑萍\",\"title\":\"教授\",\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 张淑萍\"},{\"name\":\"张颖\",\"title\":\"教授\",\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 张 颖\"},{\"name\":\"邵思常\",\"title\":\"教授\",\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 邵思常\"},{\"name\":\"范少华\",\"title\":\"教授\",\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 范少华\"},{\"name\":\"罗春华\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4107.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 罗春华\"},{\"name\":\"金凤\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4096.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 金 凤\"},{\"name\":\"陶栋梁\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4100.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 陶栋梁\"},{\"name\":\"盛良全\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4101.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 盛良全\"},{\"name\":\"崔玉民\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4111.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 崔玉民\"},{\"name\":\"郝扶影\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1049&wbnewsid=4178\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 郝扶影\"},{\"name\":\"金晓艳\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4754.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 金晓艳\"},{\"name\":\"刘昭第\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4116.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 刘昭第\"},{\"name\":\"乔瑞\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4753.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 乔 瑞\"},{\"name\":\"宋崇富\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4110.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 宋崇富\"},{\"name\":\"武海\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/5671.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 武 海\"},{\"name\":\"黄德乾\",\"title\":\"教授\",\"email\":null,\"homepage\":\"http://www.fynu.edu.cn/hxycl/info/1047/4117.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 黄德乾\"},{\"name\":\"管清梅\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4098.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 管清梅\"},{\"name\":\"苗慧\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4755.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 苗 慧\"},{\"name\":\"吴福芳\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4095.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 吴福芳\"},{\"name\":\"金仁成\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/6199.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 金仁成\"},{\"name\":\"董秋静\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1047&wbnewsid=4115\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 董秋静\"},{\"name\":\"王洪刚\",\"title\":\"教授\",\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 王洪刚\"},{\"name\":\"牛贵宏\",\"title\":\"教授\",\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 牛贵宏\"},{\"name\":\"许巧玲\",\"title\":\"教授\",\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 许巧玲\"},{\"name\":\"白翠冰\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4756.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 白翠冰\"},{\"name\":\"康红卫\",\"title\":\"教授\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/7721.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 康红卫\"},{\"name\":\"张甲甲\",\"title\":\"教授\",\"email\":null,\"homepage\":null,\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 张甲甲\"},{\"name\":\"徐华杰\",\"title\":\"正高级实验师\",\"email\":null,\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4105.htm\",\"biography\":\"\",\"evidence\":\"化学与材料工程学院教授名单 徐华杰（正高级实验师）\"}],\"attachment_urls\":[],\"pagination_urls\":[],\"notes\":[\"该页面为教授团队名单页，仅列出教师姓名及部分个人主页链接，未提供职称、邮箱、简介等详细信息。\",\"马继龙、张淑萍、张颖、邵思常、范少华、王洪刚、牛贵宏、许巧玲、张甲甲在名单中无个人主页链接。\",\"徐华杰标注为“正高级实验师”，其余教师名单页未明确标注职称，title 依据页面标题“教授团队”及“教授名单”推断为教授。\",\"页面未提供任何教师邮箱信息。\"]}"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 6850,
+      "completion_tokens": 1909,
+      "total_tokens": 8759,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 6722
+    },
+    "system_fingerprint": "e72d3c7f663d3e1383b00b3884cb4501"
+  }
+}

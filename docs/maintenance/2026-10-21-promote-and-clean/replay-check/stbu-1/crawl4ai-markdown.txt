@@ -1,0 +1,179 @@
+[ ![](https://cms.stbu.edu.cn/templets/default/rwjy/images/cnLogo.png) ](#)
+[English](/about/yyjs/) | [日本語](/about/ryjs/)
+  * [首页](/)
+  * [学院概况](javascript:void\(0\);)
+    * [学院简介](/about/xyjj/)
+    * [学院领导](/about/ldbz/)
+    * [机构设置](/about/zzjg/)
+  * [党群工作](javascript:void\(0\);)
+    * [党建工作](/dqgz/djgz/)
+    * [工会工作](/dqgz/ghgz/)
+  * [人才培养](javascript:void\(0\);)
+    * [专业设置](/rcpy/yyzy/)
+    * [实践教学](/rcpy/jdgl/)
+  * [科研平台](javascript:void\(0\);)
+    * [亚太教育信息研究中心](http://rwky.stbu.edu.cn/)
+    * [三苏文化研究中心](https://sansu.stbu.edu.cn/)
+  * [国际交流](javascript:void\(0\);)
+    * [合作院校](/gjjl/hzyx/)
+    * [交换项目](/gjjl/jhxm/)
+  * [师资队伍](javascript:void\(0\);)
+    * [师资概况](/jiaoshifengcai/js/)
+    * [教师队伍](/jiaoshifengcai/jsdw/)
+    * [辅导员队伍](/jiaoshifengcai/fdydw/)
+    * [行政队伍](/jiaoshifengcai/xzdw/)
+    * [实验队伍](/jiaoshifengcai/sydw/)
+  * [团学工作](javascript:void\(0\);)
+    * [组织机构](/txgz/yxxz/)
+    * [团学动态](/txgz/xshd/)
+    * [班级风采](/txgz/bjfc/)
+    * [荣誉墙](/txgz/ryq/)
+  * [招生就业](javascript:void\(0\);)
+    * [招生信息](/zsjy/zsxx/)
+    * [就业信息](/zsjy/jyxx/)
+  * [产教融合](javascript:void\(0\);)
+    * [校企合作概况](/cjrh/xqhz/)
+    * [产教融合报道](/cjrh/cjrhbd/)
+  * [校友工作](javascript:void\(0\);)
+    * [校友风采](/xygz/xyfc/)
+    * [校友动态](/xygz/xydt/)
+    * [校友链接](https://xyh.stbu.edu.cn/)
+
+
+[ ![](https://cms.stbu.edu.cn/templets/default/rwjy/images/cnLogo.png) ](#)
+[English](#) | [日本語](#)
+  * [首页](#)
+  * [学院概况](javascript:void\(0\);)
+    * [学院简介](/about/xyjj/)
+    * [学院领导](/about/ldbz/)
+    * [机构设置](/about/zzjg/)
+  * [党群工作](javascript:void\(0\);)
+    * [党建工作](/dqgz/djgz/)
+    * [工会工作](/dqgz/ghgz/)
+  * [人才培养](javascript:void\(0\);)
+    * [专业设置](/rcpy/yyzy/)
+    * [实践教学](/rcpy/jdgl/)
+  * [科学研究](javascript:void\(0\);)
+    * [科研平台](/kxyj/kypt/)
+    * [项目申报](/kxyj/xmsb/)
+  * [国际交流](javascript:void\(0\);)
+    * [合作院校](/gjjl/hzyx/)
+    * [交换项目](/gjjl/jhxm/)
+  * [师资队伍](javascript:void\(0\);)
+    * [师资概况](/jiaoshifengcai/js/)
+    * [教师队伍](/jiaoshifengcai/jsdw/)
+    * [辅导员队伍](/jiaoshifengcai/fdydw/)
+    * [行政队伍](/jiaoshifengcai/xzdw/)
+    * [实验队伍](/jiaoshifengcai/sydw/)
+  * [团学工作](javascript:void\(0\);)
+    * [组织机构](/txgz/yxxz/)
+    * [团学动态](/txgz/xshd/)
+    * [班级风采](/txgz/bjfc/)
+    * [荣誉墙](/txgz/ryq/)
+  * [招生就业](javascript:void\(0\);)
+    * [招生信息](/zsjy/zsxx/)
+    * [就业信息](/zsjy/jyxx/)
+  * [产教融合](javascript:void\(0\);)
+    * [校企合作概况](/cjrh/xqhz/)
+    * [产教融合报道](/cjrh/cjrhbd/)
+  * [校友工作](javascript:void\(0\);)
+    * [校友风采](/xygz/xyfc/)
+    * [校友动态](/xygz/xydt/)
+    * [校友链接](/xygz/xylj/)
+
+
+![](https://cms.stbu.edu.cn/templets/default/rwjy/images/menu.png) ![](https://cms.stbu.edu.cn/templets/default/rwjy/images/close.png)
+[![](https://cms.stbu.edu.cn/templets/default/rwjy/images/cnLogo.png)](#)
+[English](#) [日本語](#)
+  * [首页](/)
+  * [学院概况](javascript:void\(0\);)
+    * [学院简介](/about/xyjj/)
+    * [学院领导](/about/ldbz/)
+    * [机构设置](/about/zzjg/)
+  * [党群工作](javascript:void\(0\);)
+    * [党建工作](/dqgz/djgz/)
+    * [工会工作](/dqgz/ghgz/)
+  * [人才培养](javascript:void\(0\);)
+    * [专业设置](/rcpy/yyzy/)
+    * [实践教学](/rcpy/jdgl/)
+  * [科学研究](javascript:void\(0\);)
+    * [科研平台](/kxyj/kypt/)
+    * [项目申报](/kxyj/xmsb/)
+  * [国际交流](javascript:void\(0\);)
+    * [合作院校](/gjjl/hzyx/)
+    * [交换项目](/gjjl/jhxm/)
+  * [师资队伍](javascript:void\(0\);)
+    * [师资概况](/jiaoshifengcai/js/)
+    * [教师队伍](/jiaoshifengcai/jsdw/)
+    * [辅导员队伍](/jiaoshifengcai/fdydw/)
+    * [行政队伍](/jiaoshifengcai/xzdw/)
+    * [实验队伍](/jiaoshifengcai/sydw/)
+  * [团学工作](javascript:void\(0\);)
+    * [组织机构](/txgz/yxxz/)
+    * [团学动态](/txgz/xshd/)
+    * [班级风采](/txgz/bjfc/)
+    * [荣誉墙](/txgz/ryq/)
+  * [招生就业](javascript:void\(0\);)
+    * [招生信息](/zsjy/zsxx/)
+    * [就业信息](/zsjy/jyxx/)
+  * [产教融合](javascript:void\(0\);)
+    * [校企合作概况](/cjrh/xqhz/)
+    * [产教融合报道](/cjrh/cjrhbd/)
+  * [校友工作](javascript:void\(0\);)
+    * [校友风采](/xygz/xyfc/)
+    * [校友动态](/xygz/xydt/)
+    * [校友链接](/xygz/xylj/)
+
+
+教师队伍
+王宁霞
+来源：未知  作者：人文教育与应用学院     日期：2026-09-07 13:31 
+* * *
+**![](https://cms.stbu.edu.cn//uploads/260907/4-260ZG33546120.jpg)**
+**        姓名**：王宁霞  
+**        职称**：教授  
+**        学历学位**：日本国立鹿儿岛大学医学院临床心理学专业 /博士  
+**        教授课程**：  
+        《教育心理学》《发展心理学》《心理发展与教育》《大学生心理健康教育》《教育观察与反思》《变态心理学》《咨询心理学》《心理治疗》《心理诊断技术》《认知行为治疗》《家庭治疗》《团体心理辅导》《特殊儿童早期干预》《学前心理学》《犯罪心理学》  
+**        个人简介**  
+        王宁霞，小学教育专业教师，主要从事发展与教育心理学方向教学与研究工作。从教以来，坚守教学一线，注重课堂教学实践，坚持因材施教，重视学生专业能力与综合素养培养。  
+**        主要研究方向**  
+        1. 青少年心理发展与教育  
+        2. 青少年心理健康教育与心理危机干预  
+
+![](https://cms.stbu.edu.cn/templets/default/rwjy/images/footer-logo.png)
+地址：眉山市眉州大道岷东段9号 | 邮编：620000  
+
+[首页](/)
+
+
+学院概况
+    [学院简介](/about/xyjj/)     [学院领导](/about/ldbz/)     [机构设置](/about/zzjg/) 
+
+党群工作
+    [党建工作](/dqgz/djgz/)     [工会工作](/dqgz/ghgz/) 
+
+人才培养
+    [专业设置](/rcpy/yyzy/)     [实践教学](/rcpy/jdgl/) 
+
+[科学研究](#)
+    [科研平台](/kxyj/kypt/)     [项目申报](/kxyj/xmsb/) 
+
+国际交流
+    [合作院校](/gjjl/hzyx/)     [交换项目](/gjjl/jhxm/) 
+
+师资队伍
+    [师资概况](/jiaoshifengcai/js/)     [教师队伍](/jiaoshifengcai/jsdw/)     [辅导员队伍](/jiaoshifengcai/fdydw/)     [行政队伍](/jiaoshifengcai/xzdw/)     [实验队伍](/jiaoshifengcai/sydw/) 
+
+团学工作
+    [组织机构](/txgz/yxxz/)     [团学动态](/txgz/xshd/)     [班级风采](/txgz/bjfc/)     [荣誉墙](/txgz/ryq/) 
+
+招生就业
+    [招生信息](/zsjy/zsxx/)     [就业信息](/zsjy/jyxx/) 
+
+产教融合
+    [校企合作概况](/cjrh/xqhz/)     [产教融合报道](/cjrh/cjrhbd/) 
+
+校友工作
+    [校友风采](/xygz/xyfc/)     [校友动态](/xygz/xydt/)     [校友链接](/xygz/xylj/)
+版权所有Copyright四川工商学院人文教育与应用学院

@@ -1,0 +1,211 @@
+{
+  "id": "p13",
+  "url": "https://cs.seu.edu.cn/weiweiwu/main.htm",
+  "arm": "scrapling_http",
+  "timestamp": "2026-10-18T13:14:34.357614+00:00",
+  "elapsed_seconds": 0.938,
+  "status": 200,
+  "final_url": "https://cs.seu.edu.cn/weiweiwu/main.htm",
+  "error": null,
+  "encoding": "utf-8",
+  "raw_file": "p13.html",
+  "bytes": 24009,
+  "sha256": "d8dbebda71ebf3eb83995356a3bfcac9b346c00e9165589ad3f54074f54d1cb4",
+  "text": "中文信息\n首页\n院长书记信箱\nEN\n导航\n学院概况\n学院简介\n历史沿革\n组织机构\n联系我们\n师资队伍\n知名专家\n研究生导师\n教师按职称\n教师按研究方向\n教师按系别\n院机关与实验人员\n计算中心\n人才培养\n本科生\n研究生\n拔尖基地\n学生工作\nEFREI国际班\n科学研究\n研究方向\n科研平台\n科研动态\n学术活动\n科研指南\n人才引进\n人才招聘\n博士后招募\n党群工作\n学习专区\n党建工作\n关工委工作\n工会工作\n下载专区\n校友天地\n校友风采\n校友动态\n吴巍炜\n职称：\n正高\n所在院系：\n计算机工程系\n研究方向：\n智能无人系统、大语言模型智能决策、强化学习、智能物联网、大数据\n电话：\n邮箱：\nweiweiwu@seu.edu.cn\n职务：\n个人简介\n吴巍炜\n教授、博导，\n国家级青年人才计划、\n江苏省杰出青年基金获得者，\n东南大学\n计算机科学拔尖基地负责人\n。\n2011年分别获得香港城市大学和中国科技大学博士学位，2011-2012年新加坡南洋理工大学博士后，2012年起加入东南大学担任副教授、博导，2019年起担任教授。\n主要致力于\n大模型智能体、\n智能无人系统、\n强化学习、\n大数据、深度学习研究\n。\n主持\n国家重点研发计划课题、国家自然科学基金面上/青年项目、省部级和企业合作项目十余项\n，在相关研究领域国际会议和期刊上发表学术论文100余篇，\n发表\nCCF A+IEEE/ACM Trans. 50余篇\n，担任多个国际著名期刊会议的程序委员会共同主席、委员等。曾先后获得\n“\nACM新星奖\n”\n、微软亚洲研究院\n“\n微软学者奖\n”\n、中国科学院“院长奖”\n等。每年面向计算机学院、软件学院、人工智能学院、吴健雄学院、\n东大-蒙纳士\n招收硕士生、博士生，\n欢迎有意深造的同学报考，更详细信息请访问\n个人主页>>\n研究方向\n教育经历\n工作经历\n科研项目\n论文著作\n专利\n获奖情况\n相关链接\n东南大学\n计算机网络和信息集成教育部重点实验室（东南大学）\n新一代人工智能技术与交叉应用教育部重点实验室（东南大学）\n江苏省网络与信息安全重点实验室\n计算机国家级实验教学示范中心（东南大学）\n东南大学计算机科学拔尖学生培养基地\n联系方式\n通信地址：南京市江宁区东南大学路2号东南大学九龙湖校区计算机学院\n邮政编码：211189\n​办公地点：东南大学九龙湖校区计算机楼\n学院微信公众号\nCopyright © 东南大学计算机科学与工程学院、软件学院、人工智能学院",
+  "links": [
+    {
+      "name": "",
+      "url": "https://cs.seu.edu.cn/main.htm"
+    },
+    {
+      "name": "首页",
+      "url": "http://cs.seu.edu.cn/main.htm"
+    },
+    {
+      "name": "院长书记信箱",
+      "url": "https://cs.seu.edu.cn/49352/list.htm"
+    },
+    {
+      "name": "EN",
+      "url": "https://cs.seu.edu.cn/csen"
+    },
+    {
+      "name": "学院概况",
+      "url": "https://cs.seu.edu.cn/49336/list.htm"
+    },
+    {
+      "name": "学院简介",
+      "url": "https://cs.seu.edu.cn/49427/list.htm"
+    },
+    {
+      "name": "历史沿革",
+      "url": "https://cs.seu.edu.cn/49428/list.htm"
+    },
+    {
+      "name": "组织机构",
+      "url": "https://cs.seu.edu.cn/49430/list.htm"
+    },
+    {
+      "name": "联系我们",
+      "url": "https://cs.seu.edu.cn/49431/list.htm"
+    },
+    {
+      "name": "师资队伍",
+      "url": "https://cse.seu.edu.cn/49354/list.htm"
+    },
+    {
+      "name": "知名专家",
+      "url": "https://cs.seu.edu.cn/49354/list.htm"
+    },
+    {
+      "name": "研究生导师",
+      "url": "https://cs.seu.edu.cn/dsxx/list.htm"
+    },
+    {
+      "name": "教师按职称",
+      "url": "https://cs.seu.edu.cn/49355/list.htm"
+    },
+    {
+      "name": "教师按研究方向",
+      "url": "https://cs.seu.edu.cn/49356/list.htm"
+    },
+    {
+      "name": "教师按系别",
+      "url": "https://cs.seu.edu.cn/54820/list.htm"
+    },
+    {
+      "name": "院机关与实验人员",
+      "url": "https://cs.seu.edu.cn/49357/list.htm"
+    },
+    {
+      "name": "计算中心",
+      "url": "https://cs.seu.edu.cn/49358/list.htm"
+    },
+    {
+      "name": "人才培养",
+      "url": "https://cs.seu.edu.cn/49338/list.htm"
+    },
+    {
+      "name": "本科生",
+      "url": "https://cs.seu.edu.cn/49432/list.htm"
+    },
+    {
+      "name": "研究生",
+      "url": "https://cs.seu.edu.cn/49433/list.htm"
+    },
+    {
+      "name": "拔尖基地",
+      "url": "https://cs.seu.edu.cn/49434/list.htm"
+    },
+    {
+      "name": "学生工作",
+      "url": "https://cs.seu.edu.cn/49444/list.htm"
+    },
+    {
+      "name": "EFREI国际班",
+      "url": "https://cs.seu.edu.cn/efrei/list.htm"
+    },
+    {
+      "name": "科学研究",
+      "url": "https://cs.seu.edu.cn/49436/list.htm"
+    },
+    {
+      "name": "研究方向",
+      "url": "https://cs.seu.edu.cn/49438/list.htm"
+    },
+    {
+      "name": "科研平台",
+      "url": "https://cs.seu.edu.cn/49439/list.htm"
+    },
+    {
+      "name": "科研动态",
+      "url": "https://cs.seu.edu.cn/49441/list.htm"
+    },
+    {
+      "name": "学术活动",
+      "url": "https://cs.seu.edu.cn/xshd_53564/list.htm"
+    },
+    {
+      "name": "科研指南",
+      "url": "https://cs.seu.edu.cn/49524/list.htm"
+    },
+    {
+      "name": "人才引进",
+      "url": "https://cs.seu.edu.cn/49339/list.htm"
+    },
+    {
+      "name": "人才招聘",
+      "url": "https://cs.seu.edu.cn/rczp/list.htm"
+    },
+    {
+      "name": "博士后招募",
+      "url": "https://cs.seu.edu.cn/49452/list.htm"
+    },
+    {
+      "name": "党群工作",
+      "url": "https://cs.seu.edu.cn/49454/list.htm"
+    },
+    {
+      "name": "学习专区",
+      "url": "https://cs.seu.edu.cn/49456/list.htm"
+    },
+    {
+      "name": "党建工作",
+      "url": "https://cs.seu.edu.cn/49457/list.htm"
+    },
+    {
+      "name": "关工委工作",
+      "url": "https://cs.seu.edu.cn/ggwgz_53460/list.htm"
+    },
+    {
+      "name": "工会工作",
+      "url": "https://cs.seu.edu.cn/49458/list.htm"
+    },
+    {
+      "name": "下载专区",
+      "url": "https://cs.seu.edu.cn/49459/list.htm"
+    },
+    {
+      "name": "校友天地",
+      "url": "https://cs.seu.edu.cn/49340/list.htm"
+    },
+    {
+      "name": "校友风采",
+      "url": "https://cs.seu.edu.cn/49461/list.htm"
+    },
+    {
+      "name": "校友动态",
+      "url": "https://cs.seu.edu.cn/49462/list.htm"
+    },
+    {
+      "name": "个人主页>>",
+      "url": "https://cse.seu.edu.cn/2019/0103/c23024a257230/page.htm"
+    },
+    {
+      "name": "东南大学",
+      "url": "https://www.seu.edu.cn/"
+    },
+    {
+      "name": "计算机网络和信息集成教育部重点实验室（东南大学）",
+      "url": "https://cs.seu.edu.cn/edulab/"
+    },
+    {
+      "name": "新一代人工智能技术与交叉应用教育部重点实验室（东南大学）",
+      "url": "https://aiia.seu.edu.cn"
+    },
+    {
+      "name": "江苏省网络与信息安全重点实验室",
+      "url": "http://jssec.seu.edu.cn"
+    },
+    {
+      "name": "计算机国家级实验教学示范中心（东南大学）",
+      "url": "https://cc.seu.edu.cn/"
+    },
+    {
+      "name": "东南大学计算机科学拔尖学生培养基地",
+      "url": "https://cs.seu.edu.cn/bajian/"
+    }
+  ],
+  "embedded_documents": [],
+  "robots_status": 404
+}

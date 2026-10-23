@@ -1,0 +1,42 @@
+{
+  "status": 200,
+  "seconds": 8.296,
+  "usage": {
+    "prompt_tokens": 18333,
+    "completion_tokens": 2288,
+    "total_tokens": 20621,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 18333
+  },
+  "response": {
+    "id": "0d95962a-fd85-4311-a7df-bb8785d3dd0e",
+    "object": "chat.completion",
+    "created": 1792329566,
+    "model": "deepseek-flash",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"teachers\":[{\"name\":\"徐华杰\",\"title\":\"正高级实验师\",\"email\":\"2000xhj@163.com\",\"homepage\":\"https://www.fynu.edu.cn/hxycl/info/1047/4105.htm\",\"biography\":\"徐华杰，博士，正高级实验师，硕士研究生导师。主要从事新型光电功能敏感器件的设计、合成与性能研究；功能纳米材料的设计合成及其在生物、药物和环境等方面的分析应用研究。主持安徽省自然基金面上项目1项，安徽省高校自然科学研究重大和重点项目各1项，校企横向合作重点项目1项。在国际权威期刊Angew. Chem. Int. Ed（2篇）、Energy & Environmental Science、Small、Journal of Colloid and Interface Science、J. Mater. Chem. A、Inorganic Chemistry Frontiers、ACS Applied Materials & Interfaces、Applied Surface Science等期刊发表SCI收录论文40余篇，论文单篇最高引用超1200次，授权国家发明专利4项，多次入选斯坦福大学发布的全球前2%顶尖科学家“年度影响力”榜单。\\n联系方式：2000xhj@163.com；理科综合楼A401\\n2002年06月 中国科学技术大学 理学学士学位\\n2009年06月 安徽大学 理学硕士学位\\n2019年06月 兰州大学 理学博士学位\\n成果简介：\\n一．近期主持项目\\n1. 安徽省高校自然科学研究重大项目：不等价离子交换对稀土功能化MOFs衍生物结构及电催化性能调控研究（KJ2021ZD0075），项目经费：20万 主持\\n2. 阜阳市政府-阜阳师范学院-安徽贝克联合制药有限公司横向合作重点项目：皖西北道地药材金属元素指纹图谱库构建及在品质鉴定中的应用（项目编号：XDHX201728）项目经费：40万 主持\\n3. 安徽省自然基金面上项目：纳米氧化铈对过渡金属硫族电催化材料性能的调控研究（1908085MB44），项目经费：20万 主持\\n4. 安徽省高校自然科学研究重点项目：铈基金属有机框架（MOFs）衍生物的结构与性能调控及其在电催化领域的应用研究（KJ2019A0524），项目经费：8万 主持\\n二．获奖、指导学生等\\n1. 阜阳师范大学教学成果二等奖（2024JXCG0010-2、优秀共产党员（2024）、安徽省科学技术三等奖（获奖证书编号：2011-3-R4）、阜阳师范大学优秀硕士学位论文指导教师（2023）、本科毕业论文（设计）优秀指导教师（2016、2019、2021、2023）等。\\n2. 省级大学生化学竞赛三等奖指导教师（2024）、省级大学生创新大赛铜奖指导教师（2024）、省级挑战杯三等奖指导教师（2021）、省级大学生金相技能大赛三等奖指导教师（2020）、多项国家级和省级大学生创新创业训练计划项目指导老师。\\n三．近期发表论文\\n1. Huajie Xu*, Mengyu Zhang, Qian Zhang, Junrong Wu, Xiaofeng Zhou, Jiaojiao Zhang, Fuying Hao, Zhaodi Liu*, Liangquan Sheng, Yu Tang*. Active Edge Sites Engineering on Amorphous Co–Mn Spinel‐Based Oxides for Efficient Peroxymonosulfate Activation. Angew. Chem. Int. Ed. 2025, e202509527, DOI: 10.1002/anie.202509527.\\n2. Jing Wu, Qian Zhang, Jiaojiao Zhang, Junrong Wu, Xiaofeng Zhou, Tianran Sheng, Fuying Hao, Zhaodi Liu*; Liangquan Sheng, Huajie Xu*. Activating and stabilizing lattice oxygen by synergetic defect engineering and surface reconstruction into CeOx/CoP for electrocatalytic oxygen evolution. Applied Surface Science, 2025, 701, 163282,\\n3. Mengyu Zhang, Jing Wu, Wen Tang, Jinfei Mei, Qian Zhang, Junrong Wu, Deyun Xu, Zhaodi Liu*, Fuying Hao, Liangquan Sheng, Huajie Xu*.Inverted loading strategy regulates the Mn–OV–Ce sites for efficient fenton-like catalysis，Journal of Colloid and Interface Science, 2024, 668, 303-318.\\n4. Rui Cao, Mengyu Zhang, Wen Tang, Jing Wu, Yang Luo, Yi Chen, Zhaodi Liu*, Fuying Hao, Liangquan Sheng, Huajie Xu*. Spatial confinement of styryl pyridine salt derivative in MCM-22 molecular sieve network for boosted fluorescence emission and stable ratiometric sensing of bacillus anthracis biomarkers. Spectrochimica Acta Part A: Molecular and Biomolecular Spectroscopy, 2024, 310: 123964.\\n5. Rui Cao, Mengyu Zhang, Wen Tang, Jing Wu, Meixiang Wang, Xiaoxiao Niu, Zhaodi Liu*, Fuying Hao, Huajie Xu*. A Novel D-π-A Type Fluorescent Probe for Cu2+ Based on Styryl-Pyridinium Salts Conjugating Di-(2-picolyl)amine (DPA) Units. Journal of Fluorescence, 2023, 33(4): 1565-1576.\\n6. Xiaoxiao Niu, Meixiang Wang, Mengyu Zhang, Rui Cao, Zhaodi Liu*, Fuyang Hao, Liangquan Sheng, Huajie Xu*. Smart intercalation and coordination strategy to construct stable ratiometric fluorescence nanoprobes for the detection of anthrax biomarker. Inorganic Chemistry Frontiers 2022, 9 (18), 4582-4593 (Q1，IF=7.779， 被遴选为封面文章).\\n7. Xiaoxiao Niu, Meixiang Wang, Rui Cao, Mengyu Zhang, Zhuangzhuang Liu, Zhaodi Liu*, Fuyang Hao, Liangquan Sheng, Huajie Xu*. Ion exchange fabrication of lanthanide functionalized layered double hydroxides microcapsules for rapid and visual detection of anthrax biomarker. Spectrochimica Acta Part A: Molecular and Biomolecular Spectroscopy 2022, 281, 121622.\\n8. Meixiang Wang, Xiaoxiao Niu, Rui Cao, Mengyu Zhang, Huajie Xu*, Fuyang Hao, Zhaodi Liu*. An IMPLICATION-logic-based fluorescent probe for sequential detection of Cu2+ and phosphates in living cells. New J Chem 2022, 46 (5), 2232-2238.\\n9. Meixiang Wang, Xiaoxiao Niu, Rui Cao, Mengyu Zhang, Rongbao Liao, Huajie Xu*, Fuyang Hao, Zhaodi Liu*. Crystal structures, optical analysis and theoretical calculations of two thiosemicarbazide and semicarbazide derivatives based on triphenylamine-thiophene. J Mol Struct 2022, 1269, 133777.\\n10. Huajie Xu, Xiaoxiao Niu, Zhuangzhuang Liu, Mingzi Sun, Zhaodi Liu, Zhimei Tian, Xiaoxia Wu, Bolong Huang*, Yu Tang*, Chun-Hua Yan. Highly Controllable Hierarchically Porous Ag/Ag2S Heterostructure by Cation Exchange for Efficient Hydrogen Evolution. Small, 2021, 17 (44), e2103064.（Q1，IF=15.153）\\n11. Huajie Xu, Changfu Shan, Xiaoxia Wu, Mingzi Sun, Bolong Huang*, Yu Tang*, and Chun-Hua Yan*. “Fabrication of layered double hydroxide microcapsules mediated by cerium doping in metal-organic frameworks for boosting water splitting.” Energy & Environmental Science, 2020, 13, 2949-2956. （Q1，IF=30.289）\\n12. Zhaodi Liu*, Zhouhua Yang, Sizhe Chen, Yue Liu, Liangquan Sheng, Zhimei Tian, Deqian Huang, Huajie Xu*. A smart reaction-based fluorescence probe for ratio detection of hydrazine and its application in living cells, Microchemical Journal, 2020, 156(7): 104809.\\n13. Huajie Xu, Yiwei Yang, Xiaoxi Yang, Jing Cao*, Weisheng Liu, and Yu Tang*. “Stringing MOF-derived nanocages: a strategy for the enhanced oxygen evolution reaction.” J. Mater. Chem. A, 2019, 7, 8284-8291. （Q1，IF=10.66）\\n14. Huajie Xu, Jing Cao, Changfu Shan, Bingkai Wang, Pinxian Xi*, Weisheng Liu, and Yu Tang*. MOF-Derived Hollow CoS Decorated with CeOx Nanoparticles for Boosting Oxygen Evolution Reaction Electrocatalysis. Angew. Chem. Int. Ed., 2018, 57, 8654-8658. （Q1，IF=12.102，高被引论文）\\n15. Huajie Xu, Bingkai Wang, Changfu Shan, Pinxian Xi*, Weisheng Liu, and Yu Tang*. Ce-Doped NiFe-Layered Double Hydroxide Ultrathin Nanosheets/Nanocarbon Hierarchical Nanocomposite as an Efficient Oxygen Evolution Catalyst. ACS Applied Materials & Interfaces., 2018, 10(7): 6336-6345. （Q1，IF=8.097，高被引论文）\\n四．授权国家发明专利\\n1. 一种富含缺陷的过硫酸盐催化剂及其制备方法与应用（专利号：ZL 2024 1 0041601.0）\\n2. 一种基于锌配合物及其制备方法与应用（专利号：ZL 201810290062.9）\\n3. 一种新型H2PO4-离子荧光探针及制备方法与应用（专利号：ZL 201610695594.1)\\n4. 一种镁离子荧光探针及其制备方法与应用（专利号：ZL 201410012980）\",\"evidence\":\"徐华杰，博士，正高级实验师，硕士研究生导师。……联系方式：2000xhj@163.com；理科综合楼A401\"}],\"attachment_urls\":[],\"pagination_urls\":[],\"notes\":[\"页面为徐华杰个人简介页，仅提取页面主人一人。\",\"邮箱由原文被空白断开的“2000”“xhj”“@163.”“com”拼回为2000xhj@163.com。\",\"页面未提供明确个人主页，当前个人页URL作为homepage。\",\"未发现嵌入PDF或附件地址，未发现名单分页链接。\"]}"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 18333,
+      "completion_tokens": 2288,
+      "total_tokens": 20621,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 18333
+    },
+    "system_fingerprint": "e72d3c7f663d3e1383b00b3884cb4501"
+  }
+}
