@@ -5,10 +5,10 @@ import shutil
 from pathlib import Path
 from bs4 import BeautifulSoup
 from benchmark import ROOT,write_json
+from directory_rows import PARSER_VERSION,parse_directory
 
 
 def restore(pilot,source):
-    from api_pilot import selected,title_name
     source=Path(source).resolve()
     if not source.is_relative_to((ROOT/'runs').resolve()) or not (source/'targets.json').is_file():
         raise ValueError('Resume source must be a saved OpenSource run')
@@ -37,25 +37,29 @@ def restore(pilot,source):
     write_json(pilot.out/'previous-issues.json',former)
     # Legacy limits dropped URLs before queueing them. Recover only from saved,
     # qualified roster rows using the same stored plan, without new API inference.
-    pages={p['url']:p for p in pilot.pages};replayed=[]
+    pages={p['url']:p for p in pilot.pages};replayed=[];skipped=[]
     for roster in pilot.rosters:
         if roster.get('source_qualification')!='faculty_roster':continue
         page=pages.get(roster['url'],{});plan=pilot.plans.get(roster.get('branch'),{})
         path=pilot.out/page.get('directory','')/'source.html'
         if plan.get('page_kind')=='directory' and plan.get('row_selector') and path.is_file():
             soup=BeautifulSoup(path.read_text(encoding='utf8',errors='replace'),'lxml')
-            rows=soup.select(plan['row_selector'])
-            if rows and len(rows)>=roster.get('entries',0):
+            parsed=parse_directory(soup,plan,page.get('loaded_url',page['url']))
+            previous=[o for o in pilot.observations if o['source_url']==roster['url'] and o.get('source_kind')=='directory_link']
+            old_people={(o['name'],pilot.canonical_url(o.get('profile_url',''))) for o in previous}
+            new_people={(p['name'],pilot.canonical_url(p['url'])) for p in parsed.people}
+            reason=('row_count_decreased' if not parsed.row_count or parsed.row_count<roster.get('entries',0)
+                    else 'observation_mismatch' if not old_people<=new_people else '')
+            if not reason:
                 pilot.observations=[o for o in pilot.observations if not(o['source_url']==roster['url'] and o.get('source_kind')=='directory_link')]
-                for row in rows:
-                    label=selected(row,plan.get('label_selector'));link=selected(row,plan.get('href_selector'))
-                    if label is None:continue
-                    name=title_name(label.get_text(' ',strip=True))
-                    if not name:continue
-                    from urllib.parse import urljoin
-                    url=urljoin(page.get('loaded_url',page['url']),link.get('href','')) if link is not None and link.get('href') else ''
-                    pilot.observe(name,url,roster['url'],roster['branch'],'directory_link',label.get_text(' ',strip=True))
+                for person in parsed.people:
+                    pilot.observe(source=roster['url'],branch=roster['branch'],kind='directory_link',**person)
+                roster.update(entries=parsed.row_count,row_recovery=parsed.recovery)
+                if parsed.recovery:page['row_recovery']=parsed.recovery
                 replayed.append(roster['url'])
+            else:
+                skipped.append({'url':roster['url'],'reason':reason,'parsed_rows':parsed.row_count,
+                                'previous_people':len(old_people),'parsed_people':len(new_people)})
         for observation in pilot.observations:
             if observation['source_url']==roster['url'] and observation.get('profile_url'):
                 pilot.register(observation['profile_url'],'profile',observation.get('branch',''),
@@ -72,6 +76,7 @@ def restore(pilot,source):
     initial=[u for u in priority if u in initial]+[u for u in initial if u not in priority]
     pilot.scheduled=set(pilot.targets)
     write_json(pilot.out/'resume.json',{'source_run':str(source),'reused_pages':len(pilot.pages),
-        'pending_urls':initial,'replayed_rosters':replayed,'reclassified_profiles':reclassified,'prioritized_urls':priority,
+        'pending_urls':initial,'replayed_rosters':replayed,'skipped_rosters':skipped,'directory_parser':PARSER_VERSION,
+        'reclassified_profiles':reclassified,'prioritized_urls':priority,
         'note':'Only unvisited pages are continued. Previous empty/failed pages are not retried automatically. Old evidence and human decisions remain in their original run.'})
     return initial

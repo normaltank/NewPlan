@@ -27,7 +27,7 @@ flowchart LR
 | 输入解析、预览与批次 | [batch_input.py](../batch_input.py)、[workbench.py](../workbench.py) |
 | 页面计划、采集编排与 API | [api_pilot.py](../api_pilot.py)、[deepseek_api.py](../deepseek_api.py) |
 | HTTP 与浏览器获取 | [fynu_probe.py](../fynu_probe.py) 的 crawler／原件保存函数、[compatible_http.py](../compatible_http.py)、[browser_capture.py](../browser_capture.py)；[acquisition.py](../acquisition.py) 为早期获取方式对照 |
-| 名单分类、表格、分页和姓名 | [faculty_navigation.py](../faculty_navigation.py)、[roster_tables.py](../roster_tables.py)、[roster_sections.py](../roster_sections.py)、[person_names.py](../person_names.py) |
+| 名单分类、目录行解释、表格、分页和姓名 | [faculty_navigation.py](../faculty_navigation.py)、[directory_rows.py](../directory_rows.py)、[roster_tables.py](../roster_tables.py)、[roster_sections.py](../roster_sections.py)、[person_names.py](../person_names.py) |
 | 个人页结构与分段材料 | [profile_layouts.py](../profile_layouts.py)、[multi_profile_sections.py](../multi_profile_sections.py)、[grouped_roster.py](../grouped_roster.py) |
 | 图片分类、OCR 与附件 | [image_triage.py](../image_triage.py)、[ocr_media.py](../ocr_media.py)、[image_profiles.py](../image_profiles.py) |
 | 字段选择、评估和同人关联 | [quality_pipeline.py](../quality_pipeline.py)、[quality_fields.py](../quality_fields.py)、[roster_identity.py](../roster_identity.py)、[cross_college_identity.py](../cross_college_identity.py) |
@@ -35,6 +35,8 @@ flowchart LR
 | 去重、按大学分包及三表导出 | [identity_export.py](../identity_export.py)、[workbench_export.py](../workbench_export.py) |
 | 断点、补采与既有材料复用 | [resume_acquisition.py](../resume_acquisition.py)、[resume_workbench.py](../resume_workbench.py) |
 | 界面、批量复核与排序 | [workbench-static](../workbench-static/)；对应 API 在 workbench.py |
+
+目录型名单在初采与续采中共用 `directory_rows.parse_directory`，统一保留姓名、链接、分组和嵌套行恢复依据，并维持原始条目处理顺序。续采重建不足时保留旧观察记录，在新运行的 `resume.json` 标明跳过原因；不改写旧运行材料。具体反例与验证范围见 [名单续采修复记录](maintenance/2026-10-23-directory-resume/README.md)。
 
 ## 当前工具分工
 
