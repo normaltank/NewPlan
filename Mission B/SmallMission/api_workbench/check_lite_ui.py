@@ -19,6 +19,7 @@ from openpyxl import load_workbook
 from playwright.async_api import async_playwright, expect
 
 from lite_app import Journal, LiteStore, make_server, LITE_VERSION
+from lite_mail import MailReporter, load_config
 from read_lite_log import restore
 from reporting import SUMMARY_HEADERS
 from runtime_paths import APP_ROOT
@@ -154,8 +155,11 @@ async def exercise_ui(base, token, out, server=None):
 async def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--portable', type=Path)
+    parser.add_argument('--send-test-mail', action='store_true', help='Explicitly send one synthetic support mail from the portable executable')
     parser.add_argument('--output-root', type=Path, default=APP_ROOT / 'validation/lite-20261022')
     args = parser.parse_args()
+    if args.send_test_mail and not args.portable:
+        parser.error('--send-test-mail requires --portable')
     root = args.output_root.resolve()
     root.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now().strftime('%H%M%S')
@@ -190,7 +194,25 @@ async def main():
         # Seed only isolated result data: no real API invocation in executable checks.
         with patch.dict(os.environ, {'DEEPSEEK_API_KEY':''}):
             store = LiteStore(folder / 'lite-data', Journal(folder / 'MissionB.log'))
-        seed(store)
+        test_job_id = None
+        if args.send_test_mail:
+            with patch('app.run', simulated_run):
+                store.api_key = KEY
+                store.journal.protect(KEY)
+                test_job_id = store.submit({'text': HEAD + ROW})['id']
+                store.worker.join(10)
+            assert store.view(test_job_id)['download_ready']
+            config = load_config(folder / '_internal/mail_config.json')
+            store.journal.protect(config['password'])
+            with patch('lite_mail.send_mail', side_effect=ConnectionError('离线准备测试邮件，待便携程序启动后发送')):
+                reporter = MailReporter(folder / 'lite-data/mail-outbox', store.journal, config,
+                                        LITE_VERSION + '（自动回传测试，合成数据）')
+                reporter.submit(test_job_id, 5)
+                reporter.pending.join()
+                reporter.close()
+        else:
+            seed(store)
+        store.close()
         env = {k:v for k,v in os.environ.items() if not k.upper().startswith(('PYTHON','DEEPSEEK'))}
         env['PATH'] = str(Path(os.environ['SystemRoot']) / 'System32')
         executable = folder / '名单核验.exe'
@@ -214,7 +236,21 @@ async def main():
                 assert client.get('/api/jobs').status_code == 404
                 assert client.get('/lite_config.json').status_code == 404
                 assert client.get('/api/template.xlsx').status_code == 200
+                assert client.get('/mail_config.json').status_code == 404
                 assert client.post('/api/start', json={'text':'invalid input'}).status_code == 400
+                configured_mail = (folder / '_internal/mail_config.json').is_file()
+                assert client.get('/api/state').json()['automatic_support_mail'] == configured_mail
+            mail_receipt = None
+            if test_job_id:
+                mail_state = folder / 'lite-data/mail-outbox' / test_job_id / 'state.json'
+                deadline = time.monotonic() + 45
+                while True:
+                    mail_receipt = json.loads(mail_state.read_text(encoding='utf-8'))
+                    if mail_receipt['status'] in ('sent', 'failed', 'uncertain'):
+                        break
+                    assert time.monotonic() < deadline, 'Portable SMTP acceptance timeout'
+                    await asyncio.sleep(.2)
+                assert mail_receipt['status'] == 'sent', {k:mail_receipt[k] for k in ('status','attempts')}
             duplicate = subprocess.run([str(executable), '--no-browser'], cwd=folder, env=env,
                                        creationflags=subprocess.CREATE_NO_WINDOW, timeout=20)
             assert duplicate.returncode == 0
@@ -223,8 +259,41 @@ async def main():
             assert process.wait(timeout=15) == 0
             key = json.loads((folder / '_internal/lite_config.json').read_text(encoding='utf-8'))['api_key']
             assert key and key not in (folder / 'MissionB.log').read_text(encoding='utf-8')
+            if configured_mail:
+                mail_config = load_config(folder / '_internal/mail_config.json')
+                assert mail_config['password'] not in (folder / 'MissionB.log').read_text(encoding='utf-8')
             value.update(embedded_key_loaded=True, clean_path=True, chinese_path=True, duplicate_launch=True,
                          shutdown_exit=0, bundled_browser=True, real_api_calls=0)
+            value['automatic_mail_configured'] = configured_mail
+            if mail_receipt:
+                value['mail_test'] = {k:mail_receipt[k] for k in ('job_id','status','attempts')}
+                value['mail_test']['gmail_inbox_confirmed'] = False
+                support = folder / 'lite-data/mail-outbox' / test_job_id / 'support.zip'
+                with zipfile.ZipFile(support) as archive:
+                    mailed_log = out / '回传日志_测试样例.log'
+                    mailed_log.write_bytes(archive.read('MissionB.log'))
+                assert restore(mailed_log, out / '回传日志还原') == test_job_id
+                value['mail_test']['log_restore'] = True
+                # Start a fresh executable process, not just a second browser tab.
+                prior_mtime = info_file.stat().st_mtime_ns
+                process = subprocess.Popen([str(executable), '--no-browser'], cwd=folder, env=env,
+                                           creationflags=subprocess.CREATE_NO_WINDOW)
+                deadline = time.monotonic() + 30
+                while info_file.stat().st_mtime_ns == prior_mtime:
+                    assert process.poll() is None and time.monotonic() < deadline
+                    await asyncio.sleep(.2)
+                new_info = json.loads(info_file.read_text(encoding='utf-8'))
+                with httpx.Client(base_url=f"http://127.0.0.1:{new_info['port']}", trust_env=False) as client:
+                    client.post('/api/session', json={'token': new_info['url'].split('#token=')[1]}).raise_for_status()
+                    assert client.get('/api/state').json()['job']['download_ready']
+                    await asyncio.sleep(.5)
+                    client.post('/api/shutdown', json={}).raise_for_status()
+                assert process.wait(timeout=15) == 0
+                unchanged = json.loads(mail_state.read_text(encoding='utf-8'))
+                assert unchanged == mail_receipt
+                records = [json.loads(line) for line in (folder / 'MissionB.log').read_text(encoding='utf-8').splitlines()]
+                assert sum(r['event'] == 'mail_sent' and r.get('job_id') == test_job_id for r in records) == 1
+                value['mail_test']['restart_did_not_resend'] = True
         finally:
             if process.poll() is None:
                 process.terminate()

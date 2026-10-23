@@ -23,10 +23,11 @@ import zlib
 
 from app import Handler, Store, atomic_json, instance_lock, now
 from input_adapter import read_directory
+from lite_mail import MailReporter, load_config
 from reporting import SUMMARY_HEADERS, college_summaries, new_book, sheet
 from runtime_paths import APP_ROOT, ASSETS, VERSION, plans_path
 
-LITE_VERSION = '1.0.2'
+LITE_VERSION = '1.0.3'
 STATUSES = ('正确', '错误', '特殊情况')
 
 
@@ -97,13 +98,22 @@ class LiteStore(Store):
         if config.is_file():
             self.api_key = json.loads(config.read_text(encoding='utf-8'))['api_key']
         journal.protect(self.api_key)
+        self.mail = None
+        try:
+            mail_config = load_config(ASSETS / 'mail_config.json')
+            if mail_config:
+                journal.protect(mail_config['password'])
+                self.mail = MailReporter(self.root / 'mail-outbox', journal, mail_config, LITE_VERSION)
+        except (OSError, ValueError, TypeError):
+            journal.write('mail_configuration_invalid')
         if self.api_key:
             self.update_settings({'api_key': self.api_key})
         journal.write('startup', edition=LITE_VERSION, engine=VERSION, python=platform.python_version(),
                       system=platform.platform(), model='deepseek-flash', max_api_calls=self.max_api_calls,
+                      automatic_support_mail=bool(self.mail),
                       code_hashes={name: hashlib.sha256((ASSETS / name).read_bytes()).hexdigest()
                                    for name in ('audit.py', 'api_engine.py', 'ai_regions.py', 'deepseek_api.py',
-                                                'input_adapter.py', 'reporting.py') if (ASSETS / name).exists()})
+                                                'input_adapter.py', 'reporting.py', 'lite_app.py', 'lite_mail.py') if (ASSETS / name).exists()})
         for job in self.jobs.values():
             if job['status'] == 'finalizing' or (job['status'] == 'completed' and
                     not (self.root / 'runs' / job['id'] / '核验结果.zip').is_file()):
@@ -160,6 +170,18 @@ class LiteStore(Store):
             with self.lock:
                 job.update(status='failed', message='结果或日志整理失败', finished=now())
                 self.save(job)
+        # Support delivery is never part of verification or result finalization.
+        if self.mail and job['status'] == 'completed':
+            count = sum(row[2] == '特殊情况' for row in public_rows(job['results']))
+            if count:
+                try:
+                    self.mail.submit(job['id'], count)
+                except Exception as error:
+                    self.journal.write('mail_queue_failed', job_id=job['id'], error=str(error))
+
+    def close(self):
+        if self.mail:
+            self.mail.close()
 
     def export_simple(self, job):
         directory = self.root / 'runs' / job['id']
@@ -229,7 +251,7 @@ class LiteHandler(Handler):
             with store.lock:
                 latest = max(store.jobs.values(), key=lambda j: (j['created'],
                     (store.root / 'runs' / j['id'] / 'job.json').stat().st_mtime_ns), default=None)
-                return self.send(200, {'configured': bool(store.api_key),
+                return self.send(200, {'configured': bool(store.api_key), 'automatic_support_mail': bool(store.mail),
                                        'job': store.view(latest['id']) if latest else None})
         if path == '/api/start' and method == 'POST':
             return self.send(201, store.submit(payload))
@@ -318,6 +340,7 @@ def main():
             server.serve_forever(poll_interval=0.3)
         finally:
             server.server_close()
+            server.store.close()
             logging.getLogger().removeHandler(logger)
     finally:
         handle.close()
