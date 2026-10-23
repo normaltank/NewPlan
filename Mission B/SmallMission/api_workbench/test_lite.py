@@ -106,9 +106,14 @@ class LiteTests(unittest.TestCase):
         response = self.client.get(f"/api/jobs/{job['id']}/download")
         self.assertEqual(response.status_code, 200)
         with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
-            self.assertEqual(len(archive.namelist()), 1)
-            name = archive.namelist()[0]
-            self.assertTrue(name.startswith('核验后链接/'))
+            self.assertIn('核验后链接/', archive.namelist())
+            book = load_workbook(io.BytesIO(archive.read('核验结果.xlsx')), read_only=True)
+            self.assertEqual(list(book.active.values), [tuple(state['summary_headers'])] + [tuple(row) for row in state['summary_rows']])
+            book.close()
+            names = [name for name in archive.namelist() if name.startswith('核验后链接/') and name.endswith('.xlsx')]
+            self.assertEqual(len(names), 1)
+            self.assertEqual(len(archive.namelist()), 3)
+            name = names[0]
             self.assertIn('信息学院', name)
             with io.BytesIO(archive.read(name)) as content:
                 book = load_workbook(content, read_only=True)
@@ -133,16 +138,22 @@ class LiteTests(unittest.TestCase):
             self.assertIn('最多20个文件', response.json()['error'])
         self.assertEqual(self.client.get('/api/state').json()['max_files'], 20)
 
-    def test_no_error_results_finish_without_download_and_survive_restart(self):
+    def test_no_error_results_download_summary_and_survive_restart(self):
         for i, results in enumerate(([fixtures()[0]], fixtures()[2:], [fixtures()[0], fixtures()[-1]])):
             with self.subTest(categories=[r['college'] for r in results]):
                 job = seed(self.store, identifier=str(i + 1) * 32, results=results)
                 state = self.client.get(f"/api/jobs/{job['id']}").json()
                 self.assertEqual(state['status'], 'completed')
                 self.assertTrue(state['results_ready'])
-                self.assertFalse(state['download_ready'])
+                self.assertTrue(state['download_ready'])
                 self.assertEqual(state['summary_rows'], [row[:3] for row in public_rows(results)])
-                self.assertEqual(self.client.get(f"/api/jobs/{job['id']}/download").status_code, 400)
+                response = self.client.get(f"/api/jobs/{job['id']}/download")
+                self.assertEqual(response.status_code, 200)
+                with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
+                    self.assertEqual(archive.namelist(), ['核验后链接/', '核验结果.xlsx'])
+                    book = load_workbook(io.BytesIO(archive.read('核验结果.xlsx')), read_only=True)
+                    self.assertEqual(list(book.active.values), [tuple(state['summary_headers'])] + [tuple(row) for row in state['summary_rows']])
+                    book.close()
         recovered = LiteStore(self.store.root, self.store.journal)
         self.assertTrue(all(recovered.view(j['id'])['results_ready'] for j in recovered.jobs.values()))
         recovered.close()
@@ -158,14 +169,15 @@ class LiteTests(unittest.TestCase):
         self.assertEqual(state['summary_rows'], [['示例大学', '合并学院', '错误'], ['另一个大学', '合并学院', '正确']])
         response = self.client.get(f"/api/jobs/{job['id']}/download")
         with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
-            self.assertEqual(len(archive.namelist()), 2)
-            self.assertTrue(all('示例大学_合并学院' in name for name in archive.namelist()))
+            names = [name for name in archive.namelist() if name.startswith('核验后链接/') and name.endswith('.xlsx')]
+            self.assertEqual(len(names), 2)
+            self.assertTrue(all('示例大学_合并学院' in name for name in names))
 
     def test_legacy_download_is_derived_without_overwriting_old_outputs(self):
         job = seed(self.store)
         directory = self.store.root / 'runs' / job['id']
         (directory / ARCHIVE_NAME).unlink()
-        legacy = directory / '核验结果.zip'
+        legacy = directory / '更新后的师资链接.zip'
         with zipfile.ZipFile(legacy, 'w') as archive:
             archive.writestr('使用说明.txt', '旧版内容保留')
             for path in (directory / 'output' / 'corrected').glob('*.xlsx'):
@@ -174,8 +186,9 @@ class LiteTests(unittest.TestCase):
         response = self.client.get(f"/api/jobs/{job['id']}/download")
         self.assertEqual(response.status_code, 200)
         with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
-            self.assertEqual(len(archive.namelist()), 1)
-            self.assertIn('信息学院', archive.namelist()[0])
+            self.assertEqual(len(archive.namelist()), 3)
+            self.assertIn('核验结果.xlsx', archive.namelist())
+            self.assertIn('信息学院', archive.namelist()[-1])
         self.assertTrue(all(hashlib.sha256(p.read_bytes()).hexdigest() == digest for p, digest in before.items()))
 
     def test_advanced_routes_absent_and_local_session_enforced(self):

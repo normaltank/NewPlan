@@ -69,9 +69,7 @@ function render(job) {
   $('status-title').textContent = title;
   $('status-text').textContent = description;
   if (job.status === 'completed') {
-    $('status-text').textContent = job.download_ready
-      ? '只下载“错误”学院的更新链接表。'
-      : '没有需要更新的链接文档，无需下载。';
+    $('status-text').textContent = '下载包含核验结果和“错误”学院的更新链接表。';
     if (job.counts['特殊情况']) $('status-text').textContent += '“特殊情况”请人工查看原网页。';
   }
   renderProgress(job);

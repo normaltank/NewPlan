@@ -26,17 +26,22 @@ from test_lite import KEY, seed, simulated_run, fixtures
 from test_distribution import HEAD, ROW
 
 
-def check_download(path):
+def check_download(path, expected_rows):
     with zipfile.ZipFile(path) as archive:
         names = archive.namelist()
-        assert len(names) == 1 and names[0].startswith('核验后链接/') and '信息学院' in names[0]
-        book = load_workbook(io.BytesIO(archive.read(names[0])), read_only=True)
+        assert len(names) == 3 and '核验后链接/' in names and '核验结果.xlsx' in names
+        summary = load_workbook(io.BytesIO(archive.read('核验结果.xlsx')), read_only=True)
+        assert list(summary.active.values) == [('学校', '学院', '核验结果')] + [tuple(row) for row in expected_rows]
+        summary.close()
+        link_name = next(name for name in names if name.startswith('核验后链接/') and name.endswith('.xlsx'))
+        assert '信息学院' in link_name
+        book = load_workbook(io.BytesIO(archive.read(link_name)), read_only=True)
         values = [[v if v is not None else '' for v in row] for row in book.active.values]
         assert book.sheetnames == ['核验后链接'] and values[0] == ['学校', '学院', '师资url', '教师url']
         assert {tuple(r[:2]) for r in values[1:]} == {('示例大学', '信息学院')}
         assert {r[3] for r in values[1:]} == {'https://example.edu.cn/a', 'https://example.edu.cn/b'}
         book.close()
-        (path.parent / '错误学院_更新链接样例.xlsx').write_bytes(archive.read(names[0]))
+        (path.parent / '错误学院_更新链接样例.xlsx').write_bytes(archive.read(link_name))
     return names
 
 
@@ -131,12 +136,12 @@ async def exercise_ui(base, token, out, server=None):
         download = await event.value
         target = out / '核验结果_实际导出样例.zip'
         await download.save_as(target)
-        download_files = check_download(target)
         state = await page.request.get(base + '/api/state')
         state = await state.json()
         rows = await page.locator('#summary tbody tr').evaluate_all('(rows) => rows.map(row => [...row.cells].map(cell => cell.textContent))')
         assert await page.locator('#summary th').all_text_contents() == ['学校', '学院', '核验结果']
         assert rows == state['job']['summary_rows']
+        download_files = check_download(target, rows)
         counts = dict(Counter(row[2] for row in rows))
         assert counts == {'正确':1, '错误':1, '特殊情况':5}
         assert state['job']['counts'] == counts
@@ -156,12 +161,19 @@ async def exercise_ui(base, token, out, server=None):
                 await expect(page.locator('#summary tbody tr')).to_have_count(2, timeout=15000)
                 await expect(page.locator('#status-title')).to_have_text('核验完成')
                 await expect(page.locator('#progress-percent')).to_have_text('100%')
-                await expect(page.locator('#download')).to_be_hidden()
-                await expect(page.locator('#status-text')).to_contain_text('无需下载')
+                await expect(page.locator('#download')).to_be_visible()
+                await expect(page.locator('#status-text')).to_contain_text('下载包含核验结果')
+                async with page.expect_download() as event:
+                    await page.locator('#download').click()
+                summary_download = await event.value
+                summary_path = out / '无错误_导出样例.zip'
+                await summary_download.save_as(summary_path)
+                with zipfile.ZipFile(summary_path) as archive:
+                    assert archive.namelist() == ['核验后链接/', '核验结果.xlsx']
                 await page.reload()
                 await expect(page.locator('#summary tbody tr')).to_have_count(2)
-                await expect(page.locator('#download')).to_be_hidden()
-                await page.screenshot(path=str(out / '无需下载界面.png'), full_page=True)
+                await expect(page.locator('#download')).to_be_visible()
+                await page.screenshot(path=str(out / '无错误仍可下载界面.png'), full_page=True)
             async def fail(*a, **k):
                 raise RuntimeError('simulated private provider reason ' + KEY)
             await page.locator('summary').click()
@@ -178,7 +190,7 @@ async def exercise_ui(base, token, out, server=None):
         assert not errors, errors
         await browser.close()
     return {'categories':counts, 'empty_notes':True, 'no_api_ui':True, 'no_reason_ui':True,
-            'page_rows_equal_api':True, 'download_files':download_files, 'only_error_downloads':True,
+            'page_rows_equal_api':True, 'download_files':download_files, 'only_error_link_documents':True, 'export_summary_equals_page':True,
             'max_files':20, 'upload_limit_browser_checked':bool(server), 'no_error_completion_checked':bool(server),
             'refresh_download':True, 'mobile_overflow':False, 'browser_errors':errors,
             'completion_progress':100, 'progress_lifecycle_checked':bool(server),
