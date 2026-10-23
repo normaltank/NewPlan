@@ -6,6 +6,7 @@ import base64
 from collections import Counter
 import hashlib
 from http.server import ThreadingHTTPServer
+import io
 import json
 import logging
 from pathlib import Path
@@ -23,12 +24,13 @@ import zlib
 from app import Handler, Store, atomic_json, instance_lock, now
 from input_adapter import read_directory
 from lite_mail import MailReporter, load_config
-from reporting import college_summaries
+from openpyxl import Workbook
+from reporting import college_summaries, sheet
 from runtime_paths import APP_ROOT, ASSETS, VERSION, plans_path
 
-LITE_VERSION = '1.0.4'
+LITE_VERSION = '1.0.5'
 STATUSES = ('正确', '错误', '特殊情况')
-ARCHIVE_NAME = '更新后的师资链接.zip'
+ARCHIVE_NAME = '核验结果与更新链接.zip'
 MAX_FILES = 20
 
 
@@ -91,7 +93,7 @@ def public_job(job):
         'summary_headers': ['学校', '学院', '核验结果'],
         'summary_rows': [row[:3] for row in rows],
         'results_ready': job['status'] == 'completed',
-        'download_ready': job['status'] == 'completed' and counts['错误'] > 0,
+        'download_ready': job['status'] == 'completed',
     }
 
 
@@ -192,11 +194,19 @@ class LiteStore(Store):
 
     def export_simple(self, job):
         directory = self.root / 'runs' / job['id']
-        wrong_colleges = {(row[0], row[1]) for row in public_rows(job['results']) if row[2] == '错误'}
+        summary = public_job(job)
+        wrong_colleges = {(row[0], row[1]) for row in summary['summary_rows'] if row[2] == '错误'}
+        book = Workbook()
+        book.remove(book.active)
+        sheet(book, '核验结果', summary['summary_headers'], summary['summary_rows'])
+        content = io.BytesIO()
+        book.save(content)
         results = json.loads((directory / 'output' / 'results.json').read_text(encoding='utf-8'))
         target = directory / ARCHIVE_NAME
         temp = target.with_suffix('.tmp')
         with zipfile.ZipFile(temp, 'w', zipfile.ZIP_DEFLATED) as archive:
+            archive.writestr('核验后链接/', '')
+            archive.writestr('核验结果.xlsx', content.getvalue())
             for result in results:
                 if not result['complete'] or (result['school'], result['college']) not in wrong_colleges:
                     continue
@@ -210,7 +220,7 @@ class LiteStore(Store):
     def result_exists(self, identifier):
         directory = self.root / 'runs' / identifier
         # Older archives are completion evidence, never the new download payload.
-        return any((directory / name).is_file() for name in (ARCHIVE_NAME, '核验结果.zip'))
+        return any((directory / name).is_file() for name in (ARCHIVE_NAME, '更新后的师资链接.zip', '核验结果.zip'))
 
     def view(self, identifier):
         with self.lock:
@@ -284,12 +294,12 @@ class LiteHandler(Handler):
                 return self.send(200, store.view(identifier))
             if action == 'download' and method == 'GET':
                 if not job['download_ready']:
-                    raise ValueError('本次没有可下载的更新链接，请查看页面核验结果')
+                    raise ValueError('结果尚未准备好，请稍后下载')
                 with store.lock:
                     path = store.root / 'runs' / identifier / ARCHIVE_NAME
                     if not path.is_file():
                         store.export_simple(store.jobs[identifier])
-                return self.download(path, f'更新后的师资链接_{identifier[:8]}.zip')
+                return self.download(path, f'核验结果_{identifier[:8]}.zip')
         if path == '/api/shutdown' and method == 'POST':
             if store.active():
                 raise ValueError('请等待完成或停止核验后再退出')
