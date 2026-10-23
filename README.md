@@ -20,6 +20,7 @@
 | 代码职责、实际调用链、当前工具 | [架构与模块](docs/architecture.md) |
 | 文档维护与历史资料 | [文档导航](docs/README.md) |
 | 开发 agent 如何开始工作 | [AGENTS.md](AGENTS.md) |
+| Matt 技能如何选择、验证和审查 | [工作流](docs/agents/workflow.md) |
 
 ## 工程与试验
 
