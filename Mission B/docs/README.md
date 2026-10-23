@@ -38,6 +38,7 @@
 | `maintenance/20261023-lite-progress/README.md` | 进度条、刷新与便携包验收；旧 MyPlan 分支的 CI 未启动记录 |
 | `maintenance/20261023-log-mail/README.md` | 自动邮件回传、实际 EXE 发信、用户收件确认及 NewPlan 分支 CI 结果；关联 [Issue #2](https://github.com/normaltank/NewPlan/issues/2) |
 | `maintenance/20261023-documentation/README.md` | 本轮文档整理、另一对话核查范围、链接检查与保留校验 |
+| `maintenance/20261023-lite-results/README.md` | 精简版页面结果、仅错误学院下载和 20 文件上限；关联 [Issue #5](https://github.com/normaltank/NewPlan/issues/5) |
 
 历史运行的 `.planning/` 文件记录当时执行过程，供复盘查阅；任务当前状态到 GitHub Issue 核对，不从旧计划自动恢复工作。新增记录写清问题、来源、根因、修改、实际验证和剩余限制；完成后从本索引或负责文档提供一个入口。
 

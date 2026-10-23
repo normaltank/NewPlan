@@ -6,7 +6,6 @@ import base64
 from collections import Counter
 import hashlib
 from http.server import ThreadingHTTPServer
-import io
 import json
 import logging
 from pathlib import Path
@@ -24,11 +23,13 @@ import zlib
 from app import Handler, Store, atomic_json, instance_lock, now
 from input_adapter import read_directory
 from lite_mail import MailReporter, load_config
-from reporting import SUMMARY_HEADERS, college_summaries, new_book, sheet
+from reporting import college_summaries
 from runtime_paths import APP_ROOT, ASSETS, VERSION, plans_path
 
-LITE_VERSION = '1.0.3'
+LITE_VERSION = '1.0.4'
 STATUSES = ('正确', '错误', '特殊情况')
+ARCHIVE_NAME = '更新后的师资链接.zip'
+MAX_FILES = 20
 
 
 class Journal:
@@ -83,10 +84,14 @@ def public_rows(results):
 
 
 def public_job(job):
-    counts = Counter(row[2] for row in public_rows(job['results']))
+    rows = public_rows(job['results'])
+    counts = Counter(row[2] for row in rows)
     return {key: job[key] for key in ('id', 'created', 'status', 'completed', 'total')} | {
         'counts': {status: counts[status] for status in STATUSES},
-        'download_ready': job['status'] == 'completed',
+        'summary_headers': ['学校', '学院', '核验结果'],
+        'summary_rows': [row[:3] for row in rows],
+        'results_ready': job['status'] == 'completed',
+        'download_ready': job['status'] == 'completed' and counts['错误'] > 0,
     }
 
 
@@ -116,7 +121,7 @@ class LiteStore(Store):
                                                 'input_adapter.py', 'reporting.py', 'lite_app.py', 'lite_mail.py') if (ASSETS / name).exists()})
         for job in self.jobs.values():
             if job['status'] == 'finalizing' or (job['status'] == 'completed' and
-                    not (self.root / 'runs' / job['id'] / '核验结果.zip').is_file()):
+                    not self.result_exists(job['id'])):
                 job.update(status='interrupted', message='上次结果整理未完成')
                 self.save(job)
             if job['status'] == 'interrupted':
@@ -128,6 +133,8 @@ class LiteStore(Store):
                 raise ValueError('已有核验正在运行，请完成或停止后再提交')
             if not self.api_key:
                 raise ValueError('工具尚未配置完成，请联系维护人员')
+            if not isinstance(payload.get('files', []), list) or len(payload.get('files', [])) > MAX_FILES:
+                raise ValueError(f'每批最多{MAX_FILES}个文件，请减少文件后重试')
             preview = self.preview({key: payload[key] for key in ('files', 'text') if key in payload})
             if preview['errors'] or not preview['task_count']:
                 self.journal.write('input_rejected', preview=preview)
@@ -185,22 +192,25 @@ class LiteStore(Store):
 
     def export_simple(self, job):
         directory = self.root / 'runs' / job['id']
-        book = new_book()
-        sheet(book, '核验汇总', SUMMARY_HEADERS, public_rows(job['results']))
-        buffer = io.BytesIO()
-        book.save(buffer)
-        book.close()
-        target = directory / '核验结果.zip'
+        wrong_colleges = {(row[0], row[1]) for row in public_rows(job['results']) if row[2] == '错误'}
+        results = json.loads((directory / 'output' / 'results.json').read_text(encoding='utf-8'))
+        target = directory / ARCHIVE_NAME
         temp = target.with_suffix('.tmp')
         with zipfile.ZipFile(temp, 'w', zipfile.ZIP_DEFLATED) as archive:
-            archive.writestr('核验汇总.xlsx', buffer.getvalue())
-            for path in sorted((directory / 'output' / 'corrected').glob('*.xlsx')):
+            for result in results:
+                if not result['complete'] or (result['school'], result['college']) not in wrong_colleges:
+                    continue
+                name = result['corrected_filename']
+                if Path(name).name != name or not name.endswith('.xlsx'):
+                    raise ValueError('更新链接文件名无效')
+                path = directory / 'output' / 'corrected' / name
                 archive.write(path, '核验后链接/' + path.name)
-            archive.writestr('使用说明.txt',
-                '核验汇总使用正确、错误、特殊情况三类。特殊情况说明留空。\n'
-                '特殊情况请人工查看原网页。核验后链接仅提供已完成核验的分组，请结合汇总使用。\n'
-                '如需反馈运行问题，请发送软件文件夹内的 MissionB.log。\n')
         temp.replace(target)
+
+    def result_exists(self, identifier):
+        directory = self.root / 'runs' / identifier
+        # Older archives are completion evidence, never the new download payload.
+        return any((directory / name).is_file() for name in (ARCHIVE_NAME, '核验结果.zip'))
 
     def view(self, identifier):
         with self.lock:
@@ -208,8 +218,9 @@ class LiteStore(Store):
                 raise ValueError('找不到这次任务')
             value = public_job(self.jobs[identifier])
             # The parent saves completion before returning to our final export step.
-            value['download_ready'] &= (self.root / 'runs' / identifier / '核验结果.zip').is_file()
-            if value['status'] == 'completed' and not value['download_ready']:
+            value['results_ready'] &= self.result_exists(identifier)
+            value['download_ready'] &= value['results_ready']
+            if value['status'] == 'completed' and not value['results_ready']:
                 value['status'] = 'finalizing'
             return value
 
@@ -251,7 +262,7 @@ class LiteHandler(Handler):
             with store.lock:
                 latest = max(store.jobs.values(), key=lambda j: (j['created'],
                     (store.root / 'runs' / j['id'] / 'job.json').stat().st_mtime_ns), default=None)
-                return self.send(200, {'configured': bool(store.api_key), 'automatic_support_mail': bool(store.mail),
+                return self.send(200, {'configured': bool(store.api_key), 'automatic_support_mail': bool(store.mail), 'max_files': MAX_FILES,
                                        'job': store.view(latest['id']) if latest else None})
         if path == '/api/start' and method == 'POST':
             return self.send(201, store.submit(payload))
@@ -273,8 +284,12 @@ class LiteHandler(Handler):
                 return self.send(200, store.view(identifier))
             if action == 'download' and method == 'GET':
                 if not job['download_ready']:
-                    raise ValueError('本次结果尚未生成，请等待完成后下载')
-                return self.download(store.root / 'runs' / identifier / '核验结果.zip', f'核验结果_{identifier[:8]}.zip')
+                    raise ValueError('本次没有可下载的更新链接，请查看页面核验结果')
+                with store.lock:
+                    path = store.root / 'runs' / identifier / ARCHIVE_NAME
+                    if not path.is_file():
+                        store.export_simple(store.jobs[identifier])
+                return self.download(path, f'更新后的师资链接_{identifier[:8]}.zip')
         if path == '/api/shutdown' and method == 'POST':
             if store.active():
                 raise ValueError('请等待完成或停止核验后再退出')
