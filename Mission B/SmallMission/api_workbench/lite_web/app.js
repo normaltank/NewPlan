@@ -103,6 +103,7 @@ $('quit').addEventListener('click', async () => {
     const token = new URLSearchParams(location.hash.slice(1)).get('token');
     if (token) {history.replaceState(null, '', location.pathname); await api('/api/session', {token});}
     const state = await api('/api/state');
+    if (state.automatic_support_mail) $('support-note').textContent = '遇到特殊情况，本批日志会自动发送给维护人员。';
     ready = true; render(state.job); schedule();
     if (!state.configured) {ready = false; controls(); $('quit').disabled = false; error('工具尚未配置完成，请联系维护人员。');}
   } catch (e) {error(e.message);}
