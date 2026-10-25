@@ -1,0 +1,19 @@
+{
+  "started_at": "2026-10-26T00:08:56.802446+08:00",
+  "tested_head": "5280786247aa485d29b489df5f922bcdb0038c0a",
+  "integrated_main": "50d2d0bc7b434cd11b946384378c4ff812df6bc4",
+  "original_pr_head": "101ac65d28f47d45e3d549200392e0e6b6477dd1",
+  "command": "python -m unittest discover -s . -p test_*.py -v",
+  "python": "3.12.10",
+  "exit_code": 0,
+  "tests_run": 203,
+  "elapsed_seconds": 35.76,
+  "log": "merge-check-20261026.txt",
+  "source_sha256": {
+    "api_pilot.py": "205555d4989482501b0f379f503bc60fbebb472c0a9246a419d90c4600c91543",
+    "directory_rows.py": "ddaca0cd9a36e07e555d935b633600fa628659492ab33dcc9c640bb9d312f4ba",
+    "resume_acquisition.py": "2899201506ed60ac7c7774dea7f8e4bc63ed1ef901bd750406b11f7857c733f5",
+    "test_directory_resume.py": "c57a316031140c1f25286633e16da2b13e5de39b1d5c56664c4e9303beeaaddc"
+  },
+  "scope": "Isolated worktree offline regression; no live collection or paid API calls. Does not prove college roster completeness."
+}
