@@ -1,6 +1,6 @@
 'use strict';
 const $ = id => document.getElementById(id);
-let current = null, timer = null, submitting = false, ready = false;
+let current = null, timer = null, submitting = false, ready = false, maxFiles = 20;
 const active = job => job && ['running', 'stopping', 'finalizing'].includes(job.status);
 async function api(path, payload) {
   const response = await fetch(path, payload === undefined ? {} : {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
@@ -12,11 +12,12 @@ function error(message = '') {$('error').textContent = message; $('error').hidde
 function controls() {
   $('inputs').disabled = !ready || submitting || active(current);
   $('quit').disabled = !ready || submitting || active(current);
+  $('start').disabled = !ready || submitting || active(current) || $('files').files.length > maxFiles;
 }
 function renderProgress(job) {
   const total = Math.max(0, Number(job.total) || 0);
   const completed = Math.min(total, Math.max(0, Number(job.completed) || 0));
-  const done = job.status === 'completed' && job.download_ready;
+  const done = job.status === 'completed' && job.results_ready;
   const preparing = job.status === 'finalizing' || (active(job) && total > 0 && completed === total);
   $('progress-area').hidden = !active(job) && !done;
   if (done) {
@@ -32,6 +33,22 @@ function renderProgress(job) {
     $('progress').value = percent;
     $('progress-text').textContent = `已完成 ${completed} / ${total}`;
     $('progress-percent').textContent = `${percent}%`;
+  }
+}
+function renderSummary(job) {
+  const body = $('summary').querySelector('tbody');
+  body.replaceChildren();
+  $('summary').hidden = !job.results_ready;
+  if (!job.results_ready) return;
+  for (const values of job.summary_rows) {
+    const row = document.createElement('tr');
+    values.forEach((value, index) => {
+      const cell = document.createElement('td');
+      cell.textContent = value;
+      if (index === 2) cell.className = {'正确':'result-correct', '错误':'result-error', '特殊情况':'result-special'}[value] || '';
+      row.append(cell);
+    });
+    body.append(row);
   }
 }
 function render(job) {
@@ -51,7 +68,12 @@ function render(job) {
   const [title, description] = states[job.status] || ['本次未完成','请发送 MissionB.log 给维护人员。'];
   $('status-title').textContent = title;
   $('status-text').textContent = description;
+  if (job.status === 'completed') {
+    $('status-text').textContent = '下载包含核验结果和“错误”学院的更新链接表。';
+    if (job.counts['特殊情况']) $('status-text').textContent += '“特殊情况”请人工查看原网页。';
+  }
   renderProgress(job);
+  renderSummary(job);
   $('download').hidden = !job.download_ready;
   if (job.download_ready) $('download').href = `/api/jobs/${job.id}/download`;
   else $('download').removeAttribute('href');
@@ -75,7 +97,12 @@ function filePayload(file) {
     reader.readAsDataURL(file);
   });
 }
-$('files').addEventListener('change', () => {$('file-names').textContent = [...$('files').files].map(f => f.name).join('、') || '尚未选择文件';});
+$('files').addEventListener('change', () => {
+  const files = [...$('files').files];
+  $('file-names').textContent = files.length ? `已选择 ${files.length} / ${maxFiles} 个文件：` + files.map(f => f.name).join('、') : '尚未选择文件';
+  error(files.length > maxFiles ? `每批最多${maxFiles}个文件，请减少文件后重试` : '');
+  controls();
+});
 $('input-form').addEventListener('submit', async event => {
   event.preventDefault();
   if (submitting || active(current)) return;
@@ -83,7 +110,7 @@ $('input-form').addEventListener('submit', async event => {
   try {
     const files = [...$('files').files];
     if (!files.length && !$('text').value.trim()) throw new Error('请选择文件或粘贴待核验名单');
-    if (files.length > 50 || files.some(f => f.size > 10 * 1024 * 1024) || files.reduce((n,f) => n + f.size,0) > 20 * 1024 * 1024) throw new Error('请拆分为较小批次，每批最多50个文件，单个文件不超过10MB、合计不超过20MB');
+    if (files.length > maxFiles || files.some(f => f.size > 10 * 1024 * 1024) || files.reduce((n,f) => n + f.size,0) > 20 * 1024 * 1024) throw new Error(`请拆分为较小批次，每批最多${maxFiles}个文件，单个文件不超过10MB、合计不超过20MB`);
     const job = await api('/api/start', {files:await Promise.all(files.map(filePayload)), text:$('text').value});
     render(job); schedule();
   } catch (e) {error(e.message);}
@@ -103,6 +130,9 @@ $('quit').addEventListener('click', async () => {
     const token = new URLSearchParams(location.hash.slice(1)).get('token');
     if (token) {history.replaceState(null, '', location.pathname); await api('/api/session', {token});}
     const state = await api('/api/state');
+    maxFiles = state.max_files;
+    $('file-limit').textContent = `支持 Excel 和文本文件，最多 ${maxFiles} 个文件`;
+    if (state.automatic_support_mail) $('support-note').textContent = '遇到特殊情况，本批日志会自动发送给维护人员。';
     ready = true; render(state.job); schedule();
     if (!state.configured) {ready = false; controls(); $('quit').disabled = false; error('工具尚未配置完成，请联系维护人员。');}
   } catch (e) {error(e.message);}
