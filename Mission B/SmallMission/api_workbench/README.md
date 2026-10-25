@@ -4,9 +4,13 @@
 
 只需要导入和下载的使用者可使用独立的[精简分发版](README_lite.md)。下文仍为本地完整版说明。
 
-本地源码 3.0.2 修复了静态页面零链接时未尝试浏览器渲染的问题；浏览器仍读不到有效名单时继续交给人工，不按零链接清空原表。实际 20 学院基线、抽查和复测见[2026-10-22 维护记录](maintenance/20261022-college-list/README.md)。精简分发版 1.0.2 已包含此修复及实际进度条；旧完整版 3.0.1 和精简版 1.0.1 压缩包保留原样。Windows 源码入口为 `app.py`，需要 Python 和 `requirements.txt` 中的依赖；Mac/Linux 可使用 `run.sh`。
+本文件描述当前完整版源码。历史版本、实跑记录和本地证据的位置见 [档案索引](../../docs/README.md)；已发布包保留原样，不能用当前源码版本代替旧包版本。
 
 ## 启动
+
+源码运行：在本目录使用已安装 `requirements.txt` 依赖及 Playwright Chromium 的 Python 执行 `python app.py`。Mac/Linux 也可使用本目录的 `run.sh`。当前源码包含静态页面零链接时尝试浏览器渲染的修复；渲染仍无法取得有效名单时继续保留特殊情况。
+
+使用已有完整版发行包时，按包内说明启动；[发行说明](README_distribution.md) 对应 3.0.1，不包含后续源码修复：
 
 - Windows 64位：完整解压后双击 `MissionB.exe`，无需另装 Python。保留 `_internal` 和 `.browsers`。
 - macOS：双击 `install-macos.command`，以后用 `start-macos.command`；也可在该文件夹运行 `bash run.sh`。

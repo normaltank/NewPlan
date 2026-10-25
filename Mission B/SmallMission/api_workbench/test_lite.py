@@ -17,9 +17,9 @@ import httpx
 from openpyxl import load_workbook
 
 from app import atomic_json, brief, now
-from lite_app import Journal, LiteStore, make_server, public_rows
+from lite_app import ARCHIVE_NAME, Journal, LiteStore, make_server, public_rows
 from read_lite_log import restore
-from reporting import SUMMARY_HEADERS, export
+from reporting import export
 from runtime_paths import APP_ROOT
 from test_distribution import HEAD, ROW
 from test_result_summary import sample_results, sample_manifest, HTML
@@ -36,15 +36,15 @@ def fixtures():
     return results
 
 
-def seed(store, identifier='7' * 32):
-    results = fixtures()
+def seed(store, identifier='7' * 32, results=None):
+    results = fixtures() if results is None else copy.deepcopy(results)
     directory = store.root / 'runs' / identifier / 'output'
     directory.mkdir(parents=True)
     manifest = sample_manifest()
     export(directory, results, manifest)
     atomic_json(directory / 'results.json', results)
     atomic_json(directory / 'manifest.json', manifest)
-    job = dict(id=identifier, created=now(), status='completed', completed=7, total=7,
+    job = dict(id=identifier, created=now(), status='completed', completed=len(results), total=len(results),
                results=[brief(r) for r in results], message='private detail')
     store.jobs[identifier] = job
     store.save(job)
@@ -52,10 +52,10 @@ def seed(store, identifier='7' * 32):
     return job
 
 
-async def simulated_run(args, on_progress, should_cancel):
+async def simulated_run(args, on_progress, should_cancel, results=None):
     """Inject deterministic results at the remote-work boundary, keep real exports."""
     args.output.mkdir(parents=True)
-    results, manifest = fixtures(), sample_manifest()
+    results, manifest = fixtures() if results is None else copy.deepcopy(results), sample_manifest()
     for i, result in enumerate(results, 1):
         on_progress('college_finished', {'index': i, 'result': result})
     export(args.output, results, manifest)
@@ -94,27 +94,102 @@ class LiteTests(unittest.TestCase):
         self.thread.join(5)
         self.temp.cleanup()
 
-    def test_summary_three_categories_empty_notes_and_url_set_preserved(self):
+    def test_page_shows_three_categories_and_download_contains_only_error_colleges(self):
         job = seed(self.store)
         original = (self.store.root / 'runs' / job['id'] / 'output' / 'results.json').read_bytes()
         state = self.client.get('/api/state').json()['job']
         self.assertEqual(state['counts'], {'正确': 1, '错误': 1, '特殊情况': 5})
+        self.assertEqual(state['summary_headers'], ['学校', '学院', '核验结果'])
+        self.assertEqual(state['summary_rows'], [row[:3] for row in public_rows(fixtures())])
+        self.assertTrue(state['results_ready'])
         self.assertNotIn('reason', json.dumps(state))
         response = self.client.get(f"/api/jobs/{job['id']}/download")
         self.assertEqual(response.status_code, 200)
         with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
-            self.assertEqual(len([n for n in archive.namelist() if n.startswith('核验后链接/')]), 2)
-            self.assertFalse(any(x in n for n in archive.namelist() for x in ('evidence', 'json', 'html', '详细')))
-            with io.BytesIO(archive.read('核验汇总.xlsx')) as content:
+            self.assertIn('核验后链接/', archive.namelist())
+            book = load_workbook(io.BytesIO(archive.read('核验结果.xlsx')), read_only=True)
+            self.assertEqual(list(book.active.values), [tuple(state['summary_headers'])] + [tuple(row) for row in state['summary_rows']])
+            book.close()
+            names = [name for name in archive.namelist() if name.startswith('核验后链接/') and name.endswith('.xlsx')]
+            self.assertEqual(len(names), 1)
+            self.assertEqual(len(archive.namelist()), 3)
+            name = names[0]
+            self.assertIn('信息学院', name)
+            with io.BytesIO(archive.read(name)) as content:
                 book = load_workbook(content, read_only=True)
                 rows = [[v or '' for v in r] for r in book.active.values]
-                self.assertEqual(book.sheetnames, ['核验汇总'])
-                self.assertEqual(rows, [SUMMARY_HEADERS] + public_rows(fixtures()))
-                self.assertTrue(all(row[3] == '' for row in rows[1:]))
-                self.assertEqual(rows[2][2], '错误')  # Same count, different URLs.
+                self.assertEqual(book.sheetnames, ['核验后链接'])
+                self.assertEqual(rows[0], ['学校', '学院', '师资url', '教师url'])
+                self.assertEqual({row[1] for row in rows[1:]}, {'信息学院'})
+                self.assertEqual({row[3] for row in rows[1:]}, {'https://example.edu.cn/a', 'https://example.edu.cn/b'})
                 book.close()
         self.assertEqual(original, (self.store.root / 'runs' / job['id'] / 'output' / 'results.json').read_bytes())
         self.assertIn('学院网页无法访问', original.decode())
+
+    def test_twenty_uploaded_files_are_accepted_and_twenty_one_are_rejected(self):
+        content = base64.b64encode((HEAD + ROW).encode()).decode()
+        files = [{'name': f'名单{i}.txt', 'content': content} for i in range(21)]
+        with patch('app.run', simulated_run):
+            response = self.client.post('/api/start', json={'files': files[:20]})
+            self.assertEqual(response.status_code, 201, response.text)
+            self.store.worker.join(10)
+            response = self.client.post('/api/start', json={'files': files})
+            self.assertEqual(response.status_code, 400, response.text)
+            self.assertIn('最多20个文件', response.json()['error'])
+        self.assertEqual(self.client.get('/api/state').json()['max_files'], 20)
+
+    def test_no_error_results_download_summary_and_survive_restart(self):
+        for i, results in enumerate(([fixtures()[0]], fixtures()[2:], [fixtures()[0], fixtures()[-1]])):
+            with self.subTest(categories=[r['college'] for r in results]):
+                job = seed(self.store, identifier=str(i + 1) * 32, results=results)
+                state = self.client.get(f"/api/jobs/{job['id']}").json()
+                self.assertEqual(state['status'], 'completed')
+                self.assertTrue(state['results_ready'])
+                self.assertTrue(state['download_ready'])
+                self.assertEqual(state['summary_rows'], [row[:3] for row in public_rows(results)])
+                response = self.client.get(f"/api/jobs/{job['id']}/download")
+                self.assertEqual(response.status_code, 200)
+                with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
+                    self.assertEqual(archive.namelist(), ['核验后链接/', '核验结果.xlsx'])
+                    book = load_workbook(io.BytesIO(archive.read('核验结果.xlsx')), read_only=True)
+                    self.assertEqual(list(book.active.values), [tuple(state['summary_headers'])] + [tuple(row) for row in state['summary_rows']])
+                    book.close()
+        recovered = LiteStore(self.store.root, self.store.journal)
+        self.assertTrue(all(recovered.view(j['id'])['results_ready'] for j in recovered.jobs.values()))
+        recovered.close()
+
+    def test_error_college_download_keeps_completed_groups_and_excludes_other_colleges(self):
+        good, bad, special = fixtures()[:3]
+        for result in (good, bad, special):
+            result['college'] = '合并学院'
+        other = copy.deepcopy(good)
+        other.update(id='f' * 12, school='另一个大学')
+        job = seed(self.store, results=[good, bad, special, other])
+        state = self.client.get(f"/api/jobs/{job['id']}").json()
+        self.assertEqual(state['summary_rows'], [['示例大学', '合并学院', '错误'], ['另一个大学', '合并学院', '正确']])
+        response = self.client.get(f"/api/jobs/{job['id']}/download")
+        with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
+            names = [name for name in archive.namelist() if name.startswith('核验后链接/') and name.endswith('.xlsx')]
+            self.assertEqual(len(names), 2)
+            self.assertTrue(all('示例大学_合并学院' in name for name in names))
+
+    def test_legacy_download_is_derived_without_overwriting_old_outputs(self):
+        job = seed(self.store)
+        directory = self.store.root / 'runs' / job['id']
+        (directory / ARCHIVE_NAME).unlink()
+        legacy = directory / '更新后的师资链接.zip'
+        with zipfile.ZipFile(legacy, 'w') as archive:
+            archive.writestr('使用说明.txt', '旧版内容保留')
+            for path in (directory / 'output' / 'corrected').glob('*.xlsx'):
+                archive.write(path, '核验后链接/' + path.name)
+        before = {p: hashlib.sha256(p.read_bytes()).hexdigest() for p in directory.rglob('*') if p.is_file()}
+        response = self.client.get(f"/api/jobs/{job['id']}/download")
+        self.assertEqual(response.status_code, 200)
+        with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
+            self.assertEqual(len(archive.namelist()), 3)
+            self.assertIn('核验结果.xlsx', archive.namelist())
+            self.assertIn('信息学院', archive.namelist()[-1])
+        self.assertTrue(all(hashlib.sha256(p.read_bytes()).hexdigest() == digest for p, digest in before.items()))
 
     def test_advanced_routes_absent_and_local_session_enforced(self):
         job = seed(self.store)

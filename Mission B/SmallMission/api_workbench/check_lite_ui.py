@@ -19,24 +19,30 @@ from openpyxl import load_workbook
 from playwright.async_api import async_playwright, expect
 
 from lite_app import Journal, LiteStore, make_server, LITE_VERSION
+from lite_mail import MailReporter, load_config
 from read_lite_log import restore
-from reporting import SUMMARY_HEADERS
 from runtime_paths import APP_ROOT
 from test_lite import KEY, seed, simulated_run, fixtures
 from test_distribution import HEAD, ROW
 
 
-def check_download(path):
+def check_download(path, expected_rows):
     with zipfile.ZipFile(path) as archive:
-        assert len([n for n in archive.namelist() if n.startswith('核验后链接/')]) == 2
-        book = load_workbook(io.BytesIO(archive.read('核验汇总.xlsx')), read_only=True)
+        names = archive.namelist()
+        assert len(names) == 3 and '核验后链接/' in names and '核验结果.xlsx' in names
+        summary = load_workbook(io.BytesIO(archive.read('核验结果.xlsx')), read_only=True)
+        assert list(summary.active.values) == [('学校', '学院', '核验结果')] + [tuple(row) for row in expected_rows]
+        summary.close()
+        link_name = next(name for name in names if name.startswith('核验后链接/') and name.endswith('.xlsx'))
+        assert '信息学院' in link_name
+        book = load_workbook(io.BytesIO(archive.read(link_name)), read_only=True)
         values = [[v if v is not None else '' for v in row] for row in book.active.values]
-        assert book.sheetnames == ['核验汇总'] and values[0] == SUMMARY_HEADERS
-        assert [r[2] for r in values[1:]] == ['正确','错误'] + ['特殊情况'] * 5
-        assert all(r[3] == '' for r in values[1:])
+        assert book.sheetnames == ['核验后链接'] and values[0] == ['学校', '学院', '师资url', '教师url']
+        assert {tuple(r[:2]) for r in values[1:]} == {('示例大学', '信息学院')}
+        assert {r[3] for r in values[1:]} == {'https://example.edu.cn/a', 'https://example.edu.cn/b'}
         book.close()
-        (path.parent / '核验汇总_实际导出样例.xlsx').write_bytes(archive.read('核验汇总.xlsx'))
-    return dict(Counter(r[2] for r in values[1:]))
+        (path.parent / '错误学院_更新链接样例.xlsx').write_bytes(archive.read(link_name))
+    return names
 
 
 async def exercise_ui(base, token, out, server=None):
@@ -47,6 +53,7 @@ async def exercise_ui(base, token, out, server=None):
         page.on('pageerror', lambda error: errors.append(str(error)))
         await page.goto(base + '/#token=' + token)
         await expect(page.locator('#start')).to_be_enabled()
+        await expect(page.locator('.upload')).to_contain_text('最多 20 个文件')
         assert await page.locator('input[type=password]').count() == 0
         for text in ('API','DeepSeek','模型','历史记录','逐条证据','特殊情况说明'):
             assert text not in await page.locator('body').inner_text(), text
@@ -55,6 +62,17 @@ async def exercise_ui(base, token, out, server=None):
             await page.screenshot(path=str(out / '输入界面.png'), full_page=True)
             await page.locator('#start').click()
             await expect(page.locator('#error')).to_contain_text('请选择文件')
+            uploads = [{'name': f'名单{i}.txt', 'mimeType': 'text/plain', 'buffer': (HEAD + ROW).encode()} for i in range(21)]
+            await page.locator('#files').set_input_files(uploads)
+            await expect(page.locator('#error')).to_contain_text('最多20个文件')
+            await expect(page.locator('#start')).to_be_disabled()
+            await page.screenshot(path=str(out / '超过20个文件.png'), full_page=True)
+            await page.locator('#files').set_input_files(uploads[:20])
+            await expect(page.locator('#start')).to_be_enabled()
+            await expect(page.locator('#error')).to_be_hidden()
+            with patch('app.run', simulated_run):
+                await page.locator('#start').click()
+                await expect(page.locator('#download')).to_be_visible(timeout=15000)
             file = out / '示例名单.txt'
             file.write_text(HEAD + '\n'.join(ROW.replace('测试学院', result['college']) for result in fixtures()), encoding='utf-8')
             await page.locator('#files').set_input_files(file)
@@ -118,9 +136,14 @@ async def exercise_ui(base, token, out, server=None):
         download = await event.value
         target = out / '核验结果_实际导出样例.zip'
         await download.save_as(target)
-        counts = check_download(target)
         state = await page.request.get(base + '/api/state')
         state = await state.json()
+        rows = await page.locator('#summary tbody tr').evaluate_all('(rows) => rows.map(row => [...row.cells].map(cell => cell.textContent))')
+        assert await page.locator('#summary th').all_text_contents() == ['学校', '学院', '核验结果']
+        assert rows == state['job']['summary_rows']
+        download_files = check_download(target, rows)
+        counts = dict(Counter(row[2] for row in rows))
+        assert counts == {'正确':1, '错误':1, '特殊情况':5}
         assert state['job']['counts'] == counts
         await page.set_viewport_size({'width':390, 'height':850})
         assert await page.evaluate('document.documentElement.scrollWidth <= innerWidth')
@@ -130,6 +153,27 @@ async def exercise_ui(base, token, out, server=None):
         if server:
             successful = state['job']['id']
             assert restore(out / 'MissionB.log', out / '日志还原', successful) == successful
+            async def no_errors(args, on_progress, should_cancel):
+                return await simulated_run(args, on_progress, should_cancel, [fixtures()[0], fixtures()[-1]])
+            await page.locator('#files').set_input_files(out / '示例名单.txt')
+            with patch('app.run', no_errors):
+                await page.locator('#start').click()
+                await expect(page.locator('#summary tbody tr')).to_have_count(2, timeout=15000)
+                await expect(page.locator('#status-title')).to_have_text('核验完成')
+                await expect(page.locator('#progress-percent')).to_have_text('100%')
+                await expect(page.locator('#download')).to_be_visible()
+                await expect(page.locator('#status-text')).to_contain_text('下载包含核验结果')
+                async with page.expect_download() as event:
+                    await page.locator('#download').click()
+                summary_download = await event.value
+                summary_path = out / '无错误_导出样例.zip'
+                await summary_download.save_as(summary_path)
+                with zipfile.ZipFile(summary_path) as archive:
+                    assert archive.namelist() == ['核验后链接/', '核验结果.xlsx']
+                await page.reload()
+                await expect(page.locator('#summary tbody tr')).to_have_count(2)
+                await expect(page.locator('#download')).to_be_visible()
+                await page.screenshot(path=str(out / '无错误仍可下载界面.png'), full_page=True)
             async def fail(*a, **k):
                 raise RuntimeError('simulated private provider reason ' + KEY)
             await page.locator('summary').click()
@@ -146,6 +190,8 @@ async def exercise_ui(base, token, out, server=None):
         assert not errors, errors
         await browser.close()
     return {'categories':counts, 'empty_notes':True, 'no_api_ui':True, 'no_reason_ui':True,
+            'page_rows_equal_api':True, 'download_files':download_files, 'only_error_link_documents':True, 'export_summary_equals_page':True,
+            'max_files':20, 'upload_limit_browser_checked':bool(server), 'no_error_completion_checked':bool(server),
             'refresh_download':True, 'mobile_overflow':False, 'browser_errors':errors,
             'completion_progress':100, 'progress_lifecycle_checked':bool(server),
             'export_sha256':hashlib.sha256(target.read_bytes()).hexdigest()}
@@ -154,16 +200,20 @@ async def exercise_ui(base, token, out, server=None):
 async def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--portable', type=Path)
+    parser.add_argument('--send-test-mail', action='store_true', help='Explicitly send one synthetic support mail from the portable executable')
     parser.add_argument('--output-root', type=Path, default=APP_ROOT / 'validation/lite-20261022')
     args = parser.parse_args()
+    if args.send_test_mail and not args.portable:
+        parser.error('--send-test-mail requires --portable')
     root = args.output_root.resolve()
     root.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now().strftime('%H%M%S')
     if not args.portable:
         out = root / ('ui-' + stamp)
         out.mkdir()
-        candidates = sorted(APP_ROOT.glob('.lite-stage-*/MissionB*/.browsers'))
-        os.environ['PLAYWRIGHT_BROWSERS_PATH'] = str(candidates[-1])
+        if not os.environ.get('PLAYWRIGHT_BROWSERS_PATH'):
+            candidates = sorted(APP_ROOT.glob('.lite-stage-*/MissionB*/.browsers'))
+            os.environ['PLAYWRIGHT_BROWSERS_PATH'] = str(candidates[-1])
         with patch.dict(os.environ, {'DEEPSEEK_API_KEY':''}):
             server = make_server(out / 'lite-data')
         server.store.api_key = KEY
@@ -180,7 +230,7 @@ async def main():
     else:
         out = root / ('portable-' + stamp)
         out.mkdir()
-        extracted = out / '中文路径 软件解压'
+        extracted = out / '中文解压'
         extracted.mkdir()
         with zipfile.ZipFile(args.portable) as archive:
             names = archive.namelist()
@@ -190,7 +240,25 @@ async def main():
         # Seed only isolated result data: no real API invocation in executable checks.
         with patch.dict(os.environ, {'DEEPSEEK_API_KEY':''}):
             store = LiteStore(folder / 'lite-data', Journal(folder / 'MissionB.log'))
-        seed(store)
+        test_job_id = None
+        if args.send_test_mail:
+            with patch('app.run', simulated_run):
+                store.api_key = KEY
+                store.journal.protect(KEY)
+                test_job_id = store.submit({'text': HEAD + ROW})['id']
+                store.worker.join(10)
+            assert store.view(test_job_id)['download_ready']
+            config = load_config(folder / '_internal/mail_config.json')
+            store.journal.protect(config['password'])
+            with patch('lite_mail.send_mail', side_effect=ConnectionError('离线准备测试邮件，待便携程序启动后发送')):
+                reporter = MailReporter(folder / 'lite-data/mail-outbox', store.journal, config,
+                                        LITE_VERSION + '（自动回传测试，合成数据）')
+                reporter.submit(test_job_id, 5)
+                reporter.pending.join()
+                reporter.close()
+        else:
+            seed(store)
+        store.close()
         env = {k:v for k,v in os.environ.items() if not k.upper().startswith(('PYTHON','DEEPSEEK'))}
         env['PATH'] = str(Path(os.environ['SystemRoot']) / 'System32')
         executable = folder / '名单核验.exe'
@@ -214,7 +282,21 @@ async def main():
                 assert client.get('/api/jobs').status_code == 404
                 assert client.get('/lite_config.json').status_code == 404
                 assert client.get('/api/template.xlsx').status_code == 200
+                assert client.get('/mail_config.json').status_code == 404
                 assert client.post('/api/start', json={'text':'invalid input'}).status_code == 400
+                configured_mail = (folder / '_internal/mail_config.json').is_file()
+                assert client.get('/api/state').json()['automatic_support_mail'] == configured_mail
+            mail_receipt = None
+            if test_job_id:
+                mail_state = folder / 'lite-data/mail-outbox' / test_job_id / 'state.json'
+                deadline = time.monotonic() + 45
+                while True:
+                    mail_receipt = json.loads(mail_state.read_text(encoding='utf-8'))
+                    if mail_receipt['status'] in ('sent', 'failed', 'uncertain'):
+                        break
+                    assert time.monotonic() < deadline, 'Portable SMTP acceptance timeout'
+                    await asyncio.sleep(.2)
+                assert mail_receipt['status'] == 'sent', {k:mail_receipt[k] for k in ('status','attempts')}
             duplicate = subprocess.run([str(executable), '--no-browser'], cwd=folder, env=env,
                                        creationflags=subprocess.CREATE_NO_WINDOW, timeout=20)
             assert duplicate.returncode == 0
@@ -223,8 +305,41 @@ async def main():
             assert process.wait(timeout=15) == 0
             key = json.loads((folder / '_internal/lite_config.json').read_text(encoding='utf-8'))['api_key']
             assert key and key not in (folder / 'MissionB.log').read_text(encoding='utf-8')
+            if configured_mail:
+                mail_config = load_config(folder / '_internal/mail_config.json')
+                assert mail_config['password'] not in (folder / 'MissionB.log').read_text(encoding='utf-8')
             value.update(embedded_key_loaded=True, clean_path=True, chinese_path=True, duplicate_launch=True,
                          shutdown_exit=0, bundled_browser=True, real_api_calls=0)
+            value['automatic_mail_configured'] = configured_mail
+            if mail_receipt:
+                value['mail_test'] = {k:mail_receipt[k] for k in ('job_id','status','attempts')}
+                value['mail_test']['gmail_inbox_confirmed'] = False
+                support = folder / 'lite-data/mail-outbox' / test_job_id / 'support.zip'
+                with zipfile.ZipFile(support) as archive:
+                    mailed_log = out / '回传日志_测试样例.log'
+                    mailed_log.write_bytes(archive.read('MissionB.log'))
+                assert restore(mailed_log, out / '回传日志还原') == test_job_id
+                value['mail_test']['log_restore'] = True
+                # Start a fresh executable process, not just a second browser tab.
+                prior_mtime = info_file.stat().st_mtime_ns
+                process = subprocess.Popen([str(executable), '--no-browser'], cwd=folder, env=env,
+                                           creationflags=subprocess.CREATE_NO_WINDOW)
+                deadline = time.monotonic() + 30
+                while info_file.stat().st_mtime_ns == prior_mtime:
+                    assert process.poll() is None and time.monotonic() < deadline
+                    await asyncio.sleep(.2)
+                new_info = json.loads(info_file.read_text(encoding='utf-8'))
+                with httpx.Client(base_url=f"http://127.0.0.1:{new_info['port']}", trust_env=False) as client:
+                    client.post('/api/session', json={'token': new_info['url'].split('#token=')[1]}).raise_for_status()
+                    assert client.get('/api/state').json()['job']['download_ready']
+                    await asyncio.sleep(.5)
+                    client.post('/api/shutdown', json={}).raise_for_status()
+                assert process.wait(timeout=15) == 0
+                unchanged = json.loads(mail_state.read_text(encoding='utf-8'))
+                assert unchanged == mail_receipt
+                records = [json.loads(line) for line in (folder / 'MissionB.log').read_text(encoding='utf-8').splitlines()]
+                assert sum(r['event'] == 'mail_sent' and r.get('job_id') == test_job_id for r in records) == 1
+                value['mail_test']['restart_did_not_resend'] = True
         finally:
             if process.poll() is None:
                 process.terminate()

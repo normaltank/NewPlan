@@ -53,4 +53,4 @@ DeepSeek Fetch、Jina、Firecrawl、Scrapy、Scrapling、ScrapeGraphAI、Stageha
 - 已有网页监视、异常复核、人工输入、批次执行、定时／无界面入口、按大学导出和证据保存。
 - 名单发现、特殊结构、动态网页、OCR 和同人合并仍需按样本验证；支持某个结构不构成全网兼容承诺。完整性口径见 [CONTEXT](../CONTEXT.md#完整性与采集维护职责)。
 - 当前服务绑定本机地址并校验请求来源。公网或局域网多人访问、身份认证、权限分配、HTTPS、服务守护与外部通知还需部署工作；当前复核链接集中显示在工作台。
-- 当前 Git 根目录是 OpenSource，远端为 `normaltank/NewPlan`。父级 MyPlan 的旧 Git 元数据为其他工作树保留，通用开发技能仍可使用。工作目录和运行数据路径没有迁移；上传源码不代表已经部署服务器。旧工作区清理范围见 [清除记录](maintenance/2026-10-21-retire-legacy/README.md)。
+- 当前 Git 根目录是 OpenSource，远端为 `normaltank/NewPlan`。父级 MyPlan 的旧 Git 元数据为其他工作树保留；本项目选用技能时按 [Matt 工作流](agents/workflow.md) 核对来源。工作目录和运行数据路径没有迁移；上传源码不代表已经部署服务器。旧工作区清理范围见 [清除记录](maintenance/2026-10-21-retire-legacy/README.md)。

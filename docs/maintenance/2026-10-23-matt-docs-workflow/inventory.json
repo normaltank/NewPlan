@@ -1,0 +1,190 @@
+{
+  "date": "2026-10-23",
+  "base_commit": "00ea5f9a5c22838faa0199ec0fb8451d76c46508",
+  "scope": "tracked Markdown plus files added by this task; ignored runtime documents and installed third-party packages excluded",
+  "categories": {
+    "archive-index": 3,
+    "compatibility-entry": 3,
+    "current-guidance": 13,
+    "fixture-provenance": 1,
+    "generated-evidence": 2,
+    "historical-record": 3,
+    "independent-tool": 8,
+    "isolated-experiment": 7,
+    "maintenance-evidence": 3
+  },
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "category": "current-guidance"
+    },
+    {
+      "path": "AGENT_HANDOVER.md",
+      "category": "compatibility-entry"
+    },
+    {
+      "path": "CONTEXT.md",
+      "category": "current-guidance"
+    },
+    {
+      "path": "GLOSSARY.md",
+      "category": "current-guidance"
+    },
+    {
+      "path": "Mission B/SmallMission/README.md",
+      "category": "independent-tool"
+    },
+    {
+      "path": "Mission B/SmallMission/README_distribution.md",
+      "category": "independent-tool"
+    },
+    {
+      "path": "Mission B/SmallMission/api_workbench/IMPLEMENTATION_REPORT.md",
+      "category": "independent-tool"
+    },
+    {
+      "path": "Mission B/SmallMission/api_workbench/README.md",
+      "category": "independent-tool"
+    },
+    {
+      "path": "Mission B/SmallMission/api_workbench/README_distribution.md",
+      "category": "independent-tool"
+    },
+    {
+      "path": "Mission B/SmallMission/api_workbench/README_lite.md",
+      "category": "independent-tool"
+    },
+    {
+      "path": "Mission B/SmallMission/experimental_deepseek/README.md",
+      "category": "independent-tool"
+    },
+    {
+      "path": "Mission B/SmallMission/experimental_deepseek/REPORT.md",
+      "category": "independent-tool"
+    },
+    {
+      "path": "README.md",
+      "category": "current-guidance"
+    },
+    {
+      "path": "REPORT.md",
+      "category": "compatibility-entry"
+    },
+    {
+      "path": "WORKBENCH.md",
+      "category": "compatibility-entry"
+    },
+    {
+      "path": "docs/README.md",
+      "category": "current-guidance"
+    },
+    {
+      "path": "docs/agents/domain.md",
+      "category": "current-guidance"
+    },
+    {
+      "path": "docs/agents/issue-tracker.md",
+      "category": "current-guidance"
+    },
+    {
+      "path": "docs/agents/triage-labels.md",
+      "category": "current-guidance"
+    },
+    {
+      "path": "docs/agents/workflow.md",
+      "category": "current-guidance"
+    },
+    {
+      "path": "docs/architecture.md",
+      "category": "current-guidance"
+    },
+    {
+      "path": "docs/history/README.md",
+      "category": "archive-index"
+    },
+    {
+      "path": "docs/history/initial-report-20261014.md",
+      "category": "historical-record"
+    },
+    {
+      "path": "docs/history/opensource-trial-20261014.md",
+      "category": "historical-record"
+    },
+    {
+      "path": "docs/history/workbench-before-20261021.md",
+      "category": "historical-record"
+    },
+    {
+      "path": "docs/maintenance/2026-10-21-promote-and-clean/README.md",
+      "category": "maintenance-evidence"
+    },
+    {
+      "path": "docs/maintenance/2026-10-21-promote-and-clean/replay-check/report.md",
+      "category": "generated-evidence"
+    },
+    {
+      "path": "docs/maintenance/2026-10-21-retire-legacy/README.md",
+      "category": "maintenance-evidence"
+    },
+    {
+      "path": "docs/maintenance/2026-10-21-retire-legacy/replay-check/report.md",
+      "category": "generated-evidence"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23-matt-docs-workflow/README.md",
+      "category": "maintenance-evidence"
+    },
+    {
+      "path": "docs/maintenance/README.md",
+      "category": "archive-index"
+    },
+    {
+      "path": "docs/operations.md",
+      "category": "current-guidance"
+    },
+    {
+      "path": "docs/project-access-protection.md",
+      "category": "current-guidance"
+    },
+    {
+      "path": "docs/review-and-delivery.md",
+      "category": "current-guidance"
+    },
+    {
+      "path": "experiments/README.md",
+      "category": "archive-index"
+    },
+    {
+      "path": "experiments/deepseek-fetch-20261018/README.md",
+      "category": "isolated-experiment"
+    },
+    {
+      "path": "experiments/deepseek-fetch-20261018/REPORT.md",
+      "category": "isolated-experiment"
+    },
+    {
+      "path": "experiments/jina-mcp-20261018/README.md",
+      "category": "isolated-experiment"
+    },
+    {
+      "path": "experiments/local-tools-20261018/README.md",
+      "category": "isolated-experiment"
+    },
+    {
+      "path": "experiments/local-tools-20261018/REPORT.md",
+      "category": "isolated-experiment"
+    },
+    {
+      "path": "experiments/tool-comparison-20261018/README.md",
+      "category": "isolated-experiment"
+    },
+    {
+      "path": "experiments/tool-comparison-20261018/REPORT.md",
+      "category": "isolated-experiment"
+    },
+    {
+      "path": "fixtures/legacy-replay/README.md",
+      "category": "fixture-provenance"
+    }
+  ]
+}
