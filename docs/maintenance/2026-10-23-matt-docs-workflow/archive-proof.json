@@ -1,0 +1,55 @@
+{
+  "base_commit": "00ea5f9a5c22838faa0199ec0fb8451d76c46508",
+  "source": "REPORT.md",
+  "archive": "docs/history/initial-report-20261014.md",
+  "source_sha256": "b3be613d5b52da68071b211957a8ddc2f7b7a0e7bac460e3b3cf19e08cb0b46b",
+  "archive_sha256": "19f3370740951c9238ea2a05968592e94bdbf46e0e80e2b84dc407367dd31098",
+  "allowed_change": "relative Markdown link destinations rebased by ../../; all other bytes preserved",
+  "round_trip_equal": true,
+  "link_relocations": [
+    {
+      "before": "README.md",
+      "after": "../../README.md"
+    },
+    {
+      "before": "experiments/README.md",
+      "after": "../../experiments/README.md"
+    },
+    {
+      "before": "../CONTEXT.md",
+      "after": "../../../CONTEXT.md"
+    },
+    {
+      "before": "runs/20261014-084719-354316-replay/report.md",
+      "after": "../../runs/20261014-084719-354316-replay/report.md"
+    },
+    {
+      "before": "runs/20261014-084736-504121-live/report.md",
+      "after": "../../runs/20261014-084736-504121-live/report.md"
+    },
+    {
+      "before": "runs/20261014-085512-414466-faculty-pilot/report.md",
+      "after": "../../runs/20261014-085512-414466-faculty-pilot/report.md"
+    },
+    {
+      "before": "runs/20261014-085512-414466-faculty-pilot/records.md",
+      "after": "../../runs/20261014-085512-414466-faculty-pilot/records.md"
+    },
+    {
+      "before": "runs/20261014-085356-359656-acquisition/report.md",
+      "after": "../../runs/20261014-085356-359656-acquisition/report.md"
+    },
+    {
+      "before": "runs/20261014-091002-654625-fynu-collection/report.md",
+      "after": "../../runs/20261014-091002-654625-fynu-collection/report.md"
+    },
+    {
+      "before": "runs/20261014-094801-940441-api-pilot/report.md",
+      "after": "../../runs/20261014-094801-940441-api-pilot/report.md"
+    },
+    {
+      "before": "runs/20261014-095235-009606-api-pilot/report.md",
+      "after": "../../runs/20261014-095235-009606-api-pilot/report.md"
+    }
+  ]
+}

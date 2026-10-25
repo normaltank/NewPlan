@@ -8,7 +8,7 @@ OpenSource 已作为当前项目使用；本目录继续承担隔离对照，不
 | [网页与文档工具对照](tool-comparison-20261018/REPORT.md) | Firecrawl、Jina、Docling 的页面／文档样本；Docling 本地环境和模型保留供后续验证 |
 | [本地工具补测](local-tools-20261018/REPORT.md) | Scrapy、Scrapling、ScrapeGraphAI；保留源码、锁文件、输入与结果，不能凭返回 JSON 推断整院采齐 |
 | [Jina API／MCP 对照](jina-mcp-20261018/README.md) | 用户决定：仅作保留，暂不接入正式流程，也不自动用于失败回退 |
-| [最早对照报告](../REPORT.md) | 2026-10-14 初始试验的历史结果，不能代替当前工作台说明 |
+| [最早对照报告](../docs/history/initial-report-20261014.md) | 2026-10-14 初始试验的历史结果，不能代替当前工作台说明 |
 
 Stagehand 是候选参考，不在此宣称已经完成全流程实测。是否扩大或替换工具，需用相同原件、身份及字段依据比较漏人、错人、完整简介、人工量和费用，再按用户决定实施。
 
