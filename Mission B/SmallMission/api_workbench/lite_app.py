@@ -28,7 +28,7 @@ from openpyxl import Workbook
 from reporting import college_summaries, sheet
 from runtime_paths import APP_ROOT, ASSETS, VERSION, plans_path
 
-LITE_VERSION = '1.0.6'
+LITE_VERSION = '1.0.7'
 STATUSES = ('正确', '错误', '特殊情况')
 ARCHIVE_NAME = '核验结果与更新链接.zip'
 MAX_FILES = 20

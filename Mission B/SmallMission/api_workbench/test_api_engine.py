@@ -81,6 +81,39 @@ class RegionTests(unittest.TestCase):
         terminal=html.replace('<a href="javascript:', '<span>2/2</span><a href="javascript:')
         self.assertTrue(self.evaluate(terminal)['complete'])
 
+    def test_bracketed_single_page_does_not_follow_endless_next_links(self):
+        html = '<div class="roster"><a href="/a">甲</a><div class="paginator">当前是:第[1]页 共[1]页<a href="?page=1">首页</a><a href="?page=2">后一页</a><a href="?page=1">尾页</a></div></div>'
+        soup, _, _, _ = prepare(html, URL)
+        answer = {**plan(html), 'pagination_regions': [int(soup.select_one('.paginator')['data-mb-id'])]}
+        result = self.evaluate(html, [answer, answer])
+        self.assertEqual(result['pagination_urls'], [URL+'?page=1'])
+        self.assertEqual(result['pager_counters'], [(1, 1)])
+        self.assertTrue(result['complete'], result['issues'])
+        self.assertEqual(set(result['links']), {'https://example.edu.cn/a'})
+
+    def test_query_pages_keep_valid_neighbours_and_do_not_hide_missing_pages(self):
+        html = '<div class="roster"><a href="/a">甲</a></div><div class="pb_sys_common">第[2]页 共[3]页<a href="?page=1">首页</a><a href="?page=2">本页</a><a href="?page=3">后一页</a><a href="?page=4">越界</a></div>'
+        result = self.evaluate(html)
+        self.assertTrue(result['complete'], result['issues'])
+        self.assertEqual(result['pagination_urls'], [URL+'?page=1', URL+'?page=2', URL+'?page=3'])
+        check_coverage([{'roster_url': URL, 'parsed': result}])
+        self.assertFalse(result['complete'])
+        self.assertIn('缺少页码：1,3', '；'.join(result['issues']))
+
+    def test_unknown_or_conflicting_page_totals_do_not_trim_targets(self):
+        for counter in ('', '第[1]页 共[1]页 <span>1/2</span>'):
+            with self.subTest(counter=counter):
+                html = '<div class="roster"><a href="/a">甲</a></div><div class="pb_sys_common">'+counter+'<a href="?page=2">后一页</a></div>'
+                result = self.evaluate(html)
+                self.assertEqual(result['pagination_urls'], [URL+'?page=2'])
+                if counter:
+                    self.assertFalse(result['complete'])
+
+    def test_zero_based_page_targets_are_preserved(self):
+        html = '<div class="roster"><a href="/a">甲</a></div><div class="pb_sys_common">1/2<a href="?page=0">首页</a><a href="?page=1">下一页</a></div>'
+        result = self.evaluate(html)
+        self.assertEqual(result['pagination_urls'], [URL+'?page=0', URL+'?page=1'])
+
 
 class CacheTests(unittest.IsolatedAsyncioTestCase):
     async def test_exact_document_cache_revalidated_and_changes_require_new_calls(self):
