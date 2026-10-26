@@ -4,7 +4,7 @@
 
 ## 工作流
 
-选择工作流时读当前安装的 `ask-matt/SKILL.md`；写 agent 文档时读 `writing-for-agents/SKILL.md`。以本会话用户级 Matt 技能原文为准；本机位于 `C:/Users/27451/.codex/skills`，父目录的同名改写版不能混用。执行前读实际选中的技能，按其步骤留下验收证据。
+开始维护或发现新的独立根因时，先读 [公共 Matt 工作流](../docs/agents/workflow.md) 和 [Mission B 维护执行约定](docs/maintenance-workflow.md)，确定单任务或拆分实施路线。技能来源、子代理配置和通用收尾条件继承公共工作流；执行前读取实际选中的技能，按步骤保留证据。
 
 任务与规格使用 [NewPlan Issues](../docs/agents/issue-tracker.md)，标签和领域文档继承根目录配置。其他对话可作为用户指定的历史资料；任务执行按技能与验收条件推进，不按“主任务／副任务”对话名称路由。需要独立审查时使用该技能规定的审查步骤，不用读取其他对话代替审查。
 

@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | 当前产品入口 | [Mission B README](../README.md) | 使用入口或目录职责改变 |
 | Agent 的阅读路径与工作流来源 | [AGENTS.md](../AGENTS.md) | 工作方式或导航改变 |
+| 维护任务分流、实施派工与业务验收证据 | [维护执行约定](maintenance-workflow.md) | 维护的分流或验收方式改变；公共规则仍由根目录工作流维护 |
 | 完整版启动、输入、URL 核验和四列汇总规则 | [api_workbench/README.md](../SmallMission/api_workbench/README.md) | 当前实现或核验契约改变 |
 | 精简版操作、展示边界、日志、邮件与构建 | [README_lite.md](../SmallMission/api_workbench/README_lite.md) | 精简版行为或分发维护改变 |
 | 任务、规格、验收状态 | [根目录任务管理](../../docs/agents/issue-tracker.md) | 在对应 GitHub Issue 更新，不再维护第二份待办表 |
@@ -39,6 +40,7 @@
 | `maintenance/20261023-log-mail/README.md` | 自动邮件回传、实际 EXE 发信、用户收件确认及 NewPlan 分支 CI 结果；关联 [Issue #2](https://github.com/normaltank/NewPlan/issues/2) |
 | `maintenance/20261023-documentation/README.md` | 本轮文档整理、另一对话核查范围、链接检查与保留校验 |
 | `maintenance/20261023-lite-results/README.md` | 精简版页面结果、仅错误学院下载和 20 文件上限；关联 [Issue #5](https://github.com/normaltank/NewPlan/issues/5) |
+| `maintenance/20261026-workflow-contract/README.md` | Mission B 维护分流、实施派工与验收记录的流程修正；关联 [Issue #17](https://github.com/normaltank/NewPlan/issues/17) |
 
 历史运行的 `.planning/` 文件记录当时执行过程，供复盘查阅；任务当前状态到 GitHub Issue 核对，不从旧计划自动恢复工作。新增记录写清问题、来源、根因、修改、实际验证和剩余限制；完成后从本索引或负责文档提供一个入口。
 
