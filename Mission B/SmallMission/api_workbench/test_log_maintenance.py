@@ -31,6 +31,15 @@ def evaluate(html, url=URL):
 
 
 class PagingLogTests(unittest.TestCase):
+    def test_hidden_roster_targets_remain_special_but_decorative_icons_are_allowed(self):
+        for html in (ROSTER.replace('<a href="/a">', '<a aria-hidden="true" href="/a">'),
+                     ROSTER.replace('<li>', '<li hidden>', 1)):
+            result = evaluate(html)
+            self.assertFalse(result['complete'])
+            self.assertIn('标记为隐藏的链接', '；'.join(result['issues']))
+        html = ROSTER.replace('甲</a>', '<span aria-hidden="true">图标</span>甲</a>')
+        self.assertTrue(evaluate(html)['complete'])
+
     def test_observed_paging_families_and_scope(self):
         for first, second in [('Index.html', 'Index_2.html'), ('Index.aspx', 'Index_15.aspx'),
                               ('index.htm', 'index1.htm'), ('', 'index_2.shtml'),

@@ -58,7 +58,7 @@ def prepare(html, url):
     for index, node in enumerate(soup.find_all(True), 1):
         page_target = fixed_paging_target(node, base_url) if node.name == 'a' else None
         node.attrs = {k: v for k, v in node.attrs.items() if k in
-                      {'id', 'class', 'href', 'src', 'title', 'alt', 'role', 'aria-label', 'aria-disabled', 'disabled', 'rel', 'colspan', 'rowspan'}}
+                      {'id', 'class', 'href', 'src', 'title', 'alt', 'role', 'aria-label', 'aria-disabled', 'aria-hidden', 'hidden', 'disabled', 'rel', 'colspan', 'rowspan'}}
         node['data-mb-id'] = str(index)
         if page_target:
             node['data-mb-page-target'] = page_target
@@ -131,6 +131,9 @@ def apply_plan(soup, nodes, anchors, answer, url):
     for aid in pager_ids:
         excluded[aid] = 'pagination: 分页控件内的链接'
     included_ids = sorted(i for i in selected - excluded.keys() if anchors[i]['url'] and anchors[i]['clickable'])
+    if any(node.has_attr('hidden') or node.get('aria-hidden') == 'true'
+           for i in included_ids for node in [nodes[i], *nodes[i].parents]):
+        issues.append('名单区域含标记为隐藏的链接，可点击范围需人工核准')
     links = {}
     for i in included_ids:
         a = anchors[i]
