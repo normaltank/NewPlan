@@ -196,7 +196,7 @@ class ModelEngine:
                                   'structural_feedback': parses[index]['scope_conflicts'] or
                                   ['独立结构核对未通过。重新检查名单与所有平行条目、导航、分页的边界；范围不明则返回uncertain。']}
                         instruction = ('\n本次是结构纠错。previous_selection是你自己的上次选择；structural_feedback来自程序实际DOM检查。'
-                                       '依据完整HTML重新选择。DOM父子路径证明排除区域确实覆盖了名单，不能用文字理由否认这个包含关系。'
+                                       '依据完整HTML重新选择。若反馈含DOM父子路径，则该路径证明排除区域覆盖了名单，不能用文字理由否认这个包含关系。'
                                        '应缩小导航排除范围或重新选择名单；仍不能确定则返回uncertain。不得盲目删除排除规则或采用更多链接。')
                         revised.append(await self.api.ask(label, system + instruction, review, max_tokens=5500))
                     plans = revised
