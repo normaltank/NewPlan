@@ -41,6 +41,8 @@
 | `maintenance/20261023-lite-results/README.md` | 精简版页面结果、仅错误学院下载和 20 文件上限；关联 [Issue #5](https://github.com/normaltank/NewPlan/issues/5) |
 | `maintenance/20261026-compact-input/README.md` | 单学院的师资入口表与姓名／个人URL表兼容、原件解析与 1.0.6 分发验证；关联 [Issue #8](https://github.com/normaltank/NewPlan/issues/8) |
 | `maintenance/20261026-batch-stall/README.md` | 19 份原件批量停滞复现、康复学院无效分页修复与 1.0.7 验证；关联 [Issue #11](https://github.com/normaltank/NewPlan/issues/11) |
+| `maintenance/20261026-mail-triage/README.md` | 回传日志去重、21 个特殊情况的原因分流；关联 [Issue #13](https://github.com/normaltank/NewPlan/issues/13) |
+| `maintenance/20261026-log-maintenance/README.md` | 名单范围冲突与分页维护、原网页实跑、反例及 1.0.8 分发验证；关联 [Issue #14](https://github.com/normaltank/NewPlan/issues/14) |
 
 历史运行的 `.planning/` 文件记录当时执行过程，供复盘查阅；任务当前状态到 GitHub Issue 核对，不从旧计划自动恢复工作。新增记录写清问题、来源、根因、修改、实际验证和剩余限制；完成后从本索引或负责文档提供一个入口。
 
