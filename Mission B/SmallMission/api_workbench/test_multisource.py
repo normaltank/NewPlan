@@ -18,17 +18,17 @@ from runtime_paths import APP_ROOT
 from test_audit import SOURCE, PLAN, task
 
 
-def paired_file(path, school, college, sources, teachers):
+def paired_file(path, school, college, sources, teachers, compact=False):
     book = Workbook()
     people = book.active
     people.title = '个人url'
-    people.append(['学校', '学院', '教师个人url'])
+    people.append(['姓名', '个人URL'] if compact else ['学校', '学院', '教师个人url'])
     for url in teachers:
-        people.append([school, college, url])
+        people.append(['示例教师', url] if compact else [school, college, url])
     roster = book.create_sheet('师资url')
-    roster.append(['学校', '学院', '师资url'])
+    roster.append(['ID', '学校', '学院', '师资URL'] if compact else ['学校', '学院', '师资url'])
     for url in sources:
-        roster.append([school, college, url])
+        roster.append([12345, school, college, url] if compact else [school, college, url])
     book.save(path)
 
 
@@ -48,6 +48,44 @@ class InputAndUnionTests(unittest.TestCase):
         self.assertEqual(tasks[0]['roster_urls'], [SOURCE, SOURCE + '?page=2'])
         self.assertEqual(len(tasks[0]['rows']), 2)
         self.assertEqual(len(tasks[0]['source_rows']), 3)
+
+    def test_compact_teacher_sheet_uses_the_only_college_without_row_joining(self):
+        path = self.root / '名单.xlsx'
+        links = [SOURCE + '?id=1', SOURCE + '?id=2', SOURCE + '?id=1', '无个人主页']
+        paired_file(path, '甲大学', '甲学院', [SOURCE, SOURCE + '?page=2', SOURCE], links, compact=True)
+        rows, errors, warnings = parse_file(path)
+        self.assertEqual(errors, [])
+        self.assertEqual(warnings, [])
+        tasks = tasks_from_rows(rows)
+        self.assertEqual(len(tasks), 1)
+        task = tasks[0]
+        self.assertEqual((task['school'], task['college'], task['input_mode']), ('甲大学', '甲学院', 'college_union'))
+        self.assertEqual(task['roster_urls'], [SOURCE, SOURCE + '?page=2'])
+        self.assertEqual(len(task['source_rows']), 3)
+        self.assertEqual([row['value'] for row in task['rows']], links)
+        self.assertEqual([row['row'] for row in task['rows']], [2, 3, 4, 5])
+        self.assertEqual({row['sheet'] for row in task['rows']}, {'个人url'})
+
+    def test_compact_teacher_sheet_rejects_multiple_possible_colleges(self):
+        for school, college in [('甲大学', '乙学院'), ('乙大学', '甲学院')]:
+            with self.subTest(school=school, college=college):
+                path = self.root / '多学院.xlsx'
+                paired_file(path, '甲大学', '甲学院', [SOURCE], [SOURCE + '?id=1'], compact=True)
+                book = load_workbook(path)
+                book['师资url'].append([67890, school, college, SOURCE + '?page=2'])
+                book.save(path)
+                book.close()
+                rows, errors, _ = parse_file(path)
+                self.assertTrue(any('唯一学院' in error for error in errors), errors)
+                self.assertFalse(any(row['record_kind'] == 'teacher' for row in rows))
+
+    def test_compact_teacher_sheet_may_be_empty(self):
+        path = self.root / '空个人表.xlsx'
+        paired_file(path, '甲大学', '甲学院', [SOURCE], [], compact=True)
+        rows, errors, warnings = parse_file(path)
+        self.assertEqual(errors, [])
+        self.assertTrue(warnings)
+        self.assertEqual(tasks_from_rows(rows)[0]['rows'], [])
 
     def test_empty_teacher_sheet_still_creates_a_task(self):
         path = self.root / '空链接.xlsx'
@@ -157,7 +195,7 @@ class BatchFlowTests(unittest.TestCase):
                     sources = [f'https://example.edu.cn/{index}/{page}' for page in (1, 2)]
                     teachers = ['https://example.edu.cn/a', 'https://example.edu.cn/extra' if index == 1 else 'https://example.edu.cn/b']
                     path = root / f'学院{index}.xlsx'
-                    paired_file(path, '测试大学', f'学院{index}', sources, teachers)
+                    paired_file(path, '测试大学', f'学院{index}', sources, teachers, compact=index == 0)
                     files.append({'name': path.name, 'content': base64.b64encode(path.read_bytes()).decode()})
                     plans.update({u: PLAN for u in sources})
                 plans['https://example.edu.cn/3/2'] = {'selector': None}

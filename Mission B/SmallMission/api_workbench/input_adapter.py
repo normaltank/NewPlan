@@ -19,7 +19,7 @@ ALIASES = [
     {'学校', '大学', '大学名', '学校名称', '大学名称', 'school', 'university'},
     {'学院', '学院名', '学院名称', '院系', 'college', 'department'},
     {'师资url', '师资链接', '师资列表链接', '师资列表url', '师资网址', '教师名录链接', '名单链接', '名单url', 'rosterurl', 'facultyurl'},
-    {'教师url', '教师个人url', '教师链接', '教师个人链接', '个人主页', '个人主页url', '主页', '主页url', 'teacherurl', 'profileurl'},
+    {'教师url', '教师个人url', '教师链接', '教师个人链接', '个人url', '个人主页', '个人主页url', '主页', '主页url', 'teacherurl', 'profileurl'},
 ]
 
 
@@ -152,16 +152,20 @@ def paired_sheets(datasets, path):
     rows, errors, warnings = [], [], []
     roles = set()
     sources, teachers = set(), set()
+    sheets = []
     for sheet, records in datasets:
         if not records:
             continue
         try:
             fields = header_fields(records[0][1])
-            if set(fields) not in ({0, 1, 2}, {0, 1, 3}):
-                raise ValueError('双表文件的每张表须为“学校、学院、师资URL”或“学校、学院、教师个人URL”；不要与四列表混放')
+            if set(fields) not in ({0, 1, 2}, {0, 1, 3}, {3}):
+                raise ValueError('双表文件须为师资表和个人URL表；仅单学院文件的个人URL表可省略学校、学院；不要与四列表混放')
         except ValueError as error:
             errors.append(f'{path.name} / {sheet}：{error}')
             continue
+        sheets.append((sheet, records, fields))
+    # Read source identities first, even when the teacher sheet appears first.
+    for sheet, records, fields in sorted(sheets, key=lambda item: 2 not in item[2]):
         field = 2 if 2 in fields else 3
         role = 'source' if field == 2 else 'teacher'
         roles.add(role)
@@ -172,9 +176,16 @@ def paired_sheets(datasets, path):
                     continue
                 if max(fields.values()) >= len(values):
                     raise ValueError('缺少字段，请保留学校、学院和链接三列')
+                selected = (3,) if set(fields) == {3} else (0, 1, field)
                 decoded = [excel_cell(cells[fields[i]], i >= 2) if cells else
-                           (str(values[fields[i]] or '').strip(), False) for i in (0, 1, field)]
-                school, college, value = [v for v, _ in decoded]
+                           (str(values[fields[i]] or '').strip(), False) for i in selected]
+                if selected == (3,):
+                    if len(sources) != 1:
+                        raise ValueError('个人URL表未注明学校和学院；只有师资表对应唯一学院时才能自动关联，请补齐学校、学院列')
+                    school, college = next(iter(sources))
+                    value = decoded[0][0]
+                else:
+                    school, college, value = [v for v, _ in decoded]
                 if not school or not college:
                     raise ValueError('学校和学院不能为空')
                 if any(mismatch for _, mismatch in decoded):
