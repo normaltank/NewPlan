@@ -34,3 +34,5 @@ jobs:
         run: |
           New-Item -ItemType Directory -Path runs -Force | Out-Null
           python -m unittest discover -s . -p 'test_*.py' -v
+      - name: Run standalone Mission C contract tests
+        run: python -m unittest discover -s "Mission C/tests" -v

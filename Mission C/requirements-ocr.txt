@@ -1,0 +1,4 @@
+-r requirements.txt
+Pillow==12.3.0
+rapidocr-onnxruntime==1.4.4
+pypdfium2==4.30.0
