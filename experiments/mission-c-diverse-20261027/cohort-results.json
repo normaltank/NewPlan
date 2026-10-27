@@ -1,0 +1,797 @@
+[
+  {
+    "sample_id": "n01_ustc_weizian",
+    "url": "https://faculty.ustc.edu.cn/weizian/zh_CN/index.htm",
+    "sample_sha256": "9613b5f692daa9a1f120a4f3ff7d60cb8236eeffeb02408bd86f04066389d40b",
+    "offline": false,
+    "started_at": "2026-10-27T14:34:52.456924+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://faculty.ustc.edu.cn/weizian/zh_CN/index.htm",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n01_ustc_weizian\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "中国科学技术大学",
+      "--college",
+      "核科学技术学院"
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 0,
+    "records": [
+      {
+        "name": "中文主页",
+        "title": "",
+        "email": "",
+        "status": "text_saved",
+        "error": null,
+        "sha256": "e754d63919ae17a01083c1c6c42f57fefa291fe30e46a635c0987c2da2aff5ab",
+        "observed_at": "2026-10-27T14:34:53.579427+00:00",
+        "source_file": "0001/source.html",
+        "field_status": {
+          "name": "found",
+          "title": "not_confirmed",
+          "email": "not_confirmed"
+        },
+        "warnings": [
+          "content_boundary_needs_review",
+          "media_not_fully_read"
+        ]
+      }
+    ],
+    "finished_at": "2026-10-27T14:34:54.901021+00:00"
+  },
+  {
+    "sample_id": "n02_zju_yingxiaoying",
+    "url": "https://person.zju.edu.cn/0002306/732435.html",
+    "sample_sha256": "23b1a0c3816c37029cae4485de5e77dd81b539a1087eedc23745c2151f7e1bce",
+    "offline": false,
+    "started_at": "2026-10-27T14:34:54.902151+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://person.zju.edu.cn/0002306/732435.html",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n02_zju_yingxiaoying\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "浙江大学",
+      "--college",
+      "药学院"
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 0,
+    "records": [
+      {
+        "name": "",
+        "title": "",
+        "email": "",
+        "status": "text_saved",
+        "error": null,
+        "sha256": "91130859ae152643361af18c6600742b9ebe46144a069856b841a740b690fafc",
+        "observed_at": "2026-10-27T14:34:56.026065+00:00",
+        "source_file": "0001/source.html",
+        "field_status": {
+          "name": "not_stated",
+          "title": "not_confirmed",
+          "email": "not_confirmed"
+        },
+        "warnings": [
+          "identity_unresolved",
+          "content_boundary_needs_review",
+          "media_not_fully_read"
+        ]
+      }
+    ],
+    "finished_at": "2026-10-27T14:34:56.783402+00:00"
+  },
+  {
+    "sample_id": "n03_nju_zhouzh",
+    "url": "https://cs.nju.edu.cn/zhouzh/",
+    "sample_sha256": "b8b68c91f3796265f865114762af22fef328d8c44baa8a3fcbf734b0683f96d8",
+    "offline": false,
+    "started_at": "2026-10-27T14:34:56.784394+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://cs.nju.edu.cn/zhouzh/",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n03_nju_zhouzh\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "南京大学",
+      "--college",
+      "计算机学院/人工智能学院（页面英文Computer Science and Artificial Intelligence）"
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 0,
+    "records": [
+      {
+        "name": "Hua Zhou's Homepage",
+        "title": "",
+        "email": "",
+        "status": "text_saved",
+        "error": null,
+        "sha256": "d555374df9a09a4ede24ce3523c0cdab754cce24f76468ba359feee68289935b",
+        "observed_at": "2026-10-27T14:34:57.971257+00:00",
+        "source_file": "0001/source.html",
+        "field_status": {
+          "name": "found",
+          "title": "not_confirmed",
+          "email": "not_confirmed"
+        },
+        "warnings": [
+          "content_boundary_needs_review",
+          "media_not_fully_read"
+        ]
+      }
+    ],
+    "finished_at": "2026-10-27T14:34:58.823801+00:00"
+  },
+  {
+    "sample_id": "n04_pku_limingsong",
+    "url": "https://faculty.pku.edu.cn/li/zh_CN/index.htm",
+    "sample_sha256": "3922deb60c3cb5023698ecdcd9ab58adfd3ede08fbbb2b3b4474e98e3ac4da75",
+    "offline": false,
+    "started_at": "2026-10-27T14:34:58.825812+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://faculty.pku.edu.cn/li/zh_CN/index.htm",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n04_pku_limingsong\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "北京大学",
+      "--college",
+      "地球与空间科学学院"
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 1,
+    "records": [
+      {
+        "name": "",
+        "title": "",
+        "email": "",
+        "status": "not_extracted",
+        "error": {
+          "code": "robots_unavailable",
+          "message": "无法确认 robots.txt 访问规则"
+        },
+        "sha256": null,
+        "observed_at": "2026-10-27T14:34:59.967802+00:00",
+        "source_file": "",
+        "field_status": {
+          "name": "not_read",
+          "title": "not_read",
+          "email": "not_read"
+        },
+        "warnings": []
+      }
+    ],
+    "finished_at": "2026-10-27T14:35:00.117929+00:00"
+  },
+  {
+    "sample_id": "n05_dlut_xuchang",
+    "url": "https://faculty.dlut.edu.cn/xuchang1/zh_CN/index/1213400/list/index.htm",
+    "sample_sha256": "e8a2e5489de75f0ee5e833bceba0705bf22ebb1949eed606130c782686687e57",
+    "offline": false,
+    "started_at": "2026-10-27T14:35:00.119434+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://faculty.dlut.edu.cn/xuchang1/zh_CN/index/1213400/list/index.htm",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n05_dlut_xuchang\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "大连理工大学",
+      "--college",
+      "船舶工程学院"
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 0,
+    "records": [
+      {
+        "name": "",
+        "title": "",
+        "email": "",
+        "status": "text_saved",
+        "error": null,
+        "sha256": "de1ac37e29a1b443282fadcc6d7f79aaa50f54afc91f1ee33bad377519f44a0c",
+        "observed_at": "2026-10-27T14:35:01.254017+00:00",
+        "source_file": "0001/source.html",
+        "field_status": {
+          "name": "not_stated",
+          "title": "not_confirmed",
+          "email": "not_confirmed"
+        },
+        "warnings": [
+          "identity_unresolved",
+          "content_boundary_needs_review",
+          "media_not_fully_read"
+        ]
+      }
+    ],
+    "finished_at": "2026-10-27T14:35:03.085704+00:00"
+  },
+  {
+    "sample_id": "n06_zju_jixiaoyu",
+    "url": "https://mypage.zju.edu.cn/xji",
+    "sample_sha256": "18dc937fc81c5fc7a57c9964126d234f06cf7761c5f5c9ed6b2753925b4f1d5f",
+    "offline": false,
+    "started_at": "2026-10-27T14:35:03.086209+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://mypage.zju.edu.cn/xji",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n06_zju_jixiaoyu\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "浙江大学",
+      "--college",
+      ""
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 1,
+    "records": [
+      {
+        "name": "",
+        "title": "",
+        "email": "",
+        "status": "not_extracted",
+        "error": {
+          "code": "robots_unavailable",
+          "message": "无法确认 robots.txt 访问规则"
+        },
+        "sha256": null,
+        "observed_at": "2026-10-27T14:35:04.267837+00:00",
+        "source_file": "",
+        "field_status": {
+          "name": "not_read",
+          "title": "not_read",
+          "email": "not_read"
+        },
+        "warnings": []
+      }
+    ],
+    "finished_at": "2026-10-27T14:35:04.824327+00:00"
+  },
+  {
+    "sample_id": "n07_toronto_hinton",
+    "url": "https://www.cs.toronto.edu/~hinton/",
+    "sample_sha256": "3d826b11c03637725cdb14d71c209e5eaf72647e43785ec4428f8addb0298085",
+    "offline": false,
+    "started_at": "2026-10-27T14:35:04.825326+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://www.cs.toronto.edu/~hinton/",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n07_toronto_hinton\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "University of Toronto",
+      "--college",
+      "Department of Computer Science"
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 1,
+    "records": [
+      {
+        "name": "",
+        "title": "",
+        "email": "",
+        "status": "not_extracted",
+        "error": {
+          "code": "robots_unavailable",
+          "message": "无法确认 robots.txt 访问规则"
+        },
+        "sha256": null,
+        "observed_at": "2026-10-27T14:35:05.973370+00:00",
+        "source_file": "",
+        "field_status": {
+          "name": "not_read",
+          "title": "not_read",
+          "email": "not_read"
+        },
+        "warnings": []
+      }
+    ],
+    "finished_at": "2026-10-27T14:35:12.116667+00:00"
+  },
+  {
+    "sample_id": "n08_xtu_xiaoyuelong",
+    "url": "https://math.xtu.edu.cn/info/1010/3525.htm",
+    "sample_sha256": "b873e8a4aa75e0d82509770385d351fa42b77496772848af1dcefb272b2096ce",
+    "offline": false,
+    "started_at": "2026-10-27T14:36:28.550301+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://math.xtu.edu.cn/info/1010/3525.htm",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n08_xtu_xiaoyuelong\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "湘潭大学",
+      "--college",
+      "数学与计算科学学院"
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 0,
+    "records": [
+      {
+        "name": "肖跃龙",
+        "title": "教授",
+        "email": "xyl@xtu.edu.cn",
+        "status": "text_saved",
+        "error": null,
+        "sha256": "b05830fb467d8fa124e80e2a09fc6adc8d21505e4c06acf43b6c90ce2594cfa8",
+        "observed_at": "2026-10-27T14:36:29.621249+00:00",
+        "source_file": "0001/source.html",
+        "field_status": {
+          "name": "found",
+          "title": "found",
+          "email": "found"
+        },
+        "warnings": [
+          "content_boundary_needs_review",
+          "media_not_fully_read"
+        ]
+      }
+    ],
+    "finished_at": "2026-10-27T14:36:30.629070+00:00"
+  },
+  {
+    "sample_id": "n09_wzbc_xiabingnan",
+    "url": "https://gl.wzbc.edu.cn/Art/Art_2480/Art_2480_134045.aspx",
+    "sample_sha256": "d92b08107162b18ef835b338611a5715ca9fff09bb4725ad590ea26b5fa6df9b",
+    "offline": false,
+    "started_at": "2026-10-27T14:36:30.629070+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://gl.wzbc.edu.cn/Art/Art_2480/Art_2480_134045.aspx",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n09_wzbc_xiabingnan\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "温州商学院",
+      "--college",
+      "管理学院"
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 0,
+    "records": [
+      {
+        "name": "夏冰楠",
+        "title": "",
+        "email": "",
+        "status": "text_saved",
+        "error": null,
+        "sha256": "16f5f74c2680606f6b510276d04dd4a2889a309abbc3d53e7510fbfe2afe5d75",
+        "observed_at": "2026-10-27T14:36:31.767816+00:00",
+        "source_file": "0001/source.html",
+        "field_status": {
+          "name": "found",
+          "title": "not_confirmed",
+          "email": "not_confirmed"
+        },
+        "warnings": [
+          "content_boundary_needs_review",
+          "同等依据的职称不一致",
+          "media_not_fully_read"
+        ]
+      }
+    ],
+    "finished_at": "2026-10-27T14:36:32.700038+00:00"
+  },
+  {
+    "sample_id": "n10_nchu_zhangyaokun",
+    "url": "https://em.nchu.edu.cn/jyjx/content_176434",
+    "sample_sha256": "ef10ecc28fdbb15ff5985d40182cf16cdecf3d42df7cf5f47c990567b5eebc83",
+    "offline": false,
+    "started_at": "2026-10-27T14:36:32.700542+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://em.nchu.edu.cn/jyjx/content_176434",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n10_nchu_zhangyaokun\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "南昌航空大学",
+      "--college",
+      "经济管理学院"
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 0,
+    "records": [
+      {
+        "name": "张耀坤",
+        "title": "教授",
+        "email": "yaokunzhang@126.com",
+        "status": "text_saved",
+        "error": null,
+        "sha256": "7435743a97c3f302dacec116ad7ecbd5da4e77cba2c27182a61620807f3fab21",
+        "observed_at": "2026-10-27T14:36:33.806183+00:00",
+        "source_file": "0001/source.html",
+        "field_status": {
+          "name": "found",
+          "title": "found",
+          "email": "found"
+        },
+        "warnings": [
+          "media_not_fully_read"
+        ]
+      }
+    ],
+    "finished_at": "2026-10-27T14:36:34.748178+00:00"
+  },
+  {
+    "sample_id": "n11_chnu_zhanghongyan",
+    "url": "https://msxy.chnu.edu.cn/szdw/yjsdsfc/content_12638",
+    "sample_sha256": "c5f5bb90923737112cb5d81ec74cff038ce63932e5d93d4ebdb6bd423f0595ae",
+    "offline": false,
+    "started_at": "2026-10-27T14:40:48.862638+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://msxy.chnu.edu.cn/szdw/yjsdsfc/content_12638",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n11_chnu_zhanghongyan\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "淮北师范大学",
+      "--college",
+      "美术学院"
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 0,
+    "records": [
+      {
+        "name": "张红岩",
+        "title": "",
+        "email": "",
+        "status": "text_saved",
+        "error": null,
+        "sha256": "32ba5f6d5fdc5530be9eba8d5fa729ddae0efed48d829cbb83d3e33d5b3db902",
+        "observed_at": "2026-10-27T14:40:51.020986+00:00",
+        "source_file": "0001/source.html",
+        "field_status": {
+          "name": "found",
+          "title": "not_confirmed",
+          "email": "not_confirmed"
+        },
+        "warnings": [
+          "media_not_fully_read"
+        ]
+      }
+    ],
+    "finished_at": "2026-10-27T14:40:51.940202+00:00"
+  },
+  {
+    "sample_id": "n12_chnu_baoxiangzhi",
+    "url": "https://msxy.chnu.edu.cn/szdw/yjsdsfc/content_149808",
+    "sample_sha256": "d9bc71d98adbfe572e4806df673830e76ccf6e77238f12e7822f6762ceb4265d",
+    "offline": false,
+    "started_at": "2026-10-27T14:40:51.942202+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://msxy.chnu.edu.cn/szdw/yjsdsfc/content_149808",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n12_chnu_baoxiangzhi\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "淮北师范大学",
+      "--college",
+      "美术学院"
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 0,
+    "records": [
+      {
+        "name": "鲍相志",
+        "title": "",
+        "email": "",
+        "status": "text_saved",
+        "error": null,
+        "sha256": "ca57e847359c8b5204de9aa6a8347606a396ddac7e8f87ff81620439fc83ac47",
+        "observed_at": "2026-10-27T14:40:54.056157+00:00",
+        "source_file": "0001/source.html",
+        "field_status": {
+          "name": "found",
+          "title": "not_confirmed",
+          "email": "not_confirmed"
+        },
+        "warnings": [
+          "media_not_fully_read"
+        ]
+      }
+    ],
+    "finished_at": "2026-10-27T14:40:55.001274+00:00"
+  },
+  {
+    "sample_id": "n13_cmu_mitchell",
+    "url": "https://www.cs.cmu.edu/~tom/",
+    "sample_sha256": "90c265c20176fe0a7a7ca47b3255f88eb06f0279528b59d40da70d367719f87f",
+    "offline": false,
+    "started_at": "2026-10-27T14:39:38.523425+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://www.cs.cmu.edu/~tom/",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n13_cmu_mitchell\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "Carnegie Mellon University",
+      "--college",
+      "Machine Learning Department"
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 1,
+    "records": [
+      {
+        "name": "",
+        "title": "",
+        "email": "",
+        "status": "not_extracted",
+        "error": {
+          "code": "robots_unavailable",
+          "message": "无法确认 robots.txt 访问规则"
+        },
+        "sha256": null,
+        "observed_at": "2026-10-27T14:39:41.674237+00:00",
+        "source_file": "",
+        "field_status": {
+          "name": "not_read",
+          "title": "not_read",
+          "email": "not_read"
+        },
+        "warnings": []
+      }
+    ],
+    "finished_at": "2026-10-27T14:39:47.850020+00:00"
+  },
+  {
+    "sample_id": "n14_berkeley_jordan",
+    "url": "https://people.eecs.berkeley.edu/~jordan/",
+    "sample_sha256": "7b7138060540ae9074a6f8fef06574eaf1d341805d1fdc1803fad94fabe2a662",
+    "offline": false,
+    "started_at": "2026-10-27T14:39:47.853545+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://people.eecs.berkeley.edu/~jordan/",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n14_berkeley_jordan\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "University of California, Berkeley",
+      "--college",
+      "Department of EECS / Department of Statistics"
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 1,
+    "records": [
+      {
+        "name": "",
+        "title": "",
+        "email": "",
+        "status": "not_extracted",
+        "error": {
+          "code": "robots_unavailable",
+          "message": "无法确认 robots.txt 访问规则"
+        },
+        "sha256": null,
+        "observed_at": "2026-10-27T14:39:50.625985+00:00",
+        "source_file": "",
+        "field_status": {
+          "name": "not_read",
+          "title": "not_read",
+          "email": "not_read"
+        },
+        "warnings": []
+      }
+    ],
+    "finished_at": "2026-10-27T14:39:56.686463+00:00"
+  },
+  {
+    "sample_id": "n15_hkust_qiangyang",
+    "url": "https://home.cse.ust.hk/~qyang/bio/",
+    "sample_sha256": "ab8c661d644c5fe0143a99031a4dfe43682d416dd67954814d972cb05205c138",
+    "offline": false,
+    "started_at": "2026-10-27T14:39:56.689533+00:00",
+    "state": "cli_finished",
+    "command": [
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\.venv\\Scripts\\python.exe",
+      "C:\\Users\\27451\\.codex\\worktrees\\mission-c-diverse-samples\\OpenSource\\Mission C\\collect.py",
+      "--url",
+      "https://home.cse.ust.hk/~qyang/bio/",
+      "--output",
+      "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n15_hkust_qiangyang\\cli",
+      "--timeout",
+      "15",
+      "--school",
+      "The Hong Kong University of Science and Technology",
+      "--college",
+      "Department of Computer Science and Engineering"
+    ],
+    "collector_sha256": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "httpx": "0.28.1",
+      "beautifulsoup4": "4.15.0",
+      "pypdf": "6.10.0",
+      "openpyxl": "3.1.5"
+    },
+    "exit_code": 1,
+    "records": [
+      {
+        "name": "",
+        "title": "",
+        "email": "",
+        "status": "not_extracted",
+        "error": {
+          "code": "robots_unavailable",
+          "message": "无法确认 robots.txt 访问规则"
+        },
+        "sha256": null,
+        "observed_at": "2026-10-27T14:39:59.088231+00:00",
+        "source_file": "",
+        "field_status": {
+          "name": "not_read",
+          "title": "not_read",
+          "email": "not_read"
+        },
+        "warnings": []
+      }
+    ],
+    "finished_at": "2026-10-27T14:40:12.833314+00:00"
+  }
+]

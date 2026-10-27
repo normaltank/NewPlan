@@ -1,0 +1,45 @@
+{
+  "n11_chnu_zhanghongyan": [
+    {
+      "url": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2024/03/07/b60f48a6ed424e70b1478494d5edb138.jpg",
+      "observed_at": "2026-10-27T14:41:27.212512+00:00",
+      "state": "read_failed",
+      "error": "network_error"
+    },
+    {
+      "url": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2024/03/07/b900679d980a49e9bf2916a5fe4a800d.jpg",
+      "observed_at": "2026-10-27T14:41:33.143900+00:00",
+      "state": "source_saved",
+      "final_url": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2024/03/07/b900679d980a49e9bf2916a5fe4a800d.jpg",
+      "http_status": 200,
+      "content_type": "image/jpeg",
+      "source_file": "image-original-2.jpg",
+      "bytes": 605226,
+      "sha256": "4b51f1413604131ed45a4e313a06093c3e474fd62f1e926a54110165fd992997"
+    },
+    {
+      "url": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2024/03/07/a5e4d6448052425e842f115756e3782d.jpg",
+      "observed_at": "2026-10-27T14:41:33.531459+00:00",
+      "state": "source_saved",
+      "final_url": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2024/03/07/a5e4d6448052425e842f115756e3782d.jpg",
+      "http_status": 200,
+      "content_type": "image/jpeg",
+      "source_file": "image-original-3.jpg",
+      "bytes": 559616,
+      "sha256": "ec6787b8927c2e5b45319af4d86e03be62def4993834e7a25e512f3a6f8d4381"
+    }
+  ],
+  "n12_chnu_baoxiangzhi": [
+    {
+      "url": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2026/06/22/c48f0652d947498bb2634c44eda2c21b.png",
+      "observed_at": "2026-10-27T14:41:33.738451+00:00",
+      "state": "source_saved",
+      "final_url": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2026/06/22/c48f0652d947498bb2634c44eda2c21b.png",
+      "http_status": 200,
+      "content_type": "image/png",
+      "source_file": "image-original-1.png",
+      "bytes": 200401,
+      "sha256": "b2687be9d3088b7cd802ed50faeabb14cac6cdbf7a2bb4cb93f692a19ca45424"
+    }
+  ]
+}

@@ -1,0 +1,612 @@
+{
+  "status": "18_candidates_15_selected_baseline_finished",
+  "updated_at": "2026-10-27",
+  "method": "结构多样性便利选样，非统计随机；研究只找URL/身份/少量结构证据，实际CLI由实施代理运行。历史已知困难及对照复用已标注。",
+  "selected_research_ids": [
+    "n01_ustc_weizian",
+    "n02_zju_yingxiaoying",
+    "n03_nju_zhouzh",
+    "n04_pku_limingsong",
+    "n05_dlut_xuchang",
+    "n06_zju_jixiaoyu",
+    "n07_toronto_hinton",
+    "n08_xtu_xiaoyuelong",
+    "n09_wzbc_xiabingnan",
+    "n10_nchu_zhangyaokun",
+    "n11_chnu_zhanghongyan",
+    "n12_chnu_baoxiangzhi"
+  ],
+  "external_selected_by_implementer": [
+    {
+      "role": "n13",
+      "url": "https://www.cs.cmu.edu/~tom/",
+      "name": "Tom Mitchell"
+    },
+    {
+      "role": "n14",
+      "url": "https://people.eecs.berkeley.edu/~jordan/",
+      "name": "Michael I. Jordan"
+    },
+    {
+      "role": "n15",
+      "url": "https://home.cse.ust.hk/~qyang/bio/",
+      "name": "Qiang Yang"
+    }
+  ],
+  "coordination": "实施代理已锁定前10+n11/n12+其3个英文PDF主页共15；本研究的最后3为c16-c18未选备选，合并总18，不能继续替换失败样本。external_selected信息来自实施代理协调消息，研究代理未独立核这三页。",
+  "limitations": [
+    "robots未查，由实施代理独立读取和遵守；本研究网络失败不反复尝试。",
+    "没有证据证明iframe个体样本或纯异步正文样本，不根据域名或script存在推断。",
+    "短锚点不证明全文完整。",
+    "浏览器核验使用chrome_devtools new_page/evaluate_script真实页面，原始返回位于本研究子代理tool记录；本JSON保存结构摘录，无完整HTML、截图或HAR文件。",
+    "n01-10除n02有本机浏览器补核外，web open均为提供方读取，不代表本机CLI原站取回成功。"
+  ],
+  "browser_dom_evidence": {
+    "n02_zju_yingxiaoying": {
+      "pageId": 2,
+      "title": "简历-浙江大学个人主页",
+      "iframes": [],
+      "tables": 0,
+      "body_excerpt": "应晓英 博士\n研究员\n单位\n药学院\n研究方向\n药剂学\n个人简介\n教学与课程\n研究与成果",
+      "scripts": [
+        "https://person.zju.edu.cn/person/default/skins/common/index.js"
+      ],
+      "note": "当前body没有实际简介；脚本存在不证明JS内容加载成功"
+    },
+    "n11_chnu_zhanghongyan": {
+      "pageId": 3,
+      "title": "美术学院研究生导师——张红岩_研究生导师风采_师德师风_师资队伍_美术学院",
+      "conTxt_innerText": "空白及终审：美术学院",
+      "iframes": [],
+      "images": [
+        {
+          "src": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2024/03/07/b60f48a6ed424e70b1478494d5edb138.jpg",
+          "width": 580,
+          "height": 783
+        },
+        {
+          "src": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2024/03/07/b900679d980a49e9bf2916a5fe4a800d.jpg",
+          "width": 580,
+          "height": 775
+        },
+        {
+          "src": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2024/03/07/a5e4d6448052425e842f115756e3782d.jpg",
+          "width": 580,
+          "height": 767
+        }
+      ]
+    },
+    "n12_chnu_baoxiangzhi": {
+      "pageId": 4,
+      "title": "美术学院研究生导师——鲍相志_研究生导师风采_师德师风_师资队伍_美术学院",
+      "conTxt_innerText": "空白及终审：美术学院",
+      "iframes": [],
+      "images": [
+        {
+          "src": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2026/06/22/c48f0652d947498bb2634c44eda2c21b.png",
+          "width": 621,
+          "height": 696
+        }
+      ]
+    },
+    "c16_hit_chewanxiang": {
+      "pageId": 5,
+      "title": "车万翔 - 哈尔滨工业大学教师个人主页",
+      "tables": 0,
+      "iframes": [],
+      "body_anchors": [
+        "车万翔博士，哈尔滨工业大学计算学部长聘教授",
+        "负责研发的语言技术平台（LTP）",
+        "邮箱／car@hit.edu.cn"
+      ]
+    },
+    "c17_sjtu_tanghao": {
+      "pageId": 6,
+      "title": "唐豪-上海交通大学物理与天文学院",
+      "tables": 0,
+      "iframes": [],
+      "tab_anchor_labels": [
+        "个人经历",
+        "科研项目",
+        "代表性论文著作",
+        "荣誉奖励",
+        "学术兼职",
+        "教学工作",
+        "招生信息"
+      ],
+      "current_tab_class": "个人经历 A.on",
+      "body_anchors": [
+        "唐豪 教授",
+        "htang2015@sjtu.edu.cn",
+        "非平衡系统量子模拟、量子计算人工智能等应用研究"
+      ]
+    },
+    "c18_seu_qiuxiaoli": {
+      "pageId": 7,
+      "title": "东南大学机械工程学院 仇晓黎仇晓黎",
+      "tables": 4,
+      "iframes": [],
+      "table_text_lengths": [
+        634,
+        149,
+        634,
+        149
+      ],
+      "table_headers": [
+        "项目名称项目类别项目时间工作类别项目金额",
+        "专利号专利名称专利类型"
+      ],
+      "note": "两组table文本重复；可见body仅简介及标签，table数据确实存在DOM"
+    }
+  },
+  "candidates": [
+    {
+      "id": "n01_ustc_weizian",
+      "url": "https://faculty.ustc.edu.cn/weizian/zh_CN/index.htm",
+      "name": "卫子安",
+      "school": "中国科学技术大学",
+      "college": "核科学技术学院",
+      "priority": "preferred",
+      "structure": [
+        "多导航个人主页",
+        "教育/工作经历分区",
+        "邮箱字段为长十六进制串"
+      ],
+      "evidence": "web实际打开92行：标题含卫子安；个人简介说明现任核科学技术学院；首页、科学研究、教学信息、获奖信息、招生信息分立链接；邮箱为256字符左右十六进制串。",
+      "confirmation": "web search + open actual page",
+      "failure": null,
+      "attachments": [],
+      "reference_anchors": [
+        "高级工程师",
+        "现任职于中国科学技术大学核科学技术学院",
+        "二维尘埃等离子体的粘弹性研究"
+      ],
+      "selected": true,
+      "not_selected_reason": ""
+    },
+    {
+      "id": "n02_zju_yingxiaoying",
+      "url": "https://person.zju.edu.cn/0002306/732435.html",
+      "name": "应晓英",
+      "school": "浙江大学",
+      "college": "药学院",
+      "priority": "preferred",
+      "structure": [
+        "个人主页模板",
+        "栏目导航",
+        "浏览器正文未显示"
+      ],
+      "evidence": "web实际打开仅30行，显示姓名/博士/研究员/药学院/药剂学与三个栏目；真实浏览器title为简历-浙江大学个人主页，body仍仅导航和个人元数据，iframe=0、table=0，script含person/default/skins/common/index.js。搜索索引曾显示学习工作经历但当前未读到正文，不宣称JS成功渲染。",
+      "confirmation": "web search + open + real Chrome DOM",
+      "failure": "正文在web和当前浏览器DOM均未出现；缺失原因未确定",
+      "attachments": [],
+      "reference_anchors": [
+        "应晓英 博士",
+        "研究员／药学院",
+        "个人简介／教学与课程／研究与成果"
+      ],
+      "selected": true,
+      "not_selected_reason": ""
+    },
+    {
+      "id": "n03_nju_zhouzh",
+      "url": "https://cs.nju.edu.cn/zhouzh/",
+      "discovery_url": "https://www.lamda.nju.edu.cn/zhouzh/",
+      "name": "周志华",
+      "school": "南京大学",
+      "college": "计算机学院/人工智能学院（页面英文Computer Science and Artificial Intelligence）",
+      "priority": "preferred",
+      "structure": [
+        "英文独立教师站",
+        "分立Brief CV/Interest/Publication导航",
+        "文本混排",
+        "邮箱at/dot写法"
+      ],
+      "evidence": "真实open由lamda重定向cs.nju.edu.cn/zhouzh/，62行，姓名Zhi-Hua Zhou、Professor；分立Brief CV、Interest、Activity、Publication等链接；邮箱zhouzh at nju dot edu dot cn。",
+      "confirmation": "web open actual page redirect",
+      "failure": null,
+      "attachments": [],
+      "reference_anchors": [
+        "Zhi-Hua Zhou",
+        "Research is for curiosity and fun",
+        "Last Modified: Dec. 11, 2025"
+      ],
+      "selected": true,
+      "not_selected_reason": ""
+    },
+    {
+      "id": "n04_pku_limingsong",
+      "url": "https://faculty.pku.edu.cn/li/zh_CN/index.htm",
+      "name": "李明松",
+      "school": "北京大学",
+      "college": "地球与空间科学学院",
+      "priority": "preferred",
+      "structure": [
+        "简介截断+查看更多",
+        "履历/基本信息分区",
+        "多层子页",
+        "官方中文CV PDF"
+      ],
+      "evidence": "实际open 78行，简介末尾成果被...〖查看更多〗；工作经历当前显示助理教授而简介显示研究员（保留页面事实不调和）；官方PDF搜索可解析为李明松个人简历2022年12月16页。",
+      "confirmation": "web search + provider actual homepage/PDF open",
+      "failure": null,
+      "attachments": [
+        {
+          "url": "https://faculty.pku.edu.cn/_resources/group1/M00/00/2E/cxv0A2Oqcm2AN3CuAAiLIvPjchA529.pdf",
+          "kind": "CV PDF",
+          "evidence": "已由web provider实际open：application/pdf，16页，首行李明松 | 个人简历 | 2022年12月 | 页码1/16；P0列北京大学地球与空间科学学院；P0网址反向写faculty.pku.edu.cn/li，身份关联成立；尚未证主页正向链接附件。",
+          "confirmation": "provider_actual_pdf_open",
+          "reference_anchors": [
+            "李明松 | 个人简历 | 2022年12月",
+            "北京大学 地球与空间科学学院",
+            "网址：http://faculty.pku.edu.cn/li"
+          ]
+        }
+      ],
+      "reference_anchors": [
+        "李明松，安徽淮北人",
+        "天文旋回地层学与深时全球变化研究",
+        "职称：研究员"
+      ],
+      "selected": true,
+      "not_selected_reason": ""
+    },
+    {
+      "id": "n05_dlut_xuchang",
+      "url": "https://faculty.dlut.edu.cn/xuchang1/zh_CN/index/1213400/list/index.htm",
+      "name": "许畅",
+      "school": "大连理工大学",
+      "college": "船舶工程学院",
+      "priority": "preferred",
+      "structure": [
+        "复杂下拉导航",
+        "个人简介内教育表格",
+        "正文与模板履历重复",
+        "中英论文"
+      ],
+      "evidence": "实际open165行，教育背景显示2017-2022 | 美国德州农工大学 | 博士等多列表格；同一页后段另有教育经历/工作经历模板；导航含科学研究下六类、教学研究下三类等。",
+      "confirmation": "web search + open actual page",
+      "failure": null,
+      "attachments": [],
+      "reference_anchors": [
+        "许 畅，教授，博士生导师",
+        "2017-2022／美国德州农工大学",
+        "课题组研究注重理论分析、实验研究、数值模拟"
+      ],
+      "selected": true,
+      "not_selected_reason": ""
+    },
+    {
+      "id": "n06_zju_jixiaoyu",
+      "url": "https://mypage.zju.edu.cn/xji",
+      "name": "冀晓宇",
+      "school": "浙江大学",
+      "college": null,
+      "priority": "preferred_failure",
+      "structure": [
+        "官方个人主页入口",
+        "实际访问超时"
+      ],
+      "evidence": "官方搜索结果标题冀晓宇-个人主页-浙江大学个人主页，含个人简介、研究成果；实际web open返回400 Timeout fetching。",
+      "confirmation": "official-domain web search + single failed open",
+      "failure": "web tool timeout; browser尚未测",
+      "attachments": [],
+      "reference_anchors": [
+        "冀晓宇-个人主页-浙江大学个人主页"
+      ],
+      "selected": true,
+      "not_selected_reason": ""
+    },
+    {
+      "id": "n07_toronto_hinton",
+      "url": "https://www.cs.toronto.edu/~hinton/",
+      "name": "Geoffrey E. Hinton",
+      "school": "University of Toronto",
+      "college": "Department of Computer Science",
+      "priority": "backup_international",
+      "structure": [
+        "英文独立教师主页",
+        "论文列表按主题筛选入口",
+        "CV/Brief Biography独立链接",
+        "退休身份"
+      ],
+      "evidence": "实际open83行，Biography明确回到University of Toronto并任emeritus distinguished professor；页面有Scientific Publications、Teaching、Media、About Me、Contact，含Full List in Reverse Chronological Order及Curriculum Vitae链接。",
+      "confirmation": "web open actual official university page",
+      "failure": null,
+      "attachments": [
+        {
+          "url": "https://www.cs.toronto.edu/~hinton/shortcv.pdf",
+          "kind": "CV PDF",
+          "evidence": "由主页Curriculum Vitae链接实际click；web provider open返回application/pdf，27页；未本机取回。"
+        }
+      ],
+      "reference_anchors": [
+        "Geoffrey E. Hinton",
+        "Full List in Reverse Chronological Order",
+        "emeritus distinguished professor"
+      ],
+      "selected": true,
+      "not_selected_reason": ""
+    },
+    {
+      "id": "n08_xtu_xiaoyuelong",
+      "url": "https://math.xtu.edu.cn/info/1010/3525.htm",
+      "name": "肖跃龙",
+      "school": "湘潭大学",
+      "college": "数学与计算科学学院",
+      "priority": "preferred",
+      "structure": [
+        "学院CMS详情页",
+        "分节长文本",
+        "周边新闻导航噪声",
+        "中英论文混排"
+      ],
+      "evidence": "实际open209行，正文从第94行姓名标题开始；前93行为学院导航/新闻；基本信息、履历、课程、研究方向、项目和论文分节，公开本人邮箱xyl@xtu.edu.cn。",
+      "confirmation": "web search + actual open",
+      "failure": null,
+      "attachments": [],
+      "reference_anchors": [
+        "姓名：肖跃龙",
+        "非线性偏微分方程",
+        "湖南省自然科学二等奖"
+      ],
+      "selected": true,
+      "not_selected_reason": ""
+    },
+    {
+      "id": "n09_wzbc_xiabingnan",
+      "url": "https://gl.wzbc.edu.cn/Art/Art_2480/Art_2480_134045.aspx",
+      "name": "夏冰楠",
+      "school": "温州商学院",
+      "college": "管理学院",
+      "priority": "preferred",
+      "structure": [
+        "ASP.NET风格学院页",
+        "侧栏专业/职称混合分类",
+        "仅博士学历不提供学术职称",
+        "中英论文列表"
+      ],
+      "evidence": "实际open147行，面包屑管理学院>教师风采>博士；正文写管理学博士、专任教师、专业负责人，没有可作为职称的教授/副教授信息，旁侧教授/副教授/博士不可误归属本人。",
+      "confirmation": "web search + actual open",
+      "failure": null,
+      "attachments": [],
+      "reference_anchors": [
+        "夏冰楠",
+        "浙江温州人，中共党员，管理学博士",
+        "靡不有初，鲜克有终"
+      ],
+      "selected": true,
+      "not_selected_reason": ""
+    },
+    {
+      "id": "n10_nchu_zhangyaokun",
+      "url": "https://em.nchu.edu.cn/jyjx/content_176434",
+      "name": "张耀坤",
+      "school": "南昌航空大学",
+      "college": "经济管理学院",
+      "priority": "preferred",
+      "structure": [
+        "学院CMS正文",
+        "站群导航大量噪声",
+        "正文内日期异常空格",
+        "图片alt泄露本地路径但为普通照片"
+      ],
+      "evidence": "实际open254行，正文147行起；个人履历、项目、论文完整分节，明确教授/硕导/邮箱；图片alt为E:\\zotero_home\\storage\\WGSPC8HQ\\2024.jpg，不能据此判定为图片简历；有搜索验证码模版文案但未触发搜索或绕过。",
+      "confirmation": "web search + actual open",
+      "failure": null,
+      "attachments": [],
+      "reference_anchors": [
+        "张耀坤，管理学博士、教授、硕士生导师",
+        "研究方向：信息行为与信息服务",
+        "代表性论文／中国软科学, 2024(9): 174-184"
+      ],
+      "selected": true,
+      "not_selected_reason": ""
+    },
+    {
+      "id": "n11_chnu_zhanghongyan",
+      "url": "https://msxy.chnu.edu.cn/szdw/yjsdsfc/content_12638",
+      "name": "张红岩",
+      "school": "淮北师范大学",
+      "college": "美术学院",
+      "priority": "preferred_known_difficult",
+      "selection": "复用2026-10-18已知困难样本，非新随机发现",
+      "structure": [
+        "3张图片构成简历",
+        "正文文本基本为空",
+        "表格化图片"
+      ],
+      "evidence": "2026-10-27真实Chrome打开标题为美术学院研究生导师——张红岩；.conTxt.innerText只余空白和终审：美术学院；正文3张图片自然尺寸580×783/580×775/580×767；无iframe。历史documents.json已视觉核验姓名、副教授和章节边界。",
+      "confirmation": "historical official original + current real Chrome DOM",
+      "failure": null,
+      "attachments": [
+        {
+          "url": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2024/03/07/b60f48a6ed424e70b1478494d5edb138.jpg",
+          "kind": "image biography page 1",
+          "evidence": "当前DOM第一张580×783；历史视觉核验姓名张红岩、职称副教授、装饰艺术研究/美术学科教学/2006年6月"
+        }
+      ],
+      "reference_anchors": [
+        "姓名：张红岩",
+        "主要研究方向／装饰艺术研究／美术学科教学",
+        "2006年6月-今，淮北师范大学美术学院副教授"
+      ],
+      "reference_note": "锚点来自历史官方原图/视觉核验与OCR，当前研究未重新OCR；实施应取当前原图作独立检查",
+      "selected": true,
+      "not_selected_reason": ""
+    },
+    {
+      "id": "n12_chnu_baoxiangzhi",
+      "url": "https://msxy.chnu.edu.cn/szdw/yjsdsfc/content_149808",
+      "name": "鲍相志",
+      "school": "淮北师范大学",
+      "college": "美术学院",
+      "priority": "preferred_known_difficult",
+      "selection": "复用2026-10-18已知困难样本，非新随机发现",
+      "structure": [
+        "单张图片简历",
+        "正文文本为空",
+        "表格化图片"
+      ],
+      "evidence": "2026-10-27真实Chrome打开标题为美术学院研究生导师——鲍相志；.conTxt.innerText只余终审：美术学院；正文1张自然尺寸621×696 PNG；无iframe。历史documents.json已视觉核验姓名、历史学博士/讲师和章节边界。",
+      "confirmation": "historical official original + current real Chrome DOM",
+      "failure": null,
+      "attachments": [
+        {
+          "url": "https://msxy.chnu.edu.cn/upload/msxy/contentmanage/article/image/2026/06/22/c48f0652d947498bb2634c44eda2c21b.png",
+          "kind": "image biography",
+          "evidence": "当前DOM621×696；历史视觉核验鲍相志、历史学博士、讲师、中国古代书画鉴定与研究、明清文化史、2025"
+        }
+      ],
+      "reference_anchors": [
+        "姓名：鲍相志",
+        "职称：历史学博士、讲师",
+        "中国古代书画鉴定与研究／明清文化史"
+      ],
+      "reference_note": "锚点来自历史官方原图/视觉核验与OCR，当前研究未重新OCR；实施应取当前原图作独立检查",
+      "selected": true,
+      "not_selected_reason": ""
+    },
+    {
+      "id": "c16_hit_chewanxiang",
+      "url": "https://homepage.hit.edu.cn/wanxiang",
+      "name": "车万翔",
+      "school": "哈尔滨工业大学",
+      "college": "计算学部",
+      "priority": "backup_unselected",
+      "structure": [
+        "新教师主页系统",
+        "中英文内容并存于索引",
+        "浏览器可见中文简介",
+        "本人邮箱与相关教师卡片混排"
+      ],
+      "evidence": "真实Chrome DOM显示车万翔、计算学部、教授，body含长中文简介及联系方式car@hit.edu.cn；后接徐冰/张兆心等相关教师卡片不可归入本人；table=0、iframe=0。官方web索引还含英文Biography但当前可见body主要中文，不宣称异步接口已验证。",
+      "confirmation": "official web search + current real Chrome DOM",
+      "failure": null,
+      "attachments": [],
+      "reference_anchors": [
+        "车万翔博士，哈尔滨工业大学计算学部长聘教授",
+        "负责研发的语言技术平台（LTP）",
+        "联系方式／car@hit.edu.cn"
+      ],
+      "expected_title": "教授",
+      "expected_email": "car@hit.edu.cn",
+      "selection": "研究已核实的备选；实施队列锁定后不替换失败样本",
+      "selected": false,
+      "not_selected_reason": "目标15已锁定，未实跑，不替换失败样本"
+    },
+    {
+      "id": "c17_sjtu_tanghao",
+      "url": "https://www.physics.sjtu.edu.cn/jsml/tanghao.html",
+      "name": "唐豪",
+      "school": "上海交通大学",
+      "college": "物理与天文学院／光科学与技术研究所",
+      "priority": "backup_unselected",
+      "selection": "历史工具对照复用且当前Chrome核实的未选备选",
+      "structure": [
+        "个人信息卡",
+        "七栏目导航/标签",
+        "正文当前仅个人经历可见"
+      ],
+      "evidence": "当前真实Chrome DOM显示唐豪 教授、本人邮箱htang2015@sjtu.edu.cn；栏目A节点有个人经历(class=on)、科研项目、代表性论文著作、荣誉奖励、学术兼职、教学工作、招生信息；table=0/iframe=0。未点击栏目、不宣称已读完全部标签内容。",
+      "confirmation": "historical reference-checks.json + current real Chrome DOM",
+      "failure": null,
+      "attachments": [],
+      "reference_anchors": [
+        "唐豪 教授",
+        "于2015年6月加入上海交通大学物理与天文学院",
+        "非平衡系统量子模拟、量子计算人工智能等应用研究"
+      ],
+      "expected_title": "教授",
+      "expected_email": "htang2015@sjtu.edu.cn",
+      "selected": false,
+      "not_selected_reason": "目标15已锁定，未实跑，不替换失败样本"
+    },
+    {
+      "id": "c18_seu_qiuxiaoli",
+      "url": "https://me.seu.edu.cn/cxl/list.htm",
+      "name": "仇晓黎",
+      "school": "东南大学",
+      "college": "机械工程学院／智能制造系",
+      "priority": "backup_unselected",
+      "selection": "历史工具对照复用且当前Chrome核实的未选备选",
+      "structure": [
+        "多栏目标签",
+        "可见正文少/DOM中藏有表格",
+        "项目及专利表格重复"
+      ],
+      "evidence": "当前真实Chrome DOM title为东南大学机械工程学院 仇晓黎仇晓黎；可见个人信息卡、简介与学习经历等9个标签。document.querySelectorAll(table)=4，实际表内容有项目名称/项目类别/项目时间/工作类别/项目金额及专利号/专利名称/专利类型，两组重复；iframe=0。",
+      "confirmation": "historical reference-checks.json + current real Chrome DOM including actual tables",
+      "failure": null,
+      "attachments": [],
+      "reference_anchors": [
+        "仇晓黎，博士学位，东南大学机械工程学院教授",
+        "数字化设计与制造、CAD/CAPP/CAM",
+        "项目名称／项目类别／项目时间／工作类别／项目金额"
+      ],
+      "expected_title": "教授",
+      "expected_email": "qiuxiaoli@seu.edu.cn",
+      "selected": false,
+      "not_selected_reason": "目标15已锁定，未实跑，不替换失败样本"
+    },
+    {
+      "id": "n13_cmu_mitchell",
+      "url": "https://www.cs.cmu.edu/~tom/",
+      "name": "Tom Mitchell",
+      "school": "Carnegie Mellon University",
+      "college": "Machine Learning Department",
+      "structure": [
+        "英文独立主页",
+        "同主机resume.pdf履历链接",
+        "长正文含教育研究媒体"
+      ],
+      "evidence": "官方大学域名搜索结果为Tom Mitchell's Home Page，Founders University Professor，Machine Learning Department；直接resume.pdf搜索结果为Tom M. Mitchell。搜索为线索，实际结构以保存HTML为准。",
+      "attachments": [
+        {
+          "url": "https://www.cs.cmu.edu/~tom/resume.pdf",
+          "kind": "CV PDF"
+        }
+      ],
+      "selected": true,
+      "not_selected_reason": ""
+    },
+    {
+      "id": "n14_berkeley_jordan",
+      "url": "https://people.eecs.berkeley.edu/~jordan/",
+      "name": "Michael I. Jordan",
+      "school": "University of California, Berkeley",
+      "college": "Department of EECS / Department of Statistics",
+      "structure": [
+        "英文独立主页",
+        "同主机jordan-cv.pdf",
+        "本人/管理员邮箱归属边界"
+      ],
+      "evidence": "官方大学域名搜索结果为Michael I. Jordan's Home Page，Pehong Chen Distinguished Professor Emeritus；本人jordan@cs.berkeley.edu与Grants Administrator Judy Tam邮箱并列；CV搜索指同主机jordan-cv.pdf。以实存HTML核对。",
+      "attachments": [
+        {
+          "url": "https://people.eecs.berkeley.edu/~jordan/jordan-cv.pdf",
+          "kind": "CV PDF"
+        }
+      ],
+      "selected": true,
+      "not_selected_reason": ""
+    },
+    {
+      "id": "n15_hkust_qiangyang",
+      "url": "https://home.cse.ust.hk/~qyang/bio/",
+      "name": "Qiang Yang",
+      "school": "The Hong Kong University of Science and Technology",
+      "college": "Department of Computer Science and Engineering",
+      "structure": [
+        "中英文简历页",
+        "CV PDF链接",
+        "历史材料时态保留"
+      ],
+      "evidence": "官方大学域名结果为A Biography of Qiang Yang (CV: PDF)，含English Bio和学术经历；搜索缓存较旧，不用搜索年代表当年材料日期或当前职务。以实存HTML核对。",
+      "attachments": [],
+      "selected": true,
+      "not_selected_reason": ""
+    }
+  ],
+  "candidate_id_note": "研究candidate id不等于最终cohort sample id；实施者manifest为最终固定15页与sample id的准据。"
+}

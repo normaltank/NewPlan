@@ -1,0 +1,8 @@
+{
+  "method":"实施代理补充三个官方英文个人页，web官方搜索确认URL/身份后由CLI实际取回；非随机。",
+  "candidates":[
+    {"id":"n13_cmu_mitchell","url":"https://www.cs.cmu.edu/~tom/","name":"Tom Mitchell","school":"Carnegie Mellon University","college":"Machine Learning Department","structure":["英文独立主页","同主机resume.pdf履历链接","长正文含教育研究媒体"],"evidence":"官方大学域名搜索结果为Tom Mitchell's Home Page，Founders University Professor，Machine Learning Department；直接resume.pdf搜索结果为Tom M. Mitchell。搜索为线索，实际结构以保存HTML为准。","attachments":[{"url":"https://www.cs.cmu.edu/~tom/resume.pdf","kind":"CV PDF"}]},
+    {"id":"n14_berkeley_jordan","url":"https://people.eecs.berkeley.edu/~jordan/","name":"Michael I. Jordan","school":"University of California, Berkeley","college":"Department of EECS / Department of Statistics","structure":["英文独立主页","同主机jordan-cv.pdf","本人/管理员邮箱归属边界"],"evidence":"官方大学域名搜索结果为Michael I. Jordan's Home Page，Pehong Chen Distinguished Professor Emeritus；本人jordan@cs.berkeley.edu与Grants Administrator Judy Tam邮箱并列；CV搜索指同主机jordan-cv.pdf。以实存HTML核对。","attachments":[{"url":"https://people.eecs.berkeley.edu/~jordan/jordan-cv.pdf","kind":"CV PDF"}]},
+    {"id":"n15_hkust_qiangyang","url":"https://home.cse.ust.hk/~qyang/bio/","name":"Qiang Yang","school":"The Hong Kong University of Science and Technology","college":"Department of Computer Science and Engineering","structure":["中英文简历页","CV PDF链接","历史材料时态保留"],"evidence":"官方大学域名结果为A Biography of Qiang Yang (CV: PDF)，含English Bio和学术经历；搜索缓存较旧，不用搜索年代表当年材料日期或当前职务。以实存HTML核对。","attachments":[]}
+  ]
+}
