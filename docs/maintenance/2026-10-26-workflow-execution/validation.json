@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-26",
+  "base": "31797502b23c197bce77e9535467fc4b5bd5a01c",
+  "route": "single documentation task: ask-matt / retro / writing-for-agents; independent code-review / pr",
+  "checks": {
+    "local_links_and_anchors": 40,
+    "changed_files_match_scope": true,
+    "outside_scope_tracked_files_unchanged": true,
+    "only_documentation_and_template_changed": true,
+    "new_business_tests": "not applicable",
+    "live_collection_and_paid_calls": false
+  },
+  "files_sha256": {
+    ".github/PULL_REQUEST_TEMPLATE.md": "7187f58ab4f7e825a12003986631d2df98c34cb47d4a9af1fec97a8708f412b8",
+    "AGENTS.md": "d37c252acfe9cc829ccd0b1364c4325203582d915cefa757bd9d6743fea3e51d",
+    "docs/agents/issue-tracker.md": "2d25572df2e089839c992ed63e4b80d420e111276458ebea263582faf628f626",
+    "docs/agents/multi-agent.md": "8b45703796c1ec0e85acb6872f46d80ecab7364d79eb6dd6eccaf26c5b1f4259",
+    "docs/agents/workflow.md": "76486e245537de8dcb5d7b50cf3456d7cfedc4311e5a9144e54bf8d9920f0643",
+    "docs/maintenance/2026-10-26-workflow-execution/README.md": "ff0d3a370c0b6933179a20444e977fbb506ba1018d66828475f6152bb4952f31",
+    "docs/maintenance/README.md": "0934f8da32c80bbbdb5edc5776cbc9317a06c4df21ef0c84a53828f366c7496c"
+  },
+  "skills": [
+    {
+      "skill": "ask-matt",
+      "source": "~/.codex/skills/ask-matt/SKILL.md",
+      "sha256": "1371f5ce005de0992a44b137748bfb960a56948aa9871b405fe9d90b24332e3c",
+      "role": "executed route"
+    },
+    {
+      "skill": "writing-for-agents",
+      "source": "~/.codex/skills/writing-for-agents/SKILL.md",
+      "sha256": "551adca942227b44192edba88acd4e8db911f0121ce58ad16944ccf6a896a74a",
+      "role": "executed route"
+    },
+    {
+      "skill": "retro",
+      "source": "~/.codex/skills/retro/SKILL.md",
+      "sha256": "33fbc28568e3146f20fd908b12998bc0ab30aa4f4c87288199a40793efa94696",
+      "role": "executed route"
+    },
+    {
+      "skill": "code-review",
+      "source": "~/.codex/skills/code-review/SKILL.md",
+      "sha256": "09eb147f793e4647949edd32dbad278f0554dfb56e0d46b699cd4c2c55bf0357",
+      "role": "executed route"
+    },
+    {
+      "skill": "pr",
+      "source": "~/.codex/skills/pr/SKILL.md",
+      "sha256": "ab63f1cf78647389edcd386c9427c5dfca27ed2836930c24773ffee834c19bcd",
+      "role": "executed route"
+    },
+    {
+      "skill": "to-spec",
+      "source": "~/.codex/skills/to-spec/SKILL.md",
+      "sha256": "43ad9cf318e5e7d3d1fa360253a37021796dc87a0c2e595ad262661a10f85088",
+      "role": "reference for workflow rules"
+    },
+    {
+      "skill": "to-tickets",
+      "source": "~/.codex/skills/to-tickets/SKILL.md",
+      "sha256": "56ec23c5b2782785d4e65bff9e315b6d3aeb4ef977c174a219e99489fada1995",
+      "role": "reference for workflow rules"
+    },
+    {
+      "skill": "implement-spec",
+      "source": "~/.codex/skills/implement-spec/SKILL.md",
+      "sha256": "7a22dd2e60b8fcece478ced9d2533582adf3520d695acd3ab715341535c9e56d",
+      "role": "reference for workflow rules"
+    },
+    {
+      "skill": "implement",
+      "source": "~/.codex/skills/implement/SKILL.md",
+      "sha256": "483bdc4ccf4ac31d86ac7beeaa0d0db80313e71e120bb8c59b3196ae5decd53d",
+      "role": "reference for workflow rules"
+    },
+    {
+      "skill": "tdd",
+      "source": "~/.codex/skills/tdd/SKILL.md",
+      "sha256": "5505d25bbaa8fc14a79e4d20163936958992a2995b7f1dd1d6197edc9ed722e0",
+      "role": "reference for workflow rules"
+    },
+    {
+      "skill": "diagnosing-bugs",
+      "source": "~/.codex/skills/diagnosing-bugs/SKILL.md",
+      "sha256": "849198df88cdb65fd0d97236604c1fca7ff2f22d2f705f9724a800d0266b118d",
+      "role": "reference for workflow rules"
+    },
+    {
+      "skill": "grill-with-docs",
+      "source": "~/.codex/skills/grill-with-docs/SKILL.md",
+      "sha256": "7de372c13488f1ee96cc11cd8907b56b6809cc93eef776eeddd37de6b6cbe3fe",
+      "role": "reference for workflow rules"
+    }
+  ],
+  "limitations": [
+    "Documentation and static link validation do not demonstrate a completed multi-ticket implement-spec run.",
+    "Reviews and CI results are recorded against exact commits in Issue #16 / PR.",
+    "No assertion that installed skill files equal the latest upstream revision."
+  ]
+}

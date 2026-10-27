@@ -5,11 +5,12 @@ import json
 from pathlib import Path
 import re
 import time
+from urllib.parse import parse_qsl, urlsplit
 
 from bs4 import BeautifulSoup
 from deepseek_api import DeepSeekJSON, DEFAULT_MODEL, ApiFailure
 from ai_regions import prepare, apply_plan, render_evidence, SYSTEM, CHECK_SYSTEM, CONTRACT, sha
-from audit import write_json, pagination_family, without_scheme
+from audit import write_json, pagination_family, without_scheme, disabled_link
 
 
 def empty_result(message):
@@ -26,12 +27,36 @@ def pager_numbers(soup, nodes, plans):
     for node in containers:
         text = node.get_text(' ', strip=True)
         matches = re.findall(r'(?<!\d)(\d+)\s*/\s*(\d+)(?!\d)', text)
+        matches.extend(re.findall(r'第\s*\[?\s*(\d+)\s*\]?\s*页\s*[,，]?\s*共\s*\[?\s*(\d+)\s*\]?\s*页', text))
+        matches.extend(re.findall(r'第\s*(\d+)\s*页\s*/\s*总共\s*(\d+)\s*页', text))
+        matches.extend((current, total) for total, current in re.findall(r'分\s*(\d+)\s*页\s*[,，]?\s*当前第\s*(\d+)\s*页', text))
+        current = node.select_one('.current')
+        total = re.search(r'共\s*(\d+)\s*页', text)
+        if current and current.get_text(strip=True).isdigit() and total:
+            matches.append((current.get_text(strip=True), total[1]))
         if not matches:
             current, total = node.select_one('.curr_page'), node.select_one('.all_pages')
             if current and total and current.get_text(strip=True).isdigit() and total.get_text(strip=True).isdigit():
                 matches = [(current.get_text(strip=True), total.get_text(strip=True))]
         counters.update((int(a), int(b)) for a, b in matches if 0 < int(a) <= int(b) <= 10000)
     return sorted(counters)
+
+
+def bounded_query_pages(pages, url, counters):
+    """Some CMSs keep generating ?page=N+1 even beyond their declared last page."""
+    if len(counters) != 1:
+        return pages
+    _, total = counters[0]
+    bounded = []
+    for target in pages:
+        parts = urlsplit(target)
+        values = [v for k, v in parse_qsl(parts.query, keep_blank_values=True) if k.lower() == 'page']
+        if parts.path == urlsplit(url).path and len(values) == 1 and values[0].isdigit():
+            number = int(values[0])
+            if number > total:
+                continue
+        bounded.append(target)
+    return bounded
 
 
 def qualification(soup, nodes, anchors, plans, url):
@@ -55,14 +80,14 @@ def qualification(soup, nodes, anchors, plans, url):
     pager_nodes.extend(nodes[i] for p in plans for i in p.get('pagination_regions', []))
     unresolved_next = [a for node in pager_nodes for a in node.select('a[href]')
         if a.get_text(' ',strip=True) in {'下一页','下页','Next','next','末页','尾页'}
-        and a.get('aria-disabled') != 'true'
-        and not anchors[int(a['data-mb-id'])]['url']]
+        and not disabled_link(a)
+        and not (anchors[int(a['data-mb-id'])]['url'] or anchors[int(a['data-mb-id'])].get('page_url'))]
     if unresolved_next and not (counters and all(current == total for current,total in counters)):
         issues.append('下一页依赖脚本或空目标，尚未确认分页已结束')
     result = {'complete': not issues, 'issues': list(dict.fromkeys(issues)), 'notes': [],
               'links': {u: {'url': u, 'names': v['names'], 'occurrences': len(v['anchor_ids'])} for u, v in a['links'].items()},
               'anchors': [], 'title': soup.title.get_text(' ', strip=True) if soup.title else '',
-              'root_count': len(a['selected_regions']), 'pagination_urls': a['pagination_urls'],
+              'root_count': len(a['selected_regions']), 'pagination_urls': bounded_query_pages(a['pagination_urls'], url, counters),
               'pager_counters': counters}
     for aid, anchor in anchors.items():
         owner = next((j for j, rid in enumerate(a['selected_regions'], 1)
@@ -104,7 +129,7 @@ class ModelEngine:
         self.cache_hits = 0
         self.on_progress, self.should_cancel = on_progress, should_cancel
         self.contract = sha((SYSTEM + CHECK_SYSTEM + CONTRACT + '\n'.join(
-            (Path(__file__).parent/f).read_text('utf-8') for f in ('ai_regions.py','api_engine.py'))).encode())
+            (Path(__file__).parent/f).read_text('utf-8') for f in ('ai_regions.py','api_engine.py','audit.py'))).encode())
 
     async def __aenter__(self):
         await self.api.__aenter__()
@@ -155,6 +180,30 @@ class ModelEngine:
                         self.on_progress('model_started', {'url':url,'phase':label,'api':self.stats()})
                     plans.append(await self.api.ask(label, system, payload, max_tokens=5500))
             result, parses = qualification(soup, nodes, anchors, plans, url)
+            needs_recheck = (any(p['scope_conflicts'] for p in parses)
+                             or parses[0]['included_ids'] != parses[1]['included_ids'])
+            if needs_recheck:
+                write_json(folder/'plans-initial.json', {'analysis': analysis, 'plans': plans, 'issues': result['issues']})
+                render_evidence(folder/'links-initial.html', url, anchors, *parses)
+                if self.api.max_calls - len(self.api.calls) >= 2:
+                    revised = []
+                    for index, (label, system) in enumerate([('recheck-locate', SYSTEM), ('recheck-check', CHECK_SYSTEM)]):
+                        if self.should_cancel and self.should_cancel():
+                            raise InterruptedError('任务已停止；原表和已取得证据保留')
+                        if self.on_progress:
+                            self.on_progress('model_started', {'url': url, 'phase': label, 'api': self.stats()})
+                        review = {**payload, 'previous_selection': plans[index],
+                                  'structural_feedback': parses[index]['scope_conflicts'] or
+                                  ['独立结构核对未通过。重新检查名单与所有平行条目、导航、分页的边界；范围不明则返回uncertain。']}
+                        instruction = ('\n本次是结构纠错。previous_selection是你自己的上次选择；structural_feedback来自程序实际DOM检查。'
+                                       '依据完整HTML重新选择。若反馈含DOM父子路径，则该路径证明排除区域覆盖了名单，不能用文字理由否认这个包含关系。'
+                                       '应缩小导航排除范围或重新选择名单；仍不能确定则返回uncertain。不得盲目删除排除规则或采用更多链接。')
+                        revised.append(await self.api.ask(label, system + instruction, review, max_tokens=5500))
+                    plans = revised
+                    result, parses = qualification(soup, nodes, anchors, plans, url)
+                    analysis['recheck'] = 'completed'
+                else:
+                    analysis['recheck'] = 'budget_insufficient'
             write_json(folder/'plans.json', {'fingerprint':fingerprint,'analysis':analysis,'plans':plans})
             write_json(folder/'anchors.json', list(anchors.values()))
             render_evidence(folder/'links.html', url, anchors, *parses)
