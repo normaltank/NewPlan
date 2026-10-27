@@ -81,13 +81,30 @@ def load_inputs(directory):
 
 
 def pagination_family(url):
-    """Only recognize the two observed CMS paging shapes, never article links."""
+    """Group observed list-page shapes while keeping columns and article IDs apart."""
     p = urlsplit(url)
     path = re.sub(r'/list\d*\.(htm|html)$', r'/list.\1', p.path)
     path = re.sub(r'/([^/]+)/\d+\.(htm|html)$', r'/\1.\2', path)
+    path = re.sub(r'/index(?:_?\d+)?\.(?:s?html?|aspx)$', '/', path, flags=re.I)
+    # These observed extensionless roster endpoints use _N; content_N is an article.
+    path = re.sub(r'/(shizi|szdw)_\d+$', r'/\1', path)
     query = tuple(sorted((k, v) for k, v in parse_qsl(p.query, keep_blank_values=True)
                          if k.lower() not in ('page', 'pageno', 'pagenum')))
     return p.netloc.lower(), path, query
+
+
+def disabled_link(node):
+    return (node.has_attr('disabled') or node.get('aria-disabled') == 'true'
+            or 'disabled' in node.get('class', []))
+
+
+def fixed_paging_target(node, base):
+    """Read the observed literal onclick redirect without evaluating JavaScript."""
+    if node.get('href', '').strip() not in {'', '#'}:
+        return None
+    match = re.fullmatch(r"\s*(?:javascript:\s*)?(?:window\.)?location\.href\s*=\s*encodeURI\((['\"])([^'\"\\\r\n]+)\1\)\s*;?\s*",
+                         node.get('onclick', ''))
+    return url_key(match[2], base) if match else None
 
 
 def lookup_plan(config, url):
@@ -107,9 +124,11 @@ def pagination_links(soup, base, plan):
         before = len(urls)
         for a in container.select('a[href]'):
             href = a['href'].strip()
-            if not href or href == '#' or a.get('aria-disabled') == 'true':
+            if disabled_link(a):
                 continue
-            target = url_key(href, base)
+            target = (url_key(href, base) if href and href != '#' else None) or fixed_paging_target(a, base)
+            if (not href or href == '#') and not target:
+                continue
             if not target:
                 # WebPlus renders inert first/previous/next/last buttons even
                 # on single-page lists; they are not missing roster pages.
