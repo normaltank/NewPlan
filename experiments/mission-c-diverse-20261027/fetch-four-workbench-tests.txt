@@ -1,0 +1,13 @@
+Command: python -m unittest discover -s . -p test_*.py -v
+Precondition: runs/ created as in .github/workflows/tests.yml
+Initial run without runs/: 203 tests, 1 FileNotFoundError in unchanged test_scope_names_resume.py
+Final run with CI precondition:
+
+----------------------------------------------------------------------
+Ran 203 tests in 18.716s
+
+OK
+Fetch CLI: 7 tests passed
+Mission C contract: 14 tests, OK (skipped=2 optional browser/OCR integration)
+Paid calls: 4 Fetch / 0 new model / 0 retry / 0 probe
+Offline cached replay: four samples + default lzjtu, no key, all saved evidence hashes unchanged
