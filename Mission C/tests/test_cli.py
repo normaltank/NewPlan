@@ -77,6 +77,22 @@ class FixtureSite(BaseHTTPRequestHandler):
 
 
 class MissionCContract(unittest.TestCase):
+    def test_empty_links_do_not_abort_a_readable_homepage(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            folder = Path(scratch)
+            source = folder / "teacher.html"
+            source.write_text('<meta charset="utf-8"><main><h1>陈晨</h1><p>职称：教授</p>'
+                              '<a href="">返回列表</a><img src=""><object data=""></object>'
+                              '<h2>发表论文</h2><p>最后一条论文完整保留。</p></main>', encoding="utf-8")
+            output = folder / "result"
+            run = subprocess.run([sys.executable, str(ROOT / "collect.py"), "--url", "https://example.edu/chen",
+                                  "--html", str(source), "--output", str(output)], capture_output=True)
+            self.assertEqual(run.returncode, 0, run.stderr)
+            record = json.loads((output / "teachers.json").read_text(encoding="utf-8"))[0]
+            self.assertEqual(record["name"], "陈晨")
+            self.assertIn("最后一条论文完整保留。", record["biography"])
+            self.assertEqual(record["media"], [])
+
     def test_sidebar_profile_card_cannot_supply_another_persons_email(self):
         with tempfile.TemporaryDirectory() as scratch:
             folder = Path(scratch)

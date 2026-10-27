@@ -1,0 +1,748 @@
+{
+  "samples": [
+    {
+      "id": "lzjtu",
+      "url": "https://jtys.lzjtu.edu.cn/info/1113/4365.htm",
+      "name": ""
+    },
+    {
+      "id": "suda",
+      "url": "https://web.suda.edu.cn/hj1/",
+      "name": "何剑"
+    },
+    {
+      "id": "ncepu",
+      "url": "https://electric.ncepu.edu.cn/szdw/jsxx/gdyyjyjsyjs/a207300faea944298a27ba0a6d0c6c7b.htm",
+      "name": "王健"
+    },
+    {
+      "id": "shu",
+      "url": "https://physics.shu.edu.cn/info/1082/5653.htm",
+      "name": "张惠芳"
+    },
+    {
+      "id": "ecnu",
+      "url": "https://faculty.ecnu.edu.cn/_s41/lyq2/main.psp",
+      "name": "李艳青"
+    }
+  ],
+  "methodology": "5 convenience samples; text anchors are spot checks, not a completeness score",
+  "references": {
+    "suda": {
+      "name": "何剑",
+      "title": "教授",
+      "email": "drhejian@suda.edu.cn",
+      "school": "苏州大学",
+      "college": "未来科学与工程学院",
+      "anchors": [
+        "085501",
+        "drhejian@suda.edu.cn"
+      ]
+    },
+    "ncepu": {
+      "name": "王健",
+      "title": "教授",
+      "email": "wangjian31791@ncepu.edu.cn",
+      "school": "华北电力大学",
+      "college": "电气与电子工程学院",
+      "anchors": [
+        "[50]",
+        "4623-4633"
+      ]
+    },
+    "shu": {
+      "name": "张惠芳",
+      "title": "副研究员",
+      "email": "hfzhang1967@shu.edu.cn",
+      "school": "上海大学",
+      "college": "理学院物理系",
+      "anchors": [
+        "鼓励和督促学生学习考研"
+      ]
+    },
+    "ecnu": {
+      "name": "李艳青",
+      "title": "教授",
+      "email": "yqli@phy.ecnu.edu.cn",
+      "school": "华东师范大学",
+      "college": "物理与电子科学学院",
+      "anchors": [
+        "柔性光电材料与器件集成"
+      ]
+    }
+  },
+  "rows": [
+    {
+      "method": "baseline",
+      "id": "lzjtu",
+      "url": "https://jtys.lzjtu.edu.cn/info/1113/4365.htm",
+      "text_saved": false,
+      "text_characters": 0,
+      "name": "",
+      "title": "",
+      "email": "",
+      "name_matches_reference": null,
+      "title_matches_reference": null,
+      "email_matches_reference": null,
+      "anchor_checks": {},
+      "http_status": null,
+      "error": {
+        "code": "http_412",
+        "message": "HTTP 412"
+      },
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "baseline",
+      "id": "suda",
+      "url": "https://web.suda.edu.cn/hj1/",
+      "text_saved": true,
+      "text_characters": 4743,
+      "name": "何剑",
+      "title": "教授",
+      "email": "",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": false,
+      "anchor_checks": {
+        "085501": true,
+        "drhejian@suda.edu.cn": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "baseline",
+      "id": "ncepu",
+      "url": "https://electric.ncepu.edu.cn/szdw/jsxx/gdyyjyjsyjs/a207300faea944298a27ba0a6d0c6c7b.htm",
+      "text_saved": true,
+      "text_characters": 11082,
+      "name": "王健",
+      "title": "教授",
+      "email": "wangjian31791@ncepu.edu.cn",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": true,
+      "anchor_checks": {
+        "[50]": true,
+        "4623-4633": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "baseline",
+      "id": "shu",
+      "url": "https://physics.shu.edu.cn/info/1082/5653.htm",
+      "text_saved": false,
+      "text_characters": 0,
+      "name": "",
+      "title": "",
+      "email": "",
+      "name_matches_reference": false,
+      "title_matches_reference": false,
+      "email_matches_reference": false,
+      "anchor_checks": {
+        "鼓励和督促学生学习考研": false
+      },
+      "http_status": null,
+      "error": "cli_failed_before_record",
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "baseline",
+      "id": "ecnu",
+      "url": "https://faculty.ecnu.edu.cn/_s41/lyq2/main.psp",
+      "text_saved": true,
+      "text_characters": 751,
+      "name": "",
+      "title": "",
+      "email": "",
+      "name_matches_reference": false,
+      "title_matches_reference": false,
+      "email_matches_reference": false,
+      "anchor_checks": {
+        "柔性光电材料与器件集成": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "fixed-replay",
+      "id": "suda",
+      "url": "https://web.suda.edu.cn/hj1/",
+      "text_saved": true,
+      "text_characters": 4743,
+      "name": "何剑",
+      "title": "教授",
+      "email": "",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": false,
+      "anchor_checks": {
+        "085501": true,
+        "drhejian@suda.edu.cn": true
+      },
+      "http_status": null,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "fixed-replay",
+      "id": "ncepu",
+      "url": "https://electric.ncepu.edu.cn/szdw/jsxx/gdyyjyjsyjs/a207300faea944298a27ba0a6d0c6c7b.htm",
+      "text_saved": true,
+      "text_characters": 11082,
+      "name": "王健",
+      "title": "教授",
+      "email": "wangjian31791@ncepu.edu.cn",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": true,
+      "anchor_checks": {
+        "[50]": true,
+        "4623-4633": true
+      },
+      "http_status": null,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "fixed-replay",
+      "id": "shu",
+      "url": "https://physics.shu.edu.cn/info/1082/5653.htm",
+      "text_saved": true,
+      "text_characters": 6203,
+      "name": "张惠芳",
+      "title": "副研究员",
+      "email": "hfzhang1967@shu.edu.cn",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": true,
+      "anchor_checks": {
+        "鼓励和督促学生学习考研": true
+      },
+      "http_status": null,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "fixed-replay",
+      "id": "ecnu",
+      "url": "https://faculty.ecnu.edu.cn/_s41/lyq2/main.psp",
+      "text_saved": true,
+      "text_characters": 751,
+      "name": "",
+      "title": "",
+      "email": "",
+      "name_matches_reference": false,
+      "title_matches_reference": false,
+      "email_matches_reference": false,
+      "anchor_checks": {
+        "柔性光电材料与器件集成": true
+      },
+      "http_status": null,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "browser",
+      "id": "lzjtu",
+      "url": "https://jtys.lzjtu.edu.cn/info/1113/4365.htm",
+      "text_saved": false,
+      "text_characters": 0,
+      "name": "",
+      "title": "",
+      "email": "",
+      "name_matches_reference": null,
+      "title_matches_reference": null,
+      "email_matches_reference": null,
+      "anchor_checks": {},
+      "http_status": 412,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "browser",
+      "id": "suda",
+      "url": "https://web.suda.edu.cn/hj1/",
+      "text_saved": true,
+      "text_characters": 4789,
+      "name": "何剑",
+      "title": "教授",
+      "email": "",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": false,
+      "anchor_checks": {
+        "085501": true,
+        "drhejian@suda.edu.cn": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "browser",
+      "id": "ncepu",
+      "url": "https://electric.ncepu.edu.cn/szdw/jsxx/gdyyjyjsyjs/a207300faea944298a27ba0a6d0c6c7b.htm",
+      "text_saved": true,
+      "text_characters": 11087,
+      "name": "王健",
+      "title": "教授",
+      "email": "wangjian31791@ncepu.edu.cn",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": true,
+      "anchor_checks": {
+        "[50]": true,
+        "4623-4633": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "browser",
+      "id": "shu",
+      "url": "https://physics.shu.edu.cn/info/1082/5653.htm",
+      "text_saved": true,
+      "text_characters": 6208,
+      "name": "张惠芳",
+      "title": "副研究员",
+      "email": "hfzhang1967@shu.edu.cn",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": true,
+      "anchor_checks": {
+        "鼓励和督促学生学习考研": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "browser",
+      "id": "ecnu",
+      "url": "https://faculty.ecnu.edu.cn/_s41/lyq2/main.psp",
+      "text_saved": true,
+      "text_characters": 745,
+      "name": "",
+      "title": "",
+      "email": "",
+      "name_matches_reference": false,
+      "title_matches_reference": false,
+      "email_matches_reference": false,
+      "anchor_checks": {
+        "柔性光电材料与器件集成": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "crawlee",
+      "id": "lzjtu",
+      "url": "https://jtys.lzjtu.edu.cn/info/1113/4365.htm",
+      "text_saved": false,
+      "text_characters": 0,
+      "name": "",
+      "title": "",
+      "email": "",
+      "name_matches_reference": null,
+      "title_matches_reference": null,
+      "email_matches_reference": null,
+      "anchor_checks": {},
+      "http_status": 412,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "crawlee",
+      "id": "suda",
+      "url": "https://web.suda.edu.cn/hj1/",
+      "text_saved": true,
+      "text_characters": 4743,
+      "name": "何剑",
+      "title": "教授",
+      "email": "",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": false,
+      "anchor_checks": {
+        "085501": true,
+        "drhejian@suda.edu.cn": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "crawlee",
+      "id": "ncepu",
+      "url": "https://electric.ncepu.edu.cn/szdw/jsxx/gdyyjyjsyjs/a207300faea944298a27ba0a6d0c6c7b.htm",
+      "text_saved": true,
+      "text_characters": 11082,
+      "name": "王健",
+      "title": "教授",
+      "email": "wangjian31791@ncepu.edu.cn",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": true,
+      "anchor_checks": {
+        "[50]": true,
+        "4623-4633": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "crawlee",
+      "id": "shu",
+      "url": "https://physics.shu.edu.cn/info/1082/5653.htm",
+      "text_saved": true,
+      "text_characters": 6203,
+      "name": "张惠芳",
+      "title": "副研究员",
+      "email": "hfzhang1967@shu.edu.cn",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": true,
+      "anchor_checks": {
+        "鼓励和督促学生学习考研": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "crawlee",
+      "id": "ecnu",
+      "url": "https://faculty.ecnu.edu.cn/_s41/lyq2/main.psp",
+      "text_saved": true,
+      "text_characters": 751,
+      "name": "",
+      "title": "",
+      "email": "",
+      "name_matches_reference": false,
+      "title_matches_reference": false,
+      "email_matches_reference": false,
+      "anchor_checks": {
+        "柔性光电材料与器件集成": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "crawl4ai",
+      "id": "lzjtu",
+      "url": "https://jtys.lzjtu.edu.cn/info/1113/4365.htm",
+      "text_saved": false,
+      "text_characters": 0,
+      "name": "",
+      "title": "",
+      "email": "",
+      "name_matches_reference": null,
+      "title_matches_reference": null,
+      "email_matches_reference": null,
+      "anchor_checks": {},
+      "http_status": 412,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "crawl4ai",
+      "id": "suda",
+      "url": "https://web.suda.edu.cn/hj1/",
+      "text_saved": true,
+      "text_characters": 4789,
+      "name": "何剑",
+      "title": "教授",
+      "email": "",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": false,
+      "anchor_checks": {
+        "085501": true,
+        "drhejian@suda.edu.cn": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "crawl4ai",
+      "id": "ncepu",
+      "url": "https://electric.ncepu.edu.cn/szdw/jsxx/gdyyjyjsyjs/a207300faea944298a27ba0a6d0c6c7b.htm",
+      "text_saved": true,
+      "text_characters": 11087,
+      "name": "王健",
+      "title": "教授",
+      "email": "wangjian31791@ncepu.edu.cn",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": true,
+      "anchor_checks": {
+        "[50]": true,
+        "4623-4633": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "crawl4ai",
+      "id": "shu",
+      "url": "https://physics.shu.edu.cn/info/1082/5653.htm",
+      "text_saved": true,
+      "text_characters": 6208,
+      "name": "张惠芳",
+      "title": "副研究员",
+      "email": "hfzhang1967@shu.edu.cn",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": true,
+      "anchor_checks": {
+        "鼓励和督促学生学习考研": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "crawl4ai",
+      "id": "ecnu",
+      "url": "https://faculty.ecnu.edu.cn/_s41/lyq2/main.psp",
+      "text_saved": true,
+      "text_characters": 745,
+      "name": "",
+      "title": "",
+      "email": "",
+      "name_matches_reference": false,
+      "title_matches_reference": false,
+      "email_matches_reference": false,
+      "anchor_checks": {
+        "柔性光电材料与器件集成": true
+      },
+      "http_status": 200,
+      "error": null,
+      "field_source": "shared_Mission_C_rules"
+    },
+    {
+      "method": "trafilatura",
+      "id": "lzjtu",
+      "url": "https://jtys.lzjtu.edu.cn/info/1113/4365.htm",
+      "text_saved": false,
+      "text_characters": 0,
+      "name": "",
+      "title": "",
+      "email": "",
+      "name_matches_reference": null,
+      "title_matches_reference": null,
+      "email_matches_reference": null,
+      "anchor_checks": {},
+      "http_status": null,
+      "error": "no_saved_successful_html",
+      "field_source": "not_scored_text_only"
+    },
+    {
+      "method": "trafilatura",
+      "id": "suda",
+      "url": "https://web.suda.edu.cn/hj1/",
+      "text_saved": true,
+      "text_characters": 413,
+      "name": "何剑",
+      "title": "教授",
+      "email": "",
+      "name_matches_reference": null,
+      "title_matches_reference": null,
+      "email_matches_reference": null,
+      "anchor_checks": {
+        "085501": false,
+        "drhejian@suda.edu.cn": true
+      },
+      "http_status": null,
+      "error": null,
+      "field_source": "not_scored_text_only"
+    },
+    {
+      "method": "trafilatura",
+      "id": "ncepu",
+      "url": "https://electric.ncepu.edu.cn/szdw/jsxx/gdyyjyjsyjs/a207300faea944298a27ba0a6d0c6c7b.htm",
+      "text_saved": true,
+      "text_characters": 9887,
+      "name": "王健",
+      "title": "教授",
+      "email": "wangjian31791@ncepu.edu.cn",
+      "name_matches_reference": null,
+      "title_matches_reference": null,
+      "email_matches_reference": null,
+      "anchor_checks": {
+        "[50]": true,
+        "4623-4633": true
+      },
+      "http_status": null,
+      "error": null,
+      "field_source": "not_scored_text_only"
+    },
+    {
+      "method": "trafilatura",
+      "id": "shu",
+      "url": "https://physics.shu.edu.cn/info/1082/5653.htm",
+      "text_saved": true,
+      "text_characters": 5915,
+      "name": "张惠芳",
+      "title": "副研究员",
+      "email": "hfzhang1967@shu.edu.cn",
+      "name_matches_reference": null,
+      "title_matches_reference": null,
+      "email_matches_reference": null,
+      "anchor_checks": {
+        "鼓励和督促学生学习考研": true
+      },
+      "http_status": null,
+      "error": null,
+      "field_source": "not_scored_text_only"
+    },
+    {
+      "method": "trafilatura",
+      "id": "ecnu",
+      "url": "https://faculty.ecnu.edu.cn/_s41/lyq2/main.psp",
+      "text_saved": true,
+      "text_characters": 649,
+      "name": "",
+      "title": "",
+      "email": "",
+      "name_matches_reference": null,
+      "title_matches_reference": null,
+      "email_matches_reference": null,
+      "anchor_checks": {
+        "柔性光电材料与器件集成": false
+      },
+      "http_status": null,
+      "error": null,
+      "field_source": "not_scored_text_only"
+    },
+    {
+      "method": "ds",
+      "id": "lzjtu",
+      "url": "https://jtys.lzjtu.edu.cn/info/1113/4365.htm",
+      "text_saved": false,
+      "text_characters": 0,
+      "name": "",
+      "title": "",
+      "email": "",
+      "name_matches_reference": null,
+      "title_matches_reference": null,
+      "email_matches_reference": null,
+      "anchor_checks": {},
+      "http_status": null,
+      "error": "source_not_obtained_no_model_call",
+      "field_source": "model_visible_candidates"
+    },
+    {
+      "method": "ds",
+      "id": "suda",
+      "url": "https://web.suda.edu.cn/hj1/",
+      "text_saved": true,
+      "text_characters": 4576,
+      "name": "何剑",
+      "title": "教授",
+      "email": "drhejian@suda.edu.cn",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": true,
+      "anchor_checks": {
+        "085501": true,
+        "drhejian@suda.edu.cn": true
+      },
+      "http_status": null,
+      "error": null,
+      "field_source": "model_visible_candidates"
+    },
+    {
+      "method": "ds",
+      "id": "ncepu",
+      "url": "https://electric.ncepu.edu.cn/szdw/jsxx/gdyyjyjsyjs/a207300faea944298a27ba0a6d0c6c7b.htm",
+      "text_saved": true,
+      "text_characters": 10391,
+      "name": "王健",
+      "title": "教授，博士生导师",
+      "email": "wangjian31791@ncepu.edu.cn",
+      "name_matches_reference": true,
+      "title_matches_reference": false,
+      "email_matches_reference": true,
+      "anchor_checks": {
+        "[50]": true,
+        "4623-4633": true
+      },
+      "http_status": null,
+      "error": null,
+      "field_source": "model_visible_candidates"
+    },
+    {
+      "method": "ds",
+      "id": "shu",
+      "url": "https://physics.shu.edu.cn/info/1082/5653.htm",
+      "text_saved": true,
+      "text_characters": 5733,
+      "name": "张惠芳",
+      "title": "副研究员",
+      "email": "hfzhang1967@shu.edu.cn",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": true,
+      "anchor_checks": {
+        "鼓励和督促学生学习考研": true
+      },
+      "http_status": null,
+      "error": null,
+      "field_source": "model_visible_candidates"
+    },
+    {
+      "method": "ds",
+      "id": "ecnu",
+      "url": "https://faculty.ecnu.edu.cn/_s41/lyq2/main.psp",
+      "text_saved": true,
+      "text_characters": 759,
+      "name": "李艳青",
+      "title": "教授",
+      "email": "yqli@phy.ecnu.edu.cn",
+      "name_matches_reference": true,
+      "title_matches_reference": true,
+      "email_matches_reference": true,
+      "anchor_checks": {
+        "柔性光电材料与器件集成": true
+      },
+      "http_status": null,
+      "error": null,
+      "field_source": "model_visible_candidates"
+    }
+  ],
+  "ds_usage": {
+    "model_calls": 4,
+    "prompt_tokens": 35481,
+    "completion_tokens": 286,
+    "fetch_calls": 1,
+    "credential_source": "existing Windows DPAPI configuration",
+    "billing_verified": false
+  },
+  "target_fetch": {
+    "method": "deepseek-fetch",
+    "url": "https://jtys.lzjtu.edu.cn/info/1113/4365.htm",
+    "provider_http_status": 200,
+    "origin_http_status": null,
+    "text_saved": true,
+    "provider_title": "王平副教授",
+    "characters": 2119,
+    "content_sha256": "0c5991fa02b8d02359103a314099d37b9880cfa3ccfe88795738228732d3ee35",
+    "calls": 1,
+    "not_origin_html": true,
+    "completeness": "not_verified"
+  }
+}

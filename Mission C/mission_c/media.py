@@ -16,6 +16,8 @@ def referenced_media(content, page_url):
     found = {}
     for tag in soup.select("[href], [src], [pdfsrc], [data-src], object[data]"):
         value = tag.get("pdfsrc") or tag.get("data-src") or tag.get("href") or tag.get("src") or tag.get("data")
+        if not isinstance(value, str) or not value.strip():
+            continue
         nested = parse_qs(urlsplit(value).query).get("file", [])
         target = urljoin(page_url, unquote(nested[0] if nested else value))
         if re.search(r"\.pdf(?:[?#]|$)", target, re.I):
