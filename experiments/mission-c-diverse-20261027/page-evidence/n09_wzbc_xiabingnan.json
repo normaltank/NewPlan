@@ -1,0 +1,144 @@
+{
+  "id": "n09_wzbc_xiabingnan",
+  "source": {
+    "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n09_wzbc_xiabingnan\\cli\\0001\\source.html",
+    "sha256": "16f5f74c2680606f6b510276d04dd4a2889a309abbc3d53e7510fbfe2afe5d75",
+    "bytes": 17099
+  },
+  "fields": {
+    "name": {
+      "source_value": "夏冰楠",
+      "source_lines": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "夏冰楠"
+      },
+      "baseline": "夏冰楠",
+      "baseline_matches": true,
+      "fetch_raw_presence": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "夏冰楠"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "trafilatura": "夏冰楠"
+      }
+    }
+  },
+  "checkpoints": [
+    {
+      "section": "简介首",
+      "quote": "现任温州商学院管理学院人力资源管理专业负责人、专任教师",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 63,
+        "end_line": 63,
+        "matched_normalized_excerpt": "现任温州商学院管理学院人力资源管理专业负责人、专任教师"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 62,
+            "end_line": 62,
+            "matched_normalized_excerpt": "现任温州商学院管理学院人力资源管理专业负责人、专任教师"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 7,
+            "end_line": 7,
+            "matched_normalized_excerpt": "现任温州商学院管理学院人力资源管理专业负责人、专任教师"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 4,
+            "end_line": 4,
+            "matched_normalized_excerpt": "现任温州商学院管理学院人力资源管理专业负责人、专任教师"
+          }
+        }
+      }
+    },
+    {
+      "section": "研究中",
+      "quote": "组织与人力资源管理",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 69,
+        "end_line": 69,
+        "matched_normalized_excerpt": "组织与人力资源管理"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 68,
+            "end_line": 68,
+            "matched_normalized_excerpt": "组织与人力资源管理"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 15,
+            "end_line": 15,
+            "matched_normalized_excerpt": "组织与人力资源管理"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 8,
+            "end_line": 8,
+            "matched_normalized_excerpt": "组织与人力资源管理"
+          }
+        }
+      }
+    },
+    {
+      "section": "本人尾",
+      "quote": "靡不有初，鲜克有终",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 109,
+        "end_line": 109,
+        "matched_normalized_excerpt": "靡不有初,鲜克有终"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 108,
+            "end_line": 108,
+            "matched_normalized_excerpt": "靡不有初,鲜克有终"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 31,
+            "end_line": 31,
+            "matched_normalized_excerpt": "靡不有初,鲜克有终"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 16,
+            "end_line": 16,
+            "matched_normalized_excerpt": "靡不有初,鲜克有终"
+          }
+        }
+      }
+    }
+  ],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "本人正文只有博士、专任教师、专业负责人；无可采用的学术职称/本人邮箱，不能按侧栏教授/副教授类别补填。Fetch末段教师寄语可核对。",
+  "scope_gaps": [
+    "博士不是职称；公共侧栏分类不能填教授或副教授"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "n15_hkust_qiangyang",
+  "source": null,
+  "fields": {},
+  "checkpoints": [],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "原版robots_unavailable；Fetch含中英文历史简介及URL，未验证分立CV/PDF和材料日期。保持提供方原时态，不从旧简介补当前任职。",
+  "scope_gaps": [
+    "CLI robots_unavailable；官方搜索中文/英文CV仅为provider线索，旧材料日期不冒充当前任职"
+  ]
+}

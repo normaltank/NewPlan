@@ -1,0 +1,354 @@
+{
+  "id": "n03_nju_zhouzh",
+  "source": {
+    "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n03_nju_zhouzh\\cli\\0001\\source.html",
+    "sha256": "d555374df9a09a4ede24ce3523c0cdab754cce24f76468ba359feee68289935b",
+    "bytes": 15278
+  },
+  "fields": {
+    "name": {
+      "source_value": "Zhi-Hua Zhou",
+      "source_lines": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "Zhi-HuaZhou"
+      },
+      "baseline": "Hua Zhou's Homepage",
+      "baseline_matches": false,
+      "fetch_raw_presence": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "Zhi-HuaZhou"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "browser": "Hua Zhou's Homepage",
+        "crawlee": "Hua Zhou's Homepage",
+        "crawl4ai": "Hua Zhou's Homepage",
+        "trafilatura": "Hua Zhou's Homepage"
+      }
+    },
+    "title": {
+      "source_value": "Professor",
+      "source_lines": {
+        "start_line": 5,
+        "end_line": 5,
+        "matched_normalized_excerpt": "Professor"
+      },
+      "baseline": "",
+      "baseline_matches": false,
+      "fetch_raw_presence": {
+        "start_line": 5,
+        "end_line": 5,
+        "matched_normalized_excerpt": "Professor"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "browser": "",
+        "crawlee": "",
+        "crawl4ai": "",
+        "trafilatura": ""
+      }
+    }
+  },
+  "checkpoints": [
+    {
+      "section": "首",
+      "quote": "Zhi-Hua Zhou",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "Zhi-HuaZhou"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "Zhi-HuaZhou"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "Zhi-HuaZhou"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 11,
+            "end_line": 11,
+            "matched_normalized_excerpt": "Zhi-HuaZhou"
+          }
+        },
+        "crawlee_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "Zhi-HuaZhou"
+          }
+        },
+        "crawl4ai_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 5,
+            "end_line": 5,
+            "matched_normalized_excerpt": "Zhi-HuaZhou"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 3,
+            "end_line": 3,
+            "matched_normalized_excerpt": "Zhi-HuaZhou"
+          }
+        }
+      }
+    },
+    {
+      "section": "研究中",
+      "quote": "Open-environment machine learning",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 52,
+        "end_line": 52,
+        "matched_normalized_excerpt": "Open-environmentmachinelearning"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 51,
+            "end_line": 51,
+            "matched_normalized_excerpt": "Open-environmentmachinelearning"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 44,
+            "end_line": 44,
+            "matched_normalized_excerpt": "Open-environmentmachinelearning"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 63,
+            "end_line": 63,
+            "matched_normalized_excerpt": "Open-environmentmachinelearning"
+          }
+        },
+        "crawlee_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 54,
+            "end_line": 54,
+            "matched_normalized_excerpt": "Open-environmentmachinelearning"
+          }
+        },
+        "crawl4ai_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 38,
+            "end_line": 38,
+            "matched_normalized_excerpt": "Open-environmentmachinelearning"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 20,
+            "end_line": 20,
+            "matched_normalized_excerpt": "Open-environmentmachinelearning"
+          }
+        }
+      }
+    },
+    {
+      "section": "图书尾",
+      "quote": "Evolutionary Learning: Advances in Theories and Algorithms",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 83,
+        "end_line": 84,
+        "matched_normalized_excerpt": "EvolutionaryLearning:AdvancesinTheoriesandAlgorithms"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 82,
+            "end_line": 83,
+            "matched_normalized_excerpt": "EvolutionaryLearning:AdvancesinTheoriesandAlgorithms"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 55,
+            "end_line": 55,
+            "matched_normalized_excerpt": "EvolutionaryLearning:AdvancesinTheoriesandAlgorithms"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 93,
+            "end_line": 93,
+            "matched_normalized_excerpt": "EvolutionaryLearning:AdvancesinTheoriesandAlgorithms"
+          }
+        },
+        "crawlee_raw": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 90,
+            "end_line": 92,
+            "matched_normalized_excerpt": "EvolutionaryLearning:AdvancesinTheoriesandAlgorithms"
+          }
+        },
+        "crawl4ai_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 49,
+            "end_line": 49,
+            "matched_normalized_excerpt": "EvolutionaryLearning:AdvancesinTheoriesandAlgorithms"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 33,
+            "end_line": 34,
+            "matched_normalized_excerpt": "EvolutionaryLearning:AdvancesinTheoriesandAlgorithms"
+          }
+        }
+      }
+    },
+    {
+      "section": "分立CV范围",
+      "quote": "Brief CV",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 25,
+        "end_line": 25,
+        "matched_normalized_excerpt": "BriefCV"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 24,
+            "end_line": 24,
+            "matched_normalized_excerpt": "BriefCV"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 25,
+            "end_line": 25,
+            "matched_normalized_excerpt": "BriefCV"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 44,
+            "end_line": 44,
+            "matched_normalized_excerpt": "BriefCV"
+          }
+        },
+        "crawlee_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 27,
+            "end_line": 27,
+            "matched_normalized_excerpt": "BriefCV"
+          }
+        },
+        "crawl4ai_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 23,
+            "end_line": 23,
+            "matched_normalized_excerpt": "BriefCV"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "omitted",
+          "lines": null
+        }
+      }
+    },
+    {
+      "section": "分立论文范围",
+      "quote": "Publication",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 32,
+        "end_line": 32,
+        "matched_normalized_excerpt": "Publication"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 31,
+            "end_line": 31,
+            "matched_normalized_excerpt": "Publication"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 25,
+            "end_line": 25,
+            "matched_normalized_excerpt": "Publication"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 44,
+            "end_line": 44,
+            "matched_normalized_excerpt": "Publication"
+          }
+        },
+        "crawlee_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 34,
+            "end_line": 34,
+            "matched_normalized_excerpt": "Publication"
+          }
+        },
+        "crawl4ai_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 23,
+            "end_line": 23,
+            "matched_normalized_excerpt": "Publication"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "omitted",
+          "lines": null
+        }
+      }
+    }
+  ],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "Fetch保存研究兴趣与四本书；Markdown标点转义。Brief CV、Publication、Activity为分立链接；未跟随，不称完整简历/全部论文。各HTML方法共用解析器仍把姓名裁为Hua Zhou's Homepage、职称为空。",
+  "scope_gaps": [
+    "Brief CV/Publication等为分立URL，主页研究方向和图书不等于完整简历论文",
+    "source title为Zhi-Hua Zhou's Homepage；CLI裁成Hua Zhou's Homepage"
+  ]
+}

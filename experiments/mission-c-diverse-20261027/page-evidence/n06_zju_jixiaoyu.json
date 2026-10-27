@@ -1,0 +1,11 @@
+{
+  "id": "n06_zju_jixiaoyu",
+  "source": null,
+  "fields": {},
+  "checkpoints": [],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "原版robots_unavailable；Fetch只返回姓名/栏目和‘学术成果 学术成果’等外壳。无本地原件和内容真值，不据元数据声称完整研究简历。",
+  "scope_gaps": [
+    "CLI robots_unavailable；provider搜索姓名和超时线索不证明原站不存在或主页永久失效"
+  ]
+}

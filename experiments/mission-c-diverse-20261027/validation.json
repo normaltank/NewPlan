@@ -1,0 +1,32 @@
+{
+  "issue": "https://github.com/normaltank/NewPlan/issues/27",
+  "generated_at": "2026-10-27T15:35:32.481432+00:00",
+  "implementation_start": "4dd956d1b085448122b29e53c8cfd4d13b47f017",
+  "integration_tip_merged": "4dd956d1b085448122b29e53c8cfd4d13b47f017",
+  "production_modified": false,
+  "public_cli_tests": {
+    "command": "python experiments/mission-c-diverse-20261027/test_fetch_manifest_cli.py",
+    "passed": 11,
+    "paid_requests": 0,
+    "evidence": "fetch-manifest-cli-tests.txt",
+    "red_green": "First new manifest/cache test failed: old CLI rejected n01; minimal manifest support then passed. Remaining manifest guard checks are regression validations at the same external CLI seam."
+  },
+  "mission_c_tests": {
+    "command": "python -m unittest discover -s \"Mission C/tests\" -v",
+    "run": 14,
+    "passed": 12,
+    "skipped": 2,
+    "evidence": "mission-c-tests.txt"
+  },
+  "compile": "4 changed/new executable scripts compiled successfully",
+  "full_round_diff_check": "git diff --check 1a2d63cbc5035361456a9bcf90a819c61d2139de passed",
+  "relative_document_links": "passed",
+  "script_sha256": {
+    "experiments/mission-c-live-20261027/ds_fetch_once.py": "a453636c81962a391ee6f3b9b182a8f353c6687f80c14ce52048dbbffe41df15",
+    "experiments/mission-c-diverse-20261027/run_tools.py": "3e4f2a84bdd1bb98f46b5cf81ccd4d974f5e6d3fa5ebd9154fc4f6a09577737d",
+    "experiments/mission-c-diverse-20261027/run_images.py": "e2a501cfddf62c8023fe93814de86e7f97a0db8f352cdfdf6cfdd843d96682f0",
+    "experiments/mission-c-diverse-20261027/build_report.py": "bcb69a83c987f29fa50914acdf480a7f6e1f63a97ebfd937e627b95375a1674c",
+    "experiments/mission-c-diverse-20261027/test_fetch_manifest_cli.py": "cbb43ba9d9eec628123ef7931cfc3db292b180bcc915cfc3d55230de77263887"
+  },
+  "review_and_CI": "pending parent integration; no push/PR performed by implementer"
+}

@@ -1,0 +1,254 @@
+{
+  "id": "n10_nchu_zhangyaokun",
+  "source": {
+    "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n10_nchu_zhangyaokun\\cli\\0001\\source.html",
+    "sha256": "7435743a97c3f302dacec116ad7ecbd5da4e77cba2c27182a61620807f3fab21",
+    "bytes": 69422
+  },
+  "fields": {
+    "name": {
+      "source_value": "张耀坤",
+      "source_lines": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "张耀坤"
+      },
+      "baseline": "张耀坤",
+      "baseline_matches": true,
+      "fetch_raw_presence": {
+        "start_line": 9,
+        "end_line": 9,
+        "matched_normalized_excerpt": "张耀坤"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "trafilatura": "张耀坤"
+      }
+    },
+    "title": {
+      "source_value": "教授",
+      "source_lines": {
+        "start_line": 121,
+        "end_line": 121,
+        "matched_normalized_excerpt": "教授"
+      },
+      "baseline": "教授",
+      "baseline_matches": true,
+      "fetch_raw_presence": {
+        "start_line": 13,
+        "end_line": 13,
+        "matched_normalized_excerpt": "教授"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "trafilatura": "教授"
+      }
+    },
+    "email": {
+      "source_value": "yaokunzhang@126.com",
+      "source_lines": {
+        "start_line": 153,
+        "end_line": 155,
+        "matched_normalized_excerpt": "yaokunzhang@126.com"
+      },
+      "baseline": "yaokunzhang@126.com",
+      "baseline_matches": true,
+      "fetch_raw_presence": {
+        "start_line": 17,
+        "end_line": 17,
+        "matched_normalized_excerpt": "yaokunzhang@126.com"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "trafilatura": "yaokunzhang@126.com"
+      }
+    }
+  },
+  "checkpoints": [
+    {
+      "section": "简介首",
+      "quote": "张耀坤， 管 理学博士、教授、硕士生导师",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 119,
+        "end_line": 121,
+        "matched_normalized_excerpt": "张耀坤,管理学博士、教授、硕士生导师"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 10,
+            "end_line": 12,
+            "matched_normalized_excerpt": "张耀坤,管理学博士、教授、硕士生导师"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 13,
+            "end_line": 13,
+            "matched_normalized_excerpt": "张耀坤,管理学博士、教授、硕士生导师"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 2,
+            "end_line": 2,
+            "matched_normalized_excerpt": "张耀坤,管理学博士、教授、硕士生导师"
+          }
+        }
+      }
+    },
+    {
+      "section": "研究中",
+      "quote": "信息行为与信息服务",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 151,
+        "end_line": 151,
+        "matched_normalized_excerpt": "信息行为与信息服务"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 42,
+            "end_line": 42,
+            "matched_normalized_excerpt": "信息行为与信息服务"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 15,
+            "end_line": 15,
+            "matched_normalized_excerpt": "信息行为与信息服务"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 3,
+            "end_line": 3,
+            "matched_normalized_excerpt": "信息行为与信息服务"
+          }
+        }
+      }
+    },
+    {
+      "section": "末论文",
+      "quote": "基于学术社交网络的科研团队合作行为三方演化博弈与仿真分析",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 338,
+        "end_line": 338,
+        "matched_normalized_excerpt": "基于学术社交网络的科研团队合作行为三方演化博弈与仿真分析"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 229,
+            "end_line": 229,
+            "matched_normalized_excerpt": "基于学术社交网络的科研团队合作行为三方演化博弈与仿真分析"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 95,
+            "end_line": 95,
+            "matched_normalized_excerpt": "基于学术社交网络的科研团队合作行为三方演化博弈与仿真分析"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 43,
+            "end_line": 43,
+            "matched_normalized_excerpt": "基于学术社交网络的科研团队合作行为三方演化博弈与仿真分析"
+          }
+        }
+      }
+    },
+    {
+      "section": "教育",
+      "quote": "博士",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 121,
+        "end_line": 121,
+        "matched_normalized_excerpt": "博士"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 12,
+            "end_line": 12,
+            "matched_normalized_excerpt": "博士"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 13,
+            "end_line": 13,
+            "matched_normalized_excerpt": "博士"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 2,
+            "end_line": 2,
+            "matched_normalized_excerpt": "博士"
+          }
+        }
+      }
+    },
+    {
+      "section": "研究",
+      "quote": "信息行为与信息服务",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 151,
+        "end_line": 151,
+        "matched_normalized_excerpt": "信息行为与信息服务"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 42,
+            "end_line": 42,
+            "matched_normalized_excerpt": "信息行为与信息服务"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 15,
+            "end_line": 15,
+            "matched_normalized_excerpt": "信息行为与信息服务"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 3,
+            "end_line": 3,
+            "matched_normalized_excerpt": "信息行为与信息服务"
+          }
+        }
+      }
+    }
+  ],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "姓名、教授和空格写法本人邮箱有本地原件；研究/论文分节和末篇均可核对。站群模板含验证码相关文字但正文是教师内容；普通人像不当图片简历。",
+  "scope_gaps": [
+    "图片为普通人像，不能因alt有路径而当图片简历；站群导航/验证码模板不属本人正文"
+  ]
+}

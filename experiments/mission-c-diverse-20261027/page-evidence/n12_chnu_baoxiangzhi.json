@@ -1,0 +1,96 @@
+{
+  "id": "n12_chnu_baoxiangzhi",
+  "source": {
+    "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n12_chnu_baoxiangzhi\\cli\\0001\\source.html",
+    "sha256": "ca57e847359c8b5204de9aa6a8347606a396ddac7e8f87ff81620439fc83ac47",
+    "bytes": 46926
+  },
+  "fields": {
+    "name": {
+      "source_value": "鲍相志",
+      "source_lines": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "鲍相志"
+      },
+      "baseline": "鲍相志",
+      "baseline_matches": true,
+      "fetch_raw_presence": {
+        "start_line": 5,
+        "end_line": 5,
+        "matched_normalized_excerpt": "鲍相志"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "browser": "鲍相志",
+        "crawlee": "鲍相志",
+        "crawl4ai": "鲍相志",
+        "trafilatura": "鲍相志"
+      }
+    }
+  },
+  "checkpoints": [
+    {
+      "section": "页面标题",
+      "quote": "美术学院研究生导师——鲍相志",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "美术学院研究生导师——鲍相志"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "美术学院研究生导师——鲍相志"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 5,
+            "end_line": 5,
+            "matched_normalized_excerpt": "美术学院研究生导师——鲍相志"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 46,
+            "end_line": 46,
+            "matched_normalized_excerpt": "美术学院研究生导师——鲍相志"
+          }
+        },
+        "crawlee_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "美术学院研究生导师——鲍相志"
+          }
+        },
+        "crawl4ai_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 153,
+            "end_line": 153,
+            "matched_normalized_excerpt": "美术学院研究生导师——鲍相志"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "omitted",
+          "lines": null
+        }
+      }
+    }
+  ],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "本次621×696原图可见姓名/讲师、研究、教育和4项成果。Fetch、RapidOCR、Docling在第3/4篇人名和导师姓名的识别不同；低分辨率的细字保留原图待核，早期视觉媒体短参照不作确定真值。RapidOCR第2篇论文主要内容变成‘《，一中，中》’，Docling保留较完整该篇但跨列重复；不能以少数锚点当准确全文。导师姓名不是本人姓名。",
+  "scope_gaps": [
+    "当前单张表格式图片已保存，hash与历史原件一致；图片内职称为历史学博士、讲师，其中讲师才是职称",
+    "baseline未启用OCR，图中职称/研究/成果正文未进入简介，姓名来自HTML标题"
+  ]
+}
