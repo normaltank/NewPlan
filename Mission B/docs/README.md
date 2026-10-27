@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | 当前产品入口 | [Mission B README](../README.md) | 使用入口或目录职责改变 |
 | Agent 的阅读路径与工作流来源 | [AGENTS.md](../AGENTS.md) | 工作方式或导航改变 |
+| 维护任务分流、实施派工与业务验收证据 | [维护执行约定](maintenance-workflow.md) | 维护的分流或验收方式改变；公共规则仍由根目录工作流维护 |
 | 完整版启动、输入、URL 核验和四列汇总规则 | [api_workbench/README.md](../SmallMission/api_workbench/README.md) | 当前实现或核验契约改变 |
 | 精简版操作、展示边界、日志、邮件与构建 | [README_lite.md](../SmallMission/api_workbench/README_lite.md) | 精简版行为或分发维护改变 |
 | 任务、规格、验收状态 | [根目录任务管理](../../docs/agents/issue-tracker.md) | 在对应 GitHub Issue 更新，不再维护第二份待办表 |
@@ -43,6 +44,7 @@
 | `maintenance/20261026-batch-stall/README.md` | 19 份原件批量停滞复现、康复学院无效分页修复与 1.0.7 验证；关联 [Issue #11](https://github.com/normaltank/NewPlan/issues/11) |
 | `maintenance/20261026-mail-triage/README.md` | 回传日志去重、21 个特殊情况的原因分流；关联 [Issue #13](https://github.com/normaltank/NewPlan/issues/13) |
 | `maintenance/20261026-log-maintenance/README.md` | 名单范围冲突与分页维护、原网页实跑、反例及 1.0.8 分发验证；关联 [Issue #14](https://github.com/normaltank/NewPlan/issues/14) |
+| `maintenance/20261026-workflow-contract/README.md` | Mission B 维护分流、实施派工与验收记录的流程修正；关联 [Issue #17](https://github.com/normaltank/NewPlan/issues/17) |
 
 历史运行的 `.planning/` 文件记录当时执行过程，供复盘查阅；任务当前状态到 GitHub Issue 核对，不从旧计划自动恢复工作。新增记录写清问题、来源、根因、修改、实际验证和剩余限制；完成后从本索引或负责文档提供一个入口。
 
