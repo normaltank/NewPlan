@@ -14,8 +14,8 @@ from .fetch import SourceError
 def referenced_media(content, page_url):
     soup = BeautifulSoup(content, "html.parser")
     found = {}
-    for tag in soup.select("[href], [src], [pdfsrc], [data-src]"):
-        value = tag.get("pdfsrc") or tag.get("data-src") or tag.get("href") or tag.get("src")
+    for tag in soup.select("[href], [src], [pdfsrc], [data-src], object[data]"):
+        value = tag.get("pdfsrc") or tag.get("data-src") or tag.get("href") or tag.get("src") or tag.get("data")
         nested = parse_qs(urlsplit(value).query).get("file", [])
         target = urljoin(page_url, unquote(nested[0] if nested else value))
         if re.search(r"\.pdf(?:[?#]|$)", target, re.I):

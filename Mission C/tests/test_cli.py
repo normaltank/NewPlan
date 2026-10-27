@@ -77,6 +77,36 @@ class FixtureSite(BaseHTTPRequestHandler):
 
 
 class MissionCContract(unittest.TestCase):
+    def test_embedded_object_pdf_is_explicitly_unread_during_offline_replay(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            folder = Path(scratch)
+            source = folder / "teacher.html"
+            source.write_text('<meta charset="utf-8"><main><h1>陈晨</h1><p>完整简历见附件。</p>'
+                              '<object data="/cv.pdf" type="application/pdf"></object></main>', encoding="utf-8")
+            output = folder / "result"
+            run = subprocess.run([sys.executable, str(ROOT / "collect.py"), "--url", "https://example.edu/chen",
+                                  "--html", str(source), "--output", str(output)], capture_output=True)
+            self.assertEqual(run.returncode, 0, run.stderr)
+            record = json.loads((output / "teachers.json").read_text(encoding="utf-8"))[0]
+            self.assertEqual(record["media"][0]["url"], "https://example.edu/cv.pdf")
+            self.assertEqual(record["media"][0]["status"], "not_read")
+            self.assertIn("media_not_fully_read", record["warnings"])
+
+    def test_sidebar_name_cannot_own_the_teachers_fields(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            folder = Path(scratch)
+            source = folder / "teacher.html"
+            source.write_text('<meta charset="utf-8"><title>陈晨 - 示例大学</title>'
+                              '<aside><p>姓名：李明</p></aside><main><h1>陈晨</h1>'
+                              '<p>职称：教授</p><p>邮箱：chen@example.edu</p></main>', encoding="utf-8")
+            output = folder / "result"
+            run = subprocess.run([sys.executable, str(ROOT / "collect.py"), "--url", "https://example.edu/chen",
+                                  "--html", str(source), "--output", str(output)], capture_output=True)
+            self.assertEqual(run.returncode, 0, run.stderr)
+            record = json.loads((output / "teachers.json").read_text(encoding="utf-8"))[0]
+            self.assertEqual(record["name"], "陈晨")
+            self.assertEqual(record["email"], "chen@example.edu")
+
     def test_separate_profile_sections_are_not_silently_dropped(self):
         with tempfile.TemporaryDirectory() as scratch:
             folder = Path(scratch)
@@ -121,7 +151,7 @@ class MissionCContract(unittest.TestCase):
             source = folder / "teacher.html"
             source.write_text('<meta charset="utf-8"><main><h1>赵云</h1>'
                               '<p>赵云，博士，硕士生导师。师从李明教授。</p>'
-                              '<h2>发表论文</h2><p>Example paper. Email: other@example.edu</p></main>', encoding="utf-8")
+                              '<h2>发表论文：2025年</h2><p>Example paper. Email: other@example.edu</p></main>', encoding="utf-8")
             output = folder / "result"
             run = subprocess.run([sys.executable, str(ROOT / "collect.py"), "--url", "https://example.edu/zhao",
                                   "--html", str(source), "--output", str(output)],

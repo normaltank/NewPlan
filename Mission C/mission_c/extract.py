@@ -20,6 +20,19 @@ def text_of(node):
     return node.get_text("\n", strip=True) if node else ""
 
 
+def matches_label(text, labels):
+    value = text.strip().rstrip(":：").casefold()
+    return any(value == label or value.startswith(label + ":") or value.startswith(label + "：") for label in labels)
+
+
+def content_container(soup):
+    for pattern in ("main, [role=main]", "article", "#vsb_content, .wp_articlecontent, .v_news_content, .article-content"):
+        matches = soup.select(pattern)
+        if matches:
+            return matches[0] if len(matches) == 1 else None
+    return None
+
+
 def name_candidates(soup):
     candidates = []
     for node in soup.select("h1, h2, .arti_title, .news_title, .jsbt, title"):
@@ -45,10 +58,8 @@ def section_text(body):
     result = {key: [] for key in SECTION_KINDS}
     active = None
     for line in text_of(body).splitlines():
-        key_text = line.strip().rstrip(":：").casefold()
         matched = next((kind for kind, labels in SECTION_KINDS.items()
-                        if any(key_text == label or key_text.startswith(label + ":")
-                               or key_text.startswith(label + "：") for label in labels)), None)
+                        if matches_label(line, labels)), None)
         if matched:
             active = matched
         elif line in {text_of(h) for h in body.select("h1,h2,h3,h4,h5,h6")}:
@@ -61,10 +72,9 @@ def section_text(body):
 def field_material(text):
     lines, publication = [], False
     for line in text.splitlines():
-        label = line.strip().rstrip(":：").casefold()
-        if label in SECTION_KINDS["publications"]:
+        if matches_label(line, SECTION_KINDS["publications"]):
             publication = True
-        elif label in PERSONAL_SECTIONS or label in SECTION_KINDS["research"] or line.startswith("[个人页附件原文："):
+        elif matches_label(line, PERSONAL_SECTIONS) or matches_label(line, SECTION_KINDS["research"]) or line.startswith(("[个人页附件原文：", "[OCR 待复核：")):
             publication = False
         if not publication:
             lines.append(line)
@@ -87,9 +97,22 @@ def refresh_fields(record):
 def extract_html(data, url, selector=None, expected_name=None):
     soup = BeautifulSoup(data, "html.parser")
     page_text = text_of(soup)
-    candidates = name_candidates(soup)
+    seed = content_container(soup)
+    if selector:
+        bodies = soup.select(selector)
+        if len(bodies) != 1:
+            raise ValueError("--selector must match exactly one content container")
+        seed = bodies[0]
+    identity_scope = BeautifulSoup(str(seed or soup.body or soup), "html.parser")
+    for tag in identity_scope.select("nav,footer,aside,script,style"):
+        tag.decompose()
+    candidates = name_candidates(identity_scope)
+    if soup.title:
+        candidates += name_candidates(BeautifulSoup(str(soup.title), "html.parser"))
+    candidates.sort(key=lambda item: -item["score"])
     warnings = []
-    top = {c["value"] for c in candidates if c["score"] == candidates[0]["score"]} if candidates else set()
+    strong = {c["value"] for c in candidates if c["score"] >= 100}
+    top = strong or ({c["value"] for c in candidates if c["score"] == candidates[0]["score"]} if candidates else set())
     name = next(iter(top)) if len(top) == 1 else ""
     name_state = "found" if name else ("conflict" if top else "not_stated")
     if expected_name and clean_name(expected_name) != name:
@@ -98,25 +121,16 @@ def extract_html(data, url, selector=None, expected_name=None):
         name = ""
     layout = structured_profile(soup, {name}) if name else None
     if selector:
-        bodies = soup.select(selector)
-        if len(bodies) != 1:
-            raise ValueError("--selector must match exactly one content container")
-        body, selection = bodies[0], "explicit_selector"
+        body, selection = seed, "explicit_selector"
     elif layout:
         body, selection = layout["body"], layout["rule"]
     else:
-        body = None
-        for pattern in ("main, [role=main]", "article", "#vsb_content, .wp_articlecontent, .v_news_content, .article-content"):
-            matches = soup.select(pattern)
-            if matches:
-                # Multiple sibling CV sections must not collapse to the first.
-                body = matches[0] if len(matches) == 1 else None
-                break
+        body = seed
         selection = "content_container" if body else "whole_page_fallback"
         body = body or soup.body or soup
     card = layout["card"] if layout else profile_card(soup, body, {name} if name else set())
     body_copy = BeautifulSoup(str(body), "html.parser")
-    for tag in body_copy.select("script,style,nav,footer,template,svg"):
+    for tag in body_copy.select("script,style,nav,footer,aside,template,svg"):
         tag.decompose()
     biography = text_of(body_copy)
     if card and re.sub(r"\s+", "", card) not in re.sub(r"\s+", "", biography):

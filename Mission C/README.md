@@ -2,6 +2,8 @@
 
 输入个人主页 URL，独立保存姓名、邮箱、职称、完整简介、研究方向与发表信息。整个目录可搬离主项目使用，不依赖工作台数据库、任务 A/B、旧 MyPlan 或 API 密钥。这是命令行脚本包，没有独立前端页面。
 
+与主工作流的关系：复用了同款 HTTPX、BeautifulSoup、Playwright、pypdf、RapidOCR/pypdfium2 及四个本地判定/媒体模块；独立入口重新组织了调用。主流程的 Crawlee 队列和 DeepSeek 页面选区未移入本包，陌生页面改用可核对的容器规则与 `--selector`。因此它不是主流程逐行拆出的等效副本，不能直接沿用主流程的适配结论。
+
 ## Windows 使用
 
 需要 Python 3.11+，已在 Python 3.12 验证。首次在本目录运行 `setup.bat` 安装基础依赖；需要动态页面和图片识别时运行 `setup.bat --full`。Windows 浏览器读取使用本机 Edge。
