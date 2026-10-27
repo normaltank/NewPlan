@@ -97,6 +97,10 @@ def refresh_fields(record):
 def extract_html(data, url, selector=None, expected_name=None):
     soup = BeautifulSoup(data, "html.parser")
     page_text = text_of(soup)
+    # Apply one ownership boundary before name, layout, card and field recovery.
+    # The unmodified HTML and whole-page text remain separate source evidence.
+    for tag in soup.select("nav,footer,aside"):
+        tag.decompose()
     seed = content_container(soup)
     if selector:
         bodies = soup.select(selector)

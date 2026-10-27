@@ -77,6 +77,22 @@ class FixtureSite(BaseHTTPRequestHandler):
 
 
 class MissionCContract(unittest.TestCase):
+    def test_sidebar_profile_card_cannot_supply_another_persons_email(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            folder = Path(scratch)
+            source = folder / "teacher.html"
+            source.write_text('<meta charset="utf-8"><title>陈晨 - 示例大学</title>'
+                              '<aside><div class="topleft"><h1 class="arti_title">李明</h1>'
+                              '<p>邮箱：liming@example.edu</p></div></aside>'
+                              '<main><h1>陈晨</h1><p>邮箱：chen@example.edu</p></main>', encoding="utf-8")
+            output = folder / "result"
+            run = subprocess.run([sys.executable, str(ROOT / "collect.py"), "--url", "https://example.edu/chen",
+                                  "--html", str(source), "--output", str(output)], capture_output=True)
+            self.assertEqual(run.returncode, 0, run.stderr)
+            record = json.loads((output / "teachers.json").read_text(encoding="utf-8"))[0]
+            self.assertEqual(record["name"], "陈晨")
+            self.assertEqual(record["email"], "chen@example.edu")
+
     def test_known_sibling_name_card_remains_bound_to_the_biography(self):
         with tempfile.TemporaryDirectory() as scratch:
             folder = Path(scratch)
