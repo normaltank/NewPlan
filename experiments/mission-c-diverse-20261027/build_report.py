@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from compare_fetch_four import normalize, location
+from compare_fetch_four import normalize, location, quote_status
 
 OUT = Path(r"D:\Agent Workspace\Intern\MyPlan\OpenSource\Mission C\outputs\diverse-pages-20261027")
 OLD = OUT.parent / "live-tools-20261027"
@@ -71,8 +71,7 @@ def result_brief(row, path):
 def compare_quote(label, quote, source, outputs):
     verified = normalize(quote) in normalize(source)
     return {"section": label, "quote": quote, "source_verified": verified, "source_lines": location(source, quote),
-            "methods": {method: {"status": "unverifiable" if not verified else
-                ("omitted" if normalize(quote) not in normalize(value) else ("retained" if quote in value else "format_changed")),
+            "methods": {method: {"status": quote_status(quote, source, value),
                 "lines": location(value, quote)} for method, value in outputs.items()}}
 
 def main():
