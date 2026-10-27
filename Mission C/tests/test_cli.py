@@ -77,6 +77,22 @@ class FixtureSite(BaseHTTPRequestHandler):
 
 
 class MissionCContract(unittest.TestCase):
+    def test_known_sibling_name_card_remains_bound_to_the_biography(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            folder = Path(scratch)
+            source = folder / "teacher.html"
+            source.write_text('<meta charset="utf-8"><title>师资个人介绍 - 示例大学</title>'
+                              '<div class="topleft"><h1 class="arti_title">陈晨</h1>'
+                              '<p>职称：教授</p><p>邮箱：chen@example.edu</p></div>'
+                              '<div class="wp_articlecontent"><p>陈晨，教授。研究光学。</p></div>', encoding="utf-8")
+            output = folder / "result"
+            run = subprocess.run([sys.executable, str(ROOT / "collect.py"), "--url", "https://example.edu/chen",
+                                  "--html", str(source), "--output", str(output)], capture_output=True)
+            self.assertEqual(run.returncode, 0, run.stderr)
+            record = json.loads((output / "teachers.json").read_text(encoding="utf-8"))[0]
+            self.assertEqual((record["name"], record["title"], record["email"]),
+                             ("陈晨", "教授", "chen@example.edu"))
+
     def test_embedded_object_pdf_is_explicitly_unread_during_offline_replay(self):
         with tempfile.TemporaryDirectory() as scratch:
             folder = Path(scratch)

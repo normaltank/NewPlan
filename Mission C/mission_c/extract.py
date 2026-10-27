@@ -107,6 +107,11 @@ def extract_html(data, url, selector=None, expected_name=None):
     for tag in identity_scope.select("nav,footer,aside,script,style"):
         tag.decompose()
     candidates = name_candidates(identity_scope)
+    # Preserve the existing WebPlus personal-card template while excluding
+    # unrelated site contacts. This is a known card, not a page-wide label scan.
+    for card in soup.select(".topleft"):
+        if card.select_one("h1.arti_title") and not card.find_parent(["aside", "nav", "footer"]):
+            candidates.extend({**candidate, "rule": "known_profile_card"} for candidate in name_candidates(card))
     if soup.title:
         candidates += name_candidates(BeautifulSoup(str(soup.title), "html.parser"))
     candidates.sort(key=lambda item: -item["score"])
