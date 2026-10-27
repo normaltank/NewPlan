@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 import time
+from urllib.parse import parse_qsl, urlsplit
 
 from bs4 import BeautifulSoup
 from deepseek_api import DeepSeekJSON, DEFAULT_MODEL, ApiFailure
@@ -26,12 +27,30 @@ def pager_numbers(soup, nodes, plans):
     for node in containers:
         text = node.get_text(' ', strip=True)
         matches = re.findall(r'(?<!\d)(\d+)\s*/\s*(\d+)(?!\d)', text)
+        matches.extend(re.findall(r'第\s*\[?\s*(\d+)\s*\]?\s*页\s*[,，]?\s*共\s*\[?\s*(\d+)\s*\]?\s*页', text))
         if not matches:
             current, total = node.select_one('.curr_page'), node.select_one('.all_pages')
             if current and total and current.get_text(strip=True).isdigit() and total.get_text(strip=True).isdigit():
                 matches = [(current.get_text(strip=True), total.get_text(strip=True))]
         counters.update((int(a), int(b)) for a, b in matches if 0 < int(a) <= int(b) <= 10000)
     return sorted(counters)
+
+
+def bounded_query_pages(pages, url, counters):
+    """Some CMSs keep generating ?page=N+1 even beyond their declared last page."""
+    if len(counters) != 1:
+        return pages
+    _, total = counters[0]
+    bounded = []
+    for target in pages:
+        parts = urlsplit(target)
+        values = [v for k, v in parse_qsl(parts.query, keep_blank_values=True) if k.lower() == 'page']
+        if parts.path == urlsplit(url).path and len(values) == 1 and values[0].isdigit():
+            number = int(values[0])
+            if number > total:
+                continue
+        bounded.append(target)
+    return bounded
 
 
 def qualification(soup, nodes, anchors, plans, url):
@@ -62,7 +81,7 @@ def qualification(soup, nodes, anchors, plans, url):
     result = {'complete': not issues, 'issues': list(dict.fromkeys(issues)), 'notes': [],
               'links': {u: {'url': u, 'names': v['names'], 'occurrences': len(v['anchor_ids'])} for u, v in a['links'].items()},
               'anchors': [], 'title': soup.title.get_text(' ', strip=True) if soup.title else '',
-              'root_count': len(a['selected_regions']), 'pagination_urls': a['pagination_urls'],
+              'root_count': len(a['selected_regions']), 'pagination_urls': bounded_query_pages(a['pagination_urls'], url, counters),
               'pager_counters': counters}
     for aid, anchor in anchors.items():
         owner = next((j for j, rid in enumerate(a['selected_regions'], 1)
