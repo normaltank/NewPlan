@@ -56,7 +56,7 @@ Excel 简介超长时明确指向全文 TXT，JSON/CSV/TXT 始终保留全文。
 
 已验证合成样本的长简介、多栏目、字段归属、PDF、动态页面、本地 OCR、失败隔离和目录独立运行。另完成指定主页与四个新主页的 [有限真实对照](https://github.com/normaltank/NewPlan/issues/22)，本地结果在 `outputs/live-tools-20261027/`。单页读取和工具输出仍不代表任意网站适配或全院采齐；主包没有自动接入这些实验工具。
 
-后续[固定20页多结构对照](../experiments/mission-c-diverse-20261027/REPORT.md)复用旧五页，新增15页Fetch与代表浏览器/框架、3张当前图OCR/Docling；总报告、机读摘要和证据索引位于 `outputs/diverse-pages-20261027/`。新增PDF本机转换及分立CV/论文导航仍未验证；全部为保留缺口的实验候选。
+后续[固定20页多结构对照](https://github.com/normaltank/NewPlan/blob/codex/mission-c-live-tools/experiments/mission-c-diverse-20261027/REPORT.md)复用旧五页，新增15页Fetch与代表浏览器/框架、3张当前图OCR/Docling；总报告、机读摘要和证据索引位于 `outputs/diverse-pages-20261027/`。新增PDF本机转换及分立CV/论文导航仍未验证；全部为保留缺口的实验候选。
 
 ## 维护
 

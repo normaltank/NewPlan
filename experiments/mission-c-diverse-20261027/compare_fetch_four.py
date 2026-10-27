@@ -125,11 +125,16 @@ def location(text, quote):
     return {"start_line": start + 1, "end_line": end + 1, "matched_normalized_excerpt": target}
 
 
+def quote_status(quote, source, target):
+    if normalize(quote) not in normalize(source):
+        return "unverifiable"
+    if normalize(quote) not in normalize(target):
+        return "omitted"
+    return "retained" if quote in target else "format_changed"
+
+
 def check(label, quote, source, fetched, selected):
-    in_source = normalize(quote) in normalize(source)
-    in_fetch = normalize(quote) in normalize(fetched)
-    status = "unverifiable" if not in_source else ("omitted" if not in_fetch else ("retained" if quote in fetched else "format_changed"))
-    return {"label": label, "reference_quote": quote, "status": status,
+    return {"label": label, "reference_quote": quote, "status": quote_status(quote, source, fetched),
             "official_html_visible_text": location(source, quote),
             "fetch_text": location(fetched, quote),
             "saved_ds_selected_text_contains": normalize(quote) in normalize(selected)}
