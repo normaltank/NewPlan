@@ -4,6 +4,7 @@ OpenSource 已作为当前项目使用；本目录继续承担隔离对照，不
 
 | 目录／报告 | 内容与当前定位 |
 | --- | --- |
+| [Mission C 多结构20页对照](mission-c-diverse-20261027/REPORT.md) | 固定15新页与5旧页缓存；Fetch、代表浏览器/框架、3张当前图OCR/Docling；失败与未验证PDF分别记录，属于实验候选 |
 | [Mission C 真实主页对照](mission-c-live-20261027/REPORT.md) | 指定主页与四个新主页；HTTP/浏览器/Crawlee/Crawl4AI/Trafilatura及有限DS，属于实验候选 |
 | [DeepSeek Fetch](deepseek-fetch-20261018/REPORT.md) | 保存主流程副本进行典型学院对照；当前未替换主流程获取模块 |
 | [网页与文档工具对照](tool-comparison-20261018/REPORT.md) | Firecrawl、Jina、Docling 的页面／文档样本；Docling 本地环境和模型保留供后续验证 |

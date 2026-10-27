@@ -1,0 +1,11 @@
+{
+  "id": "n07_toronto_hinton",
+  "source": null,
+  "fields": {},
+  "checkpoints": [],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "原版/正常Edge无法核实robots，Crawlee TLS失败，C4连接关闭，Fetch提供方504。单机/单次失败不能判永久失效。CV/Brief Biography/论文均未读。",
+  "scope_gaps": [
+    "CLI robots_unavailable；provider读取到英文页面但本机无原件，不给本机字段准确率"
+  ]
+}

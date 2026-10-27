@@ -1,0 +1,11 @@
+{
+  "id": "n14_berkeley_jordan",
+  "source": null,
+  "fields": {},
+  "checkpoints": [],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "原版robots_unavailable；Fetch英文长文可查但无本地原件，无法独立核实全量/当前任职。本人和管理员联系区必须区分，未自动采用任何邮箱；jordan-cv.pdf未读。",
+  "scope_gaps": [
+    "CLI robots_unavailable；官方搜索主页和jordan-cv.pdf仅为provider线索，不计本机PDF覆盖；管理员邮箱不能归本人"
+  ]
+}

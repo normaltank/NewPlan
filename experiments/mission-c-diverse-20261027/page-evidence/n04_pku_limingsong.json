@@ -1,0 +1,11 @@
+{
+  "id": "n04_pku_limingsong",
+  "source": null,
+  "fields": {},
+  "checkpoints": [],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "本机原版robots_unavailable；Fetch个人简介停在‘中生代...’，保留查看更多/分立教育科研导航。无法用提供方文本自行证明被截断部分或CV PDF完整。",
+  "scope_gaps": [
+    "CLI robots_unavailable；资料代理provider页面线索和PDF搜索不作本机官网原件真值"
+  ]
+}

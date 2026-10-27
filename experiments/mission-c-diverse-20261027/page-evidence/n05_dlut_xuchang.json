@@ -1,0 +1,525 @@
+{
+  "id": "n05_dlut_xuchang",
+  "source": {
+    "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n05_dlut_xuchang\\cli\\0001\\source.html",
+    "sha256": "de1ac37e29a1b443282fadcc6d7f79aaa50f54afc91f1ee33bad377519f44a0c",
+    "bytes": 38662
+  },
+  "fields": {
+    "name": {
+      "source_value": "许畅",
+      "source_lines": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "许畅"
+      },
+      "baseline": "",
+      "baseline_matches": false,
+      "fetch_raw_presence": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "许畅"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "browser": "",
+        "crawlee": "",
+        "crawl4ai": "",
+        "trafilatura": ""
+      }
+    },
+    "title": {
+      "source_value": "教授",
+      "source_lines": {
+        "start_line": 27,
+        "end_line": 27,
+        "matched_normalized_excerpt": "教授"
+      },
+      "baseline": "",
+      "baseline_matches": false,
+      "fetch_raw_presence": {
+        "start_line": 7,
+        "end_line": 7,
+        "matched_normalized_excerpt": "教授"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "browser": "",
+        "crawlee": "",
+        "crawl4ai": "",
+        "trafilatura": ""
+      }
+    }
+  },
+  "checkpoints": [
+    {
+      "section": "简介首",
+      "quote": "教授，博士生导师，入选国家级青年人才",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 40,
+        "end_line": 40,
+        "matched_normalized_excerpt": "教授,博士生导师,入选国家级青年人才"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 39,
+            "end_line": 39,
+            "matched_normalized_excerpt": "教授,博士生导师,入选国家级青年人才"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 29,
+            "end_line": 29,
+            "matched_normalized_excerpt": "教授,博士生导师,入选国家级青年人才"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 39,
+            "end_line": 39,
+            "matched_normalized_excerpt": "教授,博士生导师,入选国家级青年人才"
+          }
+        },
+        "crawlee_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 40,
+            "end_line": 40,
+            "matched_normalized_excerpt": "教授,博士生导师,入选国家级青年人才"
+          }
+        },
+        "crawl4ai_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 44,
+            "end_line": 44,
+            "matched_normalized_excerpt": "教授,博士生导师,入选国家级青年人才"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 12,
+            "end_line": 12,
+            "matched_normalized_excerpt": "教授,博士生导师,入选国家级青年人才"
+          }
+        }
+      }
+    },
+    {
+      "section": "代表论文中",
+      "quote": "Experimental Investigation of Surfactant Effects on Gravity–Capillary Wave Dissipation and Surface Flow",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 72,
+        "end_line": 72,
+        "matched_normalized_excerpt": "ExperimentalInvestigationofSurfactantEffectsonGravity–CapillaryWaveDissipationandSurfaceFlow"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 71,
+            "end_line": 71,
+            "matched_normalized_excerpt": "ExperimentalInvestigationofSurfactantEffectsonGravity–CapillaryWaveDissipationandSurfaceFlow"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 73,
+            "end_line": 73,
+            "matched_normalized_excerpt": "ExperimentalInvestigationofSurfactantEffectsonGravity–CapillaryWaveDissipationandSurfaceFlow"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 131,
+            "end_line": 131,
+            "matched_normalized_excerpt": "ExperimentalInvestigationofSurfactantEffectsonGravity–CapillaryWaveDissipationandSurfaceFlow"
+          }
+        },
+        "crawlee_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 72,
+            "end_line": 72,
+            "matched_normalized_excerpt": "ExperimentalInvestigationofSurfactantEffectsonGravity–CapillaryWaveDissipationandSurfaceFlow"
+          }
+        },
+        "crawl4ai_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 83,
+            "end_line": 83,
+            "matched_normalized_excerpt": "ExperimentalInvestigationofSurfactantEffectsonGravity–CapillaryWaveDissipationandSurfaceFlow"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 25,
+            "end_line": 25,
+            "matched_normalized_excerpt": "ExperimentalInvestigationofSurfactantEffectsonGravity–CapillaryWaveDissipationandSurfaceFlow"
+          }
+        }
+      }
+    },
+    {
+      "section": "经历尾",
+      "quote": "2022.07 2026.08 美国德州农工大学 研究助理教授",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 122,
+        "end_line": 125,
+        "matched_normalized_excerpt": "2022.072026.08美国德州农工大学研究助理教授"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 121,
+            "end_line": 124,
+            "matched_normalized_excerpt": "2022.072026.08美国德州农工大学研究助理教授"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "omitted",
+          "lines": null
+        },
+        "browser_raw": {
+          "status": "omitted",
+          "lines": null
+        },
+        "crawlee_raw": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 122,
+            "end_line": 125,
+            "matched_normalized_excerpt": "2022.072026.08美国德州农工大学研究助理教授"
+          }
+        },
+        "crawl4ai_raw": {
+          "status": "omitted",
+          "lines": null
+        },
+        "trafilatura_raw": {
+          "status": "omitted",
+          "lines": null
+        }
+      }
+    },
+    {
+      "section": "教育",
+      "quote": "2017-2022",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 45,
+        "end_line": 45,
+        "matched_normalized_excerpt": "2017-2022"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 44,
+            "end_line": 44,
+            "matched_normalized_excerpt": "2017-2022"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 39,
+            "end_line": 39,
+            "matched_normalized_excerpt": "2017-2022"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 57,
+            "end_line": 57,
+            "matched_normalized_excerpt": "2017-2022"
+          }
+        },
+        "crawlee_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 45,
+            "end_line": 45,
+            "matched_normalized_excerpt": "2017-2022"
+          }
+        },
+        "crawl4ai_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 62,
+            "end_line": 62,
+            "matched_normalized_excerpt": "2017-2022"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 17,
+            "end_line": 17,
+            "matched_normalized_excerpt": "2017-2022"
+          }
+        }
+      }
+    },
+    {
+      "section": "研究",
+      "quote": "非线性波浪力学",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 58,
+        "end_line": 58,
+        "matched_normalized_excerpt": "非线性波浪力学"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 57,
+            "end_line": 57,
+            "matched_normalized_excerpt": "非线性波浪力学"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 67,
+            "end_line": 67,
+            "matched_normalized_excerpt": "非线性波浪力学"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 122,
+            "end_line": 122,
+            "matched_normalized_excerpt": "非线性波浪力学"
+          }
+        },
+        "crawlee_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 58,
+            "end_line": 58,
+            "matched_normalized_excerpt": "非线性波浪力学"
+          }
+        },
+        "crawl4ai_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 78,
+            "end_line": 78,
+            "matched_normalized_excerpt": "非线性波浪力学"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 22,
+            "end_line": 22,
+            "matched_normalized_excerpt": "非线性波浪力学"
+          }
+        }
+      }
+    },
+    {
+      "section": "项目1",
+      "quote": "Developing a Framework for Modeling Texas Coast Waves and Validation",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 88,
+        "end_line": 88,
+        "matched_normalized_excerpt": "DevelopingaFrameworkforModelingTexasCoastWavesandValidation"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 87,
+            "end_line": 87,
+            "matched_normalized_excerpt": "DevelopingaFrameworkforModelingTexasCoastWavesandValidation"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 81,
+            "end_line": 81,
+            "matched_normalized_excerpt": "DevelopingaFrameworkforModelingTexasCoastWavesandValidation"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 141,
+            "end_line": 141,
+            "matched_normalized_excerpt": "DevelopingaFrameworkforModelingTexasCoastWavesandValidation"
+          }
+        },
+        "crawlee_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 88,
+            "end_line": 88,
+            "matched_normalized_excerpt": "DevelopingaFrameworkforModelingTexasCoastWavesandValidation"
+          }
+        },
+        "crawl4ai_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 93,
+            "end_line": 93,
+            "matched_normalized_excerpt": "DevelopingaFrameworkforModelingTexasCoastWavesandValidation"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 29,
+            "end_line": 29,
+            "matched_normalized_excerpt": "DevelopingaFrameworkforModelingTexasCoastWavesandValidation"
+          }
+        }
+      }
+    },
+    {
+      "section": "项目2",
+      "quote": "Next Wave: Advancing Undergraduate Education in Marine Renewable Energy",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 91,
+        "end_line": 91,
+        "matched_normalized_excerpt": "NextWave:AdvancingUndergraduateEducationinMarineRenewableEnergy"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 90,
+            "end_line": 90,
+            "matched_normalized_excerpt": "NextWave:AdvancingUndergraduateEducationinMarineRenewableEnergy"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 83,
+            "end_line": 83,
+            "matched_normalized_excerpt": "NextWave:AdvancingUndergraduateEducationinMarineRenewableEnergy"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 143,
+            "end_line": 143,
+            "matched_normalized_excerpt": "NextWave:AdvancingUndergraduateEducationinMarineRenewableEnergy"
+          }
+        },
+        "crawlee_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 91,
+            "end_line": 91,
+            "matched_normalized_excerpt": "NextWave:AdvancingUndergraduateEducationinMarineRenewableEnergy"
+          }
+        },
+        "crawl4ai_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 94,
+            "end_line": 94,
+            "matched_normalized_excerpt": "NextWave:AdvancingUndergraduateEducationinMarineRenewableEnergy"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 30,
+            "end_line": 30,
+            "matched_normalized_excerpt": "NextWave:AdvancingUndergraduateEducationinMarineRenewableEnergy"
+          }
+        }
+      }
+    },
+    {
+      "section": "论文尾",
+      "quote": "Gravity–Capillary Multi-Component Wave Patterns Generated by a Single-Frequency Wave-Maker Oscillation and Subsequent Resonances",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 82,
+        "end_line": 82,
+        "matched_normalized_excerpt": "Gravity–CapillaryMulti-ComponentWavePatternsGeneratedbyaSingle-FrequencyWave-MakerOscillationandSubsequentResonances"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 81,
+            "end_line": 81,
+            "matched_normalized_excerpt": "Gravity–CapillaryMulti-ComponentWavePatternsGeneratedbyaSingle-FrequencyWave-MakerOscillationandSubsequentResonances"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 77,
+            "end_line": 77,
+            "matched_normalized_excerpt": "Gravity–CapillaryMulti-ComponentWavePatternsGeneratedbyaSingle-FrequencyWave-MakerOscillationandSubsequentResonances"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 135,
+            "end_line": 135,
+            "matched_normalized_excerpt": "Gravity–CapillaryMulti-ComponentWavePatternsGeneratedbyaSingle-FrequencyWave-MakerOscillationandSubsequentResonances"
+          }
+        },
+        "crawlee_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 82,
+            "end_line": 82,
+            "matched_normalized_excerpt": "Gravity–CapillaryMulti-ComponentWavePatternsGeneratedbyaSingle-FrequencyWave-MakerOscillationandSubsequentResonances"
+          }
+        },
+        "crawl4ai_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 85,
+            "end_line": 85,
+            "matched_normalized_excerpt": "Gravity–CapillaryMulti-ComponentWavePatternsGeneratedbyaSingle-FrequencyWave-MakerOscillationandSubsequentResonances"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 27,
+            "end_line": 27,
+            "matched_normalized_excerpt": "Gravity–CapillaryMulti-ComponentWavePatternsGeneratedbyaSingle-FrequencyWave-MakerOscillationandSubsequentResonances"
+          }
+        }
+      }
+    }
+  ],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "Fetch保留主简介教育表、研究、3篇代表作、2主持项目、招生；HTML尾部重复的教育/工作模板条目未保留。正常Edge与C4渲染HTML的重复模板和HTTP不同。Fetch邮箱明文未由本地原件解码核实；表格被线性化。",
+  "scope_gaps": [
+    "正文教育表格与后段模板教育/工作重复；科学研究等分立子页未遍历"
+  ]
+}

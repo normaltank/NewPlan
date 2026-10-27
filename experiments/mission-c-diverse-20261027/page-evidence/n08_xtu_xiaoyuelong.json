@@ -1,0 +1,254 @@
+{
+  "id": "n08_xtu_xiaoyuelong",
+  "source": {
+    "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n08_xtu_xiaoyuelong\\cli\\0001\\source.html",
+    "sha256": "b05830fb467d8fa124e80e2a09fc6adc8d21505e4c06acf43b6c90ce2594cfa8",
+    "bytes": 22731
+  },
+  "fields": {
+    "name": {
+      "source_value": "肖跃龙",
+      "source_lines": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "肖跃龙"
+      },
+      "baseline": "肖跃龙",
+      "baseline_matches": true,
+      "fetch_raw_presence": {
+        "start_line": 3,
+        "end_line": 3,
+        "matched_normalized_excerpt": "肖跃龙"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "trafilatura": "肖跃龙"
+      }
+    },
+    "title": {
+      "source_value": "教授",
+      "source_lines": {
+        "start_line": 84,
+        "end_line": 84,
+        "matched_normalized_excerpt": "教授"
+      },
+      "baseline": "教授",
+      "baseline_matches": true,
+      "fetch_raw_presence": {
+        "start_line": 11,
+        "end_line": 11,
+        "matched_normalized_excerpt": "教授"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "trafilatura": "教授"
+      }
+    },
+    "email": {
+      "source_value": "xyl@xtu.edu.cn",
+      "source_lines": {
+        "start_line": 86,
+        "end_line": 86,
+        "matched_normalized_excerpt": "xyl@xtu.edu.cn"
+      },
+      "baseline": "xyl@xtu.edu.cn",
+      "baseline_matches": true,
+      "fetch_raw_presence": {
+        "start_line": 13,
+        "end_line": 13,
+        "matched_normalized_excerpt": "xyl@xtu.edu.cn"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "trafilatura": "xyl@xtu.edu.cn"
+      }
+    }
+  },
+  "checkpoints": [
+    {
+      "section": "首",
+      "quote": "姓名：肖跃龙",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 83,
+        "end_line": 83,
+        "matched_normalized_excerpt": "姓名:肖跃龙"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 82,
+            "end_line": 82,
+            "matched_normalized_excerpt": "姓名:肖跃龙"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 9,
+            "end_line": 9,
+            "matched_normalized_excerpt": "姓名:肖跃龙"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 2,
+            "end_line": 2,
+            "matched_normalized_excerpt": "姓名:肖跃龙"
+          }
+        }
+      }
+    },
+    {
+      "section": "研究中",
+      "quote": "非线性偏微分方程",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 110,
+        "end_line": 110,
+        "matched_normalized_excerpt": "非线性偏微分方程"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 109,
+            "end_line": 109,
+            "matched_normalized_excerpt": "非线性偏微分方程"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 49,
+            "end_line": 49,
+            "matched_normalized_excerpt": "非线性偏微分方程"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 23,
+            "end_line": 23,
+            "matched_normalized_excerpt": "非线性偏微分方程"
+          }
+        }
+      }
+    },
+    {
+      "section": "末论文",
+      "quote": "10.1002/mma.4443",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 144,
+        "end_line": 144,
+        "matched_normalized_excerpt": "10.1002/mma.4443"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 143,
+            "end_line": 143,
+            "matched_normalized_excerpt": "10.1002/mma.4443"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 77,
+            "end_line": 77,
+            "matched_normalized_excerpt": "10.1002/mma.4443"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 37,
+            "end_line": 37,
+            "matched_normalized_excerpt": "10.1002/mma.4443"
+          }
+        }
+      }
+    },
+    {
+      "section": "教育",
+      "quote": "博士",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 12,
+        "end_line": 12,
+        "matched_normalized_excerpt": "博士"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 11,
+            "end_line": 11,
+            "matched_normalized_excerpt": "博士"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 19,
+            "end_line": 19,
+            "matched_normalized_excerpt": "博士"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 7,
+            "end_line": 7,
+            "matched_normalized_excerpt": "博士"
+          }
+        }
+      }
+    },
+    {
+      "section": "论文",
+      "quote": "10.1002/mma.4443",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 144,
+        "end_line": 144,
+        "matched_normalized_excerpt": "10.1002/mma.4443"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 143,
+            "end_line": 143,
+            "matched_normalized_excerpt": "10.1002/mma.4443"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "format_changed",
+          "lines": {
+            "start_line": 77,
+            "end_line": 77,
+            "matched_normalized_excerpt": "10.1002/mma.4443"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 37,
+            "end_line": 37,
+            "matched_normalized_excerpt": "10.1002/mma.4443"
+          }
+        }
+      }
+    }
+  ],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "CMS长正文可读；独立参照核对姓名、教授和本人邮箱，以及研究与末论文。Fetch与Trafilatura逐段保留/遗漏见page-evidence，周边新闻不属本人。仍不以局部检查证明全部原文逐字完整。",
+  "scope_gaps": [
+    "周边新闻和上一/下一位教师链接不是本人正文"
+  ]
+}

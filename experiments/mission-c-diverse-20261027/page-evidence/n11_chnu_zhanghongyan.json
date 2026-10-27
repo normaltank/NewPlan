@@ -1,0 +1,70 @@
+{
+  "id": "n11_chnu_zhanghongyan",
+  "source": {
+    "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n11_chnu_zhanghongyan\\cli\\0001\\source.html",
+    "sha256": "32ba5f6d5fdc5530be9eba8d5fa729ddae0efed48d829cbb83d3e33d5b3db902",
+    "bytes": 47468
+  },
+  "fields": {
+    "name": {
+      "source_value": "张红岩",
+      "source_lines": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "张红岩"
+      },
+      "baseline": "张红岩",
+      "baseline_matches": true,
+      "fetch_raw_presence": {
+        "start_line": 5,
+        "end_line": 5,
+        "matched_normalized_excerpt": "张红岩"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "trafilatura": "张红岩"
+      }
+    }
+  },
+  "checkpoints": [
+    {
+      "section": "页面标题",
+      "quote": "美术学院研究生导师——张红岩",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "美术学院研究生导师——张红岩"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "美术学院研究生导师——张红岩"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 5,
+            "end_line": 5,
+            "matched_normalized_excerpt": "美术学院研究生导师——张红岩"
+          }
+        },
+        "trafilatura_raw": {
+          "status": "omitted",
+          "lines": null
+        }
+      }
+    }
+  ],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "Fetch含3张图对应文字，但当前首图下载失败，姓名之外的首图履历/副教授只能称提供方内容，历史首图不混为本次证据。当前第2/3图中科研/专利/教研尾段能核对；Fetch出现表格单元整段与线性段重复，项目号有OCR差异，不能照抄为准确全文。",
+  "scope_gaps": [
+    "当前正文3张图；第一张下载network_error，保留失败不重试；第2/3张本机原件已保存并视觉读",
+    "历史第一张原图hash见documents.json，本轮只重看历史图片，不宣称当前第一张已取回；职称不计当前字段真值",
+    "baseline未启用OCR，图片内研究/成果未进入简介"
+  ]
+}

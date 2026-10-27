@@ -1,0 +1,203 @@
+{
+  "id": "n01_ustc_weizian",
+  "source": {
+    "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n01_ustc_weizian\\cli\\0001\\source.html",
+    "sha256": "e754d63919ae17a01083c1c6c42f57fefa291fe30e46a635c0987c2da2aff5ab",
+    "bytes": 21232
+  },
+  "fields": {
+    "name": {
+      "source_value": "卫子安",
+      "source_lines": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "卫子安"
+      },
+      "baseline": "中文主页",
+      "baseline_matches": false,
+      "fetch_raw_presence": {
+        "start_line": 1,
+        "end_line": 1,
+        "matched_normalized_excerpt": "卫子安"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "trafilatura": "中文主页"
+      }
+    },
+    "title": {
+      "source_value": "高级工程师",
+      "source_lines": {
+        "start_line": 12,
+        "end_line": 12,
+        "matched_normalized_excerpt": "高级工程师"
+      },
+      "baseline": "",
+      "baseline_matches": false,
+      "fetch_raw_presence": {
+        "start_line": 5,
+        "end_line": 5,
+        "matched_normalized_excerpt": "高级工程师"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "trafilatura": ""
+      }
+    }
+  },
+  "checkpoints": [
+    {
+      "section": "简介首",
+      "quote": "现任职于中国科学技术大学核科学技术学院",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 26,
+        "end_line": 26,
+        "matched_normalized_excerpt": "现任职于中国科学技术大学核科学技术学院"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 25,
+            "end_line": 25,
+            "matched_normalized_excerpt": "现任职于中国科学技术大学核科学技术学院"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "omitted",
+          "lines": null
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 12,
+            "end_line": 12,
+            "matched_normalized_excerpt": "现任职于中国科学技术大学核科学技术学院"
+          }
+        }
+      }
+    },
+    {
+      "section": "研究中",
+      "quote": "等离子体波动、等离子体鞘层、尘埃等离子体",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 26,
+        "end_line": 26,
+        "matched_normalized_excerpt": "等离子体波动、等离子体鞘层、尘埃等离子体"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 25,
+            "end_line": 25,
+            "matched_normalized_excerpt": "等离子体波动、等离子体鞘层、尘埃等离子体"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "omitted",
+          "lines": null
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 12,
+            "end_line": 12,
+            "matched_normalized_excerpt": "等离子体波动、等离子体鞘层、尘埃等离子体"
+          }
+        }
+      }
+    },
+    {
+      "section": "工作经历尾",
+      "quote": "国际空间站PK-4项目尘埃云团数据分析",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 59,
+        "end_line": 59,
+        "matched_normalized_excerpt": "国际空间站PK-4项目尘埃云团数据分析"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 58,
+            "end_line": 58,
+            "matched_normalized_excerpt": "国际空间站PK-4项目尘埃云团数据分析"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "omitted",
+          "lines": null
+        },
+        "trafilatura_raw": {
+          "status": "omitted",
+          "lines": null
+        }
+      }
+    },
+    {
+      "section": "教育",
+      "quote": "教育经历",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 27,
+        "end_line": 27,
+        "matched_normalized_excerpt": "教育经历"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 26,
+            "end_line": 26,
+            "matched_normalized_excerpt": "教育经历"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "omitted",
+          "lines": null
+        },
+        "trafilatura_raw": {
+          "status": "omitted",
+          "lines": null
+        }
+      }
+    },
+    {
+      "section": "工作",
+      "quote": "工作经历",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 29,
+        "end_line": 29,
+        "matched_normalized_excerpt": "工作经历"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 28,
+            "end_line": 28,
+            "matched_normalized_excerpt": "工作经历"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "omitted",
+          "lines": null
+        },
+        "trafilatura_raw": {
+          "status": "omitted",
+          "lines": null
+        }
+      }
+    }
+  ],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "Fetch只返回个人信息/联系方式；保存原件中的本人简介、研究方向、教育和工作经历均未进入Fetch。Fetch新增明文邮箱仅属提供方候选，原HTML邮箱是编码串，本轮未解码核实。",
+  "scope_gaps": [
+    "科学研究/教学/获奖/招生为分立链接，未遍历；邮箱明文未确认"
+  ]
+}

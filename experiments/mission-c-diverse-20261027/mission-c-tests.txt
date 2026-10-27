@@ -1,0 +1,19 @@
+test_batch_urls_keep_success_and_report_unavailable_or_disallowed_pages (test_cli.MissionCContract.test_batch_urls_keep_success_and_report_unavailable_or_disallowed_pages) ... ok
+test_detached_folder_runs_and_name_conflict_does_not_guess (test_cli.MissionCContract.test_detached_folder_runs_and_name_conflict_does_not_guess) ... ok
+test_dynamic_page_can_be_explicitly_rendered (test_cli.MissionCContract.test_dynamic_page_can_be_explicitly_rendered) ... skipped 'optional browser/OCR integration'
+test_embedded_object_pdf_is_explicitly_unread_during_offline_replay (test_cli.MissionCContract.test_embedded_object_pdf_is_explicitly_unread_during_offline_replay) ... ok
+test_empty_links_do_not_abort_a_readable_homepage (test_cli.MissionCContract.test_empty_links_do_not_abort_a_readable_homepage) ... ok
+test_export_keeps_long_text_and_treats_sheet_values_as_data (test_cli.MissionCContract.test_export_keeps_long_text_and_treats_sheet_values_as_data) ... ok
+test_image_text_is_an_explicit_local_ocr_candidate (test_cli.MissionCContract.test_image_text_is_an_explicit_local_ocr_candidate) ... skipped 'optional browser/OCR integration'
+test_known_sibling_name_card_remains_bound_to_the_biography (test_cli.MissionCContract.test_known_sibling_name_card_remains_bound_to_the_biography) ... ok
+test_profile_pdf_full_text_is_saved_and_unread_images_are_reported (test_cli.MissionCContract.test_profile_pdf_full_text_is_saved_and_unread_images_are_reported) ... ok
+test_publication_contact_and_supervisor_rank_are_not_personal_fields (test_cli.MissionCContract.test_publication_contact_and_supervisor_rank_are_not_personal_fields) ... ok
+test_saved_homepage_retains_complete_biography_and_evidence (test_cli.MissionCContract.test_saved_homepage_retains_complete_biography_and_evidence) ... ok
+test_separate_profile_sections_are_not_silently_dropped (test_cli.MissionCContract.test_separate_profile_sections_are_not_silently_dropped) ... ok
+test_sidebar_name_cannot_own_the_teachers_fields (test_cli.MissionCContract.test_sidebar_name_cannot_own_the_teachers_fields) ... ok
+test_sidebar_profile_card_cannot_supply_another_persons_email (test_cli.MissionCContract.test_sidebar_profile_card_cannot_supply_another_persons_email) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 20.693s
+
+OK (skipped=2)

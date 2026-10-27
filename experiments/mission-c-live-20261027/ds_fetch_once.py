@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import sys
 
@@ -16,10 +17,18 @@ import httpx
 
 async def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--sample", choices=[sample["id"] for sample in SAMPLES], default="lzjtu")
+    parser.add_argument("--sample", default="lzjtu")
+    parser.add_argument("--manifest", type=Path, help="Explicit fixed samples; at most 15 unique safe IDs")
     parser.add_argument("--output-root", type=Path, default=OUT)
     args = parser.parse_args()
-    sample = next(sample for sample in SAMPLES if sample["id"] == args.sample)
+    samples = json.loads(args.manifest.read_text(encoding="utf-8-sig"))["samples"] if args.manifest else SAMPLES
+    if not 1 <= len(samples) <= 15 or len({x["id"] for x in samples}) != len(samples):
+        parser.error("Require 1..15 unique selected samples")
+    if any(not re.fullmatch(r"[a-z0-9_-]+", x["id"]) or not x["url"].startswith(("https://", "http://")) for x in samples):
+        parser.error("Require safe sample IDs and explicit HTTP(S) URLs")
+    sample = next((sample for sample in samples if sample["id"] == args.sample), None)
+    if sample is None:
+        parser.error("Unknown selected sample")
     folder = args.output_root / "deepseek-fetch" / sample["id"]
     folder.mkdir(parents=True, exist_ok=True)
     summary = folder / "result.json"
