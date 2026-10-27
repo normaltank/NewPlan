@@ -1,0 +1,44 @@
+{
+  "collection_code_commit": "1a2d63cbc5035361456a9bcf90a819c61d2139de",
+  "integrated_tip_before_delivery": "a16e1446a4dc690690075a22ba20f2c725eb0baa",
+  "production_sources_sha256": {
+    "Mission C\\collect.py": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "Mission C\\mission_c\\cli.py": "93086bc11f5d940791612417f441a29db0c82728822878b80256adca99e37a45",
+    "Mission C\\mission_c\\export.py": "65d02c4abb36ea1b46c04085b6302ade4688fb332432d9de3238cf91539a503e",
+    "Mission C\\mission_c\\extract.py": "e76bc7a2acb4874f8f0289beb0a175a3a5f6e4fd9d34c58b604ca3da59ecc721",
+    "Mission C\\mission_c\\fetch.py": "cc1775b91620cfbc1bfed52468b930c6f88165f1d85032f13b223c25b4b74d0e",
+    "Mission C\\mission_c\\media.py": "44b317ac491f562f20a6148dd3afd6033610f563645025ef214fa25ada2fbe5c",
+    "Mission C\\mission_c\\ocr_media.py": "0a0d169adf096dafe33332d94456830d932d8a1046d670fe6d5cb9a0eabaa240",
+    "Mission C\\mission_c\\person_names.py": "b7d9a0182c6d6f08d5361dfad14688b81b255459f564a0acf2d20810c606a7f3",
+    "Mission C\\mission_c\\profile_layouts.py": "d454ae078b309387250671c3f318bcc8b78bbd9d2e9f8e40b534a8e750e4b71c",
+    "Mission C\\mission_c\\quality_fields.py": "3a14e3c206c7ffbc54ede86c0358883e738bb3859e69b59583e107c98f081517",
+    "Mission C\\mission_c\\render.py": "c37216e9b7a0c7afeed7287ed844e92996f0e5bd394b2c35d90d0869d8def1ab",
+    "Mission C\\mission_c\\__init__.py": "8af00f25415eb1a211a1e8a7160bd42a18168cb269077595b92aa6bf96af0594",
+    "Mission C\\tests\\test_cli.py": "8c557c2b7b85fb367d1c99d4b6d711af592e90d3e4693cb671920e3d67a20bc3"
+  },
+  "tdd_red": {
+    "test": "test_saved_page_retains_person_and_tail_and_reentry_reuses_result",
+    "result": "FAIL: exit2 cannot open cohort_run.py (file did not exist)"
+  },
+  "tdd_green": {
+    "tests": 1,
+    "result": "OK",
+    "log": "cohort-cli-tests.txt",
+    "after_integration": true
+  },
+  "production_cli_suite": {
+    "tests": 14,
+    "passed": 12,
+    "skipped": 2,
+    "result": "OK",
+    "optional_render_ocr": "not_enabled"
+  },
+  "selected_count": 15,
+  "candidate_count": 18,
+  "source_html_saved": 9,
+  "robots_unavailable": 6,
+  "current_image_attempts": 4,
+  "current_images_saved": 3,
+  "current_image_network_failures": 1,
+  "paid_api_calls": 0
+}

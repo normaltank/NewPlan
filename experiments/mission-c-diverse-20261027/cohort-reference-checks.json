@@ -1,0 +1,474 @@
+[
+  {
+    "id": "n01_ustc_weizian",
+    "basis": "cli/0001/source.html",
+    "gaps": [
+      "科学研究/教学/获奖/招生为分立链接，未遍历；邮箱明文未确认"
+    ],
+    "source_sha256": "e754d63919ae17a01083c1c6c42f57fefa291fe30e46a635c0987c2da2aff5ab",
+    "final_url": "https://faculty.ustc.edu.cn/weizian/zh_CN/index.htm",
+    "source_verified": true,
+    "fields": {
+      "name": {
+        "expected": "卫子安",
+        "observed": "中文主页",
+        "matches": false
+      },
+      "title": {
+        "expected": "高级工程师",
+        "observed": "",
+        "matches": false
+      }
+    },
+    "anchors": [
+      {
+        "region": "简介首",
+        "text": "现任职于中国科学技术大学核科学技术学院",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      },
+      {
+        "region": "研究中",
+        "text": "等离子体波动、等离子体鞘层、尘埃等离子体",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      },
+      {
+        "region": "工作经历尾",
+        "text": "国际空间站PK-4项目尘埃云团数据分析",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      }
+    ],
+    "visual_references": []
+  },
+  {
+    "id": "n02_zju_yingxiaoying",
+    "basis": "cli/0001/source.html",
+    "gaps": [
+      "HTTP原件只有个人元数据和栏目名，未取到学习/工作/成果正文；不能由script存在推定JS渲染成功"
+    ],
+    "source_sha256": "91130859ae152643361af18c6600742b9ebe46144a069856b841a740b690fafc",
+    "final_url": "https://person.zju.edu.cn/0002306/732435.html",
+    "source_verified": true,
+    "fields": {
+      "name": {
+        "expected": "应晓英",
+        "observed": "",
+        "matches": false
+      },
+      "title": {
+        "expected": "研究员",
+        "observed": "",
+        "matches": false
+      }
+    },
+    "anchors": [
+      {
+        "region": "姓名卡",
+        "text": "应晓英",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      },
+      {
+        "region": "研究元数据",
+        "text": "药剂学",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      },
+      {
+        "region": "末端栏目",
+        "text": "研究与成果",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      }
+    ],
+    "visual_references": []
+  },
+  {
+    "id": "n03_nju_zhouzh",
+    "basis": "cli/0001/source.html",
+    "gaps": [
+      "Brief CV/Publication等为分立URL，主页研究方向和图书不等于完整简历论文",
+      "source title为Zhi-Hua Zhou's Homepage；CLI裁成Hua Zhou's Homepage"
+    ],
+    "source_sha256": "d555374df9a09a4ede24ce3523c0cdab754cce24f76468ba359feee68289935b",
+    "final_url": "https://cs.nju.edu.cn/zhouzh/",
+    "source_verified": true,
+    "fields": {
+      "name": {
+        "expected": "Zhi-Hua Zhou",
+        "observed": "Hua Zhou's Homepage",
+        "matches": false
+      },
+      "title": {
+        "expected": "Professor",
+        "observed": "",
+        "matches": false
+      }
+    },
+    "anchors": [
+      {
+        "region": "首",
+        "text": "Zhi-Hua Zhou",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      },
+      {
+        "region": "研究中",
+        "text": "Open-environment machine learning",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      },
+      {
+        "region": "图书尾",
+        "text": "Evolutionary Learning: Advances in Theories and Algorithms",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      }
+    ],
+    "visual_references": []
+  },
+  {
+    "id": "n04_pku_limingsong",
+    "basis": "no_local_original",
+    "gaps": [
+      "CLI robots_unavailable；资料代理provider页面线索和PDF搜索不作本机官网原件真值"
+    ],
+    "source_verified": false,
+    "fields": {},
+    "anchors": [],
+    "status": "no_local_original"
+  },
+  {
+    "id": "n05_dlut_xuchang",
+    "basis": "cli/0001/source.html",
+    "gaps": [
+      "正文教育表格与后段模板教育/工作重复；科学研究等分立子页未遍历"
+    ],
+    "source_sha256": "de1ac37e29a1b443282fadcc6d7f79aaa50f54afc91f1ee33bad377519f44a0c",
+    "final_url": "https://faculty.dlut.edu.cn/xuchang1/zh_CN/index/1213400/list/index.htm",
+    "source_verified": true,
+    "fields": {
+      "name": {
+        "expected": "许畅",
+        "observed": "",
+        "matches": false
+      },
+      "title": {
+        "expected": "教授",
+        "observed": "",
+        "matches": false
+      }
+    },
+    "anchors": [
+      {
+        "region": "简介首",
+        "text": "教授，博士生导师，入选国家级青年人才",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      },
+      {
+        "region": "代表论文中",
+        "text": "Experimental Investigation of Surfactant Effects on Gravity–Capillary Wave Dissipation and Surface Flow",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      },
+      {
+        "region": "经历尾",
+        "text": "2022.07 2026.08 美国德州农工大学 研究助理教授",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      }
+    ],
+    "visual_references": []
+  },
+  {
+    "id": "n06_zju_jixiaoyu",
+    "basis": "no_local_original",
+    "gaps": [
+      "CLI robots_unavailable；provider搜索姓名和超时线索不证明原站不存在或主页永久失效"
+    ],
+    "source_verified": false,
+    "fields": {},
+    "anchors": [],
+    "status": "no_local_original"
+  },
+  {
+    "id": "n07_toronto_hinton",
+    "basis": "no_local_original",
+    "gaps": [
+      "CLI robots_unavailable；provider读取到英文页面但本机无原件，不给本机字段准确率"
+    ],
+    "source_verified": false,
+    "fields": {},
+    "anchors": [],
+    "status": "no_local_original"
+  },
+  {
+    "id": "n08_xtu_xiaoyuelong",
+    "basis": "cli/0001/source.html",
+    "gaps": [
+      "周边新闻和上一/下一位教师链接不是本人正文"
+    ],
+    "source_sha256": "b05830fb467d8fa124e80e2a09fc6adc8d21505e4c06acf43b6c90ce2594cfa8",
+    "final_url": "https://math.xtu.edu.cn/info/1010/3525.htm",
+    "source_verified": true,
+    "fields": {
+      "name": {
+        "expected": "肖跃龙",
+        "observed": "肖跃龙",
+        "matches": true
+      },
+      "title": {
+        "expected": "教授",
+        "observed": "教授",
+        "matches": true
+      },
+      "email": {
+        "expected": "xyl@xtu.edu.cn",
+        "observed": "xyl@xtu.edu.cn",
+        "matches": true
+      }
+    },
+    "anchors": [
+      {
+        "region": "首",
+        "text": "姓名：肖跃龙",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      },
+      {
+        "region": "研究中",
+        "text": "非线性偏微分方程",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      },
+      {
+        "region": "末论文",
+        "text": "10.1002/mma.4443",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      }
+    ],
+    "visual_references": []
+  },
+  {
+    "id": "n09_wzbc_xiabingnan",
+    "basis": "cli/0001/source.html",
+    "gaps": [
+      "博士不是职称；公共侧栏分类不能填教授或副教授"
+    ],
+    "source_sha256": "16f5f74c2680606f6b510276d04dd4a2889a309abbc3d53e7510fbfe2afe5d75",
+    "final_url": "https://gl.wzbc.edu.cn/Art/Art_2480/Art_2480_134045.aspx",
+    "source_verified": true,
+    "fields": {
+      "name": {
+        "expected": "夏冰楠",
+        "observed": "夏冰楠",
+        "matches": true
+      }
+    },
+    "anchors": [
+      {
+        "region": "简介首",
+        "text": "现任温州商学院管理学院人力资源管理专业负责人、专任教师",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      },
+      {
+        "region": "研究中",
+        "text": "组织与人力资源管理",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      },
+      {
+        "region": "本人尾",
+        "text": "靡不有初，鲜克有终",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      }
+    ],
+    "visual_references": []
+  },
+  {
+    "id": "n10_nchu_zhangyaokun",
+    "basis": "cli/0001/source.html",
+    "gaps": [
+      "图片为普通人像，不能因alt有路径而当图片简历；站群导航/验证码模板不属本人正文"
+    ],
+    "source_sha256": "7435743a97c3f302dacec116ad7ecbd5da4e77cba2c27182a61620807f3fab21",
+    "final_url": "https://em.nchu.edu.cn/jyjx/content_176434",
+    "source_verified": true,
+    "fields": {
+      "name": {
+        "expected": "张耀坤",
+        "observed": "张耀坤",
+        "matches": true
+      },
+      "title": {
+        "expected": "教授",
+        "observed": "教授",
+        "matches": true
+      },
+      "email": {
+        "expected": "yaokunzhang@126.com",
+        "observed": "yaokunzhang@126.com",
+        "matches": true
+      }
+    },
+    "anchors": [
+      {
+        "region": "简介首",
+        "text": "张耀坤， 管 理学博士、教授、硕士生导师",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      },
+      {
+        "region": "研究中",
+        "text": "信息行为与信息服务",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      },
+      {
+        "region": "末论文",
+        "text": "基于学术社交网络的科研团队合作行为三方演化博弈与仿真分析",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      }
+    ],
+    "visual_references": []
+  },
+  {
+    "id": "n11_chnu_zhanghongyan",
+    "basis": "cli/0001/source.html",
+    "gaps": [
+      "当前正文3张图；第一张下载network_error，保留失败不重试；第2/3张本机原件已保存并视觉读",
+      "历史第一张原图hash见documents.json，本轮只重看历史图片，不宣称当前第一张已取回；职称不计当前字段真值",
+      "baseline未启用OCR，图片内研究/成果未进入简介"
+    ],
+    "source_sha256": "32ba5f6d5fdc5530be9eba8d5fa729ddae0efed48d829cbb83d3e33d5b3db902",
+    "final_url": "https://msxy.chnu.edu.cn/szdw/yjsdsfc/content_12638",
+    "source_verified": true,
+    "fields": {
+      "name": {
+        "expected": "张红岩",
+        "observed": "张红岩",
+        "matches": true
+      }
+    },
+    "anchors": [
+      {
+        "region": "页面标题",
+        "text": "美术学院研究生导师——张红岩",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      }
+    ],
+    "visual_references": [
+      {
+        "source": "image-original-2.jpg",
+        "region": "图片中段",
+        "text": "一种平面设计用品携带工具箱",
+        "verified": "current_source_visually_read",
+        "preserved_in_biography": false
+      },
+      {
+        "source": "image-original-3.jpg",
+        "region": "图片末段",
+        "text": "2019年十一届大广赛安徽赛区优秀指导教师",
+        "verified": "current_source_visually_read",
+        "preserved_in_biography": false
+      },
+      {
+        "source": "historical:d02/source.jpg",
+        "region": "历史图片首段",
+        "text": "职称：副教授",
+        "verified": "historical_only_current_download_failed",
+        "preserved_in_biography": false
+      }
+    ]
+  },
+  {
+    "id": "n12_chnu_baoxiangzhi",
+    "basis": "cli/0001/source.html",
+    "gaps": [
+      "当前单张表格式图片已保存，hash与历史原件一致；图片内职称为历史学博士、讲师，其中讲师才是职称",
+      "baseline未启用OCR，图中职称/研究/成果正文未进入简介，姓名来自HTML标题"
+    ],
+    "source_sha256": "ca57e847359c8b5204de9aa6a8347606a396ddac7e8f87ff81620439fc83ac47",
+    "final_url": "https://msxy.chnu.edu.cn/szdw/yjsdsfc/content_149808",
+    "source_verified": true,
+    "fields": {
+      "name": {
+        "expected": "鲍相志",
+        "observed": "鲍相志",
+        "matches": true
+      }
+    },
+    "anchors": [
+      {
+        "region": "页面标题",
+        "text": "美术学院研究生导师——鲍相志",
+        "present_in_source": true,
+        "preserved_in_biography": true
+      }
+    ],
+    "visual_references": [
+      {
+        "source": "image-original-1.png",
+        "region": "图片首",
+        "text": "历史学博士、讲师",
+        "verified": "current_source_visually_read",
+        "preserved_in_biography": false
+      },
+      {
+        "source": "image-original-1.png",
+        "region": "研究中",
+        "text": "中国古代书画鉴定与研究",
+        "verified": "current_source_visually_read",
+        "preserved_in_biography": false
+      },
+      {
+        "source": "image-original-1.png",
+        "region": "图片尾",
+        "text": "新华网、腾讯网等多家媒体转载",
+        "verified": "current_source_visually_read",
+        "preserved_in_biography": false
+      }
+    ]
+  },
+  {
+    "id": "n13_cmu_mitchell",
+    "basis": "no_local_original",
+    "gaps": [
+      "CLI robots_unavailable；官方搜索主页和resume.pdf仅为provider线索，不计本机PDF覆盖"
+    ],
+    "source_verified": false,
+    "fields": {},
+    "anchors": [],
+    "status": "no_local_original"
+  },
+  {
+    "id": "n14_berkeley_jordan",
+    "basis": "no_local_original",
+    "gaps": [
+      "CLI robots_unavailable；官方搜索主页和jordan-cv.pdf仅为provider线索，不计本机PDF覆盖；管理员邮箱不能归本人"
+    ],
+    "source_verified": false,
+    "fields": {},
+    "anchors": [],
+    "status": "no_local_original"
+  },
+  {
+    "id": "n15_hkust_qiangyang",
+    "basis": "no_local_original",
+    "gaps": [
+      "CLI robots_unavailable；官方搜索中文/英文CV仅为provider线索，旧材料日期不冒充当前任职"
+    ],
+    "source_verified": false,
+    "fields": {},
+    "anchors": [],
+    "status": "no_local_original"
+  }
+]

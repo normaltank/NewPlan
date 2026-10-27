@@ -1,0 +1,6 @@
+test_saved_page_retains_person_and_tail_and_reentry_reuses_result (test_cohort_cli.CohortCLI.test_saved_page_retains_person_and_tail_and_reentry_reuses_result) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 2.441s
+
+OK
