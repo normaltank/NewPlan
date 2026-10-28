@@ -271,6 +271,15 @@ class AssistedFieldsCLI(unittest.TestCase):
                 self.assertEqual(row['email'], 'chen@example.edu')
                 self.assertEqual(row['model']['candidates']['email']['status'], 'applied')
 
+    def test_ordinary_label_does_not_hide_a_new_person_heading(self):
+        _, row, _ = self.replay('<main><h1>陈晨</h1><p>本人完整经历。</p></main>'
+            '<section><h1>陈晨</h1><div><strong>学院邮箱</strong><h2>周宁</h2>'
+            '<p>电子邮箱：zhou@example.edu</p></div></section>',
+            self.plan(email={'value': 'zhou@example.edu', 'evidence': '电子邮箱：zhou@example.edu'},
+                      body_selector=''))
+        self.assertEqual(row['email'], '')
+        self.assertEqual(row['model']['candidates']['email']['reason'], 'personal_ownership_not_confirmed')
+
     def test_wrapped_owner_heading_keeps_nested_contact_ownership(self):
         _, row, _ = self.replay('<main><h1>陈晨</h1><p>本人完整经历。</p></main>'
             '<section><h1>陈晨</h1><div><header><h2>周宁</h2></header>'

@@ -134,8 +134,11 @@ def owned_quote(soup, quote, name):
 
 def excluded_field_label(scope):
     """Associate an adjacent label-only branch, never a completed neighboring field."""
+    # A new heading starts its own section; its owner cannot inherit a field label.
+    if re.fullmatch(r'h[1-6]', scope.name):
+        return False
     previous = scope.find_previous_sibling()
-    if previous is None:
+    if previous is None or re.fullmatch(r'h[1-6]', previous.name):
         return False
     label = previous.get_text(' ', strip=True).strip(' ：:')
     if re.fullmatch(PUBLIC_CONTACT, label, re.I):
