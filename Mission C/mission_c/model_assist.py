@@ -68,7 +68,16 @@ def plaintext_identity_conflict(text, name):
 def governing_headings(scope):
     """Keep outer section headings until a heading of equal/higher rank closes them."""
     tags = ('h1', 'h2', 'h3', 'h4', 'h5', 'h6')
-    headings = ([scope] if scope.name in tags else []) + scope.find_previous_siblings(tags)
+    headings = [scope] if scope.name in tags else []
+    for sibling in scope.find_previous_siblings():
+        if sibling.name in tags:
+            headings.append(sibling)
+        else:
+            nested = sibling.find_all(tags)
+            # A heading-only wrapper is transparent to the section outline.
+            # A completed sibling card with its own body is a separate block.
+            if nested and compact(sibling.get_text()) == ''.join(compact(h.get_text()) for h in nested):
+                headings.extend(reversed(nested))
     rank = 7
     for heading in headings:
         level = int(heading.name[1])

@@ -271,6 +271,17 @@ class AssistedFieldsCLI(unittest.TestCase):
                 self.assertEqual(row['email'], 'chen@example.edu')
                 self.assertEqual(row['model']['candidates']['email']['status'], 'applied')
 
+    def test_wrapped_owner_heading_keeps_nested_contact_ownership(self):
+        _, row, _ = self.replay('<main><h1>陈晨</h1><p>本人完整经历。</p></main>'
+            '<section><h1>陈晨</h1><div><header><h2>周宁</h2></header>'
+            '<div><h3>联系方式</h3><p>电子邮箱：zhou@example.edu</p></div></div></section>',
+            self.plan(email={'value': 'zhou@example.edu', 'evidence': '电子邮箱：zhou@example.edu'},
+                      body_selector=''))
+        self.assertEqual(row['name'], '陈晨')
+        self.assertEqual(row['email'], '')
+        self.assertEqual(row['model']['candidates']['email']['status'], 'unconfirmed')
+        self.assertEqual(row['model']['candidates']['email']['reason'], 'personal_ownership_not_confirmed')
+
     def test_rejected_expected_identity_cannot_be_restored_by_model(self):
         _, row, _ = self.replay('<section id="profile"><h1>王宁</h1>'
             '<p>职称：教授</p><p>电子邮箱：wang@example.edu</p></section>'
