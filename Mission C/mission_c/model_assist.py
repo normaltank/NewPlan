@@ -1,5 +1,6 @@
 """Treat model output as quoted proposals, never as replacement biography text."""
 import json
+from html import escape
 import re
 
 from bs4 import BeautifulSoup
@@ -94,7 +95,9 @@ def apply_model(raw, metadata, data, record, folder):
     record['model'] = result
     plan, usage = parse_response(raw, record['requested_url'])
     result.update(proposal=plan, usage=usage)
-    soup = clean_source(data)
+    provider_text = metadata.get('source_kind') == 'deepseek-fetch'
+    soup = (BeautifulSoup('<pre>' + escape(data.decode('utf-8')) + '</pre>', 'html.parser')
+            if provider_text else clean_source(data))
     proposed_name = clean_name(plan['name']['value'])
     person = record['name'] or proposed_name
     for field in ('name', 'title', 'email'):
@@ -137,14 +140,17 @@ def apply_model(raw, metadata, data, record, folder):
                              reason='existing_trusted_value_preserved')
         else:
             record[field] = value
-            record['field_status'][field] = 'found_model_evidence'
+            record['field_status'][field] = 'provider_model_candidate' if provider_text else 'found_model_evidence'
             record.setdefault('field_evidence', {})[field + '_model'] = {
                 'value': value, 'evidence': item['evidence'], 'rule': 'model_personal_quote',
-                'source_sha256': metadata['source_sha256']}
-            candidate.update(status='applied', reason='personal_quote_verified')
+                'source_sha256': metadata['source_sha256'],
+                'source_kind': metadata.get('source_kind', 'html')}
+            candidate.update(status='provider_candidate' if provider_text else 'applied', reason='personal_quote_verified')
     selector = plan.get('body_selector', '')
     selection = result['selector'] = {'proposal': selector, 'status': 'not_proposed'}
-    if selector:
+    if provider_text:
+        selection['status'] = 'not_applicable_plaintext'
+    elif selector:
         try:
             nodes = soup.select(selector)
             if len(nodes) != 1:

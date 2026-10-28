@@ -131,12 +131,6 @@ def main(argv=None):
                     record["biography_source"] = "local"
                 record["fetch"] = {"mode": args.fetch_mode,
                                    "status": "off" if args.fetch_mode == "off" else "not_needed"}
-                if cache and "model" in cache.entries.get(url, {}):
-                    try:
-                        record["model_cache"] = cache.model(url, record.get("sha256"), folder)
-                    except SourceError as error:
-                        record["model_cache"] = {"status": "read_failed", "error": {
-                            "code": error.code, "message": str(error)}}
                 if args.fetch_mode != "off" and (args.fetch_mode == "supplement" or not record["biography"]):
                     try:
                         if not cache and record.get("error", {}).get("code") == "robots_disallowed":
@@ -152,18 +146,27 @@ def main(argv=None):
                         record["fetch"] = {"status": "read_failed", "error": {
                             "code": getattr(error, "code", "fetch_invalid_response"), "message": str(error)}}
                 record["fetch"]["mode"] = args.fetch_mode
+                model_kind = "deepseek-fetch" if record.get("biography_source") == "deepseek-fetch" else "html"
+                model_data = record["biography"].encode("utf-8") if model_kind == "deepseek-fetch" else data
+                model_sha256 = hashlib.sha256(model_data).hexdigest() if model_data else None
+                if cache and "model" in cache.entries.get(url, {}):
+                    try:
+                        record["model_cache"] = cache.model(url, model_sha256, folder, model_kind)
+                    except SourceError as error:
+                        record["model_cache"] = {"status": "read_failed", "error": {
+                            "code": error.code, "message": str(error)}}
                 if args.model_mode == "assist":
                     try:
                         if cache:
-                            metadata = cache.model(url, record.get("sha256"), folder)
+                            metadata = cache.model(url, model_sha256, folder, model_kind)
                             raw = (folder / "model-response.json").read_bytes()
                         else:
                             if record.get('error', {}).get('code') == 'robots_disallowed':
                                 raise SourceError('model_robots_disallowed', '明确 robots 拒绝；不调用在线模型')
-                            if not data:
+                            if not model_data:
                                 raise SourceError('model_source_missing', '没有模型可绑定的原件')
-                            raw, metadata = LiveModel(provider, args.model, args.model_thinking).propose(url, data, folder)
-                        apply_model(raw, metadata, data, record, folder)
+                            raw, metadata = LiveModel(provider, args.model, args.model_thinking).propose(url, model_data, folder, model_kind)
+                        apply_model(raw, metadata, model_data, record, folder)
                     except SourceError as error:
                         record.setdefault("model", {}).update(getattr(error, "metadata", {}))
                         record["model"].update(status="read_failed", error={"code": error.code, "message": str(error)})

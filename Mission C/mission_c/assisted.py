@@ -179,16 +179,18 @@ class CacheManifest:
         raw = self.read(item)
         return save_fetch(raw, {**item, "source": "cache"}, folder, url)
 
-    def model(self, url, source_sha256, folder):
+    def model(self, url, source_sha256, folder, source_kind="html"):
         item = self.bound_item(url, "model")
         if not item:
             raise SourceError("cache_missing", "模型缓存缺失；未联网")
+        if item.get("source_kind", "html") != source_kind:
+            raise SourceError("cache_source_kind_mismatch", "模型缓存输入来源类型不匹配")
         if not source_sha256 or item.get("source_sha256") != source_sha256:
             raise SourceError("cache_source_hash_mismatch", "模型缓存没有绑定当前原件 SHA256")
         raw = self.read(item)
         path = folder / "model-response.json"
         path.write_bytes(raw)
-        return {"status": "validated_not_applied", "source_sha256": source_sha256,
+        return {"status": "validated_not_applied", "source": "cache", "source_kind": source_kind, "source_sha256": source_sha256,
                 "response_file": path.relative_to(folder.parent).as_posix(),
                 "response_sha256": hashlib.sha256(raw).hexdigest(), "observed_at": item.get("observed_at")}
 
