@@ -4,7 +4,8 @@ import json
 import re
 from html import escape
 from bs4 import BeautifulSoup, Comment
-from audit import url_key, without_scheme, pagination_family, disabled_link, fixed_paging_target
+from audit import (url_key, without_scheme, pagination_family, disabled_link, fixed_paging_target,
+                   component_pagers, component_page_matches)
 
 CONTRACT = 'mission-b-source-regions-v1'
 PAGER = '.pb_sys_common, .wp_paging, #wp_pager'
@@ -55,11 +56,17 @@ def prepare(html, url):
     base_tag = soup.select_one('base[href]')
     base_url = (url_key(base_tag['href'], url) if base_tag else url) or url
     nodes = {}
+    # Preserve inline handlers before sanitizing; a placeholder can still navigate.
+    anchor_events = {}
     for index, node in enumerate(soup.find_all(True), 1):
+        if node.name == 'a':
+            anchor_events[index] = {k: v for k, v in node.attrs.items() if k.lower().startswith('on')}
         page_target = fixed_paging_target(node, base_url) if node.name == 'a' else None
         node.attrs = {k: v for k, v in node.attrs.items() if k in
                       {'id', 'class', 'href', 'src', 'title', 'alt', 'role', 'aria-label', 'aria-disabled', 'aria-hidden', 'hidden', 'disabled', 'rel', 'colspan', 'rowspan'}}
         node['data-mb-id'] = str(index)
+        if anchor_events.get(index):
+            node['data-mb-has-events'] = 'true'
         if page_target:
             node['data-mb-page-target'] = page_target
         nodes[index] = node
@@ -77,7 +84,11 @@ def prepare(html, url):
         target = url_key(href, base_url) if href and href != '#' else None
         anchors[ident] = {'id': ident, 'text': label, 'href': href, 'url': target,
                           'clickable': bool(label or a.select('img,svg')), 'html': str(a),
-                          'page_url': a.get('data-mb-page-target')}
+                          'page_url': a.get('data-mb-page-target'),
+                          'events': anchor_events[ident],
+                          # Only these exact script bodies are known inert.
+                          'noop': bool(re.fullmatch(r'(?i:javascript):(?:;|void\(0\);?)', href))
+                                  and not anchor_events[ident]}
     title = soup.title.get_text(' ', strip=True) if soup.title else ''
     return soup, nodes, anchors, {'url': url, 'title': title, 'html': compact, 'html_truncated': False}
 
@@ -88,6 +99,60 @@ def descendants(node, anchors):
     if ident in anchors:
         found.add(ident)
     return found
+
+
+
+def parallel_coverage(nodes, anchors, included_ids, excluded):
+    """Report structural contradictions, never infer or add roster URLs.
+
+    Only compare siblings on paths from actually selected links. Exact tag/class
+    trees bound the comparison to repeated structures; no page-wide URL scan or
+    person/name classification is used. Explicit exclusions remain authoritative.
+    """
+    shapes, anchor_sets = {}, {}
+
+    def shape(node):
+        ident = int(node['data-mb-id'])
+        if ident not in shapes:
+            shapes[ident] = (node.name, tuple(sorted(node.get('class', []))),
+                             node.get('role'), node.has_attr('href'),
+                             tuple(shape(child) for child in node.find_all(recursive=False)))
+        return shapes[ident]
+
+    def links(node):
+        ident = int(node['data-mb-id'])
+        if ident not in anchor_sets:
+            anchor_sets[ident] = descendants(node, anchors)
+        return anchor_sets[ident]
+
+    included = set(included_ids)
+    selected_urls = {key(anchors[i]['url']) for i in included}
+    checked, conflicts = set(), []
+    for aid in included_ids:
+        node = nodes[aid]
+        while node.parent and node.parent.name not in {'html', 'body', '[document]'}:
+            parent = node.parent
+            group = (int(parent['data-mb-id']), shape(node))
+            if group not in checked:
+                checked.add(group)
+                peers = [peer for peer in parent.find_all(recursive=False) if shape(peer) == shape(node)]
+                missing = []
+                for peer in peers:
+                    # A selected peer is checked along its own link paths; its
+                    # outer headers need not belong to the selected roster.
+                    if peer is node or links(peer) & included:
+                        continue
+                    candidates = sorted(i for i in links(peer) - included - excluded.keys()
+                                        if anchors[i]['url'] and anchors[i]['clickable']
+                                        and key(anchors[i]['url']) not in selected_urls)
+                    if candidates:
+                        missing.append({'region': int(peer['data-mb-id']), 'anchor_ids': candidates})
+                if missing:
+                    conflicts.append({'container': int(parent['data-mb-id']),
+                                      'selected_region': int(node['data-mb-id']),
+                                      'uncovered_peers': missing})
+            node = parent
+    return conflicts
 
 
 def apply_plan(soup, nodes, anchors, answer, url):
@@ -141,14 +206,21 @@ def apply_plan(soup, nodes, anchors, answer, url):
         entry['anchor_ids'].append(i)
         if a['text'] not in entry['names']:
             entry['names'].append(a['text'])
+    coverage_conflicts = parallel_coverage(nodes, anchors, included_ids, excluded)
+    for conflict in coverage_conflicts:
+        issues.append('名单平行结构尚未覆盖，需重新核准：' + json.dumps(conflict, ensure_ascii=False))
     dynamic = [anchors[i] for i in selected - excluded.keys() if anchors[i]['clickable'] and
-               not anchors[i]['url'] and anchors[i]['href'].lower().startswith('javascript:')]
+               not anchors[i]['url'] and (anchors[i].get('events') or
+                (anchors[i]['href'].lower().startswith('javascript:') and not anchors[i].get('noop')))]
     if dynamic:
         issues.append('名单存在脚本链接，目标尚未确定')
     if not links and answer.get('status') != 'no_links':
         issues.append('未取得链接，不能自动判为零')
     if links and answer.get('status') == 'no_links':
         issues.append('无链接声明与实际提取不一致')
+    containers = [nodes[i] for i in pagers] + list(soup.select(PAGER))
+    components, component_issues = component_pagers(containers, url)
+    issues.extend(component_issues)
     pages = []
     for i in sorted(pager_ids):
         a = anchors[i]
@@ -156,12 +228,13 @@ def apply_plan(soup, nodes, anchors, answer, url):
             continue
         target = a['url'] or a.get('page_url')
         if target:
-            if pagination_family(target) == pagination_family(url):
+            if (pagination_family(target) == pagination_family(url)
+                    or any(component_page_matches(item, target) for item in components)):
                 if target not in pages:
                     pages.append(target)
             else:
                 issues.append('分页范围需要核实：' + target)
-        elif a['href'].lower() not in {'', '#', 'javascript:;', 'javascript:void(0)', 'javascript:void(0);'}:
+        elif a.get('events') or not (a.get('noop') or a['href'] in {'', '#'}):
             issues.append('分页目标不是可读取的HTTP地址')
     for i, a in anchors.items():
         if (a['text'].strip() in {'下一页', '下页', '末页', '尾页', 'Next', 'next'}
@@ -171,9 +244,10 @@ def apply_plan(soup, nodes, anchors, answer, url):
         if node.get_text(strip=True).isdigit() and int(node.get_text(strip=True)) > 1 and not pages:
             issues.append('页面声明多页但未提取分页目标')
     return {'complete': not issues, 'issues': list(dict.fromkeys(issues)), 'links': links,
-            'scope_conflicts': scope_conflicts,
+            'scope_conflicts': scope_conflicts, 'coverage_conflicts': coverage_conflicts,
             'included_ids': included_ids, 'excluded': {str(i): why for i, why in excluded.items()},
-            'pagination_urls': pages, 'selected_anchors': len(selected), 'selected_regions': roots,
+            'pagination_urls': pages, 'component_pagers': components,
+            'selected_anchors': len(selected), 'selected_regions': roots,
             'occurrences': len(included_ids)}
 
 

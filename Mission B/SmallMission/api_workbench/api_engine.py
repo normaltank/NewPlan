@@ -73,9 +73,12 @@ def qualification(soup, nodes, anchors, plans, url):
         issues.append('选中了整页而非明确的名单区域')
     if not a['links']:
         issues.append('名单零链接须人工确认，模型判断不能自动清空原表')
-    counters = pager_numbers(soup, nodes, plans)
+    counters = sorted(set(pager_numbers(soup, nodes, plans) +
+                          [(item['current'], item['total']) for item in a['component_pagers']]))
     if len({total for _, total in counters}) > 1:
         issues.append('同页分页总数相互矛盾')
+    if len({current for current, _ in counters}) > 1:
+        issues.append('同页分页当前页相互矛盾')
     pager_nodes = list(soup.select('.pb_sys_common,.wp_paging,#wp_pager'))
     pager_nodes.extend(nodes[i] for p in plans for i in p.get('pagination_regions', []))
     unresolved_next = [a for node in pager_nodes for a in node.select('a[href]')
@@ -88,7 +91,7 @@ def qualification(soup, nodes, anchors, plans, url):
               'links': {u: {'url': u, 'names': v['names'], 'occurrences': len(v['anchor_ids'])} for u, v in a['links'].items()},
               'anchors': [], 'title': soup.title.get_text(' ', strip=True) if soup.title else '',
               'root_count': len(a['selected_regions']), 'pagination_urls': bounded_query_pages(a['pagination_urls'], url, counters),
-              'pager_counters': counters}
+              'pager_counters': counters, 'component_pagers': a['component_pagers']}
     for aid, anchor in anchors.items():
         owner = next((j for j, rid in enumerate(a['selected_regions'], 1)
                       if nodes[aid] is nodes[rid] or any(parent is nodes[rid] for parent in nodes[aid].parents)), 0)
@@ -103,7 +106,15 @@ def qualification(soup, nodes, anchors, plans, url):
 def check_coverage(sources):
     by_family = defaultdict(list)
     for s in sources:
-        by_family[pagination_family(s['roster_url'])].append(s)
+        components = s['parsed'].get('component_pagers', [])
+        if components:
+            for item in components:
+                key = ('component', item['host'], item['path'], item['fragment'],
+                       tuple(map(tuple, item['fixed_query'])), item['component'], item['page_size'])
+                if s not in by_family[key]:
+                    by_family[key].append(s)
+        else:
+            by_family[pagination_family(s['roster_url'])].append(s)
     for members in by_family.values():
         counters = [pair for s in members for pair in s['parsed'].get('pager_counters', [])]
         totals = {total for _, total in counters}
@@ -180,7 +191,7 @@ class ModelEngine:
                         self.on_progress('model_started', {'url':url,'phase':label,'api':self.stats()})
                     plans.append(await self.api.ask(label, system, payload, max_tokens=5500))
             result, parses = qualification(soup, nodes, anchors, plans, url)
-            needs_recheck = (any(p['scope_conflicts'] for p in parses)
+            needs_recheck = (any(p['scope_conflicts'] or p['coverage_conflicts'] for p in parses)
                              or parses[0]['included_ids'] != parses[1]['included_ids'])
             if needs_recheck:
                 write_json(folder/'plans-initial.json', {'analysis': analysis, 'plans': plans, 'issues': result['issues']})
@@ -193,7 +204,9 @@ class ModelEngine:
                         if self.on_progress:
                             self.on_progress('model_started', {'url': url, 'phase': label, 'api': self.stats()})
                         review = {**payload, 'previous_selection': plans[index],
-                                  'structural_feedback': parses[index]['scope_conflicts'] or
+                                  'structural_feedback': (parses[index]['scope_conflicts'] +
+                                   ['名单平行结构尚未覆盖：' + json.dumps(c, ensure_ascii=False)
+                                    for c in parses[index]['coverage_conflicts']]) or
                                   ['独立结构核对未通过。重新检查名单与所有平行条目、导航、分页的边界；范围不明则返回uncertain。']}
                         instruction = ('\n本次是结构纠错。previous_selection是你自己的上次选择；structural_feedback来自程序实际DOM检查。'
                                        '依据完整HTML重新选择。若反馈含DOM父子路径，则该路径证明排除区域覆盖了名单，不能用文字理由否认这个包含关系。'
