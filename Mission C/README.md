@@ -22,11 +22,11 @@ cd "D:\Agent Workspace\Intern\MyPlan\OpenSource\Mission C"
 # 可选：在上述命令末尾添加 --render --ocr
 ```
 
-这会访问指定网页及同主机 PDF 附件。`--render` 读取动态正文；`--ocr` 本地识别图片和扫描 PDF，结果保留为待复核候选。脚本不调用大模型或付费 API。
+这会访问指定网页及同主机 PDF 附件。`--render` 读取动态正文；`--ocr` 本地识别图片和扫描 PDF，结果保留为待复核候选。默认 Fetch 关闭；提供方在线调用需要另外显式启用付费及预算。
 
 批量使用 `--urls-file ".\inputs\urls.txt"`，文件为 UTF-8、每行一个 URL，也可重复传入 `--url`。相同 URL 去重；不同 URL 不按同名合并。学校/学院是调用者提供的元数据，适用于本次全部输入，脚本不会凭域名猜归属；不同学校或学院应分批运行。
 
-默认结果存入本目录 `outputs/时间-随机标识/`。`--output` 可指定尚不存在的目录，已有结果不会覆盖。退出码 `0` 表示各页取得文字，`1` 表示至少一页未取得文字，`2` 表示参数/文件错误；退出成功不代表已核实完整性。
+默认结果存入本目录 `outputs/时间-随机标识/`。`--output` 可指定尚不存在的目录，已有结果不会覆盖。退出码 `0` 表示各页本地正文已保存，`1` 表示至少一页本地正文未取得（可能已有提供方待核候选），`2` 表示参数/文件错误；退出成功不代表已核实完整性。补充 Fetch 失败在 `fetch.error` 单独记录，已有本地全文仍可成功。
 
 其他平台或自行管理 Python 时，安装 `requirements.txt` 后执行 `python collect.py ...`。浏览器/OCR 分别安装对应可选依赖文件；非 Windows 浏览器另需 `python -m playwright install chromium`。全部参数见 `python collect.py --help`。
 
@@ -52,11 +52,43 @@ Excel 简介超长时明确指向全文 TXT，JSON/CSV/TXT 始终保留全文。
 
 同页已有的简介、研究、论文等一并保留。需点击标签、展开按钮、分页或其他 URL 才出现的内容不会自动遍历，相关链接/嵌入媒体保留在记录中；`--render` 仅取得初次加载后的 DOM。额外个人页可另行输入，并核对关联。
 
-单次响应限 20 MiB、PDF 限 200 页、附件读取最多 100 项；超限留下缺口，PDF 解析失败保留已下载原件。附件仅自动读取与最终个人页同主机的 HTTP(S) URL；跨主机、嵌入页、未启用 OCR 的图片、robots 拒绝与访问失败分别记录。`--html` 严格离线，不执行网页脚本、不读取网络附件。
+单次响应限 20 MiB、PDF 限 200 页、附件读取最多 100 项；超限留下缺口，PDF 解析失败保留已下载原件。附件仅自动读取与最终个人页同主机的 HTTP(S) URL；跨主机、嵌入页、未启用 OCR 的图片、robots 拒绝与访问失败分别记录。`--html` 从本地读取原件，不执行网页脚本、不读取网络附件；显式启用在线 Fetch 的条件见下节。
 
-已验证合成样本的长简介、多栏目、字段归属、PDF、动态页面、本地 OCR、失败隔离和目录独立运行。另完成指定主页与四个新主页的 [有限真实对照](https://github.com/normaltank/NewPlan/issues/22)，本地结果在 `outputs/live-tools-20261027/`。单页读取和工具输出仍不代表任意网站适配或全院采齐；主包没有自动接入这些实验工具。
+已验证合成样本的长简介、多栏目、字段归属、PDF、动态页面、本地 OCR、失败隔离和目录独立运行。另完成指定主页与四个新主页的 [有限真实对照](https://github.com/normaltank/NewPlan/issues/22)，本地结果在 `outputs/live-tools-20261027/`。单页读取和工具输出仍不代表任意网站适配或全院采齐；Fetch 按下节显式接入，其他工具仍是实验候选。
 
 后续[固定20页多结构对照](https://github.com/normaltank/NewPlan/blob/codex/mission-c-live-tools/experiments/mission-c-diverse-20261027/REPORT.md)复用旧五页，新增15页Fetch与代表浏览器/框架、3张当前图OCR/Docling；总报告、机读摘要和证据索引位于 `outputs/diverse-pages-20261027/`。新增PDF本机转换及分立CV/论文导航仍未验证；全部为保留缺口的实验候选。
+
+## Fetch 与严格离线缓存
+
+先运行可搬移的虚构多 URL 样本：
+
+```powershell
+python collect.py --cache-manifest examples/assisted-cache/manifest.json --fetch-mode supplement
+```
+
+该样本预期退出 `1`：陈晨的本地最后一项成果保留，较短 Fetch 材料单独存放；周宁原站 `http_412` 保留，提供方原文以 `provider_candidate` 待核交付。Fetch 材料不自动填姓名、职称或邮箱。
+
+`--fetch-mode off` 为默认关闭，`fallback` 仅在本地没有正文时读取 Fetch，`supplement` 也为已有本地全文保存独立材料。`fetch.mode/status` 记录实际选路。本地已取得文字始终保留；Fetch 差异、重复与额外段落可对照 `fetch-content.md` 核查，不自动拼接或压缩本地全文。
+
+清单是 UTF-8 JSON：`{"version":1,"entries":[...]}`。每条 `entries` 用 `url` 绑定一份个人页，各 URL 独立失败；不传 `--url` 时使用全部条目，也可用重复 `--url` 或 `--urls-file` 选择子集。实际示例与 SHA256 见 `examples/assisted-cache/manifest.json`。
+
+- `source`：`path`、`sha256` 为清单目录内的相对文件路径及原字节 SHA256，可附原 `observed_at`、`final_url`、`http_status`、`content_type`。原读取失败时用 `error:{code,message}`；若仍有失败原件，可同时给路径和 hash，它会保存但不作为正文解析。未知历史时间为 `null`，本次回放时间另记 `replayed_at`，不会冒充原采集时间。
+- `fetch`：提供方原响应 `path`、`sha256`、`provider_http_status`，可附原 `observed_at`。响应应为含字符串 `content` 和可选 `title` 的 JSON；非成功状态、空内容、截断标记、畸形 JSON 均保留失败原响应。`origin_http_status` 始终未知，不把提供方 200 当成原站 200。响应无原时间时保持 `null`。
+- `model`：为后续模型辅助预留 `path`、`sha256`、`source_sha256`、可选 `observed_at`。`source_sha256` 必须匹配本次实际原件字节；本阶段只校验绑定并保存 `model-response.json`，状态 `validated_not_applied`，不应用字段或选区。
+
+各项可额外给 `url`，必须与条目 URL 相同；响应自带 URL 时也须一致。SHA 不匹配、越界路径或缺缓存会明确失败。清单模式整个调用链严格离线，包括附件；即使给付费参数也不取环境密钥、不执行浏览器、不回退联网。清单不能与 `--html` 或 `--render` 同用。输入缓存保持只读，结果另存新目录。
+
+`fetch.response_file` 保存提供方原 JSON/错误字节，`fetch.content_file` 保存未摘要的 Markdown；两者分别记录 SHA256。原件仍是 `source.html`，本地正文仍是 `biography.txt`。提供方成功也保留 `completeness: not_verified`。使用缓存只验证既有材料，不能证明当前网站状态或学院完整性。
+
+## 显式在线 Fetch
+
+不使用缓存清单时，启用 `--fetch-mode fallback` 或 `supplement`，并同时提供 `--allow-paid --fetch-max-calls N --fetch-attempts <持久目录>` 以及环境变量 `DEEPSEEK_API_KEY` 才可调用在线适配器。默认预算为 0；沿用已有受控环境注入密钥，不将密钥写进命令行或日志。`--timeout` 约束提供方请求。`--html` 配合这些显式参数可只向提供方请求补充材料；原件和附件仍从本地读取。
+
+适配器固定 `POST https://api.deepseek.com/v1/tools/fetch`，请求 `{"url":"..."}`。此契约来自历史真实缓存，尚无公开接口说明；本次仅用虚构 HTTPX 外部边界测试，未重新验证在线服务。明确 robots 拒绝不会自动路由到在线 Fetch。
+
+调用前原子保存 `fetch-<URL SHA256>.json` 的 `unknown` 尝试；同一持久目录内所有已登记请求（含未知）计入预算，同一 URL 不自动重发。超时或断开仍保留未知状态，没有重试、probe 或重定向。并发锁残留时明确停止，需人工核对。保留该目录以跨运行防止重复付费，未知结局先核对提供方账单/记录。
+
+完整响应保存后原子登记 `completed`，HTTP 失败也计为一次已完成尝试。文件只保存脱敏响应、状态、时间、用量（提供方有返回时）、原响应 SHA256 及落盘响应 SHA256；密钥回显含 JSON 转义时也脱敏，并标记 `response_redacted`。未知响应、超限和损坏材料不当成完整正文。
 
 ## 维护
 

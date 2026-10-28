@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "url": "https://example.edu/chen",
+      "source": {
+        "path": "local.html",
+        "sha256": "27a64cf4d566b8ecc9894d703531b1a106c428d3c9aabec0d352065681fa12ef",
+        "observed_at": "2025-01-01T00:00:00Z"
+      },
+      "fetch": {
+        "path": "supplement.json",
+        "sha256": "2785945df176082c80bc0248c9f70af6ea0f4d88c198ae3ea313da198ac42d3e",
+        "provider_http_status": 200,
+        "observed_at": "2025-01-02T00:00:00Z"
+      }
+    },
+    {
+      "url": "https://example.edu/zhou",
+      "source": {
+        "error": {
+          "code": "http_412",
+          "message": "HTTP 412"
+        },
+        "http_status": 412
+      },
+      "fetch": {
+        "path": "fallback.json",
+        "sha256": "bb7681bf4df959463bff87ceaa64116009bcbbfdac927ec4f6349868bf95e325",
+        "provider_http_status": 200,
+        "observed_at": "2025-01-02T00:00:00Z"
+      }
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+# Preserve the exact bytes bound by manifest SHA256 on every platform.
+* -text
