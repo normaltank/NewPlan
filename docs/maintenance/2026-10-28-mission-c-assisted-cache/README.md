@@ -38,4 +38,10 @@ python docs/maintenance/2026-10-28-mission-c-assisted-cache/verify_replay.py `
 
 图片、嵌入页、附件、动态标签、分页和额外个人页仍按原状态标记，离线回放不读取网络媒体；本轮没有新增 PDF、OCR 或动态子页的真实读取证据。19 条 Fetch 有文字不等于完整率，原站 200 与提供方 200 也不相互替代。真实付费适配器只沿用 #31/#32 的虚构边界验证，本票没有读密钥或访问真实教师站点。
 
-红绿日志在 `%TEMP%\mission-c-delivery-{red,green}-01.log`：公开导入命令缺失时失败，新增导入与推荐入口后通过；测试删除原材料目录后从搬移独立包回放，检查本地末段、Fetch、失败 412 与模型缺失。最终可选依赖全套回归、Git checkout 字节核验及精确提交见本目录交接记录和 #33 的集成证据。本票准备独立包，实际 D: 同步由整体审查后的主代理执行；#34 只在实际交付后进行。
+红绿日志在 `%TEMP%\mission-c-delivery-{red,green}-01.log`：公开导入命令缺失时失败，新增导入与推荐入口后通过；测试删除原材料目录后从搬移独立包回放，检查本地末段、Fetch、失败 412 与模型缺失。
+
+最终 `MISSION_C_OPTIONAL_TESTS=1 python -m unittest discover -s tests -v` 仅执行一次：45 项在 81.451 秒通过，包含既有 44 项及本票 1 项；Edge、OCR 和虚构边界实际运行，没有跳过项。对应运行时代码提交 `b330e80dd9452433d2752f5375681759c6f5534b`，日志为 `%TEMP%\mission-c-delivery-final-optional.log`。随后仅补充本段验证事实。
+
+另通过 `git checkout-index` 将已提交 Mission C 检出到独立目录，4 个虚构缓存资产的 SHA256 均匹配清单；从任意当前目录运行检出包 `replay.py`，预期退出 `1`，陈晨模型选区实际采用、周宁原失败及缺模型保持，HTTP/socket/DNS 计数均为 0。证据为同一证据根的 `checkout-verification.json`、`checkout-demo.log` 与 `checkout-demo-network.json`；沿用已有 `examples/assisted-cache/.gitattributes` 的原字节保护。
+
+本票准备独立包，整体审查与实际 D: 同步尚由主代理执行，不能据此宣称实际目录交付或 #34 查漏完成；#34 只在实际交付后进行。本地实施提交尚未推送，准确提交 CI 由主代理按最终集成版本跟踪。
