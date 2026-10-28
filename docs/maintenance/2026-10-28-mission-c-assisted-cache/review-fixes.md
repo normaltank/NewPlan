@@ -20,3 +20,17 @@
 本轮未重跑旧 20 页/13 页全部材料，未访问真实教师网站、实际密钥或付费接口。验证字段归属边界与四页缓存兼容性，不证明全院完整性、真实在线接口或全量材料覆盖。没有推送、PR、部署或用户目录同步；准确集成版本的 CI 与正式复审由主代理后续记录。
 
 最终完整验证仅运行一次：`MISSION_C_OPTIONAL_TESTS=1 python -m unittest discover -s tests -v`，运行时代码 `c8c4ce4`，50 项于 89.241 秒全部通过，无跳过，包含动态页面和 OCR；日志为 `%TEMP%/mission-c-review-final-optional.log`。相对原 45 项增加 A、B、C、Fetch 纯文本和 B 英文 5 个公开 CLI 回归测试。指定集成基线 `626172e` 已是本分支祖先，合入检查显示 Already up to date。
+
+## 标题层级补修
+
+对 `03ae076` 的独立 Standards 复审发现 C 原因仍未闭合：`陈晨 h1 → 周宁 h2 → 联系方式 h3 → 邮箱` 会因只检查最近 h3 而再次借用陈晨身份。本轮从集成版本 `ad0e0e334fc7c9bcc0a08d132720977b5e3a563b` 继续同一修复任务，沿用已确认的公开缓存清单到 CLI 产物测试边界，未新增测试边界或外部调用授权。
+
+`2b02300` 按标题级别保留仍生效的标题链：普通 h3/h4 子栏目不消除外层 h2；后续相同或更高层级标题才关闭前一个同级栏目。DOM 祖先各自检查其标题链，因此嵌套联系人区域仍受外层归属约束。`6809cf1` 将同一标题链用于公共/合作者排除，并保留 dt/dd 标签关联，没有扩充“联系方式”等通用栏目词表。
+
+新增 2 项公开 CLI 测试覆盖他人标题后的 h3/h4、嵌套联系人结构，中英文公共/合作者标题后的 h3/h4，以及新个人栏目和合法个人联系正例。`%TEMP%/mission-c-heading-red-C.log` 显示两个子例曾错误采用周宁邮箱；`mission-c-heading-red-context.log` 显示 8 个公共/合作者子例曾错误采用邮箱。`mission-c-heading-green-C.log` 与 `mission-c-heading-green-context.log` 保存对应绿例；后者 15 项辅助字段 CLI 测试于 4.572 秒通过，包含原 A/B/C、英文、Fetch 多身份及 WebPlus 个人卡用例。
+
+运行时代码 `6809cf1732a92688a54f4bf65e5de0fa9ac79c17` 再以只读四页清单回放到新目录 `%TEMP%/mission-c-fields-real4/assist-heading-scope-6809cf1`。`verification-heading-scope-6809cf1.json` 逐项记录 8 份输入资产的 SHA256 未变，4 份简介与 `off` 基线逐字及 SHA256 相等，姓名/职称/邮箱与旧 `assist-07` 相等。苏大邮箱及华东师大姓名/职称/邮箱收益保留，华北电力教授与导师资格仍分开；HTTP/socket/DNS 均为 0。复现脚本与日志为 `%TEMP%/mission-c-heading-real4-verify.py`、`mission-c-heading-real4.log`，旧输出未改。
+
+本次最终完整验证仅一次：`MISSION_C_OPTIONAL_TESTS=1 python -m unittest discover -s tests -v`，运行时代码 `6809cf1`，52 项于 105.028 秒全部通过，无跳过，包含动态页面、OCR 及 fake IO；日志为 `%TEMP%/mission-c-heading-final-optional.log`。相对上轮 50 项增加 2 项标题层级公开 CLI 测试，验证后仅更新文档。
+
+专用实施分支合入当时 `codex/mission-c-assisted` 的 `ad0e0e3` 时为 Already up to date；独立 merger、Standards/Spec 复审及最终集成版本 CI 仍由主代理完成。本轮没有真实站点、真实密钥、付费接口、`secure-api-run`、推送、PR、用户目录或集成工作树写入；不据缓存兼容性声称学院完整性。
