@@ -23,6 +23,19 @@ def atomic_json(path, value):
         temporary.unlink(missing_ok=True)
 
 
+def redact_response(raw, key):
+    # Decode JSON escapes before removing the known environment secret. Keep
+    # byte-for-byte evidence whenever the response does not contain that secret.
+    try:
+        value = json.loads(raw)
+        decoded = json.dumps(value, ensure_ascii=False)
+        if key in decoded:
+            return decoded.replace(key, "[REDACTED]").encode("utf-8")
+    except (ValueError, UnicodeError):
+        pass
+    return raw.replace(key.encode("utf-8"), b"[REDACTED]")
+
+
 class LiveFetch:
     def __init__(self, *, allow_paid=False, max_calls=0, attempts=None, timeout=30):
         self.allow_paid = allow_paid
@@ -74,13 +87,13 @@ class LiveFetch:
                         if len(raw) > MAX_BYTES:
                             raise SourceError("fetch_response_too_large", "提供方响应超过限制；未当成全文")
                     raw = bytes(raw)
-                    redacted = raw.replace(key.encode("utf-8"), b"[REDACTED]")
+                    redacted = redact_response(raw, key)
                     observed = datetime.now(timezone.utc).isoformat()
                     metadata = {"source": "live", "provider_http_status": response.status_code,
                                 "observed_at": observed, "response_redacted": redacted != raw,
                                 "original_response_sha256": hashlib.sha256(raw).hexdigest(),
                                 "attempt_file": str(attempt_path.resolve())}
-                    result, content = save_fetch(redacted, metadata, folder)
+                    result, content = save_fetch(redacted, metadata, folder, url)
                     attempt.update(state="completed", completed_at=observed,
                                    provider_http_status=response.status_code,
                                    response_sha256=result["response_sha256"],
@@ -98,10 +111,12 @@ class CacheManifest:
     def __init__(self, path):
         self.root = path.resolve().parent
         value = json.loads(path.read_text(encoding="utf-8-sig"))
-        if value.get("version") != 1 or not isinstance(value.get("entries"), list):
+        if not isinstance(value, dict) or value.get("version") != 1 or not isinstance(value.get("entries"), list):
             raise ValueError("缓存清单必须为 version: 1 和 entries 列表")
         self.entries = {}
         for entry in value["entries"]:
+            if not isinstance(entry, dict) or not isinstance(entry.get("url"), str):
+                raise ValueError("缓存条目必须含 URL 字符串")
             url = valid_url(entry["url"])
             if url in self.entries:
                 raise ValueError("缓存清单 URL 重复")
@@ -135,19 +150,29 @@ class CacheManifest:
 
     def source(self, url):
         source = self.bound_item(url, "source")
-        if "error" in source:
-            error = source["error"]
-            raise SourceError(error["code"], error["message"])
-        data = self.read(source)
         metadata = {key: source[key] for key in ("final_url", "http_status", "content_type", "observed_at")
                     if key in source}
         metadata.setdefault("content_type", "text/html")
+        if "error" in source and (not isinstance(source["error"], dict) or
+                                  not all(isinstance(source["error"].get(key), str) for key in ("code", "message"))):
+            raise SourceError("cache_invalid", "缓存失败记录缺少 code 或 message")
+        if "error" in source and "path" not in source:
+            error = source["error"]
+            failure = SourceError(error["code"], error["message"])
+            failure.metadata = metadata
+            raise failure
+        data = self.read(source)
+        if "error" in source:
+            metadata["cached_error"] = source["error"]
+        elif isinstance(source.get("http_status"), int) and source["http_status"] >= 400:
+            metadata["cached_error"] = {"code": f"http_{source['http_status']}",
+                                        "message": f"HTTP {source['http_status']}"}
         return data, metadata
 
     def fetch(self, url, folder):
         item = self.bound_item(url, "fetch")
         raw = self.read(item)
-        return save_fetch(raw, item, folder)
+        return save_fetch(raw, {**item, "source": "cache"}, folder, url)
 
     def model(self, url, source_sha256, folder):
         item = self.bound_item(url, "model")
@@ -161,10 +186,11 @@ class CacheManifest:
                 "response_sha256": hashlib.sha256(raw).hexdigest(), "observed_at": item.get("observed_at")}
 
 
-def save_fetch(raw, metadata, folder):
+def save_fetch(raw, metadata, folder, url):
     response = folder / "fetch-response.json"
     response.write_bytes(raw)
     result = {"provider": "deepseek-fetch", "source": metadata.get("source", "cache"), "status": "not_extracted",
+              "requested_url": url,
               "provider_http_status": metadata.get("provider_http_status"),
               "origin_http_status": None, "observed_at": metadata.get("observed_at"),
               "response_file": response.relative_to(folder.parent).as_posix(),
@@ -179,7 +205,11 @@ def save_fetch(raw, metadata, folder):
         value = json.loads(raw)
         if not isinstance(value, dict) or not isinstance(value.get("content"), str):
             raise SourceError("fetch_invalid_response", "Fetch 响应缺少字符串 content")
+        if value.get("url", url) != url:
+            raise SourceError("cache_url_mismatch", "Fetch 响应 URL 与输入不匹配")
         content = value["content"]
+        if "usage" in value:
+            result["usage"] = value["usage"]
         if not content.strip() or value.get("truncated") or metadata.get("truncated"):
             raise SourceError("fetch_incomplete_response", "Fetch 正文为空或已标记截断")
         (folder / "fetch-content.md").write_text(content, encoding="utf-8")

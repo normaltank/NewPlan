@@ -199,6 +199,84 @@ class AssistedFetchCLI(unittest.TestCase):
         self.assertEqual(json.loads(attempt.read_text())["state"], "unknown")
         self.assertNotIn("synthetic-key-never-real", attempt.read_text())
 
+    def test_robots_denial_never_automatically_routes_to_online_fetch(self):
+        requests = []
+        def respond(client, request, **kwargs):
+            requests.append((request.method, str(request.url)))
+            if request.method == "GET":
+                return httpx.Response(200, request=request, text="User-agent: *\nDisallow: /private")
+            return httpx.Response(200, request=request, json={"content": "forbidden bypass"})
+        output = self.folder / "result"
+        with patch.dict(os.environ, {"DEEPSEEK_API_KEY": "synthetic-key-never-real"}, clear=True), \
+                patch.object(httpx.Client, "send", autospec=True, side_effect=respond):
+            main(["--url", "https://example.edu/private", "--output", str(output),
+                  "--fetch-mode", "fallback", "--allow-paid", "--fetch-max-calls", "1",
+                  "--fetch-attempts", str(self.folder / "attempts")])
+        row = json.loads((output / "teachers.json").read_text(encoding="utf-8"))[0]
+        self.assertEqual(requests, [("GET", "https://example.edu/robots.txt")])
+        self.assertEqual(row["error"]["code"], "robots_disallowed")
+        self.assertEqual(row["fetch"]["error"]["code"], "fetch_robots_disallowed")
+        self.assertFalse((self.folder / "attempts").exists())
+
+    def test_off_and_unneeded_fallback_are_explicit_and_manifest_never_reads_key_even_when_paid(self):
+        source = self.blob("source.html", '<meta charset="utf-8"><main><h1>陈晨</h1><p>完整。</p></main>')
+        original_get = os.environ.get
+        def guarded_get(key, *args):
+            if key == "DEEPSEEK_API_KEY":
+                raise AssertionError("offline must not read keys")
+            return original_get(key, *args)
+        for mode, status in [("off", "off"), ("fallback", "not_needed"), ("supplement", "read_failed")]:
+            with self.subTest(mode=mode), patch.object(os.environ, "get", side_effect=guarded_get):
+                code, rows, output = self.run_cache([
+                    {"url": "https://example.edu/a", "source": source},
+                ], "--fetch-mode", mode, "--allow-paid", "--fetch-max-calls", "10",
+                   "--fetch-attempts", str(self.folder / "attempts"))
+                output.rename(self.folder / mode)
+                self.assertEqual(code, 0)
+                self.assertEqual(rows[0]["fetch"]["status"], status)
+                if mode == "supplement":
+                    self.assertEqual(rows[0]["fetch"]["error"]["code"], "cache_missing")
+        self.assertFalse((self.folder / "attempts").exists())
+
+    def test_cached_failed_origin_keeps_original_bytes_time_and_http_failure_without_extracting_error_page(self):
+        source = {**self.blob("blocked.html", '<main><h1>错误页</h1><p>不可当作个人原文。</p></main>'),
+                  "http_status": 412, "observed_at": "2025-01-02T03:04:05Z",
+                  "error": {"code": "http_412", "message": "HTTP 412"}}
+        code, rows, output = self.run_cache([
+            {"url": "https://example.edu/a", "source": source},
+        ])
+        row = rows[0]
+        self.assertEqual(code, 1)
+        self.assertEqual(row["error"]["code"], "http_412")
+        self.assertEqual(row["http_status"], 412)
+        self.assertEqual(row["observed_at"], "2025-01-02T03:04:05Z")
+        self.assertTrue(row["replayed_at"])
+        self.assertEqual((row["biography"], row["name"]), ("", ""))
+        self.assertEqual((output / row["source_file"]).read_bytes(), (self.folder / "blocked.html").read_bytes())
+
+    def test_live_json_escaped_secret_is_redacted_before_candidate_or_metadata_is_written(self):
+        raw = b'{"content":"\\u0073ynthetic-key-never-real", "usage":{"calls":1}}'
+        with patch.dict(os.environ, {"DEEPSEEK_API_KEY": "synthetic-key-never-real"}, clear=True), \
+                patch.object(httpx.Client, "send", autospec=True,
+                             side_effect=lambda client, request, **kwargs: httpx.Response(200, request=request, content=raw)):
+            _, row, output = self.run_live("result")
+        self.assertNotIn("synthetic-key-never-real", (output / "teachers.json").read_text(encoding="utf-8"))
+        self.assertEqual((output / row["fetch"]["content_file"]).read_text(encoding="utf-8"), "[REDACTED]")
+        self.assertEqual(row["fetch"]["usage"], {"calls": 1})
+
+    def test_incomplete_failure_metadata_and_wrong_page_response_do_not_abort_batch(self):
+        fetch = {**self.blob("wrong.json", '{"url":"https://example.edu/other", "content":"错页文字"}'),
+                 "provider_http_status": 200}
+        code, rows, _ = self.run_cache([
+            {"url": "https://example.edu/a", "source": {"error": {}}},
+            {"url": "https://example.edu/b", "source": {"error": {"code": "http_404", "message": "HTTP 404"}},
+             "fetch": fetch},
+        ], "--fetch-mode", "fallback")
+        self.assertEqual(code, 1)
+        self.assertEqual(rows[0]["error"]["code"], "cache_invalid")
+        self.assertEqual(rows[1]["fetch"]["error"]["code"], "cache_url_mismatch")
+        self.assertEqual(rows[1]["biography"], "")
+
 
 if __name__ == "__main__":
     unittest.main()

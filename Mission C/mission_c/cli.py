@@ -78,6 +78,8 @@ def main(argv=None):
                                              "collector": "自动采集", "expected_name": args.name}}
                 try:
                     if cache:
+                        record["replayed_at"] = record["observed_at"]
+                        record["observed_at"] = None
                         data, metadata = cache.source(url)
                         record.update(metadata)
                     elif offline_data is None:
@@ -87,6 +89,9 @@ def main(argv=None):
                         data = offline_data
                     (folder / "source.html").write_bytes(data)
                     record.update(sha256=hashlib.sha256(data).hexdigest(), source_file=f"{index:04d}/source.html")
+                    cached_error = record.pop("cached_error", None)
+                    if cached_error:
+                        raise SourceError(cached_error["code"], cached_error["message"])
                     if not args.html and "html" not in record["content_type"] and not data.lstrip().startswith(b"<"):
                         raise SourceError("unsupported_content", "个人页不是 HTML；源文件已保留")
                     if args.render:
@@ -113,9 +118,12 @@ def main(argv=None):
                     record.update(biography_file=f"{index:04d}/biography.txt",
                                   status="text_saved" if record["biography"] else "not_extracted")
                 except (SourceError, ValueError) as error:
+                    record.update(getattr(error, "metadata", {}))
                     record["error"] = {"code": getattr(error, "code", "extraction_error"), "message": str(error)}
                 if record["biography"]:
                     record["biography_source"] = "local"
+                record["fetch"] = {"mode": args.fetch_mode,
+                                   "status": "off" if args.fetch_mode == "off" else "not_needed"}
                 if cache and "model" in cache.entries.get(url, {}):
                     try:
                         record["model_cache"] = cache.model(url, record.get("sha256"), folder)
@@ -124,6 +132,8 @@ def main(argv=None):
                             "code": error.code, "message": str(error)}}
                 if args.fetch_mode != "off" and (args.fetch_mode == "supplement" or not record["biography"]):
                     try:
+                        if not cache and record.get("error", {}).get("code") == "robots_disallowed":
+                            raise SourceError("fetch_robots_disallowed", "明确 robots 拒绝；不自动调用在线提供方")
                         record["fetch"], candidate = provider.fetch(url, folder)
                         if candidate and not record["biography"]:
                             (folder / "biography.txt").write_text(candidate, encoding="utf-8")
@@ -134,6 +144,7 @@ def main(argv=None):
                     except (SourceError, ValueError) as error:
                         record["fetch"] = {"status": "read_failed", "error": {
                             "code": getattr(error, "code", "fetch_invalid_response"), "message": str(error)}}
+                record["fetch"]["mode"] = args.fetch_mode
                 write_json(folder / "record.json", record)
                 records.append(record)
                 write_json(output / "teachers.json", records)

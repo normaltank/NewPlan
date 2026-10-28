@@ -13,7 +13,7 @@ EXTRA = ["研究方向", "发表信息", "状态", "字段状态", "待复核事
 def row_values(index, record):
     metadata = record["input_metadata"]
     return [index, record["name"], record["title"], record["email"], metadata["school"],
-            metadata["college"], metadata["collector"], record["observed_at"][:10],
+            metadata["college"], metadata["collector"], (record.get("observed_at") or "")[:10],
             record["biography"], record["requested_url"]]
 
 
