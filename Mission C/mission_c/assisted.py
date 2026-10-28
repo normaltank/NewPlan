@@ -176,6 +176,8 @@ class CacheManifest:
 
     def model(self, url, source_sha256, folder):
         item = self.bound_item(url, "model")
+        if not item:
+            raise SourceError("cache_missing", "模型缓存缺失；未联网")
         if not source_sha256 or item.get("source_sha256") != source_sha256:
             raise SourceError("cache_source_hash_mismatch", "模型缓存没有绑定当前原件 SHA256")
         raw = self.read(item)

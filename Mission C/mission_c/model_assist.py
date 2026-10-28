@@ -3,6 +3,9 @@ import json
 import re
 
 from bs4 import BeautifulSoup
+from soupsieve import SelectorSyntaxError
+
+from .extract import text_of, section_text
 
 from .fetch import SourceError
 from .person_names import clean_name, is_person_name
@@ -94,6 +97,9 @@ def apply_model(raw, metadata, data, record, folder):
         if not item['evidence'] or compact(item['value']) not in compact(item['evidence']):
             candidate.update(status='rejected', reason='value_not_quoted')
             continue
+        if compact(item['evidence']) not in compact(soup.get_text()):
+            candidate.update(status='rejected', reason='quote_not_in_source')
+            continue
         node = owned_quote(soup, item['evidence'], person)
         if node is None:
             candidate.update(status='unconfirmed', reason='personal_ownership_not_confirmed')
@@ -127,5 +133,25 @@ def apply_model(raw, metadata, data, record, folder):
                 'value': value, 'evidence': item['evidence'], 'rule': 'model_personal_quote',
                 'source_sha256': metadata['source_sha256']}
             candidate.update(status='applied', reason='personal_quote_verified')
-    result['status'] = 'evaluated'
+    selector = plan.get('body_selector', '')
+    selection = result['selector'] = {'proposal': selector, 'status': 'not_proposed'}
+    if selector:
+        try:
+            nodes = soup.select(selector)
+            if len(nodes) != 1:
+                selection['status'] = 'not_unique'
+            else:
+                text = text_of(nodes[0])
+                if compact(record['biography']) not in compact(text):
+                    selection['status'] = 'would_shrink'
+                elif not identity_in(nodes[0], record['name'] or person):
+                    selection['status'] = 'identity_not_confirmed'
+                else:
+                    record.update(biography=text, content_selection='model_selector_verified',
+                                  **section_text(nodes[0]))
+                    (folder / 'biography.txt').write_text(text, encoding='utf-8')
+                    selection['status'] = 'applied'
+        except SelectorSyntaxError:
+            selection['status'] = 'invalid_selector'
+    result['status'] = 'evaluated' 
     return result

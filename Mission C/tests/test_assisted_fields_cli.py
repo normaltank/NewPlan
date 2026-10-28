@@ -88,6 +88,57 @@ class AssistedFieldsCLI(unittest.TestCase):
         self.assertEqual(row['model']['candidates']['title']['professional_value'], '教授')
         self.assertEqual(row['model']['candidates']['title']['qualifications'], ['博士生导师'])
 
+    def test_invalid_cached_response_is_explicit_and_does_not_change_source_fields(self):
+        good = self.plan()
+        responses = [
+            ({'choices': [{'finish_reason': 'length', 'message': {'content': json.dumps(good)}}]}, 'model_incomplete_response'),
+            ({'choices': []}, 'model_invalid_response'),
+            ({'choices': [{'finish_reason': 'stop', 'message': {'content': '{broken'}}]}, 'model_invalid_response'),
+            ({'choices': [{'finish_reason': 'stop', 'message': {'content': json.dumps({**good, 'name': '陈晨'})}}]}, 'model_invalid_response'),
+            ({'choices': [{'finish_reason': 'stop', 'message': {'content': json.dumps({**good, 'url': 'https://other.edu/'})}}]}, 'model_url_mismatch'),
+        ]
+        for response, error in responses:
+            with self.subTest(error=error):
+                code, row, output = self.replay('<main><h1>陈晨</h1><p>陈晨，副教授。原文末段。</p></main>', response=response)
+                self.assertEqual(code, 0)
+                self.assertEqual(row['model']['error']['code'], error)
+                self.assertEqual(row['title'], '副教授')
+                self.assertIn('原文末段。', row['biography'])
+                self.assertTrue((output / row['model']['response_file']).is_file())
+        for change, error in [
+            (lambda e: e['model'].update(source_sha256='0'*64), 'cache_source_hash_mismatch'),
+            (lambda e: e['model'].update(sha256='0'*64), 'cache_hash_mismatch'),
+            (lambda e: e['model'].update(url='https://other.edu/'), 'cache_url_mismatch'),
+            (lambda e: e.pop('model'), 'cache_missing'),
+        ]:
+            with self.subTest(error=error):
+                _, row, _ = self.replay('<main><h1>陈晨</h1>原文。</main>', entry_change=change)
+                self.assertEqual(row['model']['error']['code'], error)
+        _, row, _ = self.replay('<section id="profile"><h1>陈晨</h1><p>原文。</p></section>',
+                              self.plan(email={'value': 'fake@example.edu', 'evidence': '电子邮箱：fake@example.edu'}))
+        self.assertEqual(row['email'], '')
+        self.assertEqual(row['model']['candidates']['email']['reason'], 'quote_not_in_source')
+
+    def test_selector_requires_unique_identity_and_full_existing_coverage_without_model_summary(self):
+        html = ('<section id="profile"><main><h1>陈晨</h1><p id="short">完整第一段。</p>'
+                '<p>最后成果。</p></main><p>额外原文。</p></section>')
+        for selector, status in [('#missing', 'not_unique'), ('p', 'not_unique'),
+                                 ('[', 'invalid_selector'), ('#short', 'would_shrink'),
+                                 ('#profile', 'applied')]:
+            with self.subTest(selector=selector):
+                _, row, output = self.replay(html, self.plan(body_selector=selector,
+                    email={'value': '', 'evidence': ''}, biography='模型摘要，禁止作为简介。'))
+                self.assertEqual(row['model']['selector']['status'], status)
+                self.assertIn('完整第一段。', row['biography'])
+                self.assertIn('最后成果。', row['biography'])
+                self.assertNotIn('模型摘要', row['biography'])
+                self.assertEqual((output / row['biography_file']).read_text(encoding='utf-8'), row['biography'])
+                if status == 'applied':
+                    self.assertIn('额外原文。', row['biography'])
+                    self.assertEqual(row['content_selection'], 'model_selector_verified')
+                else:
+                    self.assertNotIn('额外原文。', row['biography'])
+
 
 if __name__ == '__main__':
     unittest.main()
