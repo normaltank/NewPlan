@@ -8,12 +8,15 @@
 
 需要 Python 3.11+，已在 Python 3.12 验证。首次在本目录运行 `setup.bat` 安装基础依赖；需要动态页面和图片识别时运行 `setup.bat --full`。Windows 浏览器读取使用本机 Edge。
 
-先用虚构样本检查安装，全程离线：
+推荐先用组合入口检查安装，全程离线，实际消费虚构 Fetch 与模型响应：
 
 ```powershell
 cd "D:\Agent Workspace\Intern\MyPlan\OpenSource\Mission C"
-.\run.bat --url "https://example.edu/teacher" --html ".\examples\teacher.html"
+.\replay.bat
+# 自行管理 Python：python replay.py
 ```
+
+样本预期退出 `1`，因为其中一页原站历史失败，已有提供方待核正文；陈晨的本地全文、Fetch 补充和模型字段证据均可在结果中核查。`replay.bat` / `replay.py` 固定使用缓存、Fetch supplement 和模型 assist；缺缓存只报告缺失。默认输出目录遵循下述规则。原 `run.bat` / `collect.py` 继续支持单独读取与显式在线配置。
 
 真实采集时替换以下个人主页地址：
 
@@ -64,6 +67,7 @@ Excel 简介超长时明确指向全文 TXT，JSON/CSV/TXT 始终保留全文。
 
 ```powershell
 python collect.py --cache-manifest examples/assisted-cache/manifest.json --fetch-mode supplement --model-mode assist
+# 等价的推荐入口：python replay.py
 ```
 
 该样本预期退出 `1`：陈晨的本地最后一项成果保留，较短 Fetch 材料单独存放；周宁原站 `http_412` 保留，提供方原文以 `provider_candidate` 待核交付。陈晨的虚构模型响应实际核对字段并采用完整 `main` 选区；周宁没有模型缓存，`model.error.code=cache_missing`，字段保持缺失。单独 Fetch 材料不自动填字段。
@@ -79,6 +83,24 @@ python collect.py --cache-manifest examples/assisted-cache/manifest.json --fetch
 各项可额外给 `url`，必须与条目 URL 相同；响应自带 URL 时也须一致。SHA 不匹配、越界路径或缺缓存会明确失败。清单模式整个调用链严格离线，包括附件；即使给付费参数也不取环境密钥、不执行浏览器、不回退联网。清单不能与 `--html` 或 `--render` 同用。输入缓存保持只读，结果另存新目录。
 
 `fetch.response_file` 保存提供方原 JSON/错误字节，`fetch.content_file` 保存未摘要的 Markdown；两者分别记录 SHA256。原件仍是 `source.html`，本地正文仍是 `biography.txt`。提供方成功也保留 `completeness: not_verified`。使用缓存只验证既有材料，不能证明当前网站状态或学院完整性。
+
+### 导入历史缓存与搬移
+
+已有只读库存时，先导入一个新目录，再运行组合入口：
+
+```powershell
+python prepare_cache.py --inventory "库存清单.json" --output "cache\historical20"
+python replay.py --cache-manifest "cache\historical20\manifest.json"
+# 或 .\replay.bat --cache-manifest "cache\historical20\manifest.json"
+```
+
+`prepare_cache.py` 的库存格式与运行清单分开：库存使用 `entries` 列表，每项给 `id`、`url`、`source:{path,sha256}` 或 `null`、`source_metadata` JSON 路径、`source_status:{http_status,error,text_saved}`，以及可选 `rejected_source:{path,sha256}`。`fetch` 给 `response:{path,sha256}`、`metadata` JSON 路径与 `provider_http_status`；可选 `model` 给 `response:{path,sha256}`、`source_sha256`、`source_kind` 和 `legacy_result` JSON 路径。库存路径可为绝对路径或相对库存所在目录；参考姓名不会用作 CLI 输入。元数据中的 URL 必须与条目一致。
+
+导入先校验库存 SHA256，再复制原字节、文件修改时间与历史元数据。原站失败保留原错误；失败原件可以留存但不会作为成功 HTML。历史 `observed_at` 缺失时保持 `null`。生成的 `manifest.json` 只引用包内相对路径；`import-provenance.json` 的原绝对路径仅用于核对历史来源，运行不依赖它。输出目录必须尚不存在；复制中断后的目录保留供核查，重新导入使用另一新目录。
+
+搬移时保留整个 Mission C 与导入后的缓存子目录，在新位置安装基础依赖即可运行；Python 环境按机器重新建立。运行不需要根工作台、旧输入路径、临时脚本或密钥。真实缓存含原始个人资料，只保存在受控本地；Git 中仅提供虚构样本。
+
+本轮已在搬移后的独立包实跑历史 20 条，冻结基线的 13 份可用 HTML 逐页对照；实际数量、字段变化、网络阻断计数与媒体缺口见[缓存交付维护记录](../docs/maintenance/2026-10-28-mission-c-assisted-cache/README.md)。该记录不把有文字或 HTTP 成功解释为全文完整率。
 
 ## DS 字段与正文选区辅助
 

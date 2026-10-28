@@ -35,7 +35,7 @@ def main(argv=None):
         def metadata(path, destination, url):
             if not path:
                 return {}
-            copied = asset({"path": path}, destination, False)
+            asset({"path": path}, destination, False)
             value = json.loads(copies[-1][0].read_text(encoding="utf-8-sig"))
             if value.get("url", value.get("requested_url", url)) != url:
                 raise ValueError("历史元数据 URL 与库存不一致")

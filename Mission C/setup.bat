@@ -10,4 +10,5 @@ if /i "%~1"=="--full" (
   "%~dp0.venv\Scripts\python.exe" -m pip install -r "%~dp0requirements-browser.txt" -r "%~dp0requirements-ocr.txt"
   if errorlevel 1 exit /b 2
 )
-echo Mission C is ready. Run run.bat --help for options.
+echo Mission C is ready. Run replay.bat for the offline combination demo.
+echo Run run.bat --help for individual collection options.
