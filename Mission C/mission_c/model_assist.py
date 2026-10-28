@@ -65,6 +65,18 @@ def plaintext_identity_conflict(text, name):
     return False
 
 
+def governing_headings(scope):
+    """Keep outer section headings until a heading of equal/higher rank closes them."""
+    tags = ('h1', 'h2', 'h3', 'h4', 'h5', 'h6')
+    headings = ([scope] if scope.name in tags else []) + scope.find_previous_siblings(tags)
+    rank = 7
+    for heading in headings:
+        level = int(heading.name[1])
+        if level < rank:
+            yield heading
+            rank = level
+
+
 def owned_quote(soup, quote, name):
     """Find a visible quote in a personal block, excluding institutional contacts."""
     needle = compact(quote)
@@ -78,14 +90,15 @@ def owned_quote(soup, quote, name):
         for scope in [node, *node.parents]:
             if scope.name in ('html', 'body', '[document]'):
                 break
-            heading = scope if scope.name in ('h1', 'h2', 'h3', 'h4') else scope.find_previous_sibling(['h1', 'h2', 'h3', 'h4'])
-            if heading is not None:
+            for heading in governing_headings(scope):
                 label = clean_name(TITLE.sub('', heading.get_text(' ', strip=True))).strip(' （）():：')
                 if (is_person_name(label) and not GENERIC.search(label)
                         and label.casefold() not in PERSONAL_SECTIONS and label != clean_name(name)
                         and not disallowed_context(heading, label)):
                     conflicting_owner = True
                     break
+            if conflicting_owner:
+                break
             text = scope.get_text('\n', strip=True)
             if len(text) > 12000:
                 break
