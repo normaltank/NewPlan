@@ -45,6 +45,8 @@
 | `maintenance/20261026-mail-triage/README.md` | 回传日志去重、21 个特殊情况的原因分流；关联 [Issue #13](https://github.com/normaltank/NewPlan/issues/13) |
 | `maintenance/20261026-log-maintenance/README.md` | 名单范围冲突与分页维护、原网页实跑、反例及 1.0.8 分发验证；关联 [Issue #14](https://github.com/normaltank/NewPlan/issues/14) |
 | `maintenance/20261026-workflow-contract/README.md` | Mission B 维护分流、实施派工与验收记录的流程修正；关联 [Issue #17](https://github.com/normaltank/NewPlan/issues/17) |
+| `maintenance/20261028-log-triage/README.md` | 4 份日志、75 学院的离线还原与维护分流；4 个学院存在已复现程序问题、1 个模型复核候选，尚未实施修复；关联 [Issue #35](https://github.com/normaltank/NewPlan/issues/35) |
+| `maintenance/20261028-log-repair/README.md` | 平行名单覆盖、确切空操作和同栏目组件分页的分票修复与 1.0.9 交付；各阶段实际验证及限制查目录内记录，不以源码版本代替最终包验收；关联 [Issue #37](https://github.com/normaltank/NewPlan/issues/37)，交付实施见 `implement-41/` 与 [Issue #41](https://github.com/normaltank/NewPlan/issues/41) |
 
 历史运行的 `.planning/` 文件记录当时执行过程，供复盘查阅；任务当前状态到 GitHub Issue 核对，不从旧计划自动恢复工作。新增记录写清问题、来源、根因、修改、实际验证和剩余限制；完成后从本索引或负责文档提供一个入口。
 

@@ -34,3 +34,26 @@ jobs:
         run: |
           New-Item -ItemType Directory -Path runs -Force | Out-Null
           python -m unittest discover -s . -p 'test_*.py' -v
+
+  mission-b:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: Mission B/SmallMission/api_workbench
+    env:
+      PYTHONUTF8: '1'
+      DEEPSEEK_API_KEY: ''
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: Mission B/SmallMission/api_workbench/requirements.txt
+      - name: Install Mission B dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Run Mission B offline tests
+        run: python -m unittest discover -s . -p 'test_*.py' -v
