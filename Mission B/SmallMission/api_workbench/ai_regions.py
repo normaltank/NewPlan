@@ -138,7 +138,9 @@ def parallel_coverage(nodes, anchors, included_ids, excluded):
                 peers = [peer for peer in parent.find_all(recursive=False) if shape(peer) == shape(node)]
                 missing = []
                 for peer in peers:
-                    if peer is node:
+                    # A selected peer is checked along its own link paths; its
+                    # outer headers need not belong to the selected roster.
+                    if peer is node or links(peer) & included:
                         continue
                     candidates = sorted(i for i in links(peer) - included - excluded.keys()
                                         if anchors[i]['url'] and anchors[i]['clickable']
