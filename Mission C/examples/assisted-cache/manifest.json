@@ -13,6 +13,13 @@
         "sha256": "2785945df176082c80bc0248c9f70af6ea0f4d88c198ae3ea313da198ac42d3e",
         "provider_http_status": 200,
         "observed_at": "2025-01-02T00:00:00Z"
+      },
+      "model": {
+        "path": "model.json",
+        "sha256": "ba9123482fc2b35f8a80d1c0079c598f68845fd9fe3c9717e28618f05442038b",
+        "source_sha256": "27a64cf4d566b8ecc9894d703531b1a106c428d3c9aabec0d352065681fa12ef",
+        "source_kind": "html",
+        "observed_at": "2025-01-02T00:00:00Z"
       }
     },
     {

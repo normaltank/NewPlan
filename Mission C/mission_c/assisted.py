@@ -43,40 +43,45 @@ class LiveFetch:
         self.attempts = attempts
         self.timeout = timeout
 
-    def fetch(self, url, folder):
+    def reserve(self, url, operation="fetch", input_sha256=""):
+        prefix = operation
         if not self.allow_paid:
             raise SourceError("paid_not_allowed", "在线 Fetch 需要 --allow-paid")
         if self.max_calls < 1:
-            raise SourceError("fetch_budget_exhausted", "没有 Fetch 调用预算")
+            raise SourceError(prefix + "_budget_exhausted", "没有 Fetch 调用预算")
         if not self.attempts:
-            raise SourceError("fetch_attempt_store_required", "在线 Fetch 需要持久化尝试记录")
+            raise SourceError(prefix + "_attempt_store_required", "在线 Fetch 需要持久化尝试记录")
         self.attempts.mkdir(parents=True, exist_ok=True)
-        lock = self.attempts / ".fetch.lock"
+        lock = self.attempts / ".paid.lock"
         try:
             with lock.open("x"):
                 pass
         except FileExistsError as error:
-            raise SourceError("fetch_attempt_store_busy", "尝试记录已锁定；不自动重试") from error
+            raise SourceError(prefix + "_attempt_store_busy", "尝试记录已锁定；不自动重试") from error
         try:
-            attempt_path = self.attempts / ("fetch-" + hashlib.sha256(url.encode("utf-8")).hexdigest() + ".json")
+            attempt_path = self.attempts / (prefix + "-" + hashlib.sha256((url + input_sha256).encode("utf-8")).hexdigest() + ".json")
             if attempt_path.exists():
                 try:
                     previous = json.loads(attempt_path.read_text(encoding="utf-8"))
                     state = previous.get("state", "unknown")
                 except (OSError, ValueError, AttributeError):
                     state = "unknown"
-                code = "fetch_attempt_exists" if state == "completed" else "fetch_attempt_unknown"
+                code = prefix + "_attempt_exists" if state == "completed" else prefix + "_attempt_unknown"
                 raise SourceError(code, "已有此 URL 的尝试；不自动重发")
-            if len(list(self.attempts.glob("fetch-*.json"))) >= self.max_calls:
-                raise SourceError("fetch_budget_exhausted", "持久化 Fetch 预算已用完")
+            if sum(1 for p in self.attempts.glob("*.json") if p.name.startswith(("fetch-", "model-"))) >= self.max_calls:
+                raise SourceError(prefix + "_budget_exhausted", "持久化 Fetch 预算已用完")
             key = os.environ.get("DEEPSEEK_API_KEY", "")
             if not key:
-                raise SourceError("fetch_key_missing", "缺少 DEEPSEEK_API_KEY 环境密钥")
-            attempt = {"provider": "deepseek-fetch", "url": url, "state": "unknown",
+                raise SourceError(prefix + "_key_missing", "缺少 DEEPSEEK_API_KEY 环境密钥")
+            attempt = {"provider": "deepseek-" + operation, "operation": operation, "input_sha256": input_sha256, "url": url, "state": "unknown",
                        "started_at": datetime.now(timezone.utc).isoformat()}
             atomic_json(attempt_path, attempt)
         finally:
             lock.unlink()
+        return key, attempt_path, attempt
+
+    def fetch(self, url, folder):
+        key, attempt_path, attempt = self.reserve(url)
         try:
             with httpx.Client(timeout=self.timeout, trust_env=False, follow_redirects=False) as client:
                 with client.stream("POST", "https://api.deepseek.com/v1/tools/fetch", json={"url": url},
@@ -174,14 +179,18 @@ class CacheManifest:
         raw = self.read(item)
         return save_fetch(raw, {**item, "source": "cache"}, folder, url)
 
-    def model(self, url, source_sha256, folder):
+    def model(self, url, source_sha256, folder, source_kind="html"):
         item = self.bound_item(url, "model")
+        if not item:
+            raise SourceError("cache_missing", "模型缓存缺失；未联网")
+        if item.get("source_kind", "html") != source_kind:
+            raise SourceError("cache_source_kind_mismatch", "模型缓存输入来源类型不匹配")
         if not source_sha256 or item.get("source_sha256") != source_sha256:
             raise SourceError("cache_source_hash_mismatch", "模型缓存没有绑定当前原件 SHA256")
         raw = self.read(item)
         path = folder / "model-response.json"
         path.write_bytes(raw)
-        return {"status": "validated_not_applied", "source_sha256": source_sha256,
+        return {"status": "validated_not_applied", "source": "cache", "source_kind": source_kind, "source_sha256": source_sha256,
                 "response_file": path.relative_to(folder.parent).as_posix(),
                 "response_sha256": hashlib.sha256(raw).hexdigest(), "observed_at": item.get("observed_at")}
 

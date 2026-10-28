@@ -2,7 +2,7 @@
 
 输入个人主页 URL，独立保存姓名、邮箱、职称、完整简介、研究方向与发表信息。整个目录可搬离主项目使用，不依赖工作台数据库、任务 A/B、旧 MyPlan 或 API 密钥。这是命令行脚本包，没有独立前端页面。
 
-与主工作流的关系：复用了同款 HTTPX、BeautifulSoup、Playwright、pypdf、RapidOCR/pypdfium2 及四个本地判定/媒体模块；独立入口重新组织了调用。主流程的 Crawlee 队列和 DeepSeek 页面选区未移入本包，陌生页面改用可核对的容器规则与 `--selector`。因此它不是主流程逐行拆出的等效副本，不能直接沿用主流程的适配结论。
+与主工作流的关系：复用了同款 HTTPX、BeautifulSoup、Playwright、pypdf、RapidOCR/pypdfium2 及四个本地判定/媒体模块；独立入口重新组织了调用。主流程的 Crawlee 队列未移入本包；陌生页面先用可核对的容器规则与 `--selector`，也可显式启用下述 DS 字段与选区辅助。因此它不是主流程逐行拆出的等效副本，不能直接沿用主流程的适配结论。
 
 ## Windows 使用
 
@@ -22,7 +22,7 @@ cd "D:\Agent Workspace\Intern\MyPlan\OpenSource\Mission C"
 # 可选：在上述命令末尾添加 --render --ocr
 ```
 
-这会访问指定网页及同主机 PDF 附件。`--render` 读取动态正文；`--ocr` 本地识别图片和扫描 PDF，结果保留为待复核候选。默认 Fetch 关闭；提供方在线调用需要另外显式启用付费及预算。
+这会访问指定网页及同主机 PDF 附件。`--render` 读取动态正文；`--ocr` 本地识别图片和扫描 PDF，结果保留为待复核候选。默认 Fetch 与模型辅助均关闭；提供方在线调用需要另外显式启用付费及预算。
 
 批量使用 `--urls-file ".\inputs\urls.txt"`，文件为 UTF-8、每行一个 URL，也可重复传入 `--url`。相同 URL 去重；不同 URL 不按同名合并。学校/学院是调用者提供的元数据，适用于本次全部输入，脚本不会凭域名猜归属；不同学校或学院应分批运行。
 
@@ -63,10 +63,10 @@ Excel 简介超长时明确指向全文 TXT，JSON/CSV/TXT 始终保留全文。
 先运行可搬移的虚构多 URL 样本：
 
 ```powershell
-python collect.py --cache-manifest examples/assisted-cache/manifest.json --fetch-mode supplement
+python collect.py --cache-manifest examples/assisted-cache/manifest.json --fetch-mode supplement --model-mode assist
 ```
 
-该样本预期退出 `1`：陈晨的本地最后一项成果保留，较短 Fetch 材料单独存放；周宁原站 `http_412` 保留，提供方原文以 `provider_candidate` 待核交付。Fetch 材料不自动填姓名、职称或邮箱。
+该样本预期退出 `1`：陈晨的本地最后一项成果保留，较短 Fetch 材料单独存放；周宁原站 `http_412` 保留，提供方原文以 `provider_candidate` 待核交付。陈晨的虚构模型响应实际核对字段并采用完整 `main` 选区；周宁没有模型缓存，`model.error.code=cache_missing`，字段保持缺失。单独 Fetch 材料不自动填字段。
 
 `--fetch-mode off` 为默认关闭，`fallback` 仅在本地没有正文时读取 Fetch，`supplement` 也为已有本地全文保存独立材料。`fetch.mode/status` 记录实际选路。本地已取得文字始终保留；Fetch 差异、重复与额外段落可对照 `fetch-content.md` 核查，不自动拼接或压缩本地全文。
 
@@ -74,19 +74,33 @@ python collect.py --cache-manifest examples/assisted-cache/manifest.json --fetch
 
 - `source`：`path`、`sha256` 为清单目录内的相对文件路径及原字节 SHA256，可附原 `observed_at`、`final_url`、`http_status`、`content_type`。原读取失败时用 `error:{code,message}`；若仍有失败原件，可同时给路径和 hash，它会保存但不作为正文解析。未知历史时间为 `null`，本次回放时间另记 `replayed_at`，不会冒充原采集时间。
 - `fetch`：提供方原响应 `path`、`sha256`、`provider_http_status`，可附原 `observed_at`。响应应为含字符串 `content` 和可选 `title` 的 JSON；非成功状态、空内容、截断标记、畸形 JSON 均保留失败原响应。`origin_http_status` 始终未知，不把提供方 200 当成原站 200。响应无原时间时保持 `null`。
-- `model`：为后续模型辅助预留 `path`、`sha256`、`source_sha256`、可选 `observed_at`。`source_sha256` 必须匹配本次实际原件字节；本阶段只校验绑定并保存 `model-response.json`，状态 `validated_not_applied`，不应用字段或选区。
+- `model`：模型原响应 `path`、`sha256`、`source_sha256`、可选 `observed_at`。默认 `source_kind: "html"`，绑定本次 HTML 原字节；仅有 Fetch 待核正文时须显式为 `"deepseek-fetch"`，绑定 `fetch-content.md` UTF-8 内容的 SHA256。类型或 hash 不匹配明确失败。默认 `--model-mode off` 只校验和保存响应；`assist` 才应用下节核验。
 
 各项可额外给 `url`，必须与条目 URL 相同；响应自带 URL 时也须一致。SHA 不匹配、越界路径或缺缓存会明确失败。清单模式整个调用链严格离线，包括附件；即使给付费参数也不取环境密钥、不执行浏览器、不回退联网。清单不能与 `--html` 或 `--render` 同用。输入缓存保持只读，结果另存新目录。
 
 `fetch.response_file` 保存提供方原 JSON/错误字节，`fetch.content_file` 保存未摘要的 Markdown；两者分别记录 SHA256。原件仍是 `source.html`，本地正文仍是 `biography.txt`。提供方成功也保留 `completeness: not_verified`。使用缓存只验证既有材料，不能证明当前网站状态或学院完整性。
 
-## 显式在线 Fetch
+## DS 字段与正文选区辅助
 
-不使用缓存清单时，启用 `--fetch-mode fallback` 或 `supplement`，并同时提供 `--allow-paid --fetch-max-calls N --fetch-attempts <持久目录>` 以及环境变量 `DEEPSEEK_API_KEY` 才可调用在线适配器。默认预算为 0；沿用已有受控环境注入密钥，不将密钥写进命令行或日志。`--timeout` 约束提供方请求。`--html` 配合这些显式参数可只向提供方请求补充材料；原件和附件仍从本地读取。
+`--model-mode assist` 在附件读取与本地字段刷新后消费 chat 响应。缓存要求 `choices[0].finish_reason` 为 `stop`，`message.content` 为 JSON 字符串，格式如下；原样响应、用量、输入及响应 hash、提议与逐字段判定保存在 `model` 和 `model-response.json`。
+
+```json
+{"name":{"value":"陈晨","evidence":"陈晨"},"title":{"value":"教授，博士生导师","evidence":"职称：教授，博士生导师"},"email":{"value":"chen@example.edu","evidence":"电子邮箱：chen@example.edu"},"body_selector":"#profile"}
+```
+
+引用必须出现在可见来源中，并在个人身份范围内关联目标姓名。已识别的侧栏、公共邮箱、论文合作者、师从与导师上下文不能作为本人字段；未知归属保留 `unconfirmed`。专业职称与导师资格分别记录为 `professional_value`、`qualifications`；已有可信值保留，模型相同时 `corroborated`，不同时 `conflict`。通过核验的缺失字段标为 `found_model_evidence`，其引用和输入 hash 另存 `field_evidence`。这些检查不代替人工身份与学院完整性核验。
+
+CSS 必须唯一匹配、确认本人身份并包含现有完整原文；错误、多个匹配或会缩小正文的建议保留原文及具体原因。模型摘要不进入简介。Fetch-only 纯文本输入保留 `source_kind: deepseek-fetch`、原站失败与 `provider_candidate`，核验后的字段为 `provider_model_candidate`；CSS 状态为 `not_applicable_plaintext`。模型缓存缺失时明确失败，不伪造响应或联网。
+
+## 显式在线 Fetch 与模型
+
+不使用缓存清单时，启用 `--fetch-mode fallback` 或 `supplement`、`--model-mode assist` 中所需入口，并同时提供 `--allow-paid --paid-max-calls N --paid-attempts <持久目录>` 以及环境变量 `DEEPSEEK_API_KEY` 才可调用在线适配器。Fetch 与模型共用同一总预算及持久目录；兼容原 Fetch 的 `--fetch-max-calls`、`--fetch-attempts`，共享参数优先。默认预算为 0；沿用已有受控环境注入密钥，不将密钥写进命令行或日志。`--timeout` 约束提供方请求。`--html` 配合这些显式参数可只向提供方请求补充材料；原件和附件仍从本地读取。
 
 适配器固定 `POST https://api.deepseek.com/v1/tools/fetch`，请求 `{"url":"..."}`。此契约来自历史真实缓存，尚无公开接口说明；本次仅用虚构 HTTPX 外部边界测试，未重新验证在线服务。明确 robots 拒绝不会自动路由到在线 Fetch。
 
-调用前原子保存 `fetch-<URL SHA256>.json` 的 `unknown` 尝试；同一持久目录内所有已登记请求（含未知）计入预算，同一 URL 不自动重发。超时或断开仍保留未知状态，没有重试、probe 或重定向。并发锁残留时明确停止，需人工核对。保留该目录以跨运行防止重复付费，未知结局先核对提供方账单/记录。
+模型固定 `POST https://api.deepseek.com/chat/completions`，默认 `--model deepseek-flash --model-thinking disabled`，要求 JSON output，输入明确包含 URL、来源类型及 SHA256。模型可配置，不运行探测请求。接口和 JSON 模式契约参见 [Chat Completions](https://api-docs.deepseek.com/api/create-chat-completion/) 与 [JSON Output](https://api-docs.deepseek.com/guides/json_mode/)；本票只验证虚构外部 HTTPX I/O，未运行真实付费调用。
+
+调用前原子保存 `fetch-<URL SHA256>.json` 或绑定 URL 与输入 hash 的 `model-*.json` 的 `unknown` 尝试；同一持久目录内所有已登记请求（含未知）计入预算，同一 URL 不自动重发。超时或断开仍保留未知状态，没有重试、probe 或重定向。并发锁残留时明确停止，需人工核对。保留该目录以跨运行防止重复付费，未知结局先核对提供方账单/记录。
 
 完整响应保存后原子登记 `completed`，HTTP 失败也计为一次已完成尝试。文件只保存脱敏响应、状态、时间、用量（提供方有返回时）、原响应 SHA256 及落盘响应 SHA256；密钥回显含 JSON 转义时也脱敏，并标记 `response_redacted`。未知响应、超限和损坏材料不当成完整正文。
 

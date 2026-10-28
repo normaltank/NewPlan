@@ -11,6 +11,7 @@ from .export import export_tables
 from .fetch import Fetcher, SourceError, valid_url
 from .media import collect_media
 from .assisted import CacheManifest, LiveFetch
+from .model_assist import apply_model, LiveModel
 
 
 def write_json(path, value):
@@ -25,9 +26,14 @@ def main(argv=None):
     parser.add_argument("--cache-manifest", type=Path, help="严格离线多 URL 缓存清单；不联网或读取密钥")
     parser.add_argument("--fetch-mode", choices=["off", "fallback", "supplement"], default="off",
                         help="Fetch 提供方材料：关闭、仅本地失败、补充（保留本地全文）")
+    parser.add_argument("--model-mode", choices=["off", "assist"], default="off", help="模型字段及正文选区辅助；缓存严格离线")
     parser.add_argument("--allow-paid", action="store_true", help="明确允许提供方付费请求（缓存清单仍严格离线）")
     parser.add_argument("--fetch-max-calls", type=int, default=0, help="Fetch 持久化预算上限，默认 0")
     parser.add_argument("--fetch-attempts", type=Path, help="跨运行保留的在线 Fetch 尝试记录目录")
+    parser.add_argument('--paid-max-calls', type=int, help='Fetch 与模型共享的持久总调用上限')
+    parser.add_argument('--paid-attempts', type=Path, help='Fetch 与模型共享的持久尝试目录')
+    parser.add_argument('--model', default='deepseek-flash', help='在线模型名')
+    parser.add_argument('--model-thinking', choices=['disabled', 'enabled'], default='disabled')
     parser.add_argument("--output", type=Path, help="新的结果目录；默认 outputs 下的新目录")
     parser.add_argument("--selector", help="明确指定唯一正文 CSS 容器")
     parser.add_argument("--name", help="预期姓名；与页面冲突时不强行采用")
@@ -49,7 +55,7 @@ def main(argv=None):
         urls = list(dict.fromkeys(valid_url(url) for url in urls))
         if not urls or ((args.html or args.name) and len(urls) != 1):
             raise ValueError("请提供 URL；--html 和 --name 仅用于单个 URL")
-        if args.timeout <= 0 or args.delay < 0.5 or args.fetch_max_calls < 0:
+        if args.timeout <= 0 or args.delay < 0.5 or args.fetch_max_calls < 0 or (args.paid_max_calls is not None and args.paid_max_calls < 0):
             raise ValueError("--timeout 必须大于 0；--delay 至少为 0.5；--fetch-max-calls 不能为负数")
         if args.html and args.render:
             raise ValueError("离线 --html 不执行脚本；不能同时使用 --render")
@@ -60,11 +66,12 @@ def main(argv=None):
             datetime.now().strftime("%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:8])
         output.mkdir(parents=True, exist_ok=False)
         fetcher = Fetcher(args.timeout, args.delay) if not (args.html or cache) else None
-        provider = cache or LiveFetch(allow_paid=args.allow_paid, max_calls=args.fetch_max_calls,
-                                     attempts=args.fetch_attempts, timeout=args.timeout)
+        provider = cache or LiveFetch(allow_paid=args.allow_paid, max_calls=args.paid_max_calls if args.paid_max_calls is not None else args.fetch_max_calls,
+                                     attempts=args.paid_attempts or args.fetch_attempts, timeout=args.timeout)
         records = []
         try:
             for index, url in enumerate(urls, 1):
+                data = b""
                 folder = output / f"{index:04d}"
                 folder.mkdir()
                 record = {"requested_url": url, "final_url": url, "name": "", "title": "", "email": "",
@@ -124,12 +131,6 @@ def main(argv=None):
                     record["biography_source"] = "local"
                 record["fetch"] = {"mode": args.fetch_mode,
                                    "status": "off" if args.fetch_mode == "off" else "not_needed"}
-                if cache and "model" in cache.entries.get(url, {}):
-                    try:
-                        record["model_cache"] = cache.model(url, record.get("sha256"), folder)
-                    except SourceError as error:
-                        record["model_cache"] = {"status": "read_failed", "error": {
-                            "code": error.code, "message": str(error)}}
                 if args.fetch_mode != "off" and (args.fetch_mode == "supplement" or not record["biography"]):
                     try:
                         if not cache and record.get("error", {}).get("code") == "robots_disallowed":
@@ -145,6 +146,30 @@ def main(argv=None):
                         record["fetch"] = {"status": "read_failed", "error": {
                             "code": getattr(error, "code", "fetch_invalid_response"), "message": str(error)}}
                 record["fetch"]["mode"] = args.fetch_mode
+                model_kind = "deepseek-fetch" if record.get("biography_source") == "deepseek-fetch" else "html"
+                model_data = record["biography"].encode("utf-8") if model_kind == "deepseek-fetch" else data
+                model_sha256 = hashlib.sha256(model_data).hexdigest() if model_data else None
+                if cache and "model" in cache.entries.get(url, {}):
+                    try:
+                        record["model_cache"] = cache.model(url, model_sha256, folder, model_kind)
+                    except SourceError as error:
+                        record["model_cache"] = {"status": "read_failed", "error": {
+                            "code": error.code, "message": str(error)}}
+                if args.model_mode == "assist":
+                    try:
+                        if cache:
+                            metadata = cache.model(url, model_sha256, folder, model_kind)
+                            raw = (folder / "model-response.json").read_bytes()
+                        else:
+                            if record.get('error', {}).get('code') == 'robots_disallowed':
+                                raise SourceError('model_robots_disallowed', '明确 robots 拒绝；不调用在线模型')
+                            if not model_data:
+                                raise SourceError('model_source_missing', '没有模型可绑定的原件')
+                            raw, metadata = LiveModel(provider, args.model, args.model_thinking).propose(url, model_data, folder, model_kind)
+                        apply_model(raw, metadata, model_data, record, folder)
+                    except SourceError as error:
+                        record.setdefault("model", {}).update(getattr(error, "metadata", {}))
+                        record["model"].update(status="read_failed", error={"code": error.code, "message": str(error)})
                 write_json(folder / "record.json", record)
                 records.append(record)
                 write_json(output / "teachers.json", records)
