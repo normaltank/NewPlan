@@ -11,6 +11,7 @@ from .export import export_tables
 from .fetch import Fetcher, SourceError, valid_url
 from .media import collect_media
 from .assisted import CacheManifest, LiveFetch
+from .model_assist import apply_model
 
 
 def write_json(path, value):
@@ -25,6 +26,7 @@ def main(argv=None):
     parser.add_argument("--cache-manifest", type=Path, help="严格离线多 URL 缓存清单；不联网或读取密钥")
     parser.add_argument("--fetch-mode", choices=["off", "fallback", "supplement"], default="off",
                         help="Fetch 提供方材料：关闭、仅本地失败、补充（保留本地全文）")
+    parser.add_argument("--model-mode", choices=["off", "assist"], default="off", help="模型字段及正文选区辅助；缓存严格离线")
     parser.add_argument("--allow-paid", action="store_true", help="明确允许提供方付费请求（缓存清单仍严格离线）")
     parser.add_argument("--fetch-max-calls", type=int, default=0, help="Fetch 持久化预算上限，默认 0")
     parser.add_argument("--fetch-attempts", type=Path, help="跨运行保留的在线 Fetch 尝试记录目录")
@@ -65,6 +67,7 @@ def main(argv=None):
         records = []
         try:
             for index, url in enumerate(urls, 1):
+                data = b""
                 folder = output / f"{index:04d}"
                 folder.mkdir()
                 record = {"requested_url": url, "final_url": url, "name": "", "title": "", "email": "",
@@ -145,6 +148,14 @@ def main(argv=None):
                         record["fetch"] = {"status": "read_failed", "error": {
                             "code": getattr(error, "code", "fetch_invalid_response"), "message": str(error)}}
                 record["fetch"]["mode"] = args.fetch_mode
+                if args.model_mode == "assist":
+                    try:
+                        if not cache:
+                            raise SourceError("model_not_configured", "在线模型尚未配置")
+                        metadata = cache.model(url, record.get("sha256"), folder)
+                        apply_model((folder / "model-response.json").read_bytes(), metadata, data, record, folder)
+                    except SourceError as error:
+                        record.setdefault("model", {}).update(status="read_failed", error={"code": error.code, "message": str(error)})
                 write_json(folder / "record.json", record)
                 records.append(record)
                 write_json(output / "teachers.json", records)
