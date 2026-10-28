@@ -12,8 +12,10 @@ SECTION_KINDS = {
     "research": ("研究方向", "研究领域", "研究兴趣", "研究内容", "research interests", "research areas"),
     "publications": ("发表论文", "学术论文", "论文和专著", "代表性论文", "科研成果", "研究成果", "主要成果", "发表信息", "论文著作", "publications", "selected publications"),
 }
-GENERIC = re.compile(r"简介|简历|大学|学院|学校|师资|教师|教授|研究|论文|成果|联系|个人|团队|新闻|首页|教育|教学|荣誉|奖励|项目|专利|课程|信息|学术|兼职|概况|内容")
+GENERIC = re.compile(r"简介|简历|大学|学院|学校|师资|教师|教授|研究|论文|成果|联系|个人|团队|新闻|首页|主页|教育|教学|荣誉|奖励|项目|专利|课程|信息|学术|兼职|概况|内容|\bresearch\s+(?:group|team)\b|\b(?:university|college|department|faculty)\b", re.I)
 PERSONAL_SECTIONS = {"个人简介", "个人信息", "基本信息", "联系方式", "联系信息", "教育经历", "工作经历", "教学工作", "contact", "contact information", "biography"}
+TITLE_SEPARATOR = re.compile(r"\s*(?:[|｜—–]|-{2,}|(?<=\s)-(?=\s))\s*")
+PERSONAL_TITLE_SUFFIX = re.compile(r"(?:['’]s|['’])?\s+(?:personal\s+)?(?:home\s*page|website)$", re.I)
 
 
 def text_of(node):
@@ -33,12 +35,20 @@ def content_container(soup):
     return None
 
 
-def name_candidates(soup):
+def name_candidates(soup, identity_scope=None):
     candidates = []
     for node in soup.select("h1, h2, .arti_title, .news_title, .jsbt, title"):
         label = text_of(node).strip()
-        chunks = re.split(r"\s*[|｜—–-]\s*", label) if node.name == "title" else [label]
+        chunks = TITLE_SEPARATOR.split(label) if node.name == "title" else [label]
         for chunk in chunks:
+            if node.name == "title":
+                chunk = PERSONAL_TITLE_SUFFIX.sub("", chunk)
+                school_name = re.fullmatch(r".+(?:大学|学院)\s+(.+)", chunk)
+                if school_name and re.search(r"(?:中文|英文|个人)主页", label):
+                    visible = identity_scope if identity_scope is not None else soup
+                    person = clean_name(school_name[1])
+                    if any(clean_name(value) == person for value in visible.stripped_strings):
+                        chunk = person
             chunk = re.sub(r"^姓名\s*[:：]\s*", "", chunk)
             chunk = re.sub(r"\s*[（(]?(?:" + TITLE.pattern + r")[）)]?$", "", chunk)
             candidate = clean_name(profile_label_name(chunk))
@@ -117,7 +127,7 @@ def extract_html(data, url, selector=None, expected_name=None):
         if card.select_one("h1.arti_title") and not card.find_parent(["aside", "nav", "footer"]):
             candidates.extend({**candidate, "rule": "known_profile_card"} for candidate in name_candidates(card))
     if soup.title:
-        candidates += name_candidates(BeautifulSoup(str(soup.title), "html.parser"))
+        candidates += name_candidates(BeautifulSoup(str(soup.title), "html.parser"), identity_scope)
     candidates.sort(key=lambda item: -item["score"])
     warnings = []
     strong = {c["value"] for c in candidates if c["score"] >= 100}

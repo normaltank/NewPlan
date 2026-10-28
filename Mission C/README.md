@@ -60,6 +60,8 @@ Excel 简介超长时明确指向全文 TXT，JSON/CSV/TXT 始终保留全文。
 
 ## 维护
 
+姓名候选保留内部连字符和撇号，识别个人页标题后缀；学校前缀后的姓名需要正文身份范围内的同名文字佐证。排除已识别的栏目、研究组和学校名称，冲突仍留待核。已验证范围与剩余模板缺口见 [Issue #28](https://github.com/normaltank/NewPlan/issues/28)。
+
 基础验证：`python -m unittest discover -s tests -v`。安装可选依赖和浏览器后，设置环境变量 `MISSION_C_OPTIONAL_TESTS=1` 运行同一命令，加入动态页面和 OCR 验证。样本为虚构；网络用例只访问临时 `127.0.0.1` 服务。
 
 字段判定、姓名形态、已知模板及 OCR 模块来自 `normaltank/NewPlan` 提交 `645ef433766580777c76946a157494631381a2c5` 的根模块；字段/模板模块仅调整相对导入。独立入口、采集和导出由本目录维护，主工作台调用链未改。任务与验证见 [Issue #20](https://github.com/normaltank/NewPlan/issues/20)。

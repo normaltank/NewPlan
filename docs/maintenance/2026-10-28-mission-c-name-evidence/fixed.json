@@ -1,0 +1,18 @@
+[
+  {
+    "id": "n01_ustc_weizian",
+    "expected": "卫子安",
+    "actual": "卫子安",
+    "passed": true,
+    "source_sha256": "e754d63919ae17a01083c1c6c42f57fefa291fe30e46a635c0987c2da2aff5ab",
+    "cli_exit": 0
+  },
+  {
+    "id": "n03_nju_zhouzh",
+    "expected": "Zhi-Hua Zhou",
+    "actual": "Zhi-Hua Zhou",
+    "passed": true,
+    "source_sha256": "d555374df9a09a4ede24ce3523c0cdab754cce24f76468ba359feee68289935b",
+    "cli_exit": 0
+  }
+]

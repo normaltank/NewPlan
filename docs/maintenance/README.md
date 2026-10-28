@@ -10,5 +10,6 @@
 | [2026-10-23 文档与 Matt 工作流](2026-10-23-matt-docs-workflow/README.md) | 档案清单、技能来源、报告搬移保真及本轮验证 |
 | [2026-10-26 工作流执行约定](2026-10-26-workflow-execution/README.md) | 任务分流、子代理实施与集成、阶段证据和收尾规则 |
 | [2026-10-27 Mission C 独立交付](2026-10-27-mission-c/README.md) | 个人主页独立入口、原文与附件保存、公开 CLI 行为验证 |
+| [2026-10-28 Mission C 姓名证据](2026-10-28-mission-c-name-evidence/README.md) | 栏目误识别、英文姓名截断的原件回放和独立 CLI 回归 |
 
 这里只登记证据入口。记录中的版本、结果和限制属于当次事实；待办与进度统一查 [GitHub Issues](https://github.com/normaltank/NewPlan/issues)。
