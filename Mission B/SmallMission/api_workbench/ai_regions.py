@@ -90,6 +90,58 @@ def descendants(node, anchors):
     return found
 
 
+
+def parallel_coverage(nodes, anchors, included_ids, excluded):
+    """Report structural contradictions, never infer or add roster URLs.
+
+    Only compare siblings on paths from actually selected links. Exact tag/class
+    trees bound the comparison to repeated structures; no page-wide URL scan or
+    person/name classification is used. Explicit exclusions remain authoritative.
+    """
+    shapes, anchor_sets = {}, {}
+
+    def shape(node):
+        ident = int(node['data-mb-id'])
+        if ident not in shapes:
+            shapes[ident] = (node.name, tuple(sorted(node.get('class', []))),
+                             node.get('role'), node.has_attr('href'),
+                             tuple(shape(child) for child in node.find_all(recursive=False)))
+        return shapes[ident]
+
+    def links(node):
+        ident = int(node['data-mb-id'])
+        if ident not in anchor_sets:
+            anchor_sets[ident] = descendants(node, anchors)
+        return anchor_sets[ident]
+
+    included = set(included_ids)
+    selected_urls = {key(anchors[i]['url']) for i in included}
+    checked, conflicts = set(), []
+    for aid in included_ids:
+        node = nodes[aid]
+        while node.parent and node.parent.name not in {'html', 'body', '[document]'}:
+            parent = node.parent
+            group = (int(parent['data-mb-id']), shape(node))
+            if group not in checked:
+                checked.add(group)
+                peers = [peer for peer in parent.find_all(recursive=False) if shape(peer) == shape(node)]
+                missing = []
+                for peer in peers:
+                    if peer is node:
+                        continue
+                    candidates = sorted(i for i in links(peer) - included - excluded.keys()
+                                        if anchors[i]['url'] and anchors[i]['clickable']
+                                        and key(anchors[i]['url']) not in selected_urls)
+                    if candidates:
+                        missing.append({'region': int(peer['data-mb-id']), 'anchor_ids': candidates})
+                if missing:
+                    conflicts.append({'container': int(parent['data-mb-id']),
+                                      'selected_region': int(node['data-mb-id']),
+                                      'uncovered_peers': missing})
+            node = parent
+    return conflicts
+
+
 def apply_plan(soup, nodes, anchors, answer, url):
     issues = []
     if answer.get('status') not in {'ready', 'no_links'}:
@@ -141,6 +193,9 @@ def apply_plan(soup, nodes, anchors, answer, url):
         entry['anchor_ids'].append(i)
         if a['text'] not in entry['names']:
             entry['names'].append(a['text'])
+    coverage_conflicts = parallel_coverage(nodes, anchors, included_ids, excluded)
+    for conflict in coverage_conflicts:
+        issues.append('名单平行结构尚未覆盖，需重新核准：' + json.dumps(conflict, ensure_ascii=False))
     dynamic = [anchors[i] for i in selected - excluded.keys() if anchors[i]['clickable'] and
                not anchors[i]['url'] and anchors[i]['href'].lower().startswith('javascript:')]
     if dynamic:
@@ -171,7 +226,7 @@ def apply_plan(soup, nodes, anchors, answer, url):
         if node.get_text(strip=True).isdigit() and int(node.get_text(strip=True)) > 1 and not pages:
             issues.append('页面声明多页但未提取分页目标')
     return {'complete': not issues, 'issues': list(dict.fromkeys(issues)), 'links': links,
-            'scope_conflicts': scope_conflicts,
+            'scope_conflicts': scope_conflicts, 'coverage_conflicts': coverage_conflicts,
             'included_ids': included_ids, 'excluded': {str(i): why for i, why in excluded.items()},
             'pagination_urls': pages, 'selected_anchors': len(selected), 'selected_regions': roots,
             'occurrences': len(included_ids)}
