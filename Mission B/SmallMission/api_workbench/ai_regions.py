@@ -55,11 +55,17 @@ def prepare(html, url):
     base_tag = soup.select_one('base[href]')
     base_url = (url_key(base_tag['href'], url) if base_tag else url) or url
     nodes = {}
+    # Preserve inline handlers before sanitizing; a placeholder can still navigate.
+    anchor_events = {}
     for index, node in enumerate(soup.find_all(True), 1):
+        if node.name == 'a':
+            anchor_events[index] = {k: v for k, v in node.attrs.items() if k.lower().startswith('on')}
         page_target = fixed_paging_target(node, base_url) if node.name == 'a' else None
         node.attrs = {k: v for k, v in node.attrs.items() if k in
                       {'id', 'class', 'href', 'src', 'title', 'alt', 'role', 'aria-label', 'aria-disabled', 'aria-hidden', 'hidden', 'disabled', 'rel', 'colspan', 'rowspan'}}
         node['data-mb-id'] = str(index)
+        if anchor_events.get(index):
+            node['data-mb-has-events'] = 'true'
         if page_target:
             node['data-mb-page-target'] = page_target
         nodes[index] = node
@@ -77,7 +83,11 @@ def prepare(html, url):
         target = url_key(href, base_url) if href and href != '#' else None
         anchors[ident] = {'id': ident, 'text': label, 'href': href, 'url': target,
                           'clickable': bool(label or a.select('img,svg')), 'html': str(a),
-                          'page_url': a.get('data-mb-page-target')}
+                          'page_url': a.get('data-mb-page-target'),
+                          'events': anchor_events[ident],
+                          # Only these exact script bodies are known inert.
+                          'noop': bool(re.fullmatch(r'(?i:javascript):(?:;|void\(0\);?)', href))
+                                  and not anchor_events[ident]}
     title = soup.title.get_text(' ', strip=True) if soup.title else ''
     return soup, nodes, anchors, {'url': url, 'title': title, 'html': compact, 'html_truncated': False}
 
@@ -142,7 +152,8 @@ def apply_plan(soup, nodes, anchors, answer, url):
         if a['text'] not in entry['names']:
             entry['names'].append(a['text'])
     dynamic = [anchors[i] for i in selected - excluded.keys() if anchors[i]['clickable'] and
-               not anchors[i]['url'] and anchors[i]['href'].lower().startswith('javascript:')]
+               not anchors[i]['url'] and (anchors[i].get('events') or
+                (anchors[i]['href'].lower().startswith('javascript:') and not anchors[i].get('noop')))]
     if dynamic:
         issues.append('名单存在脚本链接，目标尚未确定')
     if not links and answer.get('status') != 'no_links':
@@ -161,7 +172,7 @@ def apply_plan(soup, nodes, anchors, answer, url):
                     pages.append(target)
             else:
                 issues.append('分页范围需要核实：' + target)
-        elif a['href'].lower() not in {'', '#', 'javascript:;', 'javascript:void(0)', 'javascript:void(0);'}:
+        elif a.get('events') or not (a.get('noop') or a['href'] in {'', '#'}):
             issues.append('分页目标不是可读取的HTTP地址')
     for i, a in anchors.items():
         if (a['text'].strip() in {'下一页', '下页', '末页', '尾页', 'Next', 'next'}
