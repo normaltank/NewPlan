@@ -4,7 +4,8 @@ import json
 import re
 from html import escape
 from bs4 import BeautifulSoup, Comment
-from audit import url_key, without_scheme, pagination_family, disabled_link, fixed_paging_target
+from audit import (url_key, without_scheme, pagination_family, disabled_link, fixed_paging_target,
+                   component_pagers, component_page_matches)
 
 CONTRACT = 'mission-b-source-regions-v1'
 PAGER = '.pb_sys_common, .wp_paging, #wp_pager'
@@ -215,6 +216,9 @@ def apply_plan(soup, nodes, anchors, answer, url):
         issues.append('未取得链接，不能自动判为零')
     if links and answer.get('status') == 'no_links':
         issues.append('无链接声明与实际提取不一致')
+    containers = [nodes[i] for i in pagers] + list(soup.select(PAGER))
+    components, component_issues = component_pagers(containers, url)
+    issues.extend(component_issues)
     pages = []
     for i in sorted(pager_ids):
         a = anchors[i]
@@ -222,7 +226,8 @@ def apply_plan(soup, nodes, anchors, answer, url):
             continue
         target = a['url'] or a.get('page_url')
         if target:
-            if pagination_family(target) == pagination_family(url):
+            if (pagination_family(target) == pagination_family(url)
+                    or any(component_page_matches(item, target) for item in components)):
                 if target not in pages:
                     pages.append(target)
             else:
@@ -239,7 +244,8 @@ def apply_plan(soup, nodes, anchors, answer, url):
     return {'complete': not issues, 'issues': list(dict.fromkeys(issues)), 'links': links,
             'scope_conflicts': scope_conflicts, 'coverage_conflicts': coverage_conflicts,
             'included_ids': included_ids, 'excluded': {str(i): why for i, why in excluded.items()},
-            'pagination_urls': pages, 'selected_anchors': len(selected), 'selected_regions': roots,
+            'pagination_urls': pages, 'component_pagers': components,
+            'selected_anchors': len(selected), 'selected_regions': roots,
             'occurrences': len(included_ids)}
 
 

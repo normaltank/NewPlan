@@ -98,6 +98,86 @@ def disabled_link(node):
             or 'disabled' in node.get('class', []))
 
 
+def component_query(url):
+    """Read one observed CMS t/p/c triple; every other parameter stays fixed."""
+    pairs = parse_qsl(urlsplit(url).query, keep_blank_values=True)
+    if len({key for key, _ in pairs}) != len(pairs):
+        return None
+    fields = [(re.fullmatch(r'(a\d+)([tpc])', key), value) for key, value in pairs]
+    fields = [(match, value) for match, value in fields if match]
+    if len(fields) != 3 or len({match[1] for match, _ in fields}) != 1:
+        return None
+    values = {match[2]: value for match, value in fields}
+    if set(values) != {'t', 'p', 'c'} or not all(value.isdigit() for value in values.values()):
+        return None
+    total, current, size = (int(values[key]) for key in ('t', 'p', 'c'))
+    if not (0 < current <= total <= 10000 and size > 0):
+        return None
+    component = fields[0][0][1]
+    fixed = sorted((key, value) for key, value in pairs if key not in {component + key for key in 'tpc'})
+    return component, total, current, size, fixed
+
+
+def component_pagers(containers, base):
+    """Bind the observed p_pages controls to their current column and component."""
+    source = urlsplit(base)
+    source_query = component_query(base)
+    fixed = source_query[4] if source_query else sorted(parse_qsl(source.query, keep_blank_values=True))
+    evidence, issues, seen = [], [], set()
+    for container in containers:
+        regions = ([container] if 'p_pages' in container.get('class', []) else []) + container.select('.p_pages')
+        for region in regions:
+            if id(region) in seen:
+                continue
+            seen.add(id(region))
+            candidates, first_urls = [], []
+            for anchor in region.select('a[href]'):
+                if disabled_link(anchor):
+                    continue
+                target = (url_key(anchor['href'], base) if anchor['href'].strip() not in {'', '#'} else None)
+                target = target or anchor.get('data-mb-page-target') or fixed_paging_target(anchor, base)
+                if not target:
+                    continue
+                parts, triple = urlsplit(target), component_query(target)
+                if (parts.netloc.lower(), parts.path, parts.fragment) != (source.netloc.lower(), source.path, source.fragment):
+                    continue
+                label = anchor.get_text(' ', strip=True)
+                if triple and triple[4] == fixed:
+                    candidates.append((triple, label))
+                elif not triple and sorted(parse_qsl(parts.query, keep_blank_values=True)) == fixed and label in {'1', '首页', '第一页'}:
+                    first_urls.append(target)
+            if not candidates:
+                continue
+            signatures = {(triple[0], triple[1], triple[3]) for triple, _ in candidates}
+            current_nodes = region.select('.p_no_d')
+            if len(signatures) != 1 or len(current_nodes) != 1 or not current_nodes[0].get_text(strip=True).isdigit():
+                issues.append('组件分页的组件、总页数或当前页证据不唯一，完整性未确认')
+                continue
+            component, total, size = next(iter(signatures))
+            current = int(current_nodes[0].get_text(strip=True))
+            numbered = [(triple, label) for triple, label in candidates if label.isdigit()]
+            if (not 0 < current <= total or not numbered or any(int(label) != triple[2] for triple, label in numbered)
+                    or (source_query and source_query[:4] != (component, total, current, size))
+                    or (not source_query and current != 1)):
+                issues.append('组件分页的地址与当前页或页码声明矛盾，完整性未确认')
+                continue
+            evidence.append({'component': component, 'host': source.netloc.lower(), 'path': source.path,
+                             'fragment': source.fragment, 'fixed_query': fixed, 'total': total,
+                             'page_size': size, 'current': current, 'first_urls': first_urls,
+                             'region_id': region.get('data-mb-id')})
+    return evidence, list(dict.fromkeys(issues))
+
+
+def component_page_matches(evidence, target):
+    parts, triple = urlsplit(target), component_query(target)
+    if (parts.netloc.lower(), parts.path, parts.fragment) != (evidence['host'], evidence['path'], evidence['fragment']):
+        return False
+    if triple:
+        return (triple[0] == evidence['component'] and triple[1] == evidence['total']
+                and triple[3] == evidence['page_size'] and triple[4] == evidence['fixed_query'])
+    return any(without_scheme(target) == without_scheme(first) for first in evidence['first_urls'])
+
+
 def fixed_paging_target(node, base):
     """Read the observed literal onclick redirect without evaluating JavaScript."""
     if node.get('href', '').strip() not in {'', '#'}:
