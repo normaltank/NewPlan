@@ -110,7 +110,7 @@ python replay.py --cache-manifest "cache\historical20\manifest.json"
 {"name":{"value":"陈晨","evidence":"陈晨"},"title":{"value":"教授，博士生导师","evidence":"职称：教授，博士生导师"},"email":{"value":"chen@example.edu","evidence":"电子邮箱：chen@example.edu"},"body_selector":"#profile"}
 ```
 
-引用必须出现在可见来源中，并在个人身份范围内关联目标姓名。已识别的侧栏、公共邮箱、论文合作者、师从与导师上下文不能作为本人字段；未知归属保留 `unconfirmed`。专业职称与导师资格分别记录为 `professional_value`、`qualifications`；已有可信值保留，模型相同时 `corroborated`，不同时 `conflict`。通过核验的缺失字段标为 `found_model_evidence`，其引用和输入 hash 另存 `field_evidence`。这些检查不代替人工身份与学院完整性核验。
+引用必须出现在可见来源中，并在个人身份范围内关联目标姓名。输入预期姓名未被确认且模型提议另一人时，保留身份冲突及字段待核原因。引用旁的独立他人标题会阻断向外借用身份；分散在相邻标题或 dt/dd 中的中英文公共邮箱、合作者标签同样参与核验。Fetch 纯文本出现多个独立个人身份时，模型字段保留待核，原文继续保存。已识别的侧栏、公共邮箱、论文合作者、师从与导师上下文不能作为本人字段；未知归属保留 `unconfirmed`。专业职称与导师资格分别记录为 `professional_value`、`qualifications`；已有可信值保留，模型相同时 `corroborated`，不同时 `conflict`。通过核验的缺失字段标为 `found_model_evidence`，其引用和输入 hash 另存 `field_evidence`。这些检查不代替人工身份与学院完整性核验。
 
 CSS 必须唯一匹配、确认本人身份并包含现有完整原文；错误、多个匹配或会缩小正文的建议保留原文及具体原因。模型摘要不进入简介。Fetch-only 纯文本输入保留 `source_kind: deepseek-fetch`、原站失败与 `provider_candidate`，核验后的字段为 `provider_model_candidate`；CSS 状态为 `not_applicable_plaintext`。模型缓存缺失时明确失败，不伪造响应或联网。
 

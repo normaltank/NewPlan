@@ -192,6 +192,65 @@ class AssistedFieldsCLI(unittest.TestCase):
             row, _ = run(3, self.root / 'unknown-attempts')
             self.assertEqual(row['model']['error']['code'], 'model_attempt_unknown')
 
+    def test_split_public_and_collaborator_labels_are_not_personal_email(self):
+        for block, email in [
+            ('<dl><dt>学院邮箱</dt><dd>电子邮箱：office@example.edu</dd></dl>', 'office@example.edu'),
+            ('<div><h3>合作者李明</h3><p>电子邮箱：li@example.edu</p></div>', 'li@example.edu'),
+        ]:
+            with self.subTest(email=email):
+                _, row, _ = self.replay('<section id="profile"><h1>陈晨</h1>' + block +
+                    '</section><main>陈晨的完整个人经历。</main>',
+                    self.plan(email={'value': email, 'evidence': '电子邮箱：' + email}))
+                self.assertEqual(row['email'], '')
+                self.assertEqual(row['model']['candidates']['email']['reason'], 'other_person_or_public_context')
+                self.assertEqual(row['model']['candidates']['email']['evidence'], '电子邮箱：' + email)
+        # An unrelated publication/advisor elsewhere must not taint a personal contact.
+        _, row, _ = self.replay('<section id="profile"><h1>陈晨</h1>'
+            '<p>电子邮箱：chen@example.edu</p><h2>论文</h2><p>合作者李明，师从王宁。</p>'
+            '</section><main>陈晨的完整个人经历。</main>')
+        self.assertEqual(row['email'], 'chen@example.edu')
+
+    def test_english_split_public_labels_reject_contacts_but_personal_email_remains_valid(self):
+        for block in ('<dl><dt>Department email</dt><dd>Email: office@example.edu</dd></dl>',
+                      '<div><h3>Collaborator Mary Jones</h3><p>Email: office@example.edu</p></div>'):
+            with self.subTest(block=block):
+                _, row, _ = self.replay('<section><h1>陈晨</h1>' + block +
+                    '</section><main>陈晨的完整个人经历。</main>',
+                    self.plan(email={'value': 'office@example.edu', 'evidence': 'Email: office@example.edu'}))
+                self.assertEqual(row['email'], '')
+                self.assertEqual(row['model']['candidates']['email']['reason'], 'other_person_or_public_context')
+        _, row, _ = self.replay('<section><h1>陈晨</h1><p>Email: chen@example.edu</p></section>'
+            '<main>陈晨的完整个人经历。</main>',
+            self.plan(email={'value': 'chen@example.edu', 'evidence': 'Email: chen@example.edu'}))
+        self.assertEqual(row['email'], 'chen@example.edu')
+
+    def test_contact_cannot_borrow_identity_past_another_person_heading(self):
+        _, row, _ = self.replay('<main><h1>陈晨</h1><p>本人完整经历。</p></main>'
+            '<section><h1>陈晨</h1><div><h2>周宁</h2>'
+            '<p>电子邮箱：zhou@example.edu</p></div></section>',
+            self.plan(email={'value': 'zhou@example.edu', 'evidence': '电子邮箱：zhou@example.edu'},
+                      body_selector=''))
+        self.assertEqual(row['name'], '陈晨')
+        self.assertEqual(row['email'], '')
+        candidate = row['model']['candidates']['email']
+        self.assertEqual(candidate['status'], 'unconfirmed')
+        self.assertEqual(candidate['reason'], 'personal_ownership_not_confirmed')
+        self.assertEqual(candidate['evidence'], '电子邮箱：zhou@example.edu')
+
+    def test_rejected_expected_identity_cannot_be_restored_by_model(self):
+        _, row, _ = self.replay('<section id="profile"><h1>王宁</h1>'
+            '<p>职称：教授</p><p>电子邮箱：wang@example.edu</p></section>'
+            '<main><h1>王宁</h1><p>王宁的完整个人经历。</p></main>',
+            self.plan(name={'value': '王宁', 'evidence': '王宁'},
+                      title={'value': '教授', 'evidence': '职称：教授'},
+                      email={'value': 'wang@example.edu', 'evidence': '电子邮箱：wang@example.edu'}),
+            options=('--name', '陈晨'))
+        self.assertEqual(row['name'], '')
+        self.assertIn('expected_name_not_confirmed', row['warnings'])
+        for field in ('name', 'title', 'email'):
+            self.assertNotEqual(row['model']['candidates'][field]['status'], 'applied')
+            self.assertEqual(row['model']['candidates'][field]['reason'], 'expected_identity_not_confirmed')
+
     def test_personal_template_sibling_card_and_split_name_label_are_bound(self):
         html = ('<div id="container-0"><div class="teach_info"><h1 class="news_title">陈晨 教授</h1></div></div>'
                 '<div id="container-1"><h3>个人资料</h3><p>电子邮箱：chen@example.edu</p>'
@@ -203,6 +262,31 @@ class AssistedFieldsCLI(unittest.TestCase):
                                 self.plan(title={'value': '教授，博士生导师', 'evidence': '职称：教授，博士生导师'}))
         self.assertEqual(row['model']['candidates']['title']['professional_value'], '教授')
         self.assertEqual(row['model']['candidates']['title']['qualifications'], ['博士生导师'])
+
+    def test_fetch_plaintext_does_not_borrow_public_or_other_person_contacts(self):
+        for context in ('学院邮箱', '合作者李明', '姓名：周宁'):
+            with self.subTest(context=context):
+                content = '姓名：陈晨\n完整经历。\n' + context + '\n电子邮箱：other@example.edu'
+                plan = self.plan(email={'value': 'other@example.edu', 'evidence': '电子邮箱：other@example.edu'})
+                response = {'choices': [{'finish_reason': 'stop', 'message': {
+                    'content': json.dumps(plan, ensure_ascii=False)}}]}
+                entry = {'url': 'https://example.edu/chen',
+                         'source': {'error': {'code': 'http_412', 'message': 'cached failure'}},
+                         'fetch': {**self.blob('split-fetch.json', json.dumps({'content': content})), 'provider_http_status': 200},
+                         'model': {**self.blob('split-model.json', json.dumps(response)),
+                                   'source_kind': 'deepseek-fetch',
+                                   'source_sha256': hashlib.sha256(content.encode('utf-8')).hexdigest()}}
+                manifest = self.root / 'split-provider.json'
+                manifest.write_text(json.dumps({'version': 1, 'entries': [entry]}), encoding='utf-8')
+                out = self.root / ('split-' + str(len(list(self.root.glob('split-*out')))) + 'out')
+                with patch.object(httpx.Client, 'send', side_effect=AssertionError('offline requested network')), \
+                        patch.dict(os.environ, {}, clear=True):
+                    main(['--cache-manifest', str(manifest), '--fetch-mode', 'fallback',
+                          '--model-mode', 'assist', '--output', str(out)])
+                row = json.loads((out / 'teachers.json').read_text(encoding='utf-8'))[0]
+                self.assertEqual(row['email'], '')
+                self.assertIn(row['model']['candidates']['email']['status'], ('rejected', 'unconfirmed'))
+                self.assertEqual(row['biography'], content)
 
     def test_fetch_only_model_uses_provider_text_binding_without_css_or_origin_success(self):
         content = '姓名：陈晨\n职称：教授\n电子邮箱：chen@example.edu\n完整经历。'

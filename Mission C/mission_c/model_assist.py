@@ -6,7 +6,7 @@ import re
 from bs4 import BeautifulSoup
 from soupsieve import SelectorSyntaxError
 
-from .extract import text_of, section_text
+from .extract import text_of, section_text, GENERIC, PERSONAL_SECTIONS
 
 from .fetch import SourceError
 from .person_names import clean_name, is_person_name
@@ -49,15 +49,43 @@ def identity_in(node, name):
                           node.get_text('\n', strip=True).replace(' ', '')))
 
 
+def plaintext_identity_conflict(text, name):
+    # Provider text has no DOM ownership boundaries. A second labelled or bare
+    # personal heading makes ownership uncertain; retain the source for review.
+    for line in text.splitlines():
+        label = re.sub(r'^\s*#{1,6}\s*', '', line).strip()
+        if re.search(r'[:：]', label) and not re.match(r'^姓名[:：]', label):
+            continue
+        label = re.sub(r'^姓名[:：]\s*', '', label)
+        label = clean_name(TITLE.sub('', label)).strip(' （）():：')
+        if (is_person_name(label) and not GENERIC.search(label)
+                and label.casefold() not in PERSONAL_SECTIONS and label != clean_name(name)
+                and not re.search(r'合作者|通讯作者|通信作者|师从|导师为|指导教师', label)):
+            return True
+    return False
+
+
 def owned_quote(soup, quote, name):
     """Find a visible quote in a personal block, excluding institutional contacts."""
     needle = compact(quote)
     matches = [node for node in soup.find_all(True) if needle and needle in compact(node.get_text())]
+    # Ancestor matches contain the same quote, but lose its local owner boundary.
+    matches = [node for node in matches if not any(
+        needle in compact(child.get_text()) for child in node.find_all(True))]
     matches.sort(key=lambda node: len(compact(node.get_text())))
     for node in matches:
+        conflicting_owner = False
         for scope in [node, *node.parents]:
             if scope.name in ('html', 'body', '[document]'):
                 break
+            heading = scope if scope.name in ('h1', 'h2', 'h3', 'h4') else scope.find_previous_sibling(['h1', 'h2', 'h3', 'h4'])
+            if heading is not None:
+                label = clean_name(TITLE.sub('', heading.get_text(' ', strip=True))).strip(' （）():：')
+                if (is_person_name(label) and not GENERIC.search(label)
+                        and label.casefold() not in PERSONAL_SECTIONS and label != clean_name(name)
+                        and not disallowed_context(heading, label)):
+                    conflicting_owner = True
+                    break
             text = scope.get_text('\n', strip=True)
             if len(text) > 12000:
                 break
@@ -65,6 +93,8 @@ def owned_quote(soup, quote, name):
                 return node
         # WebPlus personal pages put the identity card and profile panels in
         # separate siblings. Bind only this known pair, never the whole page.
+        if conflicting_owner:
+            continue
         panel = node.find_parent(id='container-1')
         if panel is not None:
             headers = soup.select('#container-0 .teach_info h1.news_title')
@@ -77,15 +107,15 @@ def owned_quote(soup, quote, name):
 
 def disallowed_context(node, quote):
     context = node.get_text(' ', strip=True) + ' ' + quote
-    if re.search(r'学院邮箱|办公室邮箱|招生邮箱|公共邮箱|联系编辑|通讯作者|通信作者|合作者|师从|导师为|指导教师', context):
+    if re.search(r'学院邮箱|办公室邮箱|招生邮箱|公共邮箱|联系编辑|通讯作者|通信作者|合作者|师从|导师为|指导教师|(?:department|office|admissions|public)\s+e-?mail|collaborator|corresponding author', context, re.I):
         return True
     # A contact inside a publication list is evidence about the publication,
     # even when the enclosing article is this person's profile.
     for scope in [node, *node.parents]:
         if scope.name in ('body', 'html', '[document]'):
             break
-        heading = scope.find_previous_sibling(['h2', 'h3', 'h4'])
-        if heading and re.search(r'论文|成果|publications', heading.get_text(), re.I):
+        heading = scope.find_previous_sibling(['h1', 'h2', 'h3', 'h4', 'dt'])
+        if heading and re.search(r'学院邮箱|办公室邮箱|招生邮箱|公共邮箱|联系编辑|通讯作者|通信作者|合作者|师从|导师为|指导教师|论文|成果|publications|(?:department|office|admissions|public)\s+e-?mail|collaborator|corresponding author', heading.get_text(), re.I):
             return True
     return False
 
@@ -99,12 +129,18 @@ def apply_model(raw, metadata, data, record, folder):
     soup = (BeautifulSoup('<pre>' + escape(data.decode('utf-8')) + '</pre>', 'html.parser')
             if provider_text else clean_source(data))
     proposed_name = clean_name(plan['name']['value'])
-    person = record['name'] or proposed_name
+    expected_name = clean_name(record.get('input_metadata', {}).get('expected_name'))
+    person = record['name'] or expected_name or proposed_name
+    identity_conflict = bool(expected_name and person != expected_name or
+                             expected_name and not record['name'] and proposed_name != expected_name)
     for field in ('name', 'title', 'email'):
         item = plan[field]
         candidate = {**item, 'status': 'not_proposed', 'reason': 'empty_value'}
         result['candidates'][field] = candidate
         if not item['value']:
+            continue
+        if identity_conflict:
+            candidate.update(status='unconfirmed', reason='expected_identity_not_confirmed')
             continue
         if not item['evidence'] or compact(item['value']) not in compact(item['evidence']):
             candidate.update(status='rejected', reason='value_not_quoted')
@@ -112,7 +148,8 @@ def apply_model(raw, metadata, data, record, folder):
         if compact(item['evidence']) not in compact(soup.get_text()):
             candidate.update(status='rejected', reason='quote_not_in_source')
             continue
-        node = owned_quote(soup, item['evidence'], person)
+        node = (None if provider_text and plaintext_identity_conflict(data.decode('utf-8'), person)
+                else owned_quote(soup, item['evidence'], person))
         if node is None:
             candidate.update(status='unconfirmed', reason='personal_ownership_not_confirmed')
             continue
