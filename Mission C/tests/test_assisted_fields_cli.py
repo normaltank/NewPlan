@@ -210,6 +210,20 @@ class AssistedFieldsCLI(unittest.TestCase):
             '</section><main>陈晨的完整个人经历。</main>')
         self.assertEqual(row['email'], 'chen@example.edu')
 
+    def test_english_split_public_labels_reject_contacts_but_personal_email_remains_valid(self):
+        for block in ('<dl><dt>Department email</dt><dd>Email: office@example.edu</dd></dl>',
+                      '<div><h3>Collaborator Mary Jones</h3><p>Email: office@example.edu</p></div>'):
+            with self.subTest(block=block):
+                _, row, _ = self.replay('<section><h1>陈晨</h1>' + block +
+                    '</section><main>陈晨的完整个人经历。</main>',
+                    self.plan(email={'value': 'office@example.edu', 'evidence': 'Email: office@example.edu'}))
+                self.assertEqual(row['email'], '')
+                self.assertEqual(row['model']['candidates']['email']['reason'], 'other_person_or_public_context')
+        _, row, _ = self.replay('<section><h1>陈晨</h1><p>Email: chen@example.edu</p></section>'
+            '<main>陈晨的完整个人经历。</main>',
+            self.plan(email={'value': 'chen@example.edu', 'evidence': 'Email: chen@example.edu'}))
+        self.assertEqual(row['email'], 'chen@example.edu')
+
     def test_contact_cannot_borrow_identity_past_another_person_heading(self):
         _, row, _ = self.replay('<main><h1>陈晨</h1><p>本人完整经历。</p></main>'
             '<section><h1>陈晨</h1><div><h2>周宁</h2>'
