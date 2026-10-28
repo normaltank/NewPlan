@@ -10,7 +10,7 @@ from .extract import extract_html, refresh_fields
 from .export import export_tables
 from .fetch import Fetcher, SourceError, valid_url
 from .media import collect_media
-from .assisted import CacheManifest
+from .assisted import CacheManifest, LiveFetch
 
 
 def write_json(path, value):
@@ -25,6 +25,9 @@ def main(argv=None):
     parser.add_argument("--cache-manifest", type=Path, help="严格离线多 URL 缓存清单；不联网或读取密钥")
     parser.add_argument("--fetch-mode", choices=["off", "fallback", "supplement"], default="off",
                         help="Fetch 提供方材料：关闭、仅本地失败、补充（保留本地全文）")
+    parser.add_argument("--allow-paid", action="store_true", help="明确允许提供方付费请求（缓存清单仍严格离线）")
+    parser.add_argument("--fetch-max-calls", type=int, default=0, help="Fetch 持久化预算上限，默认 0")
+    parser.add_argument("--fetch-attempts", type=Path, help="跨运行保留的在线 Fetch 尝试记录目录")
     parser.add_argument("--output", type=Path, help="新的结果目录；默认 outputs 下的新目录")
     parser.add_argument("--selector", help="明确指定唯一正文 CSS 容器")
     parser.add_argument("--name", help="预期姓名；与页面冲突时不强行采用")
@@ -46,7 +49,7 @@ def main(argv=None):
         urls = list(dict.fromkeys(valid_url(url) for url in urls))
         if not urls or ((args.html or args.name) and len(urls) != 1):
             raise ValueError("请提供 URL；--html 和 --name 仅用于单个 URL")
-        if args.timeout <= 0 or args.delay < 0.5:
+        if args.timeout <= 0 or args.delay < 0.5 or args.fetch_max_calls < 0:
             raise ValueError("--timeout 必须大于 0；--delay 至少为 0.5")
         if args.html and args.render:
             raise ValueError("离线 --html 不执行脚本；不能同时使用 --render")
@@ -57,6 +60,8 @@ def main(argv=None):
             datetime.now().strftime("%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:8])
         output.mkdir(parents=True, exist_ok=False)
         fetcher = Fetcher(args.timeout, args.delay) if not (args.html or cache) else None
+        provider = cache or LiveFetch(allow_paid=args.allow_paid, max_calls=args.fetch_max_calls,
+                                     attempts=args.fetch_attempts, timeout=args.timeout)
         records = []
         try:
             for index, url in enumerate(urls, 1):
@@ -111,9 +116,21 @@ def main(argv=None):
                     record["error"] = {"code": getattr(error, "code", "extraction_error"), "message": str(error)}
                 if record["biography"]:
                     record["biography_source"] = "local"
-                if cache and args.fetch_mode != "off" and (args.fetch_mode == "supplement" or not record["biography"]):
+                if cache and "model" in cache.entries.get(url, {}):
                     try:
-                        record["fetch"], _ = cache.fetch(url, folder)
+                        record["model_cache"] = cache.model(url, record.get("sha256"), folder)
+                    except SourceError as error:
+                        record["model_cache"] = {"status": "read_failed", "error": {
+                            "code": error.code, "message": str(error)}}
+                if args.fetch_mode != "off" and (args.fetch_mode == "supplement" or not record["biography"]):
+                    try:
+                        record["fetch"], candidate = provider.fetch(url, folder)
+                        if candidate and not record["biography"]:
+                            (folder / "biography.txt").write_text(candidate, encoding="utf-8")
+                            record.update(biography=candidate, biography_source="deepseek-fetch",
+                                          biography_file=f"{index:04d}/biography.txt",
+                                          status="provider_candidate", review_required=True)
+                            record["warnings"].append("provider_content_requires_review")
                     except (SourceError, ValueError) as error:
                         record["fetch"] = {"status": "read_failed", "error": {
                             "code": getattr(error, "code", "fetch_invalid_response"), "message": str(error)}}
