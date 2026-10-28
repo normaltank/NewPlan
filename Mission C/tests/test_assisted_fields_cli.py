@@ -139,6 +139,59 @@ class AssistedFieldsCLI(unittest.TestCase):
                 else:
                     self.assertNotIn('额外原文。', row['biography'])
 
+    def test_live_model_uses_json_and_persistent_budget_shared_with_fetch(self):
+        source = self.root / 'live.html'
+        source.write_text('<meta charset="utf-8"><section id="profile"><h1>陈晨</h1><p>电子邮箱：chen@example.edu</p></section><main>完整经历。</main>', encoding='utf-8')
+        attempts = self.root / 'attempts'
+        calls = []
+        def send(client, request, **kwargs):
+            calls.append(request)
+            if request.url.path.endswith('/fetch'):
+                return httpx.Response(200, json={'content': '提供方文字'}, request=request)
+            payload = json.loads(request.content)
+            self.assertEqual(payload['response_format'], {'type': 'json_object'})
+            self.assertEqual(payload['thinking'], {'type': 'disabled'})
+            self.assertEqual(payload['model'], 'deepseek-flash')
+            self.assertIn('JSON', payload['messages'][0]['content'])
+            return httpx.Response(200, json={'choices': [{'finish_reason': 'stop', 'message': {
+                'content': json.dumps(self.plan())}}], 'usage': {'total_tokens': 42}}, request=request)
+        def run(number, budget):
+            out = self.root / ('live-' + str(number))
+            main(['--url', 'https://example.edu/chen', '--html', str(source), '--output', str(out),
+                  '--fetch-mode', 'supplement', '--model-mode', 'assist', '--allow-paid',
+                  '--paid-max-calls', str(budget), '--paid-attempts', str(attempts)])
+            return json.loads((out / 'teachers.json').read_text(encoding='utf-8'))[0]
+        with patch.object(httpx.Client, 'send', send), patch.dict(os.environ, {'DEEPSEEK_API_KEY': 'fake-secret'}, clear=True):
+            row = run(1, 1)
+            self.assertEqual(row['model']['error']['code'], 'model_budget_exhausted')
+            row = run(2, 2)
+            self.assertEqual(row['email'], 'chen@example.edu')
+            self.assertEqual(row['model']['usage'], {'total_tokens': 42})
+            row = run(3, 2)
+            self.assertEqual(row['model']['error']['code'], 'model_attempt_exists')
+        self.assertEqual(len(calls), 2)
+        self.assertNotIn('fake-secret', ''.join(p.read_text(encoding='utf-8') for p in attempts.glob('*.json')))
+
+    def test_live_model_http_failure_saved_and_unknown_timeout_never_resent(self):
+        source = self.root / 'source.html'
+        source.write_text('<h1>陈晨</h1><main>完整原文。</main>', encoding='utf-8')
+        def run(number, attempts):
+            out = self.root / str(number)
+            main(['--url', 'https://example.edu/chen', '--html', str(source), '--output', str(out),
+                  '--model-mode', 'assist', '--allow-paid', '--paid-max-calls', '3', '--paid-attempts', str(attempts)])
+            return json.loads((out / 'teachers.json').read_text(encoding='utf-8'))[0], out
+        def failed(client, request, **kwargs):
+            return httpx.Response(500, content=b'{"error":"fake-secret"}', request=request)
+        with patch.object(httpx.Client, 'send', failed), patch.dict(os.environ, {'DEEPSEEK_API_KEY': 'fake-secret'}, clear=True):
+            row, out = run(1, self.root / 'failed-attempts')
+            self.assertEqual(row['model']['error']['code'], 'model_provider_http_error')
+            self.assertNotIn('fake-secret', (out / '0001/model-response.json').read_text())
+        with patch.object(httpx.Client, 'send', side_effect=httpx.ReadTimeout('fake-secret')), patch.dict(os.environ, {'DEEPSEEK_API_KEY': 'fake-secret'}, clear=True):
+            row, _ = run(2, self.root / 'unknown-attempts')
+            self.assertEqual(row['model']['error']['code'], 'model_network_unknown')
+            row, _ = run(3, self.root / 'unknown-attempts')
+            self.assertEqual(row['model']['error']['code'], 'model_attempt_unknown')
+
 
 if __name__ == '__main__':
     unittest.main()
