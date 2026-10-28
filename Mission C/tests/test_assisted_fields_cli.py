@@ -192,6 +192,18 @@ class AssistedFieldsCLI(unittest.TestCase):
             row, _ = run(3, self.root / 'unknown-attempts')
             self.assertEqual(row['model']['error']['code'], 'model_attempt_unknown')
 
+    def test_personal_template_sibling_card_and_split_name_label_are_bound(self):
+        html = ('<div id="container-0"><div class="teach_info"><h1 class="news_title">陈晨 教授</h1></div></div>'
+                '<div id="container-1"><h3>个人资料</h3><p>电子邮箱：chen@example.edu</p>'
+                '<main>完整经历。</main></div>')
+        _, row, _ = self.replay(html)
+        self.assertEqual(row['email'], 'chen@example.edu')
+        _, row, _ = self.replay('<main><p><span>姓名：</span><span>陈晨</span></p>'
+                                '<p>职称：教授，博士生导师</p><p>完整经历。</p></main>',
+                                self.plan(title={'value': '教授，博士生导师', 'evidence': '职称：教授，博士生导师'}))
+        self.assertEqual(row['model']['candidates']['title']['professional_value'], '教授')
+        self.assertEqual(row['model']['candidates']['title']['qualifications'], ['博士生导师'])
+
 
 if __name__ == '__main__':
     unittest.main()

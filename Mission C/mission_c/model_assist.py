@@ -44,7 +44,7 @@ def identity_in(node, name):
         label = compact(heading.get_text())
         if label == compact(name) or re.fullmatch(re.escape(compact(name)) + r'[（(]?(?:教授|副教授|讲师)[）)]?', label):
             return True
-    return bool(re.search(r'姓名[:：]' + re.escape(compact(name)) + r'(?:$|[^\w\u4e00-\u9fff])',
+    return bool(re.search(r'姓名[:：]\s*' + re.escape(compact(name)) + r'(?:$|[^\w\u4e00-\u9fff])',
                           node.get_text('\n', strip=True).replace(' ', '')))
 
 
@@ -61,6 +61,15 @@ def owned_quote(soup, quote, name):
             if len(text) > 12000:
                 break
             if identity_in(scope, name):
+                return node
+        # WebPlus personal pages put the identity card and profile panels in
+        # separate siblings. Bind only this known pair, never the whole page.
+        panel = node.find_parent(id='container-1')
+        if panel is not None:
+            headers = soup.select('#container-0 .teach_info h1.news_title')
+            if (len(headers) == 1 and panel.parent is headers[0].find_parent(id='container-0').parent
+                    and identity_in(headers[0].parent, name)
+                    and any(compact(h.get_text()) == '个人资料' for h in panel.select('h2,h3,h4'))):
                 return node
     return None
 
