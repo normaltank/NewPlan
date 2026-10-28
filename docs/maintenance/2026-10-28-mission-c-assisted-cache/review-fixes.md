@@ -31,6 +31,12 @@
 
 运行时代码 `6809cf1732a92688a54f4bf65e5de0fa9ac79c17` 再以只读四页清单回放到新目录 `%TEMP%/mission-c-fields-real4/assist-heading-scope-6809cf1`。`verification-heading-scope-6809cf1.json` 逐项记录 8 份输入资产的 SHA256 未变，4 份简介与 `off` 基线逐字及 SHA256 相等，姓名/职称/邮箱与旧 `assist-07` 相等。苏大邮箱及华东师大姓名/职称/邮箱收益保留，华北电力教授与导师资格仍分开；HTTP/socket/DNS 均为 0。复现脚本与日志为 `%TEMP%/mission-c-heading-real4-verify.py`、`mission-c-heading-real4.log`，旧输出未改。
 
-本次最终完整验证仅一次：`MISSION_C_OPTIONAL_TESTS=1 python -m unittest discover -s tests -v`，运行时代码 `6809cf1`，52 项于 105.028 秒全部通过，无跳过，包含动态页面、OCR 及 fake IO；日志为 `%TEMP%/mission-c-heading-final-optional.log`。相对上轮 50 项增加 2 项标题层级公开 CLI 测试，验证后仅更新文档。
+首轮完整验证仅一次：`MISSION_C_OPTIONAL_TESTS=1 python -m unittest discover -s tests -v`，运行时代码 `6809cf1`，52 项于 105.028 秒全部通过，无跳过，包含动态页面、OCR 及 fake IO；日志为 `%TEMP%/mission-c-heading-final-optional.log`。相对上轮 50 项增加 2 项标题层级公开 CLI 测试，随后先以 `4f55399` 保存当时文档证据。
+
+主代理随后依据代码提出同一 C 的具体嵌套反例：`周宁 h2` 在 `<header>` 中，邮箱在后续 `<div>` 的“联系方式 h3”下。`mission-c-heading-red-wrapper.log` 证实该例仍错误采用周宁邮箱，因此首轮全绿不构成此变体已修复的证据。`393d7e8` 令只含标题内容的包装节点在标题层级判断中透明；有独立正文的相邻个人卡仍作为独立块。未新增通用标题词表。新增公开 CLI 回归及全部辅助字段测试共 16 项于 4.765 秒通过，见 `%TEMP%/mission-c-heading-green-wrapper.log`。
+
+最终运行时代码 `393d7e85eccea02ba0a0354bb30cd520964fc483` 再回放四页到全新 `assist-heading-scope-393d7e8`。同目录 `verification-heading-scope-393d7e8.json` 确认四页字段、四份全文及八份原件 SHA256 均满足上文基线，HTTP/socket/DNS 仍全为 0；复现脚本与日志为 `%TEMP%/mission-c-heading-wrapper-real4-verify.py`、`mission-c-heading-wrapper-real4.log`。所有前轮输出保留。
+
+包装变体真实失败修复后，对新运行时代码再次进行一次 `MISSION_C_OPTIONAL_TESTS=1` 完整验证：53 项于 56.139 秒全部通过、无跳过，包含动态页面、OCR、PDF 和 fake IO。最终日志为 `%TEMP%/mission-c-heading-wrapper-final-optional.log`；这是新增失败及代码修改后的必要重验证，没有覆盖首轮日志。此后仅更新证据文档。
 
 专用实施分支合入当时 `codex/mission-c-assisted` 的 `ad0e0e3` 时为 Already up to date；独立 merger、Standards/Spec 复审及最终集成版本 CI 仍由主代理完成。本轮没有真实站点、真实密钥、付费接口、`secure-api-run`、推送、PR、用户目录或集成工作树写入；不据缓存兼容性声称学院完整性。
