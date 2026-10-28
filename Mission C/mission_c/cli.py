@@ -10,6 +10,7 @@ from .extract import extract_html, refresh_fields
 from .export import export_tables
 from .fetch import Fetcher, SourceError, valid_url
 from .media import collect_media
+from .assisted import CacheManifest
 
 
 def write_json(path, value):
@@ -21,6 +22,9 @@ def main(argv=None):
     parser.add_argument("--url", action="append", default=[], help="教师个人主页 URL，可重复")
     parser.add_argument("--urls-file", type=Path, help="UTF-8 文本，每行一个个人主页 URL")
     parser.add_argument("--html", type=Path, help="离线保存的 HTML，配合一个 --url；不会联网")
+    parser.add_argument("--cache-manifest", type=Path, help="严格离线多 URL 缓存清单；不联网或读取密钥")
+    parser.add_argument("--fetch-mode", choices=["off", "fallback", "supplement"], default="off",
+                        help="Fetch 提供方材料：关闭、仅本地失败、补充（保留本地全文）")
     parser.add_argument("--output", type=Path, help="新的结果目录；默认 outputs 下的新目录")
     parser.add_argument("--selector", help="明确指定唯一正文 CSS 容器")
     parser.add_argument("--name", help="预期姓名；与页面冲突时不强行采用")
@@ -32,10 +36,13 @@ def main(argv=None):
     parser.add_argument("--delay", type=float, default=0.5, help="请求间隔秒数，至少 0.5")
     args = parser.parse_args(argv)
     try:
+        cache = CacheManifest(args.cache_manifest) if args.cache_manifest else None
         urls = args.url[:]
         if args.urls_file:
             urls.extend(line.strip() for line in args.urls_file.read_text(encoding="utf-8-sig").splitlines()
                         if line.strip() and not line.lstrip().startswith("#"))
+        if not urls and cache:
+            urls = list(cache.entries)
         urls = list(dict.fromkeys(valid_url(url) for url in urls))
         if not urls or ((args.html or args.name) and len(urls) != 1):
             raise ValueError("请提供 URL；--html 和 --name 仅用于单个 URL")
@@ -43,11 +50,13 @@ def main(argv=None):
             raise ValueError("--timeout 必须大于 0；--delay 至少为 0.5")
         if args.html and args.render:
             raise ValueError("离线 --html 不执行脚本；不能同时使用 --render")
+        if cache and (args.html or args.render):
+            raise ValueError("--cache-manifest 不能与 --html 或 --render 同用")
         offline_data = args.html.read_bytes() if args.html else None
         output = args.output or Path(__file__).resolve().parents[1] / "outputs" / (
             datetime.now().strftime("%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:8])
         output.mkdir(parents=True, exist_ok=False)
-        fetcher = Fetcher(args.timeout, args.delay) if not args.html else None
+        fetcher = Fetcher(args.timeout, args.delay) if not (args.html or cache) else None
         records = []
         try:
             for index, url in enumerate(urls, 1):
@@ -58,12 +67,15 @@ def main(argv=None):
                           "review_required": True, "completeness": "not_verified", "warnings": [],
                           "field_status": {"name": "not_read", "title": "not_read", "email": "not_read"},
                           "source_file": "", "biography_file": "",
-                          "source_mode": "saved_html" if args.html else "http",
+                          "source_mode": "cache_manifest" if cache else "saved_html" if args.html else "http",
                           "observed_at": datetime.now(timezone.utc).isoformat(),
                           "input_metadata": {"school": args.school, "college": args.college,
                                              "collector": "自动采集", "expected_name": args.name}}
                 try:
-                    if offline_data is None:
+                    if cache:
+                        data, metadata = cache.source(url)
+                        record.update(metadata)
+                    elif offline_data is None:
                         data, metadata = fetcher.get(url)
                         record.update(metadata)
                     else:
@@ -97,6 +109,14 @@ def main(argv=None):
                                   status="text_saved" if record["biography"] else "not_extracted")
                 except (SourceError, ValueError) as error:
                     record["error"] = {"code": getattr(error, "code", "extraction_error"), "message": str(error)}
+                if record["biography"]:
+                    record["biography_source"] = "local"
+                if cache and args.fetch_mode != "off" and (args.fetch_mode == "supplement" or not record["biography"]):
+                    try:
+                        record["fetch"], _ = cache.fetch(url, folder)
+                    except (SourceError, ValueError) as error:
+                        record["fetch"] = {"status": "read_failed", "error": {
+                            "code": getattr(error, "code", "fetch_invalid_response"), "message": str(error)}}
                 write_json(folder / "record.json", record)
                 records.append(record)
                 write_json(output / "teachers.json", records)
