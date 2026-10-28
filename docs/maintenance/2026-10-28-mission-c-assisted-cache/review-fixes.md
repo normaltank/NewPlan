@@ -40,3 +40,15 @@
 包装变体真实失败修复后，对新运行时代码再次进行一次 `MISSION_C_OPTIONAL_TESTS=1` 完整验证：53 项于 56.139 秒全部通过、无跳过，包含动态页面、OCR、PDF 和 fake IO。最终日志为 `%TEMP%/mission-c-heading-wrapper-final-optional.log`；这是新增失败及代码修改后的必要重验证，没有覆盖首轮日志。此后仅更新证据文档。
 
 专用实施分支合入当时 `codex/mission-c-assisted` 的 `ad0e0e3` 时为 Already up to date；独立 merger、Standards/Spec 复审及最终集成版本 CI 仍由主代理完成。本轮没有真实站点、真实密钥、付费接口、`secure-api-run`、推送、PR、用户目录或集成工作树写入；不据缓存兼容性声称学院完整性。
+
+## 普通联系字段标签补修
+
+主代理在 `fd50412` 后通过公开 CLI 确认 B 仍有同根因反例：`<div><strong>学院邮箱</strong><p>电子邮箱：office@example.edu</p></div>` 中仅引用 p 时，模型会采用公共邮箱。原件为 `%TEMP%/mission-c-strong-contact-fd50412.json`。本轮继续相同修复范围，前轮 53 项验证保留为当时事实，不用于宣称此变体已经修复。
+
+`f784e01` 将引用各层所属分支与直接相邻的纯标签内容关联，按既有公共/他人联系语义识别，不依赖 strong/span/div 标签名，也不扫描整个父页面任意文字。完整相邻字段含有自己的值时，其整体内容不是当前字段的纯标签。4 个 strong/span/div 中英文公共/合作者反例红→绿；独立公共联系块、同父相邻公共字段、公共字段未公布三种本人邮箱正例通过。红绿日志为 `%TEMP%/mission-c-field-block-{red,green}.log`。
+
+交互检查另在该修复版本确认：普通公共标签紧邻新的周宁 h2 时，字段标签可能让身份边界被错误忽略。`4798b96` 将新标题的层级归属与普通相邻字段标签的范围分开，保持 C 的他人标题边界；公开 CLI 红例为 `%TEMP%/mission-c-field-block-heading-red.log`，绿例及全部 18 项辅助字段 CLI 测试于 5.079 秒通过，见 `mission-c-field-block-heading-green.log`。原 A/B/C、英文、Fetch 多身份、标题包装和个人卡用例均保留。
+
+运行时代码 `4798b969421aa47fb2b8156fc018bc12ab0a9678` 再用只读四页清单回放到新 `assist-field-block-4798b96`，结果为同目录 `verification-field-block-4798b96.json`。四页姓名/职称/邮箱与 `assist-07` 相同，四份简介与 `off` 逐字及 SHA256 相等，八份原件及模型响应 SHA256 未变，苏大与华东师大收益、华北电力教授/导师资格拆分保留；HTTP/socket/DNS 为 0。复现脚本与日志为 `%TEMP%/mission-c-field-block-real4-verify.py`、`mission-c-field-block-real4.log`。所有前轮输出和失败证据保留。
+
+该运行时代码的最终 `MISSION_C_OPTIONAL_TESTS=1 python -m unittest discover -s tests -v` 仅运行一次，55 项于 62.082 秒全部通过、无跳过，包含动态页面、OCR、PDF 和 fake IO，日志为 `%TEMP%/mission-c-field-block-final-optional.log`。相对上一运行时代码 53 项新增普通字段标签及其标题边界交互两项公开 CLI 测试；此后仅更新证据文档。准确集成提交 CI、独立 merger 与双维度复审仍由主代理执行。
