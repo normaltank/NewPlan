@@ -291,6 +291,52 @@ class AssistedFieldsCLI(unittest.TestCase):
         self.assertEqual(row['model']['candidates']['email']['status'], 'unconfirmed')
         self.assertEqual(row['model']['candidates']['email']['reason'], 'personal_ownership_not_confirmed')
 
+    def test_wrapped_owner_is_independent_of_preceding_field_label(self):
+        for label in ('学院邮箱', '合作者李明'):
+            with self.subTest(label=label):
+                _, row, _ = self.replay('<main><h1>陈晨</h1><p>本人完整经历。</p></main>'
+                    '<section><h1>陈晨</h1><div><strong>' + label + '</strong>'
+                    '<header><h2>周宁</h2></header><div><h3>联系方式</h3>'
+                    '<p>电子邮箱：zhou@example.edu</p></div></div></section>',
+                    self.plan(email={'value': 'zhou@example.edu', 'evidence': '电子邮箱：zhou@example.edu'},
+                              body_selector=''))
+                self.assertEqual(row['name'], '陈晨')
+                self.assertEqual(row['email'], '')
+                self.assertEqual(row['model']['candidates']['email']['reason'], 'personal_ownership_not_confirmed')
+
+    def test_owner_outline_survives_wrapper_metadata_and_nested_subsections(self):
+        wrappers = ('<header><h2>周宁</h2><span>教授</span></header>',
+                    '<header><h2>周宁</h2><p>研究员</p></header>',
+                    '<div><div><h2>周宁</h2><span>个人编号：123</span></div></div>')
+        for prefix in ('', '<strong>学院邮箱</strong>', '<span>合作者李明</span>'):
+            for wrapper in wrappers:
+                for level in ('h3', 'h4'):
+                    with self.subTest(prefix=prefix, wrapper=wrapper, level=level):
+                        _, row, output = self.replay('<main><h1>陈晨</h1><p>本人完整经历。</p></main>'
+                            '<section><h1>陈晨</h1><div>' + prefix + wrapper +
+                            '<div><' + level + '>联系方式</' + level + '>'
+                            '<p>电子邮箱：zhou@example.edu</p></div></div></section>',
+                            self.plan(email={'value': 'zhou@example.edu', 'evidence': '电子邮箱：zhou@example.edu'},
+                                      body_selector=''))
+                        self.assertEqual(row['name'], '陈晨')
+                        self.assertEqual(row['email'], '')
+                        self.assertEqual(row['model']['candidates']['email']['reason'], 'personal_ownership_not_confirmed')
+                        self.assertIn('本人完整经历。', row['biography'])
+                        self.assertEqual((output / row['biography_file']).read_text(encoding='utf-8'), row['biography'])
+
+    def test_personal_card_owns_contact_after_completed_neighbor_card(self):
+        for wrapper in ('<header><h2>陈晨</h2><span>教授</span></header>',
+                        '<div><div><h2>陈晨</h2><p>个人编号：123</p></div></div>'):
+            for level in ('h3', 'h4'):
+                with self.subTest(wrapper=wrapper, level=level):
+                    _, row, _ = self.replay('<main><h1>陈晨</h1><p>本人完整经历。</p></main>'
+                        '<section><h2>周宁</h2><p>其他人的完整介绍。</p></section>'
+                        '<section>' + wrapper + '<div><' + level + '>联系方式</' + level + '>'
+                        '<p>电子邮箱：chen@example.edu</p></div></section>', self.plan(body_selector=''))
+                    self.assertEqual(row['email'], 'chen@example.edu')
+                    self.assertEqual(row['model']['candidates']['email']['status'], 'applied')
+                    self.assertIn('本人完整经历。', row['biography'])
+
     def test_ordinary_contact_labels_stay_with_their_field(self):
         for tag, label in (('strong', '学院邮箱'), ('span', '合作者李明'),
                            ('div', 'Department email'), ('span', 'Collaborator Mary Jones')):

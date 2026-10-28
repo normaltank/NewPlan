@@ -79,10 +79,10 @@ def governing_headings(scope):
             headings.append(sibling)
         else:
             nested = sibling.find_all(tags)
-            # A heading-only wrapper is transparent to the section outline.
-            # A completed sibling card with its own body is a separate block.
-            if nested and compact(sibling.get_text()) == ''.join(compact(h.get_text()) for h in nested):
-                headings.extend(reversed(nested))
+            # Wrappers and accompanying metadata do not close an outline.
+            # A current personal card binds at its own identity before ascending
+            # to the parent where completed sibling cards become visible.
+            headings.extend(reversed(nested))
     rank = 7
     for heading in headings:
         level = int(heading.name[1])
@@ -106,9 +106,11 @@ def owned_quote(soup, quote, name):
                 break
             for heading in governing_headings(scope):
                 label = clean_name(TITLE.sub('', heading.get_text(' ', strip=True))).strip(' （）():：')
+                # Ownership is a property of the heading itself. Field labels
+                # on ancestors cannot erase an independently named person.
                 if (is_person_name(label) and not GENERIC.search(label)
                         and label.casefold() not in PERSONAL_SECTIONS and label != clean_name(name)
-                        and not disallowed_context(heading, label)):
+                        and not re.search(EXCLUDED_CONTACT, heading.get_text(), re.I)):
                     conflicting_owner = True
                     break
             if conflicting_owner:
