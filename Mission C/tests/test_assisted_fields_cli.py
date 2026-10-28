@@ -192,6 +192,20 @@ class AssistedFieldsCLI(unittest.TestCase):
             row, _ = run(3, self.root / 'unknown-attempts')
             self.assertEqual(row['model']['error']['code'], 'model_attempt_unknown')
 
+    def test_rejected_expected_identity_cannot_be_restored_by_model(self):
+        _, row, _ = self.replay('<section id="profile"><h1>王宁</h1>'
+            '<p>职称：教授</p><p>电子邮箱：wang@example.edu</p></section>'
+            '<main><h1>王宁</h1><p>王宁的完整个人经历。</p></main>',
+            self.plan(name={'value': '王宁', 'evidence': '王宁'},
+                      title={'value': '教授', 'evidence': '职称：教授'},
+                      email={'value': 'wang@example.edu', 'evidence': '电子邮箱：wang@example.edu'}),
+            options=('--name', '陈晨'))
+        self.assertEqual(row['name'], '')
+        self.assertIn('expected_name_not_confirmed', row['warnings'])
+        for field in ('name', 'title', 'email'):
+            self.assertNotEqual(row['model']['candidates'][field]['status'], 'applied')
+            self.assertEqual(row['model']['candidates'][field]['reason'], 'expected_identity_not_confirmed')
+
     def test_personal_template_sibling_card_and_split_name_label_are_bound(self):
         html = ('<div id="container-0"><div class="teach_info"><h1 class="news_title">陈晨 教授</h1></div></div>'
                 '<div id="container-1"><h3>个人资料</h3><p>电子邮箱：chen@example.edu</p>'

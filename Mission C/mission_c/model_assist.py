@@ -99,12 +99,18 @@ def apply_model(raw, metadata, data, record, folder):
     soup = (BeautifulSoup('<pre>' + escape(data.decode('utf-8')) + '</pre>', 'html.parser')
             if provider_text else clean_source(data))
     proposed_name = clean_name(plan['name']['value'])
-    person = record['name'] or proposed_name
+    expected_name = clean_name(record.get('input_metadata', {}).get('expected_name'))
+    person = record['name'] or expected_name or proposed_name
+    identity_conflict = bool(expected_name and person != expected_name or
+                             expected_name and not record['name'] and proposed_name != expected_name)
     for field in ('name', 'title', 'email'):
         item = plan[field]
         candidate = {**item, 'status': 'not_proposed', 'reason': 'empty_value'}
         result['candidates'][field] = candidate
         if not item['value']:
+            continue
+        if identity_conflict:
+            candidate.update(status='unconfirmed', reason='expected_identity_not_confirmed')
             continue
         if not item['evidence'] or compact(item['value']) not in compact(item['evidence']):
             candidate.update(status='rejected', reason='value_not_quoted')
