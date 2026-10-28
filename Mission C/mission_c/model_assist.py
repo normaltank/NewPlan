@@ -79,10 +79,10 @@ def governing_headings(scope):
             headings.append(sibling)
         else:
             nested = sibling.find_all(tags)
-            # A heading-only wrapper is transparent to the section outline.
-            # A completed sibling card with its own body is a separate block.
-            if nested and compact(sibling.get_text()) == ''.join(compact(h.get_text()) for h in nested):
-                headings.extend(reversed(nested))
+            # Wrappers and accompanying metadata do not close an outline.
+            # A current personal card binds at its own identity before ascending
+            # to the parent where completed sibling cards become visible.
+            headings.extend(reversed(nested))
     rank = 7
     for heading in headings:
         level = int(heading.name[1])
@@ -101,14 +101,23 @@ def owned_quote(soup, quote, name):
     matches.sort(key=lambda node: len(compact(node.get_text())))
     for node in matches:
         conflicting_owner = False
+        rank = 7
         for scope in [node, *node.parents]:
             if scope.name in ('html', 'body', '[document]'):
                 break
             for heading in governing_headings(scope):
+                # A nearer heading also closes equal/lower-ranked headings
+                # encountered when ascending past completed sibling cards.
+                level = int(heading.name[1])
+                if level >= rank:
+                    continue
+                rank = level
                 label = clean_name(TITLE.sub('', heading.get_text(' ', strip=True))).strip(' （）():：')
+                # Ownership is a property of the heading itself. Field labels
+                # on ancestors cannot erase an independently named person.
                 if (is_person_name(label) and not GENERIC.search(label)
                         and label.casefold() not in PERSONAL_SECTIONS and label != clean_name(name)
-                        and not disallowed_context(heading, label)):
+                        and not re.search(EXCLUDED_CONTACT, heading.get_text(), re.I)):
                     conflicting_owner = True
                     break
             if conflicting_owner:
@@ -154,6 +163,7 @@ def disallowed_context(node, quote):
         return True
     # A contact inside a publication list is evidence about the publication,
     # even when the enclosing article is this person's profile.
+    rank = 7
     for scope in [node, *node.parents]:
         if scope.name in ('body', 'html', '[document]'):
             break
@@ -164,6 +174,11 @@ def disallowed_context(node, quote):
         if term is not None:
             headings.append(term)
         for heading in headings:
+            if heading.name != 'dt':
+                level = int(heading.name[1])
+                if level >= rank:
+                    continue
+                rank = level
             if re.search(EXCLUDED_CONTACT + r'|论文|成果|publications', heading.get_text(), re.I):
                 return True
     return False

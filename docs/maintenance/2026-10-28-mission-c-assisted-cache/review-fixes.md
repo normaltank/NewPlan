@@ -52,3 +52,19 @@
 运行时代码 `4798b969421aa47fb2b8156fc018bc12ab0a9678` 再用只读四页清单回放到新 `assist-field-block-4798b96`，结果为同目录 `verification-field-block-4798b96.json`。四页姓名/职称/邮箱与 `assist-07` 相同，四份简介与 `off` 逐字及 SHA256 相等，八份原件及模型响应 SHA256 未变，苏大与华东师大收益、华北电力教授/导师资格拆分保留；HTTP/socket/DNS 为 0。复现脚本与日志为 `%TEMP%/mission-c-field-block-real4-verify.py`、`mission-c-field-block-real4.log`。所有前轮输出和失败证据保留。
 
 该运行时代码的最终 `MISSION_C_OPTIONAL_TESTS=1 python -m unittest discover -s tests -v` 仅运行一次，55 项于 62.082 秒全部通过、无跳过，包含动态页面、OCR、PDF 和 fake IO，日志为 `%TEMP%/mission-c-field-block-final-optional.log`。相对上一运行时代码 53 项新增普通字段标签及其标题边界交互两项公开 CLI 测试；此后仅更新证据文档。准确集成提交 CI、独立 merger 与双维度复审仍由主代理执行。
+
+## 归属标题与字段上下文分离及接续验证
+
+继续同一 #30/#32 集中修复，沿用已确认的缓存来源到公开 CLI 产物边界。前任实施代理 `ownership_mechanism_repair` 产出 `6c67ad6911bbb88ea646b67319b10780deccb7c1` 后因环境异常失联；接续代理 `ownership_finish_recovery` 先核对其提交和原始日志，再补未完成项，没有重做已完成的两个红绿矩阵。
+
+前任发现两种旧遗漏：普通公共/合作者标签位于包装他人标题之前时，排除上下文会遮掉他人身份；标题包装中附带职称、个人编号等元数据时，旧版只认可“纯标题包装”，导致他人邮箱借用外层本人身份。`6c67ad6` 让包装内标题按级别保留，并仅以标题自身文字判断该身份是否为公共/合作者，不继承相邻普通字段标签。`%TEMP%/mission-c-ownership-label-red.log` 保存 2 个失败子例，`mission-c-ownership-label-green.log` 保存该项通过；`mission-c-ownership-metadata-red.log` 保存 18 个失败子例，`mission-c-ownership-metadata-green.log` 保存当时 20 项通过。这份 20 项日志没有覆盖随后加入的本人卡正例，不能用作最终验收。
+
+接续时发现 `6c67ad6` 同时提交的本人卡正例仍失败：完整周宁卡之后，当前陈晨卡的包装 h2 和其下 h3/h4 联系方式被前卡同级标题覆盖。旧 `%TEMP%/mission-c-ownership-personal-card.log` 和接续 `mission-c-ownership-recovery-cli.log` 均为 4 子例失败，后者实际执行 21 项。通过临时加载 Git 中 `be41e55` 的归属函数并在同一公开 CLI 运行该正例，4 子例通过，见 `mission-c-ownership-baseline-check.py` 与 `mission-c-ownership-personal-baseline-be41.log`；因此这是 `6c67ad6` 引入的新回归，不是旧版本遗漏。原运行材料和日志全部保留。
+
+`51261104d4d3cd255431d09a748b51f71ec2265c` 在跨 DOM 祖先查找时保留已生效的标题级别，归属核验和公共/合作者排除均遵循该范围。较近标题关闭相同或较低级别旧标题，更高层级标题仍生效；没有新增标签名或通用栏目关键词特判。公开 CLI 全 21 项于 4.154 秒通过，包含该 4 子例及前任两个矩阵、原 A/B/C、英文、Fetch 多身份与 WebPlus 正例，见 `%TEMP%/mission-c-ownership-recovery-green.log`。
+
+实施树合入当时集成顶端 `9ac3cd693723db564e1c901ce6e372a7e04b00d5`，产生 `45f8b6bb5ea38ff86c4d085a11d9e043c8c39a6e`，与 `5126110` 的 tree 相同（`5488d49e4a705f496a091ec952a1dbf00fdf4c13`）。在此固定版本仅执行一次最终完整验证：`MISSION_C_OPTIONAL_TESTS=1 python -m unittest discover -s tests -v`，58 项于 56.423 秒全部通过、无跳过，真实运行 Edge 动态页面、OCR、PDF 和 fake IO，日志 `%TEMP%/mission-c-ownership-final-optional.log`。其后仅修改本证据文档。
+
+最终运行时代码用只读 `%TEMP%/mission-c-fields-real4/manifest.json` 回放到全新 `assist-ownership-5126110`，结果 `verification-ownership-5126110.json` 确认八份来源/模型响应 SHA256 在运行前后未变，四页姓名/职称/邮箱等于 `assist-07`，四份简介逐字及 SHA256 等于 `off`；苏大邮箱与华东师大姓名/职称/邮箱收益、华北电力教授/导师资格拆分保留。HTTP/socket/DNS 均为 0。脚本与日志为 `%TEMP%/mission-c-ownership-real4-verify.py`、`mission-c-ownership-real4.log`，旧原件和所有历史输出保留。
+
+接续交接见 `%TEMP%/mission-c-ownership-mechanism-handoff.md`。本轮只完成实施修复与本地验证；独立双维度复审、集成、准确版本 CI、实际 D: 交付仍由主代理安排。未访问真实教师站点、真实 DeepSeek/密钥/付费接口或 `secure-api-run`，未推送、建 PR、写 Issue、同步 D: 输入或写集成树。没有重跑全 20/13 页，也不据缓存兼容性或测试成功声称学院完整性。接续教训是必须把日志中的实际测试数量与已提交测试清单对应，已有绿日志不足以覆盖其后加入的失败测试；此次接续按该检查发现并保留了反例。
