@@ -237,6 +237,84 @@ class AssistedFieldsCLI(unittest.TestCase):
         self.assertEqual(candidate['reason'], 'personal_ownership_not_confirmed')
         self.assertEqual(candidate['evidence'], '电子邮箱：zhou@example.edu')
 
+    def test_contact_subsections_keep_other_person_ownership(self):
+        for contact in ('<h3>联系方式</h3><p>电子邮箱：zhou@example.edu</p>',
+                        '<h4>联系方式</h4><p>电子邮箱：zhou@example.edu</p>',
+                        '<section><h3>联系方式</h3><div><p>电子邮箱：zhou@example.edu</p></div></section>'):
+            with self.subTest(contact=contact):
+                _, row, _ = self.replay('<main><h1>陈晨</h1><p>本人完整经历。</p></main>'
+                    '<section><h1>陈晨</h1><div><h2>周宁</h2>' + contact + '</div></section>',
+                    self.plan(email={'value': 'zhou@example.edu', 'evidence': '电子邮箱：zhou@example.edu'},
+                              body_selector=''))
+                self.assertEqual(row['name'], '陈晨')
+                self.assertEqual(row['email'], '')
+                self.assertEqual(row['model']['candidates']['email']['status'], 'unconfirmed')
+                self.assertEqual(row['model']['candidates']['email']['reason'], 'personal_ownership_not_confirmed')
+
+    def test_contact_subsections_keep_public_and_collaborator_boundaries(self):
+        for owner in ('学院邮箱', '合作者李明', 'Department email', 'Collaborator Mary Jones'):
+            for level in ('h3', 'h4'):
+                with self.subTest(owner=owner, level=level):
+                    _, row, _ = self.replay('<section><h1>陈晨</h1><h2>' + owner + '</h2><' + level +
+                        '>联系方式</' + level + '><div><p>电子邮箱：other@example.edu</p></div></section>'
+                        '<main>本人完整经历。</main>',
+                        self.plan(email={'value': 'other@example.edu', 'evidence': '电子邮箱：other@example.edu'},
+                                  body_selector=''))
+                    self.assertEqual(row['email'], '')
+                    self.assertEqual(row['model']['candidates']['email']['reason'], 'other_person_or_public_context')
+        for contact in ('<h3>联系方式</h3>', '<h4>联系方式</h4>',
+                        '<section><h3>联系方式</h3></section>'):
+            with self.subTest(personal=contact):
+                _, row, _ = self.replay('<section><h1>陈晨</h1><h2>论文</h2><p>合作者李明。</p>'
+                    '<h2>个人资料</h2>' + contact + '<p>电子邮箱：chen@example.edu</p></section>'
+                    '<main>本人完整经历。</main>', self.plan(body_selector=''))
+                self.assertEqual(row['email'], 'chen@example.edu')
+                self.assertEqual(row['model']['candidates']['email']['status'], 'applied')
+
+    def test_ordinary_label_does_not_hide_a_new_person_heading(self):
+        _, row, _ = self.replay('<main><h1>陈晨</h1><p>本人完整经历。</p></main>'
+            '<section><h1>陈晨</h1><div><strong>学院邮箱</strong><h2>周宁</h2>'
+            '<p>电子邮箱：zhou@example.edu</p></div></section>',
+            self.plan(email={'value': 'zhou@example.edu', 'evidence': '电子邮箱：zhou@example.edu'},
+                      body_selector=''))
+        self.assertEqual(row['email'], '')
+        self.assertEqual(row['model']['candidates']['email']['reason'], 'personal_ownership_not_confirmed')
+
+    def test_wrapped_owner_heading_keeps_nested_contact_ownership(self):
+        _, row, _ = self.replay('<main><h1>陈晨</h1><p>本人完整经历。</p></main>'
+            '<section><h1>陈晨</h1><div><header><h2>周宁</h2></header>'
+            '<div><h3>联系方式</h3><p>电子邮箱：zhou@example.edu</p></div></div></section>',
+            self.plan(email={'value': 'zhou@example.edu', 'evidence': '电子邮箱：zhou@example.edu'},
+                      body_selector=''))
+        self.assertEqual(row['name'], '陈晨')
+        self.assertEqual(row['email'], '')
+        self.assertEqual(row['model']['candidates']['email']['status'], 'unconfirmed')
+        self.assertEqual(row['model']['candidates']['email']['reason'], 'personal_ownership_not_confirmed')
+
+    def test_ordinary_contact_labels_stay_with_their_field(self):
+        for tag, label in (('strong', '学院邮箱'), ('span', '合作者李明'),
+                           ('div', 'Department email'), ('span', 'Collaborator Mary Jones')):
+            with self.subTest(tag=tag, label=label):
+                _, row, _ = self.replay('<section><h1>陈晨</h1><div><' + tag + '>' + label +
+                    '</' + tag + '><p>电子邮箱：office@example.edu</p></div></section>'
+                    '<main>陈晨的完整个人经历。</main>',
+                    self.plan(email={'value': 'office@example.edu', 'evidence': '电子邮箱：office@example.edu'},
+                              body_selector=''))
+                self.assertEqual(row['email'], '')
+                self.assertEqual(row['model']['candidates']['email']['reason'], 'other_person_or_public_context')
+        for fields in (
+                '<div><strong>学院邮箱</strong><p>电子邮箱：office@example.edu</p></div>'
+                '<div><span>本人邮箱</span><p>电子邮箱：chen@example.edu</p></div>',
+                '<div><span>学院邮箱</span><p>电子邮箱：office@example.edu</p>'
+                '<span>本人邮箱</span><p>电子邮箱：chen@example.edu</p></div>',
+                '<div><strong>学院邮箱</strong><p>未公布</p></div>'
+                '<div><p>电子邮箱：chen@example.edu</p></div>'):
+            with self.subTest(personal_fields=fields):
+                _, row, _ = self.replay('<section><h1>陈晨</h1>' + fields + '</section>'
+                    '<main>陈晨的完整个人经历。</main>', self.plan(body_selector=''))
+                self.assertEqual(row['email'], 'chen@example.edu')
+                self.assertEqual(row['model']['candidates']['email']['status'], 'applied')
+
     def test_rejected_expected_identity_cannot_be_restored_by_model(self):
         _, row, _ = self.replay('<section id="profile"><h1>王宁</h1>'
             '<p>职称：教授</p><p>电子邮箱：wang@example.edu</p></section>'
