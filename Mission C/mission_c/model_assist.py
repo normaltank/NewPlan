@@ -168,7 +168,7 @@ def apply_model(raw, metadata, data, record, folder):
                     selection['status'] = 'applied'
         except SelectorSyntaxError:
             selection['status'] = 'invalid_selector'
-    result['status'] = 'evaluated' 
+    result['status'] = 'evaluated'
     return result
 
 
