@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 
-from .person_names import clean_name, is_person_name
+from .person_names import HAN_CHARS, clean_name, is_person_name
 from .profile_layouts import structured_profile
 from .quality_fields import TITLE, fields_from_text, profile_card, profile_label_name
 
@@ -14,7 +14,10 @@ SECTION_KINDS = {
 }
 GENERIC = re.compile(r"简介|简历|大学|学院|学校|师资|教师|教授|研究|论文|成果|联系|个人|团队|新闻|首页|主页|教育|教学|荣誉|奖励|项目|专利|课程|信息|学术|兼职|概况|内容|\bresearch\s+(?:group|team)\b|\b(?:university|college|department|faculty)\b", re.I)
 PERSONAL_SECTIONS = {"个人简介", "个人信息", "基本信息", "联系方式", "联系信息", "教育经历", "工作经历", "教学工作", "contact", "contact information", "biography"}
-TITLE_SEPARATOR = re.compile(r"\s*(?:[|｜—–]|-{2,}|(?<=\s)-(?=\s))\s*")
+TITLE_SEPARATOR = re.compile(
+    r"\s*(?:[|｜—–]|-{2,}|(?<=\s)-(?=\s)|"
+    r"(?<=[" + HAN_CHARS + r"])-|-(?=[" + HAN_CHARS + r"]))\s*"
+)
 PERSONAL_TITLE_SUFFIX = re.compile(r"(?:['’]s|['’])?\s+(?:personal\s+)?(?:home\s*page|website)$", re.I)
 
 

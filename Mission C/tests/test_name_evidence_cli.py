@@ -65,6 +65,11 @@ class NameEvidenceContract(unittest.TestCase):
         self.assertEqual(record["name"], "")
         self.assertEqual(record["field_status"]["name"], "conflict")
 
+    def test_chinese_title_separator_does_not_need_spaces(self):
+        record = self.collect("<title>陈晨-示例大学</title>"
+                              "<main><p>陈晨，教授，研究光学。</p></main>")
+        self.assertEqual(record["name"], "陈晨")
+
 
 if __name__ == "__main__":
     unittest.main()
