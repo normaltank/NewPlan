@@ -10,11 +10,11 @@
 
 ## 验证与复现
 
-沿用用户确认的“个人 URL／保存 HTML → 本人字段、完整原文、来源及失败状态”边界。先记录官网原件的错误输出，再逐项建立公开 CLI 的最小红→绿回归：连字符姓名、中文主页误识别、Research Group、英文学校后缀。补充侧栏证据、撇号、Page 姓氏及姓名冲突保护。所有测试网页为虚构材料，未以预填姓名纠正结果。
+沿用用户确认的“个人 URL／保存 HTML → 本人字段、完整原文、来源及失败状态”边界。先记录官网原件的错误输出，再逐项建立公开 CLI 的最小红→绿回归：连字符姓名、中文主页误识别、Research Group、英文学校后缀。补充侧栏证据、撇号、Page 姓氏及姓名冲突保护。首轮独立 Spec 审查发现英文 `Latest News` 仍被确认为姓名；按同一 CLI 先重现失败，再补栏目排除和回归。所有测试网页为虚构材料，未以预填姓名纠正结果。
 
-- `MISSION_C_OPTIONAL_TESTS=1 python -m unittest discover -s "Mission C/tests" -v`：22 项通过，含本机浏览器及 OCR，没有跳过；另有无空格中文标题分隔符的兼容回归。
+- `MISSION_C_OPTIONAL_TESTS=1 python -m unittest discover -s "Mission C/tests" -v`：最终修复后 23 项通过，含本机浏览器及 OCR，没有跳过；包括无空格中文标题分隔符和英文新闻栏目的回归。
 - [原版失败](baseline.json)与[修复后回放](fixed.json)：卫子安、Zhi-Hua Zhou 均正确；两页简介与原输出一致，原件 hash 未变。
-- [13 页同原件比较](corpus-comparison.json)：9 个新样本和 4 个旧样本逐页在原版与修复版 CLI 上离线运行。原来正确的 8 个姓名保持正确，2 个明确错误修正，3 个原有空姓名仍为空；13 页简介全部逐字相同，没有新增姓名退化。原版调用者的 `extract.py` 已核对与起点 Git 内容一致。
+- [13 页同原件比较](corpus-comparison.json)：9 个新样本和 4 个旧样本逐页在原版与修复版 CLI 上离线运行，补英文新闻栏目修复后再次回放。原来正确的 8 个姓名保持正确，2 个明确错误修正，3 个原有空姓名仍为空；13 页简介全部逐字相同，没有新增姓名退化。原版调用者的 `extract.py` 已核对与起点 Git 内容一致。
 - [复现脚本](repro.py)及[同原件比较脚本](corpus_replay.py)读取原受控目录，输出必须使用新目录；不会调用教师网站、模型或付费 API。原件位于用户 `Mission C/outputs/diverse-pages-20261027/cohort/` 和 `live-tools-20261027/browser/`，不随代码发布。
 
 本次完整结果另存用户 `Mission C/outputs/name-evidence-fix-20261028-9e669b5/`，旧实验结果保留。基线、实际提交、双维度独立审查、CI 与交付状态由 Issue 关联；本页的本地验证不能代替最终提交 CI。

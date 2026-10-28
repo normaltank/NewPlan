@@ -42,6 +42,12 @@ class NameEvidenceContract(unittest.TestCase):
         self.assertEqual(record["name"], "")
         self.assertEqual(record["field_status"]["name"], "not_stated")
 
+    def test_a_news_heading_is_not_a_person(self):
+        record = self.collect("<title>Latest News</title><main><h1>Latest News</h1>"
+                              "<p>Updates from our optics laboratory.</p></main>")
+        self.assertEqual(record["name"], "")
+        self.assertEqual(record["field_status"]["name"], "not_stated")
+
     def test_school_title_cannot_borrow_the_person_from_a_sidebar(self):
         record = self.collect("<title>示例大学 张明--中文主页--首页</title>"
                               "<aside><span>张明</span></aside>"
