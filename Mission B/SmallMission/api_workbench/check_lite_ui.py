@@ -58,18 +58,21 @@ async def exercise_ui(base, token, out, server=None):
         for text in ('API','DeepSeek','模型','历史记录','逐条证据','特殊情况说明'):
             assert text not in await page.locator('body').inner_text(), text
         assert await page.evaluate('localStorage.length + sessionStorage.length') == 0
+        await page.screenshot(path=str(out / '输入界面.png'), full_page=True)
+        await page.locator('#start').click()
+        await expect(page.locator('#error')).to_contain_text('请选择文件')
+        uploads = [{'name': f'名单{i}.txt', 'mimeType': 'text/plain', 'buffer': (HEAD + ROW).encode()} for i in range(21)]
+        await page.locator('#files').set_input_files(uploads)
+        await expect(page.locator('#error')).to_contain_text('最多20个文件')
+        await expect(page.locator('#start')).to_be_disabled()
+        await page.screenshot(path=str(out / '超过20个文件.png'), full_page=True)
+        rejected = await page.request.post(base + '/api/start', data={'files': [{} for _ in range(21)]})
+        assert rejected.status == 400
+        assert '最多20个文件' in (await rejected.json())['error']
+        await page.locator('#files').set_input_files(uploads[:20])
+        await expect(page.locator('#start')).to_be_enabled()
+        await expect(page.locator('#error')).to_be_hidden()
         if server:
-            await page.screenshot(path=str(out / '输入界面.png'), full_page=True)
-            await page.locator('#start').click()
-            await expect(page.locator('#error')).to_contain_text('请选择文件')
-            uploads = [{'name': f'名单{i}.txt', 'mimeType': 'text/plain', 'buffer': (HEAD + ROW).encode()} for i in range(21)]
-            await page.locator('#files').set_input_files(uploads)
-            await expect(page.locator('#error')).to_contain_text('最多20个文件')
-            await expect(page.locator('#start')).to_be_disabled()
-            await page.screenshot(path=str(out / '超过20个文件.png'), full_page=True)
-            await page.locator('#files').set_input_files(uploads[:20])
-            await expect(page.locator('#start')).to_be_enabled()
-            await expect(page.locator('#error')).to_be_hidden()
             with patch('app.run', simulated_run):
                 await page.locator('#start').click()
                 await expect(page.locator('#download')).to_be_visible(timeout=15000)
@@ -191,7 +194,8 @@ async def exercise_ui(base, token, out, server=None):
         await browser.close()
     return {'categories':counts, 'empty_notes':True, 'no_api_ui':True, 'no_reason_ui':True,
             'page_rows_equal_api':True, 'download_files':download_files, 'only_error_link_documents':True, 'export_summary_equals_page':True,
-            'max_files':20, 'upload_limit_browser_checked':bool(server), 'no_error_completion_checked':bool(server),
+            'max_files':20, 'upload_limit_browser_checked':True, 'upload_limit_api_checked':True,
+            'twenty_files_ui_accepted':True, 'no_error_completion_checked':bool(server),
             'refresh_download':True, 'mobile_overflow':False, 'browser_errors':errors,
             'completion_progress':100, 'progress_lifecycle_checked':bool(server),
             'export_sha256':hashlib.sha256(target.read_bytes()).hexdigest()}
@@ -238,7 +242,7 @@ async def main():
             archive.extractall(extracted)
         folder = next(extracted.iterdir())
         # Seed only isolated result data: no real API invocation in executable checks.
-        with patch.dict(os.environ, {'DEEPSEEK_API_KEY':''}):
+        with patch.dict(os.environ, {'DEEPSEEK_API_KEY':''}), patch('app.APP_ROOT', folder.resolve()):
             store = LiteStore(folder / 'lite-data', Journal(folder / 'MissionB.log'))
         test_job_id = None
         if args.send_test_mail:
