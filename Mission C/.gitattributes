@@ -1,0 +1,2 @@
+# These fictional cache blobs have byte hashes in manifest.json.
+examples/assisted-cache/* -text
