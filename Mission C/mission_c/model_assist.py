@@ -49,6 +49,20 @@ def identity_in(node, name):
                           node.get_text('\n', strip=True).replace(' ', '')))
 
 
+def plaintext_identity_conflict(text, name):
+    # Provider text has no DOM ownership boundaries. A second labelled or bare
+    # personal heading makes ownership uncertain; retain the source for review.
+    for line in text.splitlines():
+        label = re.sub(r'^\s*#{1,6}\s*', '', line).strip()
+        label = re.sub(r'^姓名[:：]\s*', '', label)
+        label = clean_name(TITLE.sub('', label)).strip(' （）():：')
+        if (is_person_name(label) and not GENERIC.search(label)
+                and label.casefold() not in PERSONAL_SECTIONS and label != clean_name(name)
+                and not re.search(r'合作者|通讯作者|通信作者|师从|导师为|指导教师', label)):
+            return True
+    return False
+
+
 def owned_quote(soup, quote, name):
     """Find a visible quote in a personal block, excluding institutional contacts."""
     needle = compact(quote)
@@ -132,7 +146,8 @@ def apply_model(raw, metadata, data, record, folder):
         if compact(item['evidence']) not in compact(soup.get_text()):
             candidate.update(status='rejected', reason='quote_not_in_source')
             continue
-        node = owned_quote(soup, item['evidence'], person)
+        node = (None if provider_text and plaintext_identity_conflict(data.decode('utf-8'), person)
+                else owned_quote(soup, item['evidence'], person))
         if node is None:
             candidate.update(status='unconfirmed', reason='personal_ownership_not_confirmed')
             continue

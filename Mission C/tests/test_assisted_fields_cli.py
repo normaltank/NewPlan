@@ -249,6 +249,31 @@ class AssistedFieldsCLI(unittest.TestCase):
         self.assertEqual(row['model']['candidates']['title']['professional_value'], '教授')
         self.assertEqual(row['model']['candidates']['title']['qualifications'], ['博士生导师'])
 
+    def test_fetch_plaintext_does_not_borrow_public_or_other_person_contacts(self):
+        for context in ('学院邮箱', '合作者李明', '姓名：周宁'):
+            with self.subTest(context=context):
+                content = '姓名：陈晨\n完整经历。\n' + context + '\n电子邮箱：other@example.edu'
+                plan = self.plan(email={'value': 'other@example.edu', 'evidence': '电子邮箱：other@example.edu'})
+                response = {'choices': [{'finish_reason': 'stop', 'message': {
+                    'content': json.dumps(plan, ensure_ascii=False)}}]}
+                entry = {'url': 'https://example.edu/chen',
+                         'source': {'error': {'code': 'http_412', 'message': 'cached failure'}},
+                         'fetch': {**self.blob('split-fetch.json', json.dumps({'content': content})), 'provider_http_status': 200},
+                         'model': {**self.blob('split-model.json', json.dumps(response)),
+                                   'source_kind': 'deepseek-fetch',
+                                   'source_sha256': hashlib.sha256(content.encode('utf-8')).hexdigest()}}
+                manifest = self.root / 'split-provider.json'
+                manifest.write_text(json.dumps({'version': 1, 'entries': [entry]}), encoding='utf-8')
+                out = self.root / ('split-' + str(len(list(self.root.glob('split-*out')))) + 'out')
+                with patch.object(httpx.Client, 'send', side_effect=AssertionError('offline requested network')), \
+                        patch.dict(os.environ, {}, clear=True):
+                    main(['--cache-manifest', str(manifest), '--fetch-mode', 'fallback',
+                          '--model-mode', 'assist', '--output', str(out)])
+                row = json.loads((out / 'teachers.json').read_text(encoding='utf-8'))[0]
+                self.assertEqual(row['email'], '')
+                self.assertIn(row['model']['candidates']['email']['status'], ('rejected', 'unconfirmed'))
+                self.assertEqual(row['biography'], content)
+
     def test_fetch_only_model_uses_provider_text_binding_without_css_or_origin_success(self):
         content = '姓名：陈晨\n职称：教授\n电子邮箱：chen@example.edu\n完整经历。'
         response = {'choices': [{'finish_reason': 'stop', 'message': {
