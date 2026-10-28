@@ -54,6 +54,8 @@ def plaintext_identity_conflict(text, name):
     # personal heading makes ownership uncertain; retain the source for review.
     for line in text.splitlines():
         label = re.sub(r'^\s*#{1,6}\s*', '', line).strip()
+        if re.search(r'[:：]', label) and not re.match(r'^姓名[:：]', label):
+            continue
         label = re.sub(r'^姓名[:：]\s*', '', label)
         label = clean_name(TITLE.sub('', label)).strip(' （）():：')
         if (is_person_name(label) and not GENERIC.search(label)
