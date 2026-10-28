@@ -180,7 +180,7 @@ class ModelEngine:
                         self.on_progress('model_started', {'url':url,'phase':label,'api':self.stats()})
                     plans.append(await self.api.ask(label, system, payload, max_tokens=5500))
             result, parses = qualification(soup, nodes, anchors, plans, url)
-            needs_recheck = (any(p['scope_conflicts'] for p in parses)
+            needs_recheck = (any(p['scope_conflicts'] or p['coverage_conflicts'] for p in parses)
                              or parses[0]['included_ids'] != parses[1]['included_ids'])
             if needs_recheck:
                 write_json(folder/'plans-initial.json', {'analysis': analysis, 'plans': plans, 'issues': result['issues']})
@@ -193,7 +193,9 @@ class ModelEngine:
                         if self.on_progress:
                             self.on_progress('model_started', {'url': url, 'phase': label, 'api': self.stats()})
                         review = {**payload, 'previous_selection': plans[index],
-                                  'structural_feedback': parses[index]['scope_conflicts'] or
+                                  'structural_feedback': (parses[index]['scope_conflicts'] +
+                                   ['名单平行结构尚未覆盖：' + json.dumps(c, ensure_ascii=False)
+                                    for c in parses[index]['coverage_conflicts']]) or
                                   ['独立结构核对未通过。重新检查名单与所有平行条目、导航、分页的边界；范围不明则返回uncertain。']}
                         instruction = ('\n本次是结构纠错。previous_selection是你自己的上次选择；structural_feedback来自程序实际DOM检查。'
                                        '依据完整HTML重新选择。若反馈含DOM父子路径，则该路径证明排除区域覆盖了名单，不能用文字理由否认这个包含关系。'
