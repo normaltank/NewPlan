@@ -45,3 +45,5 @@ python docs/maintenance/2026-10-28-mission-c-assisted-cache/verify_replay.py `
 另通过 `git checkout-index` 将已提交 Mission C 检出到独立目录，4 个虚构缓存资产的 SHA256 均匹配清单；从任意当前目录运行检出包 `replay.py`，预期退出 `1`，陈晨模型选区实际采用、周宁原失败及缺模型保持，HTTP/socket/DNS 计数均为 0。证据为同一证据根的 `checkout-verification.json`、`checkout-demo.log` 与 `checkout-demo-network.json`；沿用已有 `examples/assisted-cache/.gitattributes` 的原字节保护。
 
 本票准备独立包，整体审查与实际 D: 同步尚由主代理执行，不能据此宣称实际目录交付或 #34 查漏完成；#34 只在实际交付后进行。本地实施提交尚未推送，准确提交 CI 由主代理按最终集成版本跟踪。
+
+辅助字段固定基线审查后的三项归属修复及验证见 [审查修复](review-fixes.md)。
