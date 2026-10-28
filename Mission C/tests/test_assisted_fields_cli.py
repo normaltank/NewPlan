@@ -192,6 +192,24 @@ class AssistedFieldsCLI(unittest.TestCase):
             row, _ = run(3, self.root / 'unknown-attempts')
             self.assertEqual(row['model']['error']['code'], 'model_attempt_unknown')
 
+    def test_split_public_and_collaborator_labels_are_not_personal_email(self):
+        for block, email in [
+            ('<dl><dt>学院邮箱</dt><dd>电子邮箱：office@example.edu</dd></dl>', 'office@example.edu'),
+            ('<div><h3>合作者李明</h3><p>电子邮箱：li@example.edu</p></div>', 'li@example.edu'),
+        ]:
+            with self.subTest(email=email):
+                _, row, _ = self.replay('<section id="profile"><h1>陈晨</h1>' + block +
+                    '</section><main>陈晨的完整个人经历。</main>',
+                    self.plan(email={'value': email, 'evidence': '电子邮箱：' + email}))
+                self.assertEqual(row['email'], '')
+                self.assertEqual(row['model']['candidates']['email']['reason'], 'other_person_or_public_context')
+                self.assertEqual(row['model']['candidates']['email']['evidence'], '电子邮箱：' + email)
+        # An unrelated publication/advisor elsewhere must not taint a personal contact.
+        _, row, _ = self.replay('<section id="profile"><h1>陈晨</h1>'
+            '<p>电子邮箱：chen@example.edu</p><h2>论文</h2><p>合作者李明，师从王宁。</p>'
+            '</section><main>陈晨的完整个人经历。</main>')
+        self.assertEqual(row['email'], 'chen@example.edu')
+
     def test_rejected_expected_identity_cannot_be_restored_by_model(self):
         _, row, _ = self.replay('<section id="profile"><h1>王宁</h1>'
             '<p>职称：教授</p><p>电子邮箱：wang@example.edu</p></section>'
