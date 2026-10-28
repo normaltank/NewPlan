@@ -127,9 +127,13 @@ def disallowed_context(node, quote):
     for scope in [node, *node.parents]:
         if scope.name in ('body', 'html', '[document]'):
             break
-        heading = scope.find_previous_sibling(['h1', 'h2', 'h3', 'h4', 'dt'])
-        if heading and re.search(r'学院邮箱|办公室邮箱|招生邮箱|公共邮箱|联系编辑|通讯作者|通信作者|合作者|师从|导师为|指导教师|论文|成果|publications|(?:department|office|admissions|public)\s+e-?mail|collaborator|corresponding author', heading.get_text(), re.I):
-            return True
+        headings = list(governing_headings(scope))
+        term = scope.find_previous_sibling('dt')
+        if term is not None:
+            headings.append(term)
+        for heading in headings:
+            if re.search(r'学院邮箱|办公室邮箱|招生邮箱|公共邮箱|联系编辑|通讯作者|通信作者|合作者|师从|导师为|指导教师|论文|成果|publications|(?:department|office|admissions|public)\s+e-?mail|collaborator|corresponding author', heading.get_text(), re.I):
+                return True
     return False
 
 

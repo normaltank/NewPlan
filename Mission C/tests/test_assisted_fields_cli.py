@@ -251,6 +251,26 @@ class AssistedFieldsCLI(unittest.TestCase):
                 self.assertEqual(row['model']['candidates']['email']['status'], 'unconfirmed')
                 self.assertEqual(row['model']['candidates']['email']['reason'], 'personal_ownership_not_confirmed')
 
+    def test_contact_subsections_keep_public_and_collaborator_boundaries(self):
+        for owner in ('学院邮箱', '合作者李明', 'Department email', 'Collaborator Mary Jones'):
+            for level in ('h3', 'h4'):
+                with self.subTest(owner=owner, level=level):
+                    _, row, _ = self.replay('<section><h1>陈晨</h1><h2>' + owner + '</h2><' + level +
+                        '>联系方式</' + level + '><div><p>电子邮箱：other@example.edu</p></div></section>'
+                        '<main>本人完整经历。</main>',
+                        self.plan(email={'value': 'other@example.edu', 'evidence': '电子邮箱：other@example.edu'},
+                                  body_selector=''))
+                    self.assertEqual(row['email'], '')
+                    self.assertEqual(row['model']['candidates']['email']['reason'], 'other_person_or_public_context')
+        for contact in ('<h3>联系方式</h3>', '<h4>联系方式</h4>',
+                        '<section><h3>联系方式</h3></section>'):
+            with self.subTest(personal=contact):
+                _, row, _ = self.replay('<section><h1>陈晨</h1><h2>论文</h2><p>合作者李明。</p>'
+                    '<h2>个人资料</h2>' + contact + '<p>电子邮箱：chen@example.edu</p></section>'
+                    '<main>本人完整经历。</main>', self.plan(body_selector=''))
+                self.assertEqual(row['email'], 'chen@example.edu')
+                self.assertEqual(row['model']['candidates']['email']['status'], 'applied')
+
     def test_rejected_expected_identity_cannot_be_restored_by_model(self):
         _, row, _ = self.replay('<section id="profile"><h1>王宁</h1>'
             '<p>职称：教授</p><p>电子邮箱：wang@example.edu</p></section>'
