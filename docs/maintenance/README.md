@@ -11,6 +11,6 @@
 | [2026-10-26 工作流执行约定](2026-10-26-workflow-execution/README.md) | 任务分流、子代理实施与集成、阶段证据和收尾规则 |
 | [2026-10-27 Mission C 独立交付](2026-10-27-mission-c/README.md) | 个人主页独立入口、原文与附件保存、公开 CLI 行为验证 |
 | [2026-10-28 Mission C 姓名证据](2026-10-28-mission-c-name-evidence/README.md) | 栏目误识别、英文姓名截断的原件回放和独立 CLI 回归 |
-| [2026-10-28 Mission C 组合缓存](2026-10-28-mission-c-assisted-cache/README.md) | 20 页严格离线实跑、13 份原件冻结基线对照与独立便携包 |
+| [2026-10-28 Mission C 组合缓存](2026-10-28-mission-c-assisted-cache/README.md) | 20 页离线对照、独立便携包、实际目录交付、最终双维度审查及交付后查漏 |
 
 这里只登记证据入口。记录中的版本、结果和限制属于当次事实；待办与进度统一查 [GitHub Issues](https://github.com/normaltank/NewPlan/issues)。

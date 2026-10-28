@@ -1,6 +1,8 @@
 # Mission C 组合缓存回放与便携包
 
-用于核对 [#30](https://github.com/normaltank/NewPlan/issues/30) 的组合方案及 [#33](https://github.com/normaltank/NewPlan/issues/33) 的导入、离线回放和独立交付准备。当前操作入口见 [Mission C README](../../../Mission%20C/README.md)。实施从已独立集成 #31/#32 的 `62df8a73778d5ad0460233f801d902d64f9aee46` 开始；最终集成、双维度审查、用户目录同步及 CI 由主代理另行留证。
+用于核对 [#30](https://github.com/normaltank/NewPlan/issues/30) 的组合方案及 [#33](https://github.com/normaltank/NewPlan/issues/33) 的导入、离线回放和独立交付。当前操作入口见 [Mission C README](../../../Mission%20C/README.md)。实际 D 目录交付、最终58项验证、独立审查和角色/集成证据见 [交付记录](delivery.md)，交付之后的核查见 [独立查漏](post-delivery-audit.md)。
+
+以下保存 #33 初次准备阶段的原始事实，起点为已独立集成 #31/#32 的 `62df8a73778d5ad0460233f801d902d64f9aee46`，对应源 `2965fd3`、首次集成 `626172e`；阶段性的45项验证与待执行说明不代表最终版本状态。后续审查修复没有覆盖这些历史结果。
 
 ## 输入与复现
 
