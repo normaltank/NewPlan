@@ -44,6 +44,25 @@ class ParallelCoverageTests(unittest.TestCase):
             self.assertTrue(result['complete'], result['issues'])
             self.assertEqual(set(result['links']), {'https://example.edu/'+c for c in 'abcdef'})
 
+    def test_selected_parallel_lists_do_not_require_outside_group_header_links(self):
+        html = '<main>' + ''.join('<section class="group"><header><a href="/category/'+c+'">更多</a></header><ul class="entries"><li><a href="/'+c+'">条目</a></li><li><a href="/'+d+'">条目</a></li></ul></section>' for c,d in [('a','b'),('c','d')]) + '</main>'
+        result = evaluate(html, ['.entries'])
+        self.assertTrue(result['complete'], result['issues'])
+        self.assertEqual(set(result['links']), {'https://example.edu/a','https://example.edu/b','https://example.edu/c','https://example.edu/d'})
+        task = {'id':'groups', 'school':'测试大学', 'college':'测试学院', 'roster_url':URL,
+                'rows':[{'file':'input.xlsx','sheet':'名单','row':i+2,'value':'https://example.edu/'+c,'url':'https://example.edu/'+c,'values':[], 'hyperlink_mismatch':False} for i,c in enumerate('abcd')]}
+        self.assertEqual(verification_summary(reconcile(task, result))['verification_result'], '正确')
+
+    def test_parallel_lists_with_missing_group_or_entry_stay_pending(self):
+        html = '<main>' + ''.join('<section class="group"><header><a href="/category/'+c+'">更多</a></header><ul class="entries"><li><a href="/'+c+'">条目</a></li><li><a href="/'+d+'">条目</a></li></ul></section>' for c,d in [('a','b'),('c','d')]) + '</main>'
+        for selectors, expected in [(['.group:first-child .entries'], 'ab'),
+                                    (['.group:first-child .entries', '.group:last-child li:first-child'], 'abc')]:
+            with self.subTest(selectors=selectors):
+                result = evaluate(html, selectors)
+                self.assertFalse(result['complete'], result)
+                self.assertTrue(any('平行' in issue for issue in result['issues']), result)
+                self.assertEqual(set(result['links']), {'https://example.edu/'+c for c in expected})
+
     def test_text_only_and_duplicate_urls_do_not_create_missing_targets(self):
         html = CARDS.replace('href="/b"', 'href="/a"').replace('<a href="/c">条目</a>', '条目')
         result = evaluate(html, ['.card:first-child', '.card:nth-child(4)', '.card:nth-child(5)', '.card:nth-child(6)'])
