@@ -13,6 +13,11 @@ from .person_names import clean_name, is_person_name
 from .quality_fields import compact, EMAIL, TITLE
 
 
+PUBLIC_CONTACT = r'学院邮箱|办公室邮箱|招生邮箱|公共邮箱|联系编辑|(?:department|office|admissions|public)\s+e-?mail'
+OTHER_PERSON_CONTACT = r'通讯作者|通信作者|合作者|师从|导师为|指导教师|collaborator|corresponding author'
+EXCLUDED_CONTACT = '(?:' + PUBLIC_CONTACT + '|' + OTHER_PERSON_CONTACT + ')'
+
+
 def parse_response(raw, url):
     try:
         response = json.loads(raw)
@@ -127,21 +132,36 @@ def owned_quote(soup, quote, name):
     return None
 
 
+def excluded_field_label(scope):
+    """Associate an adjacent label-only branch, never a completed neighboring field."""
+    previous = scope.find_previous_sibling()
+    if previous is None:
+        return False
+    label = previous.get_text(' ', strip=True).strip(' ：:')
+    if re.fullmatch(PUBLIC_CONTACT, label, re.I):
+        return True
+    owner = re.fullmatch('(?:' + OTHER_PERSON_CONTACT + r')\s*[:：]?\s*(.*)', label, re.I)
+    return bool(owner and (not owner.group(1) or
+                          is_person_name(clean_name(TITLE.sub('', owner.group(1))))))
+
+
 def disallowed_context(node, quote):
     context = node.get_text(' ', strip=True) + ' ' + quote
-    if re.search(r'学院邮箱|办公室邮箱|招生邮箱|公共邮箱|联系编辑|通讯作者|通信作者|合作者|师从|导师为|指导教师|(?:department|office|admissions|public)\s+e-?mail|collaborator|corresponding author', context, re.I):
+    if re.search(EXCLUDED_CONTACT, context, re.I):
         return True
     # A contact inside a publication list is evidence about the publication,
     # even when the enclosing article is this person's profile.
     for scope in [node, *node.parents]:
         if scope.name in ('body', 'html', '[document]'):
             break
+        if excluded_field_label(scope):
+            return True
         headings = list(governing_headings(scope))
         term = scope.find_previous_sibling('dt')
         if term is not None:
             headings.append(term)
         for heading in headings:
-            if re.search(r'学院邮箱|办公室邮箱|招生邮箱|公共邮箱|联系编辑|通讯作者|通信作者|合作者|师从|导师为|指导教师|论文|成果|publications|(?:department|office|admissions|public)\s+e-?mail|collaborator|corresponding author', heading.get_text(), re.I):
+            if re.search(EXCLUDED_CONTACT + r'|论文|成果|publications', heading.get_text(), re.I):
                 return True
     return False
 

@@ -282,6 +282,30 @@ class AssistedFieldsCLI(unittest.TestCase):
         self.assertEqual(row['model']['candidates']['email']['status'], 'unconfirmed')
         self.assertEqual(row['model']['candidates']['email']['reason'], 'personal_ownership_not_confirmed')
 
+    def test_ordinary_contact_labels_stay_with_their_field(self):
+        for tag, label in (('strong', '学院邮箱'), ('span', '合作者李明'),
+                           ('div', 'Department email'), ('span', 'Collaborator Mary Jones')):
+            with self.subTest(tag=tag, label=label):
+                _, row, _ = self.replay('<section><h1>陈晨</h1><div><' + tag + '>' + label +
+                    '</' + tag + '><p>电子邮箱：office@example.edu</p></div></section>'
+                    '<main>陈晨的完整个人经历。</main>',
+                    self.plan(email={'value': 'office@example.edu', 'evidence': '电子邮箱：office@example.edu'},
+                              body_selector=''))
+                self.assertEqual(row['email'], '')
+                self.assertEqual(row['model']['candidates']['email']['reason'], 'other_person_or_public_context')
+        for fields in (
+                '<div><strong>学院邮箱</strong><p>电子邮箱：office@example.edu</p></div>'
+                '<div><span>本人邮箱</span><p>电子邮箱：chen@example.edu</p></div>',
+                '<div><span>学院邮箱</span><p>电子邮箱：office@example.edu</p>'
+                '<span>本人邮箱</span><p>电子邮箱：chen@example.edu</p></div>',
+                '<div><strong>学院邮箱</strong><p>未公布</p></div>'
+                '<div><p>电子邮箱：chen@example.edu</p></div>'):
+            with self.subTest(personal_fields=fields):
+                _, row, _ = self.replay('<section><h1>陈晨</h1>' + fields + '</section>'
+                    '<main>陈晨的完整个人经历。</main>', self.plan(body_selector=''))
+                self.assertEqual(row['email'], 'chen@example.edu')
+                self.assertEqual(row['model']['candidates']['email']['status'], 'applied')
+
     def test_rejected_expected_identity_cannot_be_restored_by_model(self):
         _, row, _ = self.replay('<section id="profile"><h1>王宁</h1>'
             '<p>职称：教授</p><p>电子邮箱：wang@example.edu</p></section>'
