@@ -210,6 +210,19 @@ class AssistedFieldsCLI(unittest.TestCase):
             '</section><main>陈晨的完整个人经历。</main>')
         self.assertEqual(row['email'], 'chen@example.edu')
 
+    def test_contact_cannot_borrow_identity_past_another_person_heading(self):
+        _, row, _ = self.replay('<main><h1>陈晨</h1><p>本人完整经历。</p></main>'
+            '<section><h1>陈晨</h1><div><h2>周宁</h2>'
+            '<p>电子邮箱：zhou@example.edu</p></div></section>',
+            self.plan(email={'value': 'zhou@example.edu', 'evidence': '电子邮箱：zhou@example.edu'},
+                      body_selector=''))
+        self.assertEqual(row['name'], '陈晨')
+        self.assertEqual(row['email'], '')
+        candidate = row['model']['candidates']['email']
+        self.assertEqual(candidate['status'], 'unconfirmed')
+        self.assertEqual(candidate['reason'], 'personal_ownership_not_confirmed')
+        self.assertEqual(candidate['evidence'], '电子邮箱：zhou@example.edu')
+
     def test_rejected_expected_identity_cannot_be_restored_by_model(self):
         _, row, _ = self.replay('<section id="profile"><h1>王宁</h1>'
             '<p>职称：教授</p><p>电子邮箱：wang@example.edu</p></section>'

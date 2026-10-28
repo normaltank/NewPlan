@@ -6,7 +6,7 @@ import re
 from bs4 import BeautifulSoup
 from soupsieve import SelectorSyntaxError
 
-from .extract import text_of, section_text
+from .extract import text_of, section_text, GENERIC, PERSONAL_SECTIONS
 
 from .fetch import SourceError
 from .person_names import clean_name, is_person_name
@@ -53,11 +53,22 @@ def owned_quote(soup, quote, name):
     """Find a visible quote in a personal block, excluding institutional contacts."""
     needle = compact(quote)
     matches = [node for node in soup.find_all(True) if needle and needle in compact(node.get_text())]
+    # Ancestor matches contain the same quote, but lose its local owner boundary.
+    matches = [node for node in matches if not any(
+        needle in compact(child.get_text()) for child in node.find_all(True))]
     matches.sort(key=lambda node: len(compact(node.get_text())))
     for node in matches:
+        conflicting_owner = False
         for scope in [node, *node.parents]:
             if scope.name in ('html', 'body', '[document]'):
                 break
+            heading = scope if scope.name in ('h1', 'h2', 'h3', 'h4') else scope.find_previous_sibling(['h1', 'h2', 'h3', 'h4'])
+            if heading is not None:
+                label = clean_name(TITLE.sub('', heading.get_text(' ', strip=True))).strip(' （）():：')
+                if (is_person_name(label) and not GENERIC.search(label)
+                        and label.casefold() not in PERSONAL_SECTIONS and label != clean_name(name)):
+                    conflicting_owner = True
+                    break
             text = scope.get_text('\n', strip=True)
             if len(text) > 12000:
                 break
@@ -65,6 +76,8 @@ def owned_quote(soup, quote, name):
                 return node
         # WebPlus personal pages put the identity card and profile panels in
         # separate siblings. Bind only this known pair, never the whole page.
+        if conflicting_owner:
+            continue
         panel = node.find_parent(id='container-1')
         if panel is not None:
             headers = soup.select('#container-0 .teach_info h1.news_title')
