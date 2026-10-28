@@ -21,7 +21,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description="任务 C：从教师个人主页保存基本字段与完整原文")
     parser.add_argument("--url", action="append", default=[], help="教师个人主页 URL，可重复")
     parser.add_argument("--urls-file", type=Path, help="UTF-8 文本，每行一个个人主页 URL")
-    parser.add_argument("--html", type=Path, help="离线保存的 HTML，配合一个 --url；不会联网")
+    parser.add_argument("--html", type=Path, help="本地 HTML，配合一个 --url；默认离线，付费 Fetch 需另行显式启用")
     parser.add_argument("--cache-manifest", type=Path, help="严格离线多 URL 缓存清单；不联网或读取密钥")
     parser.add_argument("--fetch-mode", choices=["off", "fallback", "supplement"], default="off",
                         help="Fetch 提供方材料：关闭、仅本地失败、补充（保留本地全文）")
@@ -50,7 +50,7 @@ def main(argv=None):
         if not urls or ((args.html or args.name) and len(urls) != 1):
             raise ValueError("请提供 URL；--html 和 --name 仅用于单个 URL")
         if args.timeout <= 0 or args.delay < 0.5 or args.fetch_max_calls < 0:
-            raise ValueError("--timeout 必须大于 0；--delay 至少为 0.5")
+            raise ValueError("--timeout 必须大于 0；--delay 至少为 0.5；--fetch-max-calls 不能为负数")
         if args.html and args.render:
             raise ValueError("离线 --html 不执行脚本；不能同时使用 --render")
         if cache and (args.html or args.render):
