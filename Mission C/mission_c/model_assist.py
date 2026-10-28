@@ -66,7 +66,8 @@ def owned_quote(soup, quote, name):
             if heading is not None:
                 label = clean_name(TITLE.sub('', heading.get_text(' ', strip=True))).strip(' （）():：')
                 if (is_person_name(label) and not GENERIC.search(label)
-                        and label.casefold() not in PERSONAL_SECTIONS and label != clean_name(name)):
+                        and label.casefold() not in PERSONAL_SECTIONS and label != clean_name(name)
+                        and not disallowed_context(heading, label)):
                     conflicting_owner = True
                     break
             text = scope.get_text('\n', strip=True)
