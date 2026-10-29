@@ -1,6 +1,8 @@
 """Persistent Excel batches, shared by CLI, local UI and unattended runners."""
 from contextlib import contextmanager
 import hashlib
+import errno
+import os
 import json
 from pathlib import Path
 import shutil
@@ -176,19 +178,28 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
         path.parent.mkdir(exist_ok=True)
         stream = path.open('a+b')
         stream.seek(0)
-        if not stream.read(1): stream.write(b'0'); stream.flush()
-        stream.seek(0)
         try:
-            if __import__('os').name == 'nt':
+            if os.name == 'nt':
                 import msvcrt
                 msvcrt.locking(stream.fileno(), msvcrt.LK_NBLCK, 1)
             else:
                 import fcntl
                 fcntl.flock(stream, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except OSError:
+        except OSError as error:
             stream.close()
-            raise ValueError('批次正在由另一进程执行')
-        try: yield
+            # Interpret contention only at the kernel lock acquisition. File
+            # open/initialization errors and unrelated locking failures remain
+            # their original errors, rather than masquerading as a busy worker.
+            if error.errno in {errno.EACCES, errno.EAGAIN, errno.EDEADLK}:
+                raise ValueError('批次正在由另一进程执行') from error
+            raise
+        try:
+            # Windows permits locking past EOF. Acquire byte zero before any
+            # initialization I/O: another holder can deny even read(1).
+            if os.fstat(stream.fileno()).st_size == 0:
+                stream.write(b'0')
+                stream.flush()
+            yield
         finally: stream.close()
 
     def bound(self, artifact):
