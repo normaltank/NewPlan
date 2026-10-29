@@ -59,19 +59,74 @@ def private_queue(batch):
             and options.get('cache_manifest') is None)
 
 
+def import_intent(service, sha):
+    return service.root / 'server-import-intents' / (sha + '.json')
+
+
+def recoverable_import(service, batch):
+    """Only our never-started imports may receive their first private scope."""
+    if (len(batch['inputs']) != 1 or not batch['tasks'] or batch['queued'] or batch['run_options'] is not None
+            or any(t['state'] != 'pending' or t['artifact'] or t['error'] for t in batch['tasks'])):
+        return None
+    item = batch['inputs'][0]
+    try:
+        intent = json.loads(import_intent(service, item['sha256']).read_text(encoding='utf-8'))
+        if (set(intent) != {'version', 'file', 'sha256', 'batch_id', 'phase'} or intent['version'] != 1
+                or intent['file'] != item['file'] or intent['sha256'] != item['sha256']
+                or intent['batch_id'] not in (None, batch['id']) or intent['phase'] != 'importing'):
+            return None
+        urls = {t['url'] for t in batch['tasks']}
+        for path in (service.root / 'paid-attempts').glob('*.json'):
+            if path.name.startswith(('fetch-', 'model-', 'budget-')):
+                attempt = json.loads(path.read_text(encoding='utf-8'))
+                if not isinstance(attempt, dict) or attempt.get('url') in urls or attempt.get('scope') == batch['id']:
+                    return None
+        return intent
+    except (OSError, ValueError, TypeError, KeyError):
+        return None
+
+
+def enqueue_import(service, batch, intent):
+    marker = import_intent(service, intent['sha256'])
+    intent = dict(intent, batch_id=batch['id'])
+    atomic_json(marker, intent)
+    batch = service.enqueue(batch['id'], private_budget=True, live=True, fetch_mode='supplement',
+                            model_mode='assist', allow_paid=True, paid_max_calls=2 * len(batch['tasks']))
+    atomic_json(marker, dict(intent, phase='queued'))
+    return batch
+
+
 def scan(service, config):
-    report = {'imported': [], 'unchanged': [], 'blocked': [], 'errors': []}
+    report = {'imported': [], 'recovered': [], 'unchanged': [], 'blocked': [], 'errors': []}
     with service.worker_lock('input-scan'):
-        known = {i['sha256']: b for b in service.list_batches() for i in b['inputs']}
+        batches = service.list_batches()
+        for index, batch in enumerate(batches):
+            intent = recoverable_import(service, batch)
+            if intent:
+                try:
+                    batches[index] = enqueue_import(service, batch, intent)
+                    report['recovered'].append(batch['id'])
+                except (OSError, ValueError):
+                    report['errors'].append({'id': batch['id'], 'error': '本入口导入意图恢复失败；保留记录，下轮重查'})
+        known = {i['sha256']: b for b in batches for i in b['inputs']}
         for path in input_files(config):
             try:
                 sha = hashlib.sha256(path.read_bytes()).hexdigest()
                 batch = known.get(sha)
                 if batch is None:
+                    marker = import_intent(service, sha)
+                    intent = {'version': 1, 'file': path.name, 'sha256': sha, 'batch_id': None, 'phase': 'importing'}
+                    if marker.exists():
+                        if json.loads(marker.read_text(encoding='utf-8')) != intent:
+                            raise ValueError('导入意图与输入不匹配；不覆盖历史记录')
+                    else:
+                        marker.parent.mkdir(exist_ok=True)
+                        atomic_json(marker, intent)
                     batch = service.import_files([path])
+                    if len(batch['inputs']) != 1 or batch['inputs'][0]['sha256'] != sha or batch['inputs'][0]['file'] != path.name:
+                        raise ValueError('输入在导入时改变；不自动排队')
                     if batch['tasks']:
-                        batch = service.enqueue(batch['id'], private_budget=True, live=True, fetch_mode='supplement',
-                                                model_mode='assist', allow_paid=True, paid_max_calls=2 * len(batch['tasks']))
+                        batch = enqueue_import(service, batch, intent)
                     known[sha] = batch
                     report['imported'].append(batch['id'])
                 else:

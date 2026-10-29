@@ -10,7 +10,7 @@
 
 精简包内只有唯一 `run.py` 和四项基础依赖，精确取用17个现有核心模块，不含页面/FastAPI/开发材料/输入输出/缓存/日志/环境；核心在Git中仍只有一套。解压后读包内 README.md，逐文件用途见 FILES.md；Windows用 setup.bat/start.bat，Linux用 setup.sh/start.sh。config.json 只配输入、数据、输出目录与扫描间隔，相对路径支持整体搬移。
 
-`preview` 不导入、不联网；`demo` 的虚构数据库与输出独立放在 data/offline-demo、output/offline-demo，不动正式队列。显式 `once`/`watch` 才读私人凭据并固定 Fetch supplement + model assist，为新批次按去重任务数保存2*N scope；旧无scope批次/队列保留并阻断，不重分额度。每次最多处理一页再检查停止信号，沿用核心全局unknown不重发；大学Excel与全文ZIP自动写入output，返回实际路径。收到停止信号后可按同一配置续跑，不重采已完成页，不覆盖原件与历史交付。安装脚本不注册系统任务或服务。
+`preview` 不导入、不联网；`demo` 的虚构数据库与输出独立放在 data/offline-demo、output/offline-demo，不动正式队列。显式 `once`/`watch` 才读私人凭据并固定 Fetch supplement + model assist，为新批次按去重任务数保存2*N scope；旧无scope批次/队列保留并阻断，不重分额度。导入前的拥有意图保存在data/server-import-intents：导入/排队之间中断时，仅匹配意图、全部pending、无已有选项/产物/相关付费尝试的任务可自动补首次scope，事件recovered列出批次；该目录随完整data备份。每次最多处理一页再检查停止信号，沿用核心全局unknown不重发；大学Excel与全文ZIP自动写入output，返回实际路径。收到停止信号后可按同一配置续跑，不重采已完成页，不覆盖原件与历史交付。安装脚本不注册系统任务或服务。
 
 ## 安装与第一次运行
 
