@@ -59,6 +59,7 @@ def export_universities(service, batch_id, school=None):
             if task['quality']['eligible_for_workbook']: records.append(record)
             for relation in task['relations']:
                 relations.append([task['id'],task['url'],name,relation['college'],relation['id'],json.dumps(relation['faculty_urls'],ensure_ascii=False),json.dumps(task['sources'],ensure_ascii=False)])
+        copied = {r['batch_task_id'] for r in all_records}
         records.sort(key=category)
         export_tables(folder,records)
         (folder/'records.json').write_text(json.dumps(all_records,ensure_ascii=False,indent=2),encoding='utf-8')
@@ -70,7 +71,6 @@ def export_universities(service, batch_id, school=None):
         (folder/'teachers.json').write_text(json.dumps(records,ensure_ascii=False,indent=2),encoding='utf-8')
         scoped = copy.deepcopy(status)
         scoped['tasks'] = [t for t in scoped['tasks'] if t['school']==name]
-        copied = {r['batch_task_id'] for r in all_records}
         for task in scoped['tasks']:
             task['artifact'] = ('evidence/'+task['id']) if task['id'] in copied else None
         (folder/'batch.json').write_text(json.dumps(scoped,ensure_ascii=False,indent=2),encoding='utf-8')
