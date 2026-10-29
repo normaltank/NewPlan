@@ -2,6 +2,8 @@
 
 本文只适用于 OpenSource 工作台。命令从 OpenSource 目录执行；旧 MyPlan 启动脚本和服务代码已删除。当前工作目录保持原路径。
 
+Mission C 的可搬移程序使用独立环境与数据根，Windows/Linux 无界面扫描、持续 worker/watch 和定时示例见 [SERVER.md](<../Mission C/SERVER.md>)；不使用下文工作台的加密启动或根数据库。
+
 ## 安装与本机启动
 
 首次使用安装 Python 3.12 与 uv，并执行 `./setup.ps1`。该脚本按 [requirements.lock](../requirements.lock) 创建本目录 `.venv`。浏览器采集当前使用本机 Microsoft Edge，入口见 [browser_capture.py](../browser_capture.py)。
@@ -72,7 +74,7 @@ New-Item -ItemType Directory -Path runs -Force | Out-Null
 
 工具对照的离线回放使用 `./run.ps1 -Mode replay`；样本已放入本目录 `fixtures/legacy-replay`，不依赖已删除的旧测试目录。这是保存页与队列机制验证，不证明真实入口发现和全院覆盖。依赖、浏览器和正式包的重建方式分别查安装脚本、相应试验 README 和 Mission B 构建脚本。
 
-[离线回归 CI](../.github/workflows/tests.yml) 在 GitHub 的 Windows / Python 3.12 环境安装锁定依赖，运行根目录工作台测试，不配置采集密钥。它不涵盖 Mission B 的全部测试、真实学院采集或完整性验收。每次提交以 GitHub 对应提交的最终检查结果为准；自动发布和服务器部署尚未配置。
+[离线回归 CI](../.github/workflows/tests.yml) 保留 Windows / Python 3.12 根工作台检查，另以 Windows/Linux 独立环境安装 Mission C 自带基础及页面依赖，执行公开 CLI/HTTP 离线契约；Ubuntu 不安装根 Windows 依赖锁。它不配置采集密钥，不涵盖 Mission B 的全部测试、Linux可选浏览器/OCR、真实学院采集或完整性验收。每次提交以 GitHub 对应提交的最终检查结果为准；配置了 CI 作业不代表该版本已通过。自动发布和服务器部署尚未配置。
 
 ## 源码仓库
 

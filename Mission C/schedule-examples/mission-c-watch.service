@@ -1,0 +1,16 @@
+[Unit]
+Description=Mission C cached input watcher
+
+[Service]
+Type=simple
+User=missionc
+WorkingDirectory=/srv/Mission C
+ExecStart="/srv/Mission C/.venv/bin/python" "/srv/Mission C/server.py" --data-root "/srv/Mission C data" watch "/srv/Mission C input" --cache-manifest "/srv/Mission C cache/manifest.json" --interval 30
+Environment=PYTHONUTF8=1
+Restart=on-failure
+RestartSec=15
+TimeoutStopSec=60
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

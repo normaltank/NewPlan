@@ -226,8 +226,20 @@ class ServerContract(unittest.TestCase):
         self.assertEqual(report['worker']['processed'][0]['quality_counts'], {'personal_candidate': 1})
         self.assertFalse((package / 'data').exists())
 
+    def test_scan_does_not_enqueue_extra_inputs_from_existing_multifile_batch(self):
+        outside = self.folder / '目录外.xlsx'
+        self.workbook(outside, '目录外学院')
+        ident = self.cli('batch.py', 'import', self.input, outside)['id']
+        scanned = self.cli('server.py', 'scan', self.inputs, '--cache-manifest', self.manifest, '--run')
+        self.assertEqual(scanned['imported'], [])
+        self.assertEqual(scanned['worker']['processed'], [])
+        self.assertEqual(self.cli('batch.py', 'status', ident)['counts'], {'pending': 1})
+        self.assertFalse(self.cli('batch.py', 'status', ident)['queued'])
+        self.assertTrue(scanned['unchanged'][0]['not_queued_reason'])
+
 if __name__ == '__main__':
     unittest.main()
+
 
 
 

@@ -1,0 +1,10 @@
+[Unit]
+Description=Mission C one cached input scan
+
+[Service]
+Type=oneshot
+User=missionc
+WorkingDirectory=/srv/Mission C
+ExecStart="/srv/Mission C/.venv/bin/python" "/srv/Mission C/server.py" --data-root "/srv/Mission C data" scan "/srv/Mission C input" --cache-manifest "/srv/Mission C cache/manifest.json" --run
+Environment=PYTHONUTF8=1
+NoNewPrivileges=true

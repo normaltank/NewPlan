@@ -29,8 +29,11 @@ def scan(service, directory, options):
                     known[sha] = batch
                     report['imported'].append(batch)
                 else:
-                    report['unchanged'].append({'file': path.name, 'sha256': sha, 'id': batch['id'], 'issues': batch['issues'], 'state': batch['state'], 'quality_counts': batch['quality_counts']})
+                    report['unchanged'].append({'file': path.name, 'sha256': sha, 'id': batch['id'], 'issues': batch['issues'], 'state': batch['state'], 'counts': batch['counts'], 'quality_counts': batch['quality_counts']})
                 if options and not batch['queued'] and any(t['state'] in {'pending', 'running'} for t in batch['tasks']):
+                    if len(batch['inputs']) != 1:
+                        report['unchanged'][-1]['not_queued_reason'] = '已有多文件批次；请核对整个批次后用 batch.py enqueue 显式排队'
+                        continue
                     batch = service.enqueue(batch['id'], **options)
                     known[sha] = batch
                     for index, item in enumerate(report['imported']):
@@ -108,7 +111,7 @@ def main(argv=None):
                 result = work_once(service)
             print(json.dumps(result, ensure_ascii=False), flush=True)
             worker_report = result.get('worker', result)
-            bad_run = any(any(batch['counts'].get(state, 0) for state in ('failed', 'program_error', 'artifact_missing')) for batch in worker_report.get('processed', []))
+            bad_run = any(any(batch['counts'].get(state, 0) for state in ('failed', 'program_error', 'artifact_missing')) for batch in worker_report.get('processed', []) + result.get('unchanged', []))
             exit_code = max(exit_code, int(bool(result.get('errors') or worker_report.get('errors') or bad_run or any(batch['issues'] for batch in result.get('imported', []) + result.get('unchanged', [])))))
             if args.command == 'scan' or args.command == 'worker' and args.once:
                 break

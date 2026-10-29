@@ -1,6 +1,14 @@
 # Mission C · 教师个人主页采集
 
-输入个人主页 URL，独立保存姓名、邮箱、职称、完整简介、研究方向与发表信息。整个目录可搬离主项目使用，不依赖工作台数据库、任务 A/B、旧 MyPlan 或 API 密钥。这是命令行脚本包，没有独立前端页面。
+输入个人主页 URL 或原格式双 Sheet Excel，独立保存姓名、邮箱、职称、完整简介、研究方向与发表信息。整个目录可搬离主项目使用，不依赖工作台数据库、任务 A/B、旧 MyPlan 或 API 密钥。提供操作页面、持久批次和 Windows/Linux 后台入口。
+
+## 批次与操作入口
+
+Windows 首次执行 `setup.bat --web`，随后运行 `web.bat` 打开本地操作页面；Linux 可用 `./setup.sh --web` 安装，再按 [WEB.md](WEB.md) 启动。页面提供多文件预览、显式开始、暂停/继续及大学下载，关闭页面不取消已经启动的后台任务。默认不启用付费，输入预览不访问表内网站。
+
+先运行 `python batch.py --data-root "演示 data" demo` 验证虚构离线双 Sheet → 持久任务 → 大学 ZIP。大学教师工作簿保持三张表、十列；身份未确认、维护页、非个人页及无身份访问失败保留异常明细，完整原文与输入原件可在包内核对。任务完成不代表学院完整性已核实。
+
+原格式 Excel、字段关联和公共批次命令见 [BATCH.md](BATCH.md)；无界面目录扫描、常驻队列、Windows/Linux启动与定时调用见 [SERVER.md](SERVER.md)。页面与后台必须配置同一个 `--data-root`；没有第二套运行队列。原单页 `collect.py` 和组合缓存 `replay.py` 继续按下文使用。
 
 与主工作流的关系：复用了同款 HTTPX、BeautifulSoup、Playwright、pypdf、RapidOCR/pypdfium2 及四个本地判定/媒体模块；独立入口重新组织了调用。主流程的 Crawlee 队列未移入本包；陌生页面先用可核对的容器规则与 `--selector`，也可显式启用下述 DS 字段与选区辅助。因此它不是主流程逐行拆出的等效副本，不能直接沿用主流程的适配结论。
 
@@ -100,7 +108,7 @@ python replay.py --cache-manifest "cache\historical20\manifest.json"
 
 搬移时保留整个 Mission C 与导入后的缓存子目录，在新位置安装基础依赖即可运行；Python 环境按机器重新建立。运行不需要根工作台、旧输入路径、临时脚本或密钥。真实缓存含原始个人资料，只保存在受控本地；Git 中仅提供虚构样本。
 
-本轮已在搬移后的独立包实跑历史 20 条，冻结基线的 13 份可用 HTML 逐页对照；实际数量、字段变化、网络阻断计数与媒体缺口见[缓存交付维护记录](../docs/maintenance/2026-10-28-mission-c-assisted-cache/README.md)。该记录不把有文字或 HTTP 成功解释为全文完整率。
+上一版已在搬移后的独立包实跑历史 20 条，冻结基线的 13 份可用 HTML 逐页对照；实际数量、字段变化、网络阻断计数与媒体缺口见[缓存交付维护记录](https://github.com/normaltank/NewPlan/blob/main/docs/maintenance/2026-10-28-mission-c-assisted-cache/README.md)。该历史记录不把有文字或 HTTP 成功解释为全文完整率，也不是独立包的运行依赖。
 
 ## DS 字段与正文选区辅助
 
