@@ -315,8 +315,11 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
         with self.worker_lock(batch_id):
             return export_universities(self,batch_id,school)
 
-    def demo(self):
-        """A self-contained synthetic import/queue/run/download demonstration."""
+    def prepare_demo(self):
+        """Import the shared synthetic demo without queuing or processing it.
+
+        cache_manifest is a POSIX path relative to this service data root.
+        """
         from openpyxl import Workbook
         folder = self.root/'demo'/uuid.uuid4().hex
         folder.mkdir(parents=True)
@@ -338,6 +341,12 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
         manifest['entries'].append({'url':'https://example.edu/confirmed','source':{'path':'confirmed.html','sha256':digest(confirmed),'observed_at':'2026-10-28T00:00:00Z'}})
         (folder/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False),encoding='utf-8')
         batch=self.import_files([folder/'示例.xlsx'])
-        self.enqueue(batch['id'],cache_manifest=folder/'manifest.json')
+        return {'batch':batch,'cache_manifest':(folder/'manifest.json').relative_to(self.root).as_posix()}
+
+    def demo(self):
+        """Prepare, explicitly queue, process and export the shared offline demo."""
+        prepared=self.prepare_demo()
+        batch=prepared['batch']
+        self.enqueue(batch['id'],cache_manifest=self.root/prepared['cache_manifest'])
         result=self.run(batch['id'])
         return {'batch':result,'delivery':self.export(batch['id'])}

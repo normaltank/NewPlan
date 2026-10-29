@@ -12,7 +12,7 @@ def main(argv=None):
     for command in ('preview','import'):
         sub.add_parser(command).add_argument('paths', nargs='+', type=Path)
     sub.add_parser('list')
-    sub.add_parser('demo')
+    sub.add_parser('demo').add_argument('--prepare-only',action='store_true',help='仅导入虚构示例，不排队或执行')
     for command in ('status','pause','resume'):
         sub.add_parser(command).add_argument('id')
     run = sub.add_parser('run')
@@ -43,7 +43,7 @@ def main(argv=None):
             if args.command == 'import': result = service.import_files(args.paths)
             elif args.command in {'run','enqueue'}: result = getattr(service,args.command)(args.id, **{k:v for k,v in vars(args).items() if k not in {'id','command','data_root'}})
             elif args.command == 'export': result = service.export(args.id,args.school)
-            elif args.command == 'demo': result = service.demo()
+            elif args.command == 'demo': result = service.prepare_demo() if args.prepare_only else service.demo()
             elif args.command == 'list': result = service.list_batches()
             else: result = getattr(service,args.command)(args.id)
         print(json.dumps(result, ensure_ascii=False))

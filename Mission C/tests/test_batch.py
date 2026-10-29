@@ -245,3 +245,23 @@ class BatchContract(unittest.TestCase):
             self.assertNotIn('完整经历',[r['name'] for r in delivered])
             self.assertIn('完整经历',[r['name'] for r in all_records])
             self.assertGreaterEqual(len(delivered),1)
+    def test_prepare_demo_waits_for_explicit_queue_and_runs_same_offline_materials(self):
+        import zipfile
+        prepared=self.cli('demo','--prepare-only')
+        batch=prepared['batch']
+        self.assertEqual(batch['counts'],{'pending':3})
+        self.assertFalse(batch['queued'])
+        self.assertIsNone(batch['run_options'])
+        self.assertTrue(all(t['artifact'] is None for t in batch['tasks']))
+        self.assertFalse((self.data/'results').exists())
+        self.assertFalse((self.data/'exports').exists())
+        manifest=self.data/prepared['cache_manifest']
+        self.assertTrue(manifest.is_file())
+        queued=self.cli('enqueue',batch['id'],'--cache-manifest',manifest)
+        self.assertTrue(queued['queued'])
+        done=self.cli('run',batch['id'])
+        self.assertEqual(done['quality_counts'],{'identity_review':1,'origin_unavailable':1,'personal_candidate':1})
+        delivery=self.cli('export',batch['id'])
+        with zipfile.ZipFile(self.data/delivery['exports'][0]['path']) as archive:
+            self.assertEqual([r['name'] for r in json.loads(archive.read('teachers.json'))],['李明'])
+            self.assertIn('完整经历',[r['name'] for r in json.loads(archive.read('records.json'))])
