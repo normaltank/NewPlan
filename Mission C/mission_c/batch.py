@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
             if row is None: raise ValueError('未知批次')
             result = json.loads(row['payload'])
             setting = db.execute('SELECT options FROM queue WHERE batch=?',(batch_id,)).fetchone()
-            result.update(id=batch_id, paused=bool(row['paused']), tasks=[], counts={}, queued=bool(setting), run_options=json.loads(setting['options']) if setting else None)
+            result.update(id=batch_id, paused=bool(row['paused']), tasks=[], counts={}, quality_counts={}, queued=bool(setting), run_options=json.loads(setting['options']) if setting else None)
             for taskrow in db.execute('SELECT * FROM tasks WHERE batch=? ORDER BY rowid', (batch_id,)):
                 task = json.loads(taskrow['payload'])
                 state = taskrow['state']
@@ -143,9 +143,16 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
                     try: self.bound(taskrow['artifact'])
                     except (ValueError,OSError,KeyError): state = 'artifact_missing'
                 task.update(state=state, artifact=taskrow['artifact'], error=taskrow['error'])
+                quality = {'category':'not_read','eligible_for_workbook':False,'reasons':['尚未完成或产物不可用']}
+                if taskrow['artifact'] and state not in {'pending','running','artifact_missing','program_error'}:
+                    try: quality = self.bound(taskrow['artifact']).get('quality',quality)
+                    except (ValueError,OSError,KeyError): pass
+                task['quality'] = quality
+                category = quality['category']
+                result['quality_counts'][category] = result['quality_counts'].get(category,0)+1
                 result['tasks'].append(task)
                 result['counts'][state] = result['counts'].get(state,0)+1
-            result['state'] = 'paused' if result['paused'] else 'pending' if any(t['state'] in {'pending','running'} for t in result['tasks']) else 'completed_with_gaps' if result['issues'] or any(t['state'] != 'success' for t in result['tasks']) else 'completed'
+            result['state'] = 'paused' if result['paused'] else 'pending' if any(t['state'] in {'pending','running'} for t in result['tasks']) else 'program_error' if any(t['state'] == 'program_error' for t in result['tasks']) else 'completed_with_gaps' if result['issues'] or any(t['state'] != 'success' for t in result['tasks']) else 'completed'
             return result
 
     def list_batches(self):
@@ -200,6 +207,10 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
         import sys
         from .cli import main as collect
         from .assisted import atomic_json
+        if cache_manifest or live:
+            self.enqueue(batch_id, cache_manifest=cache_manifest, live=live, fetch_mode=fetch_mode,
+                         model_mode=model_mode, allow_paid=allow_paid, paid_max_calls=paid_max_calls)
+            cache_manifest, live = None, False
         saved = self.status(batch_id)['run_options']
         if not cache_manifest and not live and saved:
             cache_manifest = self.root/saved['cache_manifest'] if saved.get('cache_manifest') else None
@@ -214,7 +225,9 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
         with self.worker_lock(batch_id):
             processed = 0
             for task in self.status(batch_id)['tasks']:
-                if self.status(batch_id)['paused']: break
+                with self.connect() as db:
+                    paused = db.execute('SELECT paused FROM batches WHERE id=?',(batch_id,)).fetchone()['paused']
+                if paused: break
                 if max_items is not None and processed >= max_items: break
                 if task['state'] not in {'pending','running'}: continue
                 # A process may have died after writing a binding but before committing.
@@ -245,7 +258,10 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
                     state = 'success' if record['status'] == 'text_saved' and not record['review_required'] else 'review' if record['biography'] else 'failed'
                     error = json.dumps(record.get('error'),ensure_ascii=False) if record.get('error') else None
                     if code not in (0,1): raise ValueError('采集器异常退出')
-                    binding = {'state':state,'error':error,'url':task['url'],'files':{p.relative_to(output).as_posix():digest(p) for p in output.rglob('*') if p.is_file()}}
+                    from .batch_quality import assess
+                    quality = assess(record, output)
+                    if not quality['eligible_for_workbook'] and state == 'success': state = 'review'
+                    binding = {'quality':quality,'state':state,'error':error,'url':task['url'],'files':{p.relative_to(output).as_posix():digest(p) for p in output.rglob('*') if p.is_file()}}
                     atomic_json(output/'binding.json', binding)
                 except (Exception, SystemExit) as exception:
                     error = f'{type(exception).__name__}: {exception}'

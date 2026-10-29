@@ -164,8 +164,8 @@ class BatchContract(unittest.TestCase):
             self.assertEqual(list(book.worksheets[0].values)[0],('序号','姓名','职称','邮箱','学校','学院','采集人','采集日期','简介','主页'))
             numbers=[row[0] for sheet in book for row in list(sheet.values)[1:]]
             self.assertEqual(numbers,list(range(1,len(numbers)+1)))
-            self.assertEqual(book['主页失效教师'].max_row,2)
-            self.assertEqual(book['无邮箱教师'].max_row,2)
+            self.assertEqual(book['主页失效教师'].max_row,1)
+            self.assertEqual(book['无邮箱教师'].max_row,1)
             records=json.loads(package.read('teachers.json'))
             good=next(r for r in records if r['requested_url']=='https://example.edu/teacher')
             self.assertIn(long,package.read(good['biography_file']).decode())
@@ -174,8 +174,60 @@ class BatchContract(unittest.TestCase):
             self.assertIn(long,package.read('teachers.csv').decode('utf-8-sig'))
             self.assertIn('relations.csv',package.namelist())
             self.assertIn('batch.json',package.namelist())
+            snapshot=json.loads(package.read('batch.json'))
+            for task in snapshot['tasks']:
+                if task['artifact']: self.assertIn(task['artifact']+'/binding.json',package.namelist())
     def test_offline_demo_produces_download_without_external_input(self):
         demo=self.cli('demo')
         self.assertEqual(demo['batch']['completeness'],'not_verified')
         self.assertTrue((self.data/demo['delivery']['exports'][0]['path']).is_file())
         self.assertEqual(len(demo['batch']['tasks']),2)
+    def test_bad_workbook_conflicting_id_and_same_url_other_school_are_visible(self):
+        broken=self.folder/'坏文件.xlsx';broken.write_bytes(b'not a zip')
+        second=self.folder/'另一校.xlsx'
+        book=Workbook();sheet=book.active;sheet.title='Sheet1'
+        sheet.append(['ID','学校','学院','师资URL']);sheet.append([1,'另一大学','理学院','https://example.edu/list'])
+        sheet.append([3,'另一大学','A学院','']);sheet.append([3,'另一大学','B学院',''])
+        sheet=book.create_sheet('Sheet2');sheet.append(['学院ID','个人URL']);sheet.append([1,'https://example.edu/teacher']);sheet.append([3,'https://example.edu/conflict'])
+        book.save(second);book.close()
+        result=self.cli('import',self.input,second,broken)
+        self.assertEqual(len(result['tasks']),2)
+        self.assertEqual({t['school'] for t in result['tasks']},{'虚构大学','另一大学'})
+        self.assertEqual(len(result['issues']),5)
+        self.assertEqual({t['url'] for t in result['tasks']},{'https://example.edu/teacher'})
+    def test_non_personal_and_maintenance_inputs_keep_evidence_outside_teacher_sheets(self):
+        from openpyxl import load_workbook
+        import hashlib, zipfile, io
+        book=load_workbook(self.input);sheet=book['Sheet2']
+        for suffix in ('home','maintenance','uncertain','news'):sheet.append([1,'https://example.edu/'+suffix])
+        book.save(self.input);book.close()
+        manifest=self.cache();value=json.loads(manifest.read_text())
+        pages={'news':'<title>李明教授参加学术报告会</title><article class="news"><time>2026-10-28</time><h1>李明教授参加学术报告会</h1><p>李明教授应邀参加会议并作报告。</p></article>', 'home':'<title>光学院首页</title><main><h1>光学院</h1><nav>学院概况 师资队伍 新闻动态 人才培养</nav><p>欢迎访问光学院官方网站</p></main>', 'maintenance':'<title>网站维护中</title><main><h1>系统维护</h1><p>网站正在升级维护，请稍后访问。</p></main>', 'uncertain':'<main><p>研究领域涉及光学与通信。材料尚需核对。</p></main>'}
+        for suffix,html in pages.items():
+            path=self.folder/(suffix+'.html');path.write_text(html,encoding='utf-8')
+            value['entries'].append({'url':'https://example.edu/'+suffix,'source':{'path':path.name,'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'http_status':200}})
+        manifest.write_text(json.dumps(value),encoding='utf-8')
+        ident=self.cli('import',self.input)['id']
+        done=self.cli('run',ident,'--cache-manifest',manifest)
+        classes={t['url'].rsplit('/',1)[-1]:t['quality']['category'] for t in done['tasks']}
+        self.assertEqual(classes,{'teacher':'personal_candidate','home':'suspected_non_personal','maintenance':'temporarily_unavailable','uncertain':'identity_review','news':'suspected_non_personal'})
+        self.assertEqual(done['quality_counts']['temporarily_unavailable'],1)
+        delivery=self.cli('export',ident)
+        with zipfile.ZipFile(self.data/delivery['exports'][0]['path']) as package:
+            book=load_workbook(io.BytesIO(package.read('teachers.xlsx')))
+            self.assertEqual(sum(s.max_row-1 for s in book),1)
+            all_records=json.loads(package.read('records.json'))
+            self.assertEqual(len(all_records),5)
+            self.assertIn('exceptions.csv',package.namelist())
+            for record in all_records:
+                self.assertIn(record['source_file'],package.namelist())
+    def test_personal_navigation_and_research_terms_do_not_override_identity(self):
+        import hashlib
+        manifest=self.cache()
+        source=self.folder/'page.html'
+        source.write_text('<title>李明-师资队伍-学院首页</title><nav>学院首页 师资队伍 系统维护 安全验证</nav><main><h1>李明</h1><p>职称：教授</p><p>本人邮箱：liming@example.edu</p><h2>研究方向</h2><p>研究系统维护与安全验证方法。</p></main>',encoding='utf-8')
+        value=json.loads(manifest.read_text());value['entries'][0]['source']['sha256']=hashlib.sha256(source.read_bytes()).hexdigest()
+        manifest.write_text(json.dumps(value),encoding='utf-8')
+        ident=self.cli('import',self.input)['id']
+        done=self.cli('run',ident,'--cache-manifest',manifest)
+        self.assertEqual(done['tasks'][0]['quality']['category'],'personal_candidate')
