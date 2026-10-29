@@ -234,8 +234,11 @@ def fields_from_text(name, text, branch='', identity_bound=False):
                                  'rule': 'public_or_publication_contact' if public else 'personal_body'})
     personal = [x for x in email_candidates if x['score'] >= 90]
     # Incomplete official values are exceptions; do not invent a missing .com.
-    for match in re.finditer(r'\S*@\S*', email_text):
+    # Visit each complete non-whitespace token once. Searching \S*@\S*
+    # retries every suffix of a long token without @, making prose quadratic.
+    for match in re.finditer(r'\S+', email_text):
         token=match[0]
+        if '@' not in token:continue
         context=email_text[max(0,match.start()-30):match.end()]
         # SRW@ACL2023). is a conference marker, not a malformed email address.
         likely_mail=('.' in token.split('@')[-1] and not re.search(r'@[^\s.]+[)）\]】]',token)) or bool(re.search(r'邮箱|邮件|[Ee]-?[Mm]ail',context))
