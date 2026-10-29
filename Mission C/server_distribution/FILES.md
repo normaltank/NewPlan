@@ -13,7 +13,7 @@
 - `FILES.md`：本逐文件清单。
 - `mission_c/__init__.py`：核心 Python 包标识。
 - `mission_c/assisted.py`：缓存证据、DS Fetch、持久付费预算与 unknown 防重发。
-- `mission_c/batch.py`：原格式 Excel 导入、学院关联、持久任务、进程锁及逐页运行。
+- `mission_c/batch.py`：原格式 Excel 导入、学院关联、持久任务、进程锁、条件首次入队及逐页运行。
 - `mission_c/batch_delivery.py`：按大学生成教师工作簿、完整证据与异常 ZIP。
 - `mission_c/batch_quality.py`：个人页与身份质量判断，决定教师表或异常去向。
 - `mission_c/cli.py`：单个人主页实际采集流程，批次复用此入口。

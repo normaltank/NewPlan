@@ -48,6 +48,8 @@ service.demo()
 
 `enqueue` 和 `run` 的可选参数：cache_manifest=None, live=False, fetch_mode='off', model_mode='off', allow_paid=False, paid_max_calls=0；run 另有 max_items=None。缓存和 live 互斥。运行参数快照不含密钥；缓存复制后存相对路径。数据根独立于程序目录，默认 Mission C/data 且被 Git 忽略。直接调用 `run` 会占用调用线程，页面应由常驻 worker 调用，不能把它绑在 HTTP 请求生命周期。
 
+`enqueue` 另支持 `private_budget=False` 与 `first_only=False`。私人预算要求 live、Fetch supplement、model assist、allow_paid 和固定2*N。自动导入入口用 `first_only=True` 保存首次方案：在同批次进程锁和SQLite写事务内，核对最新状态无队列、任务全部pending且无产物或错误，重读相关付费账本并检查付费锁；不满足时抛出 ValueError/OSError，已有选项、暂停和预算保留。它不创建付费锁或调用提供方；真实调用仍由原有全局尝试记录防重发。默认调用保留显式替换运行选项的行为。
+
 
 批次新增 `task.quality`（category/reasons/eligible_for_workbook）与 `quality_counts`，和原始采集器 text_saved 独立。分类包括 not_read / personal_candidate / provider_candidate / origin_unavailable / temporarily_unavailable / suspected_non_personal / identity_review。只有个人材料候选及具有可靠身份的实际失败记录纳入教师表；其余输入保留 ZIP 的 records.json、exceptions.csv、原件和 batch.json。模板识别仅用主标题/主内容及新闻结构的强信号：带时间的新闻 article 缺少主身份标题时，即使正文标注姓名也留待核对。主内容明确站点正在维护升级并暂停访问或要求稍后重试、又缺少独立个人身份时，标暂不可用，不依赖特定标题。仅有维护/访问提示标题、缺少当前停服及独立个人身份的材料保留为页面身份待核；历史公告中引用的旧通知不充当当前停服证据。个人页可以复用 article/发布时间模板，明确个人身份的研究正文和引用消息、导航、个人获奖经历不会仅因含“学院首页/维护/验证/获奖”而排除。该保守分类不是通用网页身份判定或学院完整性证明；弱信号交人工复核，不自动寻找新 URL。
 

@@ -90,7 +90,7 @@ def enqueue_import(service, batch, intent):
     marker = import_intent(service, intent['sha256'])
     intent = dict(intent, batch_id=batch['id'])
     atomic_json(marker, intent)
-    batch = service.enqueue(batch['id'], private_budget=True, live=True, fetch_mode='supplement',
+    batch = service.enqueue(batch['id'], first_only=True, private_budget=True, live=True, fetch_mode='supplement',
                             model_mode='assist', allow_paid=True, paid_max_calls=2 * len(batch['tasks']))
     atomic_json(marker, dict(intent, phase='queued'))
     return batch

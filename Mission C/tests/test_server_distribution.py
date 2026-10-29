@@ -238,6 +238,39 @@ class ServerDistribution(unittest.TestCase):
         self.assertEqual(calls, ['/v1/tools/fetch', '/chat/completions'])
         self.assertEqual(len(report[-1]['deliveries']), 1)
 
+    def test_recovery_preserves_free_queue_saved_after_its_snapshot(self):
+        entry = self.private_entry()
+        self.workbook()
+        real_open = io.open
+        def interrupted(path, *args, **kwargs):
+            target = Path(path) if isinstance(path, (str, os.PathLike)) else None
+            if target and target.parent.name == 'locks' and target.name != 'input-scan.lock':
+                raise OSError('synthetic interruption before initial enqueue')
+            return real_open(path, *args, **kwargs)
+        with patch('io.open', interrupted), patch.object(httpx.HTTPTransport, 'handle_request', side_effect=AssertionError('unexpected network')):
+            self.cli('once', entry=entry, expected=1)
+        service = BatchService(self.folder / '持久 data')
+        batch = service.list_batches()[0]
+        peer = []
+        def save_peer_queue(path, *args, **kwargs):
+            target = Path(path) if isinstance(path, (str, os.PathLike)) else None
+            if target and target.parent.name == 'server-import-intents' and target.suffix == '.tmp' and not peer:
+                peer.append(service.enqueue(batch['id'], live=True, fetch_mode='off', model_mode='off', allow_paid=False, paid_max_calls=0)['run_options'])
+                service.pause(batch['id'])
+            return real_open(path, *args, **kwargs)
+        with patch('io.open', save_peer_queue), patch.object(httpx.HTTPTransport, 'handle_request', side_effect=AssertionError('unexpected network')):
+            report, _ = self.cli('once', entry=entry, expected=1)
+            repeated, _ = self.cli('once', entry=entry, expected=1)
+        self.assertEqual(len(peer), 1)
+        after = service.status(batch['id'])
+        self.assertEqual(after['run_options'], peer[0])
+        self.assertTrue(after['paused'])
+        self.assertEqual(after['counts'], {'pending': 1})
+        self.assertEqual(report[-1]['recovered'], [])
+        self.assertEqual(report[-1]['blocked'][0]['id'], batch['id'])
+        self.assertEqual(repeated[-1]['blocked'], report[-1]['blocked'])
+        self.assertFalse(list((service.root / 'paid-attempts').glob('budget-*.json')))
+
     def test_recovery_never_assigns_private_scope_over_related_global_consumption_or_unknown(self):
         entry = self.private_entry()
         self.workbook(urls=('https://example.edu/one',))
@@ -271,6 +304,94 @@ class ServerDistribution(unittest.TestCase):
         for batch in service.list_batches():
             self.assertIsNone(batch['run_options'])
             self.assertEqual(batch['counts'], {'pending': 1})
+
+    def test_new_import_preserves_free_queue_created_after_scanning(self):
+        entry = self.private_entry()
+        source = self.workbook()
+        service = BatchService(self.folder / '持久 data')
+        real_replace = os.replace
+        peer = []
+        def published(source_path, destination):
+            result = real_replace(source_path, destination)
+            if Path(destination).parent.name == 'server-import-intents' and not peer:
+                batch = service.import_files([source])
+                peer.append(service.enqueue(batch['id'], live=True, fetch_mode='off', model_mode='off', allow_paid=False, paid_max_calls=0))
+            return result
+        calls = []
+        with patch('os.replace', published), patch.object(httpx.HTTPTransport, 'handle_request', self.external(calls)):
+            report, _ = self.cli('once', entry=entry, expected=1)
+            repeated, _ = self.cli('once', entry=entry, expected=1)
+        self.assertEqual(calls, [])
+        self.assertEqual(len(peer), 1)
+        after = service.status(peer[0]['id'])
+        self.assertEqual(after['run_options'], peer[0]['run_options'])
+        self.assertEqual(after['counts'], {'pending': 1})
+        self.assertEqual(report[-1]['blocked'][0]['id'], after['id'])
+        self.assertEqual(repeated[-1]['blocked'], report[-1]['blocked'])
+        self.assertFalse(list((service.root / 'paid-attempts').glob('budget-*.json')))
+
+    def test_first_enqueue_rechecks_peer_queue_at_batch_lock_boundary(self):
+        service = BatchService(self.folder / '持久 data')
+        batch = service.import_files([self.workbook()])
+        real_open = io.open
+        peer = []
+        def before_lock(path, *args, **kwargs):
+            target = Path(path) if isinstance(path, (str, os.PathLike)) else None
+            if target == service.root / 'locks' / (batch['id'] + '.lock') and not peer:
+                peer.append(None)
+                peer[0] = service.enqueue(batch['id'], live=True)['run_options']
+                service.pause(batch['id'])
+            return real_open(path, *args, **kwargs)
+        with patch('io.open', before_lock):
+            with self.assertRaises(ValueError):
+                service.enqueue(batch['id'], first_only=True, private_budget=True, live=True,
+                                fetch_mode='supplement', model_mode='assist', allow_paid=True, paid_max_calls=2)
+        after = service.status(batch['id'])
+        self.assertEqual(after['run_options'], peer[0])
+        self.assertTrue(after['paused'])
+        # Existing explicit callers retain their ability to replace options.
+        changed = service.enqueue(batch['id'], live=True, fetch_mode='fallback')
+        self.assertEqual(changed['run_options']['fetch_mode'], 'fallback')
+        self.assertTrue(changed['paused'])
+
+    def test_first_enqueue_keeps_paid_reservation_lock_untouched_and_import_recoverable(self):
+        service = BatchService(self.folder / '持久 data')
+        batch = service.import_files([self.workbook()])
+        attempts = service.root / 'paid-attempts'
+        attempts.mkdir()
+        paid_lock = attempts / '.paid.lock'
+        paid_lock.write_bytes(b'peer reservation')
+        with self.assertRaises(ValueError):
+            service.enqueue(batch['id'], live=True, first_only=True)
+        self.assertEqual(paid_lock.read_bytes(), b'peer reservation')
+        self.assertIsNone(service.status(batch['id'])['run_options'])
+        paid_lock.unlink()
+        queued = service.enqueue(batch['id'], live=True, first_only=True)
+        self.assertTrue(queued['queued'])
+        self.assertEqual(queued['counts'], {'pending': 1})
+        self.assertFalse(paid_lock.exists())
+
+    def test_first_enqueue_preserves_work_completed_before_its_batch_lock(self):
+        service = BatchService(self.folder / '持久 data')
+        batch = service.import_files([self.workbook()])
+        real_open = io.open
+        completed = []
+        def before_lock(path, *args, **kwargs):
+            target = Path(path) if isinstance(path, (str, os.PathLike)) else None
+            if target == service.root / 'locks' / (batch['id'] + '.lock') and not completed:
+                completed.append(None)
+                service.enqueue(batch['id'], live=True)
+                completed[0] = service.run(batch['id'])
+            return real_open(path, *args, **kwargs)
+        calls = []
+        with patch('io.open', before_lock), patch.object(httpx.HTTPTransport, 'handle_request', self.external(calls)), redirect_stderr(io.StringIO()):
+            with self.assertRaises(ValueError):
+                service.enqueue(batch['id'], first_only=True, private_budget=True, live=True,
+                                fetch_mode='supplement', model_mode='assist', allow_paid=True, paid_max_calls=2)
+        self.assertEqual(calls, [])
+        self.assertIsNone(completed[0]['run_options'])
+        self.assertNotIn('pending', completed[0]['counts'])
+        self.assertEqual(service.status(batch['id']), completed[0])
 
     def test_missing_private_key_fails_before_import_and_preview_ignores_invalid_private_metadata(self):
         entry = self.private_entry()
