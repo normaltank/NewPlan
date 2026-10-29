@@ -77,7 +77,7 @@ class ServerDistribution(unittest.TestCase):
             demo, _ = self.cli('demo')
         exported = demo[-1]['deliveries'][0]
         self.assertEqual(service.list_batches(), [before])
-        self.assertEqual(Path(demo[-1]['output_dir']), self.folder / '交付 output' / 'offline-demo')
+        self.assertTrue(Path(demo[-1]['output_dir']).samefile(self.folder / '交付 output' / 'offline-demo'))
         workbook = Path(demo[-1]['output_dir']) / exported['excel']
         book = load_workbook(workbook)
         self.assertEqual(book.sheetnames, ['有邮箱教师', '无邮箱教师', '主页失效教师'])
@@ -182,6 +182,95 @@ class ServerDistribution(unittest.TestCase):
         self.assertEqual(result[-1]['blocked'][0]['id'], batch['id'])
         self.assertEqual(service.status(batch['id'])['run_options'], before)
         self.assertEqual(service.status(batch['id'])['counts'], {'pending': 1})
+
+    def test_restart_recovers_owned_import_before_enqueue_without_adopting_unowned_pending_batch(self):
+        entry = self.private_entry()
+        self.workbook()
+        real_open = io.open
+        def fail_before_enqueue(path, *args, **kwargs):
+            target = Path(path) if isinstance(path, (str, os.PathLike)) else None
+            if target and target.parent.name == 'locks' and target.name != 'input-scan.lock':
+                raise OSError('synthetic filesystem interruption before first enqueue')
+            return real_open(path, *args, **kwargs)
+        with patch('io.open', fail_before_enqueue), patch.object(httpx.HTTPTransport, 'handle_request', side_effect=AssertionError('unexpected network')):
+            first, _ = self.cli('once', entry=entry, expected=1)
+        service = BatchService(self.folder / '持久 data')
+        owned = service.list_batches()[0]
+        self.assertEqual(owned['counts'], {'pending': 1})
+        self.assertIsNone(owned['run_options'])
+        # A same-shaped legacy import without this runner's prior intent stays blocked.
+        legacy_path = self.workbook('legacy.xlsx', ('https://example.edu/legacy',))
+        legacy = service.import_files([legacy_path])
+        calls = []
+        with patch.object(httpx.HTTPTransport, 'handle_request', self.external(calls)):
+            resumed, _ = self.cli('once', entry=entry, expected=1)
+            repeated, _ = self.cli('once', entry=entry, expected=1)
+        self.assertEqual(calls, ['/v1/tools/fetch', '/chat/completions'])
+        self.assertEqual(resumed[-1]['blocked'], [{'id': legacy['id'], 'error': '旧批次没有固定私人预算 scope；保留原队列和预算，请由维护者核对'}])
+        self.assertIsNone(service.status(legacy['id'])['run_options'])
+        self.assertEqual(service.status(owned['id'])['counts'].get('pending', 0), 0)
+        self.assertEqual(resumed[-1]['deliveries'], repeated[-1]['deliveries'])
+        self.assertEqual(len(resumed[-1]['deliveries']), 1)
+
+    def test_restart_recovers_before_batch_id_was_saved_even_when_original_input_was_removed(self):
+        entry = self.private_entry()
+        source = self.workbook()
+        real_open = io.open
+        writes = []
+        def fail_binding_write(path, *args, **kwargs):
+            target = Path(path) if isinstance(path, (str, os.PathLike)) else None
+            if target and target.parent.name == 'server-import-intents' and target.suffix == '.tmp':
+                writes.append(target)
+                if len(writes) == 2:
+                    raise OSError('synthetic interruption before saving imported batch ID')
+            return real_open(path, *args, **kwargs)
+        with patch('io.open', fail_binding_write), patch.object(httpx.HTTPTransport, 'handle_request', side_effect=AssertionError('unexpected network')):
+            self.cli('once', entry=entry, expected=1)
+        service = BatchService(self.folder / '持久 data')
+        batch = service.list_batches()[0]
+        self.assertEqual(batch['counts'], {'pending': 1})
+        self.assertIsNone(batch['run_options'])
+        source.unlink()
+        calls = []
+        with patch.object(httpx.HTTPTransport, 'handle_request', self.external(calls)):
+            report, _ = self.cli('once', entry=entry)
+        self.assertEqual(report[-1]['recovered'], [batch['id']])
+        self.assertEqual(calls, ['/v1/tools/fetch', '/chat/completions'])
+        self.assertEqual(len(report[-1]['deliveries']), 1)
+
+    def test_recovery_never_assigns_private_scope_over_related_global_consumption_or_unknown(self):
+        entry = self.private_entry()
+        self.workbook(urls=('https://example.edu/one',))
+        self.workbook('two.xlsx', ('https://example.edu/two',))
+        real_open = io.open
+        def fail_enqueue(path, *args, **kwargs):
+            target = Path(path) if isinstance(path, (str, os.PathLike)) else None
+            if target and target.parent.name == 'locks' and target.name != 'input-scan.lock':
+                raise OSError('synthetic interruption before enqueue')
+            return real_open(path, *args, **kwargs)
+        with patch('io.open', fail_enqueue), patch.object(httpx.HTTPTransport, 'handle_request', side_effect=AssertionError('unexpected network')):
+            self.cli('once', entry=entry, expected=1)
+        service = BatchService(self.folder / '持久 data')
+        batches = service.list_batches()
+        from mission_c.cli import main as collect
+        source = self.folder / 'synthetic-source.html'
+        source.write_text('<main><h1>李明</h1><p>姓名：李明</p><p>职称：教授</p><p>研究光学的完整经历。</p></main>', encoding='utf-8')
+        calls = []
+        for index, outcome in enumerate((401, 'unknown')):
+            with patch.object(httpx.HTTPTransport, 'handle_request', self.external(calls, outcome)), redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
+                collect(['--url', batches[index]['tasks'][0]['url'], '--html', str(source), '--output', str(self.folder / ('legacy-' + str(index))),
+                         '--fetch-mode', 'supplement', '--model-mode', 'assist', '--allow-paid', '--paid-max-calls', '4',
+                         '--paid-attempts', str(service.root / 'paid-attempts')], key_loader=lambda: self.key)
+        self.assertEqual(calls, ['/v1/tools/fetch', '/chat/completions'] * 2)
+        ledger = {p.name: p.read_bytes() for p in (service.root / 'paid-attempts').glob('*.json')}
+        with patch.object(httpx.HTTPTransport, 'handle_request', side_effect=AssertionError('unexpected provider resend')):
+            report, _ = self.cli('once', entry=entry, expected=1)
+        self.assertEqual(len(report[-1]['blocked']), 2)
+        self.assertEqual(report[-1]['recovered'], [])
+        self.assertEqual(ledger, {p.name: p.read_bytes() for p in (service.root / 'paid-attempts').glob('*.json')})
+        for batch in service.list_batches():
+            self.assertIsNone(batch['run_options'])
+            self.assertEqual(batch['counts'], {'pending': 1})
 
     def test_missing_private_key_fails_before_import_and_preview_ignores_invalid_private_metadata(self):
         entry = self.private_entry()

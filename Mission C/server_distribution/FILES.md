@@ -2,7 +2,7 @@
 
 构建时从现有核心按精确清单取用；源码只保存一套核心。普通包 26 个文件，PRIVATE 另加最后三项。
 
-- `run.py`：唯一无界面入口，preview/once/watch/status/demo；扫描、固定私人排队、逐页续跑和自动交付。
+- `run.py`：唯一无界面入口，preview/once/watch/status/demo；扫描、持久导入意图、固定私人排队、逐页续跑和自动交付。
 - `config.json`：三个目录和扫描间隔，路径相对配置文件解析。
 - `requirements.txt`：四项固定版本基础依赖（Beautiful Soup、httpx、openpyxl、pypdf）。
 - `setup.bat`：Windows 首次创建环境、安装依赖、准备 input。
@@ -32,4 +32,4 @@
 - `.private/credential.txt`（仅 PRIVATE）：共享 DS 凭据，勿公开、勿写入命令或日志。
 - `PRIVATE.txt`（仅 PRIVATE）：授权接收范围及凭据可提取声明。
 
-运行后目录：`input/` 放原表；`data/` 保存 batches.sqlite3、imports 原件、results 尝试、paid-attempts 持久预算/未知计费记录、locks、exports 和 server-deliveries 自动交付收据；`output/` 放按批次和大学分开的 Excel/全文 ZIP，`.pending-` 是同盘交付暂存目录；`data/offline-demo/`、`output/offline-demo/` 只存离线自检材料和结果，不进入正式队列；`.venv/` 是本机安装环境。备份 data 必须完整，旧无 scope 队列保留并阻断，不自动赋新预算。上述目录都不进入构建包。
+运行后目录：`input/` 放原表；`data/` 保存 batches.sqlite3、imports 原件、results 尝试、paid-attempts 持久预算/未知计费记录、server-import-intents 输入拥有意图（SHA/原文件名/批次ID/排队阶段）、locks、exports 和 server-deliveries 自动交付收据；`output/` 放按批次和大学分开的 Excel/全文 ZIP，`.pending-` 是同盘交付暂存目录；`data/offline-demo/`、`output/offline-demo/` 只存离线自检材料和结果，不进入正式队列；`.venv/` 是本机安装环境。备份 data 必须完整，导入意图与付费账本一起保留；旧无 scope 队列保留并阻断，不自动赋新预算。上述目录都不进入构建包。
