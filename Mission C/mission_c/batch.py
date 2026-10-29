@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
         return binding
 
     def run(self, batch_id, *, cache_manifest=None, live=False, max_items=None,
-            fetch_mode='off', model_mode='off', allow_paid=False, paid_max_calls=0):
+            fetch_mode='off', model_mode='off', allow_paid=False, paid_max_calls=0, key_loader=None):
         """Process pending pages with the existing public collector, one commit per page."""
         import contextlib
         import sys
@@ -258,10 +258,10 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
                 args = ['--url', task['url'], '--school', task['school'], '--college', '; '.join(dict.fromkeys(r['college'] for r in task['relations'])), '--output', str(output), '--fetch-mode', fetch_mode, '--model-mode', model_mode]
                 if cache_manifest: args += ['--cache-manifest',str(Path(cache_manifest).resolve())]
                 if allow_paid:
-                    args += ['--allow-paid','--paid-max-calls',str(paid_max_calls),'--paid-attempts',str(self.root/'paid-attempts')]
+                    args += ['--allow-paid','--paid-max-calls',str(paid_max_calls),'--paid-attempts',str(self.root/'paid-attempts'),'--paid-budget-scope',batch_id]
                 state, error = 'failed', None
                 try:
-                    with contextlib.redirect_stdout(sys.stderr): code = collect(args)
+                    with contextlib.redirect_stdout(sys.stderr): code = collect(args, key_loader=key_loader)
                     records = json.loads((output/'teachers.json').read_text(encoding='utf-8'))
                     if len(records) != 1 or records[0]['requested_url'] != task['url']:
                         raise ValueError('采集产物与任务不匹配')

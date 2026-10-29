@@ -123,7 +123,9 @@ def summary(value, error=None):
         'worker_error':error}
 
 
-def create_app(data_root, *, policy=None, cache_manifest=None):
+def create_app(data_root, *, policy=None, cache_manifest=None, private_config=None):
+    from .private_deployment import PrivateDeployment
+    private = PrivateDeployment(private_config) if private_config else None
     policy = policy or WebPolicy()
     service = BatchService(data_root)
     # Only startup-configured files can become cache inputs. No HTTP filesystem paths.
@@ -147,10 +149,14 @@ def create_app(data_root, *, policy=None, cache_manifest=None):
             'teachers':sum(bool(t['quality']['eligible_for_workbook']) for t in processed),
             'exceptions':sum(not t['quality']['eligible_for_workbook'] for t in processed)}
         result['delivery_mode'] = ('demo' if demo_manifest(value['id']) else
-            'cache' if caches.get('local') else 'live' if policy.allow_live else 'unavailable')
+            'cache' if caches.get('local') else 'live' if private or policy.allow_live else 'unavailable')
         return result
 
     def policy_error(options):
+        if private and options['live']:
+            if options['fetch_mode'] != 'supplement' or options['model_mode'] != 'assist' or not options['allow_paid']:
+                return '私人部署只允许预设的处理方案'
+            return None
         if options['live'] and not policy.allow_live:
             return '当前服务未开放在线访问；请使用严格缓存模式'
         if options['allow_paid'] and (not policy.allow_paid or options['paid_max_calls'] > policy.paid_max_calls or options['paid_max_calls'] < 1):
@@ -173,7 +179,7 @@ def create_app(data_root, *, policy=None, cache_manifest=None):
                         errors[batch['id']] = blocked
                         continue
                     try:
-                        service.run(batch['id'], max_items=1)
+                        service.run(batch['id'], max_items=1, key_loader=private.load_key if private else None)
                         errors.pop(batch['id'], None)
                     except (ValueError, OSError) as error:
                         # A CLI/other worker can own the process lock. It remains authority.
@@ -313,6 +319,8 @@ def create_app(data_root, *, policy=None, cache_manifest=None):
     @app.post('/api/batches/{ident}/start')
     def start(ident: str, options: StartOptions):
         current = batch(ident)
+        if private:
+            raise HTTPException(403, '私人部署请使用简版开始处理')
         if current['queued']:
             raise HTTPException(409, '批次已有运行意图；请使用继续处理')
         if options.mode not in {'cache','live'}:
@@ -335,10 +343,14 @@ def create_app(data_root, *, policy=None, cache_manifest=None):
         if current['queued']:
             raise HTTPException(409, '批次已经开始，请使用继续处理')
         cache = demo_manifest(ident) or caches.get('local')
-        if cache is None and not policy.allow_live:
+        if cache is None and not (private or policy.allow_live):
             raise HTTPException(403, '当前服务尚未开放网页处理，请联系维护人员；也可先离线试用示例。')
+        assisted = private is not None and cache is None
+        if assisted:
+            private.load_key()  # Fail before persisting intent; never sent to the browser.
         result = service.enqueue(ident, cache_manifest=cache, live=cache is None,
-            fetch_mode='off', model_mode='off', allow_paid=False, paid_max_calls=0)
+            fetch_mode='supplement' if assisted else 'off', model_mode='assist' if assisted else 'off',
+            allow_paid=assisted, paid_max_calls=2*len(current['tasks']) if assisted else 0)
         errors.pop(ident, None)
         return web_summary(result)
 
