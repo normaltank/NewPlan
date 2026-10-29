@@ -3,6 +3,8 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import signal
+import threading
 
 from mission_c.batch import BatchService
 
@@ -76,25 +78,42 @@ def main(argv=None):
     scanning.add_argument('--run', action='store_true', help='扫描后执行已有显式队列')
     worker = sub.add_parser('worker', help='执行共用持久队列')
     worker.add_argument('--once', action='store_true')
+    worker.add_argument('--interval', type=float, default=5, help='空闲轮询秒数，默认5')
+    watch = sub.add_parser('watch', help='持续扫描输入目录并执行共用队列')
+    watch.add_argument('directory', type=Path)
+    options_parser(watch)
+    watch.add_argument('--interval', type=float, default=5)
     args = parser.parse_args(argv)
-    if args.command == 'scan':
+    if args.command in {'worker', 'watch'} and args.interval <= 0:
+        parser.error('interval 必须大于0')
+    if args.command in {'scan', 'watch'}:
         if args.paid_max_calls < 0:
             parser.error('付费预算不能为负数')
         if not (args.cache_manifest or args.live) and (args.fetch_mode != 'off' or args.model_mode != 'off' or args.allow_paid or args.paid_max_calls):
             parser.error('运行选项需要缓存清单或显式 --live')
     try:
         service = BatchService(args.data_root)
-        if args.command == 'scan':
-            options = {key: getattr(args, key) for key in ('cache_manifest', 'live', 'fetch_mode', 'model_mode', 'allow_paid', 'paid_max_calls')} if args.cache_manifest or args.live else None
-            result = scan(service, args.directory, options)
-            if args.run:
-                result['worker'] = work_once(service)
-        else:
-            result = work_once(service)
-        print(json.dumps(result, ensure_ascii=False), flush=True)
-        worker_report = result.get('worker', result)
-        bad_run = any(any(batch['counts'].get(state, 0) for state in ('failed', 'program_error', 'artifact_missing')) for batch in worker_report.get('processed', []))
-        return int(bool(result.get('errors') or worker_report.get('errors') or bad_run or any(batch['issues'] for batch in result.get('imported', []) + result.get('unchanged', []))))
+        stop = threading.Event()
+        if args.command == 'watch' or args.command == 'worker' and not args.once:
+            for signum in (signal.SIGINT, signal.SIGTERM):
+                signal.signal(signum, lambda *_: stop.set())
+        exit_code = 0
+        while not stop.is_set():
+            if args.command in {'scan', 'watch'}:
+                options = {key: getattr(args, key) for key in ('cache_manifest', 'live', 'fetch_mode', 'model_mode', 'allow_paid', 'paid_max_calls')} if args.cache_manifest or args.live else None
+                result = scan(service, args.directory, options)
+                if args.command == 'watch' or args.run:
+                    result['worker'] = work_once(service)
+            else:
+                result = work_once(service)
+            print(json.dumps(result, ensure_ascii=False), flush=True)
+            worker_report = result.get('worker', result)
+            bad_run = any(any(batch['counts'].get(state, 0) for state in ('failed', 'program_error', 'artifact_missing')) for batch in worker_report.get('processed', []))
+            exit_code = max(exit_code, int(bool(result.get('errors') or worker_report.get('errors') or bad_run or any(batch['issues'] for batch in result.get('imported', []) + result.get('unchanged', [])))))
+            if args.command == 'scan' or args.command == 'worker' and args.once:
+                break
+            stop.wait(args.interval)
+        return exit_code
     except (OSError, ValueError) as error:
         parser.exit(2, f'{error}\n')
 

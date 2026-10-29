@@ -85,8 +85,153 @@ class ServerContract(unittest.TestCase):
         invalid = subprocess.run([sys.executable, str(ROOT / 'server.py'), '--data-root', str(self.data), 'scan', str(self.inputs), '--allow-paid'], capture_output=True, timeout=20)
         self.assertEqual(invalid.returncode, 2)
 
+    def test_continuous_worker_respects_shared_queue_pause_and_saved_cache(self):
+        import time
+        ident = self.cli('batch.py', 'import', self.input)['id']
+        self.cli('batch.py', 'enqueue', ident, '--cache-manifest', self.manifest)
+        self.cli('batch.py', 'pause', ident)
+        self.workbook(self.inputs / '未排队.xlsx', '另学院')
+        other = self.cli('batch.py', 'import', self.inputs / '未排队.xlsx')['id']
+        self.manifest.unlink()
+        (self.folder / 'page.html').unlink()
+        log = self.folder / 'worker.jsonl'
+        with log.open('w', encoding='utf-8') as out:
+            process = subprocess.Popen([sys.executable, str(ROOT / 'server.py'), '--data-root', str(self.data), 'worker', '--interval', '0.1'], stdout=out, stderr=subprocess.DEVNULL)
+            try:
+                time.sleep(0.8)
+                self.assertIsNone(process.poll(), 'continuous worker stopped while queue is paused')
+                self.assertEqual(self.cli('batch.py', 'status', ident)['counts'], {'pending': 1})
+                self.cli('batch.py', 'resume', ident)
+                deadline = time.monotonic() + 30
+                while time.monotonic() < deadline:
+                    done = self.cli('batch.py', 'status', ident)
+                    if not done['queued']:
+                        break
+                    time.sleep(0.1)
+                self.assertFalse(done['queued'])
+                self.assertEqual(done['quality_counts'], {'personal_candidate': 1})
+                self.assertEqual(self.cli('batch.py', 'status', other)['counts'], {'pending': 1})
+            finally:
+                process.terminate()
+                process.wait(timeout=15)
+        events = [json.loads(line) for line in log.read_text(encoding='utf-8').splitlines()]
+        self.assertTrue(any(event['processed'] for event in events))
+
+    def test_watch_discovers_one_new_content_without_reexecuting_previous(self):
+        import time
+        log = self.folder / 'watch.jsonl'
+        with log.open('w', encoding='utf-8') as out:
+            process = subprocess.Popen([sys.executable, str(ROOT / 'server.py'), '--data-root', str(self.data), 'watch', str(self.inputs), '--cache-manifest', str(self.manifest), '--interval', '0.1'], stdout=out, stderr=subprocess.DEVNULL)
+            try:
+                def completed(count):
+                    deadline = time.monotonic() + 30
+                    batches = []
+                    while time.monotonic() < deadline:
+                        if process.poll() is not None:
+                            self.fail('watch stopped before processing inputs')
+                        if self.data.exists():
+                            batches = self.cli('batch.py', 'list')
+                            if len(batches) == count and all(not batch['queued'] and not batch['counts'].get('pending') for batch in batches):
+                                return batches
+                        time.sleep(0.1)
+                    self.fail(f'watch did not finish {count} batches: {batches}')
+                first = completed(1)[0]
+                artifact = self.data / first['tasks'][0]['artifact']
+                original = (artifact / 'binding.json').read_bytes()
+                self.workbook(self.inputs / '新文件.xlsx', '理学院')
+                completed(2)
+                self.assertEqual((artifact / 'binding.json').read_bytes(), original)
+            finally:
+                process.terminate()
+                process.wait(timeout=15)
+        events = [json.loads(line) for line in log.read_text(encoding='utf-8').splitlines()]
+        self.assertEqual(sum(len(event['imported']) for event in events), 2)
+        self.assertEqual(sum(len(event['worker']['processed']) for event in events), 2)
+
+    def test_worker_process_lock_and_restart_preserve_completed_artifact(self):
+        from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+        import threading
+        entered, release = threading.Event(), threading.Event()
+        requests = []
+        blocked = ['/b']
+        class Site(BaseHTTPRequestHandler):
+            def log_message(self, *args):
+                pass
+            def do_GET(self):
+                requests.append(self.path)
+                if self.path in blocked:
+                    entered.set()
+                    release.wait(30)
+                body = b'User-agent: *\nAllow: /\n' if self.path == '/robots.txt' else '<meta charset="utf-8"><main><h1>李明</h1><p>姓名：李明</p><p>职称：教授</p><p>研究光学。</p></main>'.encode()
+                try:
+                    self.send_response(200)
+                    self.send_header('Content-Type', 'text/html; charset=utf-8')
+                    self.end_headers()
+                    self.wfile.write(body)
+                except OSError:
+                    pass
+        server = ThreadingHTTPServer(('127.0.0.1', 0), Site)
+        threading.Thread(target=server.serve_forever, daemon=True).start()
+        self.addCleanup(server.server_close)
+        self.addCleanup(server.shutdown)
+        base = f'http://127.0.0.1:{server.server_port}'
+        book = Workbook()
+        sheet = book.active
+        sheet.title = 'Sheet1'
+        sheet.append(['ID', '学校', '学院', '师资URL'])
+        sheet.append([1, '虚构大学', '理学院', base + '/list'])
+        sheet = book.create_sheet('Sheet2')
+        sheet.append(['学院ID', '个人URL'])
+        sheet.append([1, base + '/a'])
+        sheet.append([1, base + '/b'])
+        book.save(self.input)
+        book.close()
+        ident = self.cli('server.py', 'scan', self.inputs, '--live')['imported'][0]['id']
+        process = subprocess.Popen([sys.executable, str(ROOT / 'server.py'), '--data-root', str(self.data), 'worker', '--once'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        try:
+            self.assertTrue(entered.wait(30), 'second page did not start')
+            first = self.cli('batch.py', 'status', ident)['tasks'][0]
+            artifact = self.data / first['artifact'] / 'binding.json'
+            original = artifact.read_bytes()
+            concurrent = self.cli('server.py', 'worker', '--once')
+            self.assertEqual(concurrent['busy'], [ident])
+            self.assertEqual(requests.count('/a'), 1)
+            self.assertEqual(requests.count('/b'), 1)
+        finally:
+            process.kill()
+            process.wait(timeout=15)
+            blocked.clear()
+            release.set()
+        finished = self.cli('server.py', 'worker', '--once')['processed'][0]
+        self.assertFalse(finished['queued'])
+        self.assertNotIn('pending', finished['counts'])
+        self.assertNotIn('running', finished['counts'])
+        self.assertEqual(requests.count('/a'), 1)
+        self.assertEqual(artifact.read_bytes(), original)
+
+    def test_platform_launcher_runs_relocated_package_with_external_data_root(self):
+        import os
+        package = self.folder / '移动 Mission C'
+        shutil.copytree(ROOT, package, ignore=shutil.ignore_patterns('.venv', '__pycache__', 'data', 'outputs'))
+        arguments = ['--data-root', str(self.data), 'scan', str(self.inputs), '--cache-manifest', str(self.manifest), '--run']
+        env = dict(os.environ, MISSION_C_PYTHON=sys.executable, PYTHONUTF8='1')
+        if os.name == 'nt':
+            command = subprocess.list2cmdline([str(package / 'server.bat'), *arguments])
+            result = subprocess.run(command, shell=True, env=env, cwd=self.folder, capture_output=True, encoding='utf-8', errors='replace', timeout=60)
+        else:
+            result = subprocess.run([str(package / 'server.sh'), *arguments], env=env, cwd=self.folder, capture_output=True, encoding='utf-8', errors='replace', timeout=60)
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+        report = json.loads(result.stdout)
+        self.assertEqual(len(report['imported']), 1)
+        self.assertEqual(report['worker']['processed'][0]['quality_counts'], {'personal_candidate': 1})
+        self.assertFalse((package / 'data').exists())
+
 if __name__ == '__main__':
     unittest.main()
+
+
+
+
 
 
 
