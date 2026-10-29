@@ -209,6 +209,7 @@ def create_app(data_root, *, policy=None, cache_manifest=None):
     @app.get('/api/sample.xlsx')
     def sample():
         prepared = service.prepare_demo()
+        caches['demo'] = service.root/prepared['cache_manifest']
         source = service.root/prepared['batch']['inputs'][0]['stored_file']
         return FileResponse(source, filename='Mission-C-离线示例.xlsx')
 
@@ -285,12 +286,9 @@ def create_app(data_root, *, policy=None, cache_manifest=None):
             raise HTTPException(403, blocked)
         cache = None
         if options.mode == 'cache':
-            if options.cache_id == 'demo' and 'demo' not in caches:
-                prepared = service.prepare_demo()
-                caches['demo'] = service.root/prepared['cache_manifest']
             cache = caches.get(options.cache_id)
             if cache is None:
-                raise HTTPException(400, '未知缓存选择')
+                raise HTTPException(400, '缓存尚未准备；请先载入或下载离线示例，自己的输入可选择配置的本地缓存或在线访问')
         result = service.enqueue(ident, cache_manifest=cache, **setting)
         errors.pop(ident, None)
         return summary(result)
