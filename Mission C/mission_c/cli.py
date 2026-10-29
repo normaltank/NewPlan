@@ -18,7 +18,7 @@ def write_json(path, value):
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def main(argv=None):
+def main(argv=None, *, key_loader=None):
     parser = argparse.ArgumentParser(description="任务 C：从教师个人主页保存基本字段与完整原文")
     parser.add_argument("--url", action="append", default=[], help="教师个人主页 URL，可重复")
     parser.add_argument("--urls-file", type=Path, help="UTF-8 文本，每行一个个人主页 URL")
@@ -31,6 +31,7 @@ def main(argv=None):
     parser.add_argument("--fetch-max-calls", type=int, default=0, help="Fetch 持久化预算上限，默认 0")
     parser.add_argument("--fetch-attempts", type=Path, help="跨运行保留的在线 Fetch 尝试记录目录")
     parser.add_argument('--paid-max-calls', type=int, help='Fetch 与模型共享的持久总调用上限')
+    parser.add_argument('--paid-budget-scope', help='持久预算所属批次；不改变全局尝试去重')
     parser.add_argument('--paid-attempts', type=Path, help='Fetch 与模型共享的持久尝试目录')
     parser.add_argument('--model', default='deepseek-flash', help='在线模型名')
     parser.add_argument('--model-thinking', choices=['disabled', 'enabled'], default='disabled')
@@ -67,7 +68,7 @@ def main(argv=None):
         output.mkdir(parents=True, exist_ok=False)
         fetcher = Fetcher(args.timeout, args.delay) if not (args.html or cache) else None
         provider = cache or LiveFetch(allow_paid=args.allow_paid, max_calls=args.paid_max_calls if args.paid_max_calls is not None else args.fetch_max_calls,
-                                     attempts=args.paid_attempts or args.fetch_attempts, timeout=args.timeout)
+                                     attempts=args.paid_attempts or args.fetch_attempts, timeout=args.timeout, key_loader=key_loader, budget_scope=args.paid_budget_scope)
         records = []
         try:
             for index, url in enumerate(urls, 1):

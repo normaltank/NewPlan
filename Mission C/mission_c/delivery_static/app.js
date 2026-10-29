@@ -59,6 +59,10 @@ async function render() {
     const notes = Object.entries(reasons).filter(([key]) => current.quality_counts[key]).map(([key,label]) => `${label} ${current.quality_counts[key]} 条`);
     if (notes.length) $('status-text').textContent += ' ' + notes.join('；') + '。';
   }
+  if (current.assistance_incomplete) {
+    if (done) $('status-title').textContent = '处理完成，辅助未完成';
+    $('status-text').textContent += ` 辅助未完成 ${current.assistance_incomplete} 条：${current.assistance_reasons.join('；')}。已有可信教师资料仍可下载，详情见 ZIP 异常明细。`;
+  }
   if (current.worker_error) $('status-text').textContent = '后台暂时无法继续：' + current.worker_error;
   const percent = current.total ? Math.floor(current.processed * 100 / current.total) : 0;
   $('progress').value = percent;

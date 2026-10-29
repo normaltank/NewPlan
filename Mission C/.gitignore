@@ -5,3 +5,6 @@ outputs/
 inputs/
 .env*
 data/
+
+.private/
+.private-fixtures/

@@ -66,8 +66,8 @@ def export_universities(service, batch_id, school=None):
         with (folder/'exceptions.csv').open('w',encoding='utf-8-sig',newline='') as stream:
             writer=csv.writer(stream);writer.writerow(['任务ID','个人URL','状态','质量分类','原因','原件目录'])
             for task in status['tasks']:
-                if task['school']==name and (not task['quality']['eligible_for_workbook'] or task['state'] in {'failed','program_error','artifact_missing'}):
-                    writer.writerow([csv_value(v) for v in [task['id'],task['url'],task['state'],task['quality']['category'],'; '.join(task['quality']['reasons']),('evidence/'+task['id']) if task['id'] in copied else '']])
+                if task['school']==name and (not task['quality']['eligible_for_workbook'] or task['state'] in {'failed','program_error','artifact_missing'} or task.get('assistance_errors')):
+                    writer.writerow([csv_value(v) for v in [task['id'],task['url'],task['state'],task['quality']['category'],'; '.join(task['quality']['reasons'] + ['辅助未完成: '+e['operation']+' '+e['code']+' '+e['message'] for e in task.get('assistance_errors',[])]),('evidence/'+task['id']) if task['id'] in copied else '']])
         (folder/'teachers.json').write_text(json.dumps(records,ensure_ascii=False,indent=2),encoding='utf-8')
         scoped = copy.deepcopy(status)
         scoped['tasks'] = [t for t in scoped['tasks'] if t['school']==name]

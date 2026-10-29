@@ -37,11 +37,13 @@ def redact_response(raw, key):
 
 
 class LiveFetch:
-    def __init__(self, *, allow_paid=False, max_calls=0, attempts=None, timeout=30):
+    def __init__(self, *, allow_paid=False, max_calls=0, attempts=None, timeout=30, key_loader=None, budget_scope=None):
         self.allow_paid = allow_paid
         self.max_calls = max_calls
         self.attempts = attempts
         self.timeout = timeout
+        self.key_loader = key_loader
+        self.budget_scope = budget_scope
 
     def reserve(self, url, operation="fetch", input_sha256=""):
         prefix = operation
@@ -68,13 +70,37 @@ class LiveFetch:
                     state = "unknown"
                 code = prefix + "_attempt_exists" if state == "completed" else prefix + "_attempt_unknown"
                 raise SourceError(code, "已有此 URL 的尝试；不自动重发")
-            if sum(1 for p in self.attempts.glob("*.json") if p.name.startswith(("fetch-", "model-"))) >= self.max_calls:
-                raise SourceError(prefix + "_budget_exhausted", "持久化 Fetch 预算已用完")
-            key = os.environ.get("DEEPSEEK_API_KEY", "")
+            records = []
+            for path in self.attempts.glob('*.json'):
+                if not path.name.startswith(('fetch-', 'model-')):
+                    continue
+                try:
+                    record = json.loads(path.read_text(encoding='utf-8'))
+                    if not isinstance(record, dict): raise ValueError()
+                    records.append(record)
+                except (OSError, ValueError):
+                    raise SourceError(prefix + '_attempt_store_invalid', '尝试记录损坏；停止付费调用') from None
+            if self.budget_scope:
+                budget_path = self.attempts / ('budget-' + hashlib.sha256(self.budget_scope.encode()).hexdigest() + '.json')
+                if budget_path.exists():
+                    try:
+                        budget = json.loads(budget_path.read_text(encoding='utf-8'))
+                        if budget['max_calls'] != self.max_calls:
+                            raise ValueError()
+                    except (OSError, ValueError, KeyError, TypeError):
+                        raise SourceError(prefix + '_budget_invalid', '批次持久预算不匹配；停止付费调用') from None
+                else:
+                    atomic_json(budget_path, {'scope': self.budget_scope, 'max_calls': self.max_calls})
+                records = [r for r in records if r.get('budget_scope') == self.budget_scope]
+                if any(r.get('url') == url and r.get('operation') == operation for r in records):
+                    raise SourceError(prefix + '_attempt_exists', '本批次页面已有此类尝试；不自动重发')
+            if len(records) >= self.max_calls:
+                raise SourceError(prefix + '_budget_exhausted', '持久化付费预算已用完')
+            key = self.key_loader() if self.key_loader else os.environ.get("DEEPSEEK_API_KEY", "")
             if not key:
                 raise SourceError(prefix + "_key_missing", "缺少 DEEPSEEK_API_KEY 环境密钥")
             attempt = {"provider": "deepseek-" + operation, "operation": operation, "input_sha256": input_sha256, "url": url, "state": "unknown",
-                       "started_at": datetime.now(timezone.utc).isoformat()}
+                       "started_at": datetime.now(timezone.utc).isoformat(), "budget_scope": self.budget_scope}
             atomic_json(attempt_path, attempt)
         finally:
             lock.unlink()
