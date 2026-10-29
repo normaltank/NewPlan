@@ -154,7 +154,9 @@ class ServerContract(unittest.TestCase):
                 first = completed(1)[0]
                 artifact = self.data / first['tasks'][0]['artifact']
                 original = (artifact / 'binding.json').read_bytes()
-                self.workbook(self.inputs / '新文件.xlsx', '理学院')
+                ready = self.folder / '写完后移入.xlsx'
+                self.workbook(ready, '理学院')
+                ready.replace(self.inputs / '新文件.xlsx')
                 completed(2)
                 self.wait_for_logged_work(log, 2, nested=True)
                 self.assertEqual((artifact / 'binding.json').read_bytes(), original)
