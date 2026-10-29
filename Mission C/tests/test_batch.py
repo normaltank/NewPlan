@@ -277,6 +277,60 @@ class BatchContract(unittest.TestCase):
             self.assertEqual(sum(sheet.max_row-1 for sheet in book),0)
             exceptions=list(csv.DictReader(io.StringIO(package.read('exceptions.csv').decode('utf-8-sig'))))
             self.assertEqual(len(exceptions),1)
+    def test_current_service_interruption_is_not_a_teacher_under_alternate_headings(self):
+        import hashlib, io, zipfile
+        from openpyxl import load_workbook
+        pages={
+            'active':'<meta charset="utf-8"><title>正在维护</title><main><h1>正在维护</h1><p>网站正在维护升级，暂停访问，请稍后重试。</p></main>',
+            'access':'<meta charset="utf-8"><title>访问提示</title><main><h1>访问提示</h1><p>系统正在升级维护，暂时无法访问，请稍后重试。</p></main>',
+            'platform':'<meta charset="utf-8"><title>服务提醒</title><main><h1>服务提醒</h1><p>本站目前正在进行升级维护，页面暂不可用，请稍后重试。</p></main>',
+            'status':'<meta charset="utf-8"><title>信息提示</title><main><h1>信息提示</h1><p>本平台维护中，暂停服务，请稍后再试。</p></main>'}
+        profile='<meta charset="utf-8"><title>李明-学院首页</title><nav>新闻动态 系统维护 安全验证</nav><main><h1>李明</h1><p>姓名：李明</p><p>职称：教授</p><p>研究系统维护和访问验证技术。</p><blockquote>网站正在维护升级，暂停访问，请稍后重试。</blockquote><p>研究日志引用“系统正在升级维护，暂时无法访问，请稍后重试。”分析故障提示。</p></main>'
+        manifest=self.cache();source=self.folder/'page.html';source.write_text(profile,encoding='utf-8')
+        value=json.loads(manifest.read_text());value['entries'][0]['source']['sha256']=hashlib.sha256(source.read_bytes()).hexdigest()
+        book=load_workbook(self.input)
+        for slug,html in pages.items():
+            book['Sheet2'].append([1,'https://example.edu/'+slug])
+            source=self.folder/(slug+'.html');source.write_text(html,encoding='utf-8')
+            value['entries'].append({'url':'https://example.edu/'+slug,'source':{'path':source.name,'sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'http_status':200}})
+        book.save(self.input);book.close();manifest.write_text(json.dumps(value),encoding='utf-8')
+        ident=self.cli('import',self.input)['id'];done=self.cli('run',ident,'--cache-manifest',manifest)
+        delivery=self.cli('export',ident)
+        with zipfile.ZipFile(self.data/delivery['exports'][0]['path']) as package:
+            records={r['requested_url'].rsplit('/',1)[-1]:r for r in json.loads(package.read('records.json'))}
+            self.assertEqual(records['active']['name'],'正在维护')
+            self.assertEqual(records['access']['name'],'访问提示')
+            for slug,html in {**pages,'teacher':profile}.items():
+                self.assertEqual(package.read(records[slug]['source_file']).decode('utf-8'),html)
+                self.assertEqual(package.read(records[slug]['biography_file']).decode('utf-8').replace('\r\n','\n'),records[slug]['biography'])
+            categories={t['url'].rsplit('/',1)[-1]:t['quality']['category'] for t in done['tasks']}
+            self.assertEqual(categories,{'teacher':'personal_candidate',**dict.fromkeys(pages,'temporarily_unavailable')})
+            self.assertEqual([r['name'] for r in json.loads(package.read('teachers.json'))],['李明'])
+            book=load_workbook(io.BytesIO(package.read('teachers.xlsx')))
+            self.assertEqual(sum(sheet.max_row-1 for sheet in book),1)
+            self.assertIn('研究日志引用',records['teacher']['biography'])
+    def test_archived_maintenance_headings_without_current_outage_stay_identity_review(self):
+        import hashlib, zipfile
+        from openpyxl import load_workbook
+        pages={}
+        for slug,title in [('teacher','系统维护公告'),('upgrade','网站升级通知'),('archived','正在维护')]:
+            pages[slug]='<meta charset="utf-8"><title>'+title+'</title><main><h1>'+title+'</h1><p>这是一份历史公告，原内容已归档。</p><blockquote>网站正在维护升级，暂停访问，请稍后重试。</blockquote></main>'
+        manifest=self.cache();value={'version':1,'entries':[]};book=load_workbook(self.input)
+        for slug,html in pages.items():
+            if slug!='teacher':book['Sheet2'].append([1,'https://example.edu/'+slug])
+            source=self.folder/(slug+'.html');source.write_text(html,encoding='utf-8')
+            value['entries'].append({'url':'https://example.edu/'+slug,'source':{'path':source.name,'sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'http_status':200}})
+        book.save(self.input);book.close();manifest.write_text(json.dumps(value),encoding='utf-8')
+        ident=self.cli('import',self.input)['id'];done=self.cli('run',ident,'--cache-manifest',manifest)
+        delivery=self.cli('export',ident)
+        with zipfile.ZipFile(self.data/delivery['exports'][0]['path']) as package:
+            records=json.loads(package.read('records.json'))
+            self.assertEqual(len(records),3)
+            for record in records:
+                slug=record['requested_url'].rsplit('/',1)[-1]
+                self.assertEqual(package.read(record['source_file']).decode('utf-8'),pages[slug])
+            self.assertEqual([t['quality']['category'] for t in done['tasks']],['identity_review']*3)
+            self.assertEqual(json.loads(package.read('teachers.json')),[])
     def test_secondary_section_name_without_primary_identity_stays_out_of_delivery(self):
         import zipfile
         demo=self.cli('demo')
