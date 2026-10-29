@@ -1,0 +1,6 @@
+{
+  "input_dir": "input",
+  "data_dir": "data",
+  "output_dir": "output",
+  "interval_seconds": 30
+}

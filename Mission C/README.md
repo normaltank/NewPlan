@@ -4,6 +4,8 @@
 
 ## 批次与操作入口
 
+交服务器同事的精简包从源码目录运行 `python build_server_package.py --output "Mission-C-server.zip"` 构建；PRIVATE 预配置、唯一 run.py 入口与逐文件说明见 [SERVER.md](SERVER.md#服务器同事精简包)。精简包只含17个必要核心模块和四项基础依赖，操作说明随包独立交付。
+
 Windows 首次执行 `setup.bat --web`，随后运行 `web.bat`；Linux 使用 `./setup.sh --web` 安装，再运行 `./web.sh`。打开显示的本地网址，默认是简化分发页：选择多份原表、预检、显式开始、查看进度、暂停/继续及按学校下载。关闭页面可恢复进度。使用者步骤见 [使用说明](使用说明.md)，维护配置及保留的完整工作台 `/workbench` 见 [WEB.md](WEB.md)。普通包默认不启用付费，私人包的预配置见 WEB；输入预检不访问表内网站。
 
 先运行 `python batch.py --data-root "演示 data" demo` 验证虚构离线双 Sheet → 持久任务 → 大学 ZIP。大学教师工作簿保持三张表、十列；身份未确认、维护页、非个人页及无身份访问失败保留异常明细，完整原文与输入原件可在包内核对。任务完成不代表学院完整性已核实。
