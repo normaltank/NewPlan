@@ -2,7 +2,7 @@
 
 本文只适用于 OpenSource 工作台。命令从 OpenSource 目录执行；旧 MyPlan 启动脚本和服务代码已删除。当前工作目录保持原路径。
 
-Mission C 的可搬移程序使用独立环境与数据根，Windows/Linux 无界面扫描、持续 worker/watch 和定时示例见 [SERVER.md](<../Mission C/SERVER.md>)；不使用下文工作台的加密启动或根数据库。
+Mission C 的可搬移程序使用独立环境与数据根，默认简化分发页及维护工作台见 [WEB.md](<../Mission C/WEB.md>)，Windows/Linux 无界面扫描、持续 worker/watch 和定时示例见 [SERVER.md](<../Mission C/SERVER.md>)；不使用下文工作台的加密启动或根数据库。
 
 ## 安装与本机启动
 

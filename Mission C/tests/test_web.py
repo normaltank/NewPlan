@@ -77,6 +77,33 @@ class HTTPFlow(unittest.TestCase):
         self.assertEqual(response.status_code,403,response.text)
         self.assertFalse(client.get('/api/batches/'+uploaded['id']).json()['queued'])
 
+    def test_delivery_demo_still_starts_offline_after_service_restart(self):
+        server,client=self.server()
+        ident=client.post('/api/demo').json()['id']
+        server.close()
+        _,client=self.server()
+        self.assertEqual(client.get('/api/batches/'+ident).json()['delivery_mode'],'demo')
+        response=client.post('/api/batches/'+ident+'/delivery-start')
+        self.assertEqual(response.status_code,200,response.text)
+        self.assertEqual(response.json()['mode'],'cache')
+        done=self.until(client,ident,lambda v:not v['queued'])
+        self.assertEqual(done['delivery_counts'],{'teachers':1,'exceptions':2})
+
+    def test_delivery_upload_uses_admin_cache_without_client_run_options(self):
+        page=self.folder/'person.html'
+        page.write_text('<main><h1>李明</h1><p>姓名：李明</p><p>职称：教授</p><p>本人邮箱：liming@example.edu</p><p>虚构本地材料。</p></main>',encoding='utf-8')
+        manifest=self.folder/'manifest.json'
+        manifest.write_text(json.dumps({'version':1,'entries':[{'url':'https://example.edu/li','source':{'path':page.name,'sha256':hashlib.sha256(page.read_bytes()).hexdigest(),'observed_at':'2026-10-28T00:00:00Z'}}]}),encoding='utf-8')
+        _,client=self.server('--cache-manifest',str(manifest),'--allow-live')
+        ident=self.imported(client,workbook(self.folder/'原表.xlsx',[(1,'https://example.edu/li')]))['id']
+        self.assertEqual(client.get('/api/batches/'+ident).json()['delivery_mode'],'cache')
+        response=client.post('/api/batches/'+ident+'/delivery-start',json={'mode':'live','allow_paid':True,'fetch_mode':'supplement','model_mode':'assist','paid_max_calls':99})
+        self.assertEqual(response.status_code,200,response.text)
+        self.assertEqual(response.json()['mode'],'cache')
+        done=self.until(client,ident,lambda v:not v['queued'])
+        self.assertEqual(done['delivery_counts'],{'teachers':1,'exceptions':0})
+        self.assertEqual(client.get('/api/batches/'+ident+'/tasks').json()['items'][0]['preview']['name'],'李明')
+
     def test_multifile_preview_is_not_collection_and_cached_download_preserves_full_text(self):
         page = self.folder/'page.html'
         long = '完整研究经历与成果。'*5000

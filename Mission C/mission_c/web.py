@@ -14,6 +14,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
 
 from .batch import BatchService
+from .assisted import atomic_json
 
 ASSETS = Path(__file__).with_name('web_static')
 DELIVERY_ASSETS = Path(__file__).with_name('delivery_static')
@@ -107,7 +108,7 @@ def preflight(value):
         school['tasks'] += 1
         school['colleges'].update(r['college'] for r in task['relations'])
     rows = sum(len(t['sources']) for t in value['tasks'])
-    return {'files':len(value['inputs']), 'accepted_rows':rows, 'unique_tasks':len(value['tasks']),
+    return {'files':len(value['inputs']), 'file_names':[i['file'] for i in value['inputs']], 'accepted_rows':rows, 'unique_tasks':len(value['tasks']),
         'duplicate_rows':rows-len(value['tasks']), 'issue_count':len(value['issues']),
         'schools':[dict(s, colleges=sorted(s['colleges'])) for s in schools.values()]}
 
@@ -231,7 +232,7 @@ def create_app(data_root, *, policy=None, cache_manifest=None):
         caches['demo'] = service.root/prepared['cache_manifest']
         marker = service.root/'web-demos'/(prepared['batch']['id']+'.json')
         marker.parent.mkdir(exist_ok=True)
-        marker.write_text(json.dumps({'cache_manifest':prepared['cache_manifest']}), encoding='utf-8')
+        atomic_json(marker, {'cache_manifest':prepared['cache_manifest']})
         return web_summary(prepared['batch'])
 
     @app.get('/api/sample.xlsx')
