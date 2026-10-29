@@ -100,6 +100,7 @@ class BatchService:
         self.root.mkdir(parents=True, exist_ok=True)
         with self.connect() as db:
             db.executescript('''CREATE TABLE IF NOT EXISTS batches(id TEXT PRIMARY KEY, fingerprint TEXT UNIQUE, payload TEXT, paused INTEGER DEFAULT 0);
+CREATE TABLE IF NOT EXISTS queue(batch TEXT PRIMARY KEY, options TEXT);
 CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT DEFAULT 'pending', artifact TEXT, error TEXT, PRIMARY KEY(batch,id));''')
 
     def connect(self):
@@ -133,10 +134,14 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
             row = db.execute('SELECT * FROM batches WHERE id=?', (batch_id,)).fetchone()
             if row is None: raise ValueError('未知批次')
             result = json.loads(row['payload'])
-            result.update(id=batch_id, paused=bool(row['paused']), tasks=[], counts={})
+            setting = db.execute('SELECT options FROM queue WHERE batch=?',(batch_id,)).fetchone()
+            result.update(id=batch_id, paused=bool(row['paused']), tasks=[], counts={}, queued=bool(setting), run_options=json.loads(setting['options']) if setting else None)
             for taskrow in db.execute('SELECT * FROM tasks WHERE batch=? ORDER BY rowid', (batch_id,)):
                 task = json.loads(taskrow['payload'])
                 state = taskrow['state']
+                if state in {'success','review','failed'} and taskrow['artifact']:
+                    try: self.bound(taskrow['artifact'])
+                    except (ValueError,OSError,KeyError): state = 'artifact_missing'
                 task.update(state=state, artifact=taskrow['artifact'], error=taskrow['error'])
                 result['tasks'].append(task)
                 result['counts'][state] = result['counts'].get(state,0)+1
@@ -156,3 +161,163 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
         self.status(batch_id)
         with self.connect() as db: db.execute('UPDATE batches SET paused=0 WHERE id=?', (batch_id,))
         return self.status(batch_id)
+
+    @contextmanager
+    def worker_lock(self, batch_id):
+        """Kernel-held lock: released on process death, never stolen by timeout."""
+        path = self.root/'locks'/f'{batch_id}.lock'
+        path.parent.mkdir(exist_ok=True)
+        stream = path.open('a+b')
+        stream.seek(0)
+        if not stream.read(1): stream.write(b'0'); stream.flush()
+        stream.seek(0)
+        try:
+            if __import__('os').name == 'nt':
+                import msvcrt
+                msvcrt.locking(stream.fileno(), msvcrt.LK_NBLCK, 1)
+            else:
+                import fcntl
+                fcntl.flock(stream, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
+            stream.close()
+            raise ValueError('批次正在由另一进程执行')
+        try: yield
+        finally: stream.close()
+
+    def bound(self, artifact):
+        folder = self.root/artifact
+        binding = json.loads((folder/'binding.json').read_text(encoding='utf-8'))
+        for relative, sha in binding['files'].items():
+            path = (folder/relative).resolve()
+            if not path.is_relative_to(folder.resolve()) or digest(path) != sha:
+                raise ValueError('产物缺失或内容改变')
+        return binding
+
+    def run(self, batch_id, *, cache_manifest=None, live=False, max_items=None,
+            fetch_mode='off', model_mode='off', allow_paid=False, paid_max_calls=0):
+        """Process pending pages with the existing public collector, one commit per page."""
+        import contextlib
+        import sys
+        from .cli import main as collect
+        from .assisted import atomic_json
+        saved = self.status(batch_id)['run_options']
+        if not cache_manifest and not live and saved:
+            cache_manifest = self.root/saved['cache_manifest'] if saved.get('cache_manifest') else None
+            live, fetch_mode, model_mode = saved['live'], saved['fetch_mode'], saved['model_mode']
+            allow_paid, paid_max_calls = saved['allow_paid'], saved['paid_max_calls']
+        if not live and not cache_manifest:
+            raise ValueError('严格缓存模式需要 cache_manifest；在线必须显式 live=True')
+        if live and cache_manifest:
+            raise ValueError('live 与 cache_manifest 互斥')
+        if max_items is not None and max_items < 1: raise ValueError('max_items 必须为正数')
+        self.status(batch_id)
+        with self.worker_lock(batch_id):
+            processed = 0
+            for task in self.status(batch_id)['tasks']:
+                if self.status(batch_id)['paused']: break
+                if max_items is not None and processed >= max_items: break
+                if task['state'] not in {'pending','running'}: continue
+                # A process may have died after writing a binding but before committing.
+                if task['state'] == 'running' and task['artifact']:
+                    try:
+                        binding = self.bound(task['artifact'])
+                    except (ValueError,OSError): pass
+                    else:
+                        with self.connect() as db:
+                            db.execute('UPDATE tasks SET state=?,error=? WHERE batch=? AND id=?', (binding['state'],binding['error'],batch_id,task['id']))
+                        continue
+                relative = Path('results')/batch_id/task['id']/uuid.uuid4().hex
+                output = self.root/relative
+                output.parent.mkdir(parents=True, exist_ok=True)
+                with self.connect() as db:
+                    db.execute("UPDATE tasks SET state='running',artifact=?,error=NULL WHERE batch=? AND id=?", (relative.as_posix(),batch_id,task['id']))
+                args = ['--url', task['url'], '--school', task['school'], '--college', '; '.join(dict.fromkeys(r['college'] for r in task['relations'])), '--output', str(output), '--fetch-mode', fetch_mode, '--model-mode', model_mode]
+                if cache_manifest: args += ['--cache-manifest',str(Path(cache_manifest).resolve())]
+                if allow_paid:
+                    args += ['--allow-paid','--paid-max-calls',str(paid_max_calls),'--paid-attempts',str(self.root/'paid-attempts')]
+                state, error = 'failed', None
+                try:
+                    with contextlib.redirect_stdout(sys.stderr): code = collect(args)
+                    records = json.loads((output/'teachers.json').read_text(encoding='utf-8'))
+                    if len(records) != 1 or records[0]['requested_url'] != task['url']:
+                        raise ValueError('采集产物与任务不匹配')
+                    record = records[0]
+                    state = 'success' if record['status'] == 'text_saved' and not record['review_required'] else 'review' if record['biography'] else 'failed'
+                    error = json.dumps(record.get('error'),ensure_ascii=False) if record.get('error') else None
+                    if code not in (0,1): raise ValueError('采集器异常退出')
+                    binding = {'state':state,'error':error,'url':task['url'],'files':{p.relative_to(output).as_posix():digest(p) for p in output.rglob('*') if p.is_file()}}
+                    atomic_json(output/'binding.json', binding)
+                except (Exception, SystemExit) as exception:
+                    error = f'{type(exception).__name__}: {exception}'
+                    state = 'program_error'
+                with self.connect() as db:
+                    db.execute('UPDATE tasks SET state=?,error=? WHERE batch=? AND id=?', (state,error,batch_id,task['id']))
+                processed += 1
+            if not any(t['state'] in {'pending','running'} for t in self.status(batch_id)['tasks']):
+                with self.connect() as db: db.execute('DELETE FROM queue WHERE batch=?',(batch_id,))
+        return self.status(batch_id)
+
+
+    def enqueue(self, batch_id, *, cache_manifest=None, live=False, fetch_mode='off',
+                model_mode='off', allow_paid=False, paid_max_calls=0):
+        """Persist explicit run intent and self-contained offline inputs; never starts work."""
+        self.status(batch_id)
+        if bool(cache_manifest) == bool(live): raise ValueError('选择缓存清单或显式 live')
+        if fetch_mode not in {'off','fallback','supplement'} or model_mode not in {'off','assist'}:
+            raise ValueError('无效采集模式')
+        if paid_max_calls < 0: raise ValueError('付费预算不能为负数')
+        options = dict(live=live, cache_manifest=None, fetch_mode=fetch_mode, model_mode=model_mode,
+                       allow_paid=allow_paid, paid_max_calls=paid_max_calls)
+        with self.worker_lock(batch_id):
+            if cache_manifest:
+                from .assisted import CacheManifest
+                cache_manifest = Path(cache_manifest).resolve()
+                cache = CacheManifest(cache_manifest)
+                value = json.loads(cache_manifest.read_text(encoding='utf-8-sig'))
+                folder = Path('cache')/batch_id/uuid.uuid4().hex
+                (self.root/folder).mkdir(parents=True)
+                def snapshot(node):
+                    if isinstance(node, dict):
+                        if 'path' in node:
+                            raw = cache.read(node)
+                            target = hashlib.sha256(raw).hexdigest()+Path(node['path']).suffix
+                            (self.root/folder/target).write_bytes(raw)
+                            node['path'] = target
+                        for item in node.values(): snapshot(item)
+                    elif isinstance(node,list):
+                        for item in node: snapshot(item)
+                snapshot(value)
+                manifest = folder/'manifest.json'
+                (self.root/manifest).write_text(json.dumps(value,ensure_ascii=False),encoding='utf-8')
+                options['cache_manifest'] = manifest.as_posix()
+            with self.connect() as db:
+                db.execute('INSERT OR REPLACE INTO queue VALUES(?,?)',(batch_id,json.dumps(options)))
+        return self.status(batch_id)
+
+    def export(self, batch_id, school=None):
+        from .batch_delivery import export_universities
+        with self.worker_lock(batch_id):
+            return export_universities(self,batch_id,school)
+
+    def demo(self):
+        """A self-contained synthetic import/queue/run/download demonstration."""
+        from openpyxl import Workbook
+        folder = self.root/'demo'/uuid.uuid4().hex
+        folder.mkdir(parents=True)
+        book = Workbook()
+        sheet=book.active;sheet.title='Sheet1'
+        sheet.append(['ID','学校','学院','师资URL'])
+        sheet.append([1,'虚构示例大学','光学院','https://example.edu/list'])
+        sheet.append([2,'虚构示例大学','理学院','https://example.edu/science'])
+        sheet=book.create_sheet('Sheet2');sheet.append(['学院ID','个人URL'])
+        sheet.append([1,'https://example.edu/demo']);sheet.append([2,'https://example.edu/demo'])
+        sheet.append([1,'https://example.edu/unavailable'])
+        book.save(folder/'示例.xlsx');book.close()
+        source=folder/'page.html'
+        source.write_text('<meta charset="utf-8"><main><h1>示例教师</h1><p>职称：教授</p><p>本人邮箱：demo@example.edu</p><h2>完整经历</h2><p>虚构离线材料，仅供功能演示。</p></main>',encoding='utf-8')
+        manifest={'version':1,'entries':[{'url':'https://example.edu/demo','source':{'path':'page.html','sha256':digest(source),'observed_at':'2026-10-28T00:00:00Z'}},{'url':'https://example.edu/unavailable','source':{'http_status':404,'error':{'code':'http_404','message':'虚构的实际访问失败'},'observed_at':'2026-10-28T00:00:00Z'}}]}
+        (folder/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False),encoding='utf-8')
+        batch=self.import_files([folder/'示例.xlsx'])
+        self.enqueue(batch['id'],cache_manifest=folder/'manifest.json')
+        result=self.run(batch['id'])
+        return {'batch':result,'delivery':self.export(batch['id'])}
