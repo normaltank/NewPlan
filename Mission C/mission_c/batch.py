@@ -149,6 +149,10 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
                 if taskrow['artifact'] and state not in {'pending','running','artifact_missing','program_error'}:
                     try: quality = self.bound(taskrow['artifact']).get('quality',quality)
                     except (ValueError,OSError,KeyError): pass
+                task['assistance_errors'] = []
+                if taskrow['artifact'] and state not in {'pending','running','artifact_missing','program_error'}:
+                    try: task['assistance_errors'] = self.bound(taskrow['artifact']).get('assistance_errors', [])
+                    except (ValueError,OSError,KeyError): pass
                 task['quality'] = quality
                 category = quality['category']
                 result['quality_counts'][category] = result['quality_counts'].get(category,0)+1
@@ -272,7 +276,9 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
                     from .batch_quality import assess
                     quality = assess(record, output)
                     if not quality['eligible_for_workbook'] and state == 'success': state = 'review'
-                    binding = {'quality':quality,'state':state,'error':error,'url':task['url'],'files':{p.relative_to(output).as_posix():digest(p) for p in output.rglob('*') if p.is_file()}}
+                    assistance_errors = [dict(operation=kind, **record[kind]['error'], provider_http_status=record[kind].get('provider_http_status'))
+                                         for kind in ('fetch','model') if record.get(kind, {}).get('error')]
+                    binding = {'assistance_errors':assistance_errors, 'quality':quality,'state':state,'error':error,'url':task['url'],'files':{p.relative_to(output).as_posix():digest(p) for p in output.rglob('*') if p.is_file()}}
                     atomic_json(output/'binding.json', binding)
                 except (Exception, SystemExit) as exception:
                     error = f'{type(exception).__name__}: {exception}'

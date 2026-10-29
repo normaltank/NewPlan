@@ -10,7 +10,13 @@ ROOT = Path(__file__).resolve().parent
 FILES = ('collect.py','batch.py','server.py','web.py','replay.py','prepare_cache.py',
          'run.bat','replay.bat','server.bat','server.sh','web.bat','web.sh','setup.bat','setup.sh',
          'requirements.txt','requirements-web.txt','requirements-browser.txt','requirements-ocr.txt',
-         'README.md','使用说明.md','WEB.md','BATCH.md','SERVER.md','build_package.py')
+         'README.md','使用说明.md','WEB.md','BATCH.md','SERVER.md','build_package.py',
+         'examples/assisted-cache/manifest.json','examples/assisted-cache/local.html',
+         'examples/assisted-cache/fallback.json','examples/assisted-cache/model.json',
+         'examples/assisted-cache/supplement.json',
+         'schedule-examples/cron.example','schedule-examples/mission-c-scan.service',
+         'schedule-examples/mission-c-scan.timer','schedule-examples/mission-c-watch.service',
+         'schedule-examples/windows-scan.ps1')
 
 
 def main(argv=None):

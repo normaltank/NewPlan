@@ -75,7 +75,9 @@ class LiveFetch:
                 if not path.name.startswith(('fetch-', 'model-')):
                     continue
                 try:
-                    records.append(json.loads(path.read_text(encoding='utf-8')))
+                    record = json.loads(path.read_text(encoding='utf-8'))
+                    if not isinstance(record, dict): raise ValueError()
+                    records.append(record)
                 except (OSError, ValueError):
                     raise SourceError(prefix + '_attempt_store_invalid', '尝试记录损坏；停止付费调用') from None
             if self.budget_scope:

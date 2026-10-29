@@ -4,7 +4,7 @@
 
 ## 批次与操作入口
 
-Windows 首次执行 `setup.bat --web`，随后运行 `web.bat`；Linux 使用 `./setup.sh --web` 安装，再运行 `./web.sh`。打开显示的本地网址，默认是简化分发页：选择多份原表、预检、显式开始、查看进度、暂停/继续及按学校下载。关闭页面可恢复进度。使用者步骤见 [使用说明](使用说明.md)，维护配置及保留的完整工作台 `/workbench` 见 [WEB.md](WEB.md)。默认不启用付费，输入预检不访问表内网站。
+Windows 首次执行 `setup.bat --web`，随后运行 `web.bat`；Linux 使用 `./setup.sh --web` 安装，再运行 `./web.sh`。打开显示的本地网址，默认是简化分发页：选择多份原表、预检、显式开始、查看进度、暂停/继续及按学校下载。关闭页面可恢复进度。使用者步骤见 [使用说明](使用说明.md)，维护配置及保留的完整工作台 `/workbench` 见 [WEB.md](WEB.md)。普通包默认不启用付费，私人包的预配置见 WEB；输入预检不访问表内网站。
 
 先运行 `python batch.py --data-root "演示 data" demo` 验证虚构离线双 Sheet → 持久任务 → 大学 ZIP。大学教师工作簿保持三张表、十列；身份未确认、维护页、非个人页及无身份访问失败保留异常明细，完整原文与输入原件可在包内核对。任务完成不代表学院完整性已核实。
 
@@ -126,11 +126,11 @@ CSS 必须唯一匹配、确认本人身份并包含现有完整原文；错误�
 
 不使用缓存清单时，启用 `--fetch-mode fallback` 或 `supplement`、`--model-mode assist` 中所需入口，并同时提供 `--allow-paid --paid-max-calls N --paid-attempts <持久目录>` 以及环境变量 `DEEPSEEK_API_KEY` 才可调用在线适配器。Fetch 与模型共用同一总预算及持久目录；兼容原 Fetch 的 `--fetch-max-calls`、`--fetch-attempts`，共享参数优先。默认预算为 0；沿用已有受控环境注入密钥，不将密钥写进命令行或日志。`--timeout` 约束提供方请求。`--html` 配合这些显式参数可只向提供方请求补充材料；原件和附件仍从本地读取。
 
-适配器固定 `POST https://api.deepseek.com/v1/tools/fetch`，请求 `{"url":"..."}`。此契约来自历史真实缓存，尚无公开接口说明；本次仅用虚构 HTTPX 外部边界测试，未重新验证在线服务。明确 robots 拒绝不会自动路由到在线 Fetch。
+适配器固定 `POST https://api.deepseek.com/v1/tools/fetch`，请求 `{"url":"..."}`。当前公开契约见 [DeepSeek Search & Fetch](https://api-docs.deepseek.com/guides/search/)。本项目验证使用虚构 HTTPX 外部边界，未以真实凭据探测在线服务。明确 robots 拒绝不会自动路由到在线 Fetch。
 
 模型固定 `POST https://api.deepseek.com/chat/completions`，默认 `--model deepseek-flash --model-thinking disabled`，要求 JSON output，输入明确包含 URL、来源类型及 SHA256。模型可配置，不运行探测请求。接口和 JSON 模式契约参见 [Chat Completions](https://api-docs.deepseek.com/api/create-chat-completion/) 与 [JSON Output](https://api-docs.deepseek.com/guides/json_mode/)；本票只验证虚构外部 HTTPX I/O，未运行真实付费调用。
 
-调用前原子保存 `fetch-<URL SHA256>.json` 或绑定 URL 与输入 hash 的 `model-*.json` 的 `unknown` 尝试；同一持久目录内所有已登记请求（含未知）计入预算，同一 URL 不自动重发。超时或断开仍保留未知状态，没有重试、probe 或重定向。并发锁残留时明确停止，需人工核对。保留该目录以跨运行防止重复付费，未知结局先核对提供方账单/记录。
+调用前原子保存 `fetch-<URL SHA256>.json` 或绑定 URL 与输入 hash 的 `model-*.json` 的 `unknown` 尝试；未指定 scope 的 CLI 将同一持久目录内所有已登记请求（含未知）计入预算；批次使用持久 scope 独立计数并保留全局尝试去重。同一操作/URL/原件哈希不自动重发。超时或断开仍保留未知状态，没有重试、probe 或重定向。并发锁残留时明确停止，需人工核对。保留该目录以跨运行防止重复付费，未知结局先核对提供方账单/记录。
 
 完整响应保存后原子登记 `completed`，HTTP 失败也计为一次已完成尝试。文件只保存脱敏响应、状态、时间、用量（提供方有返回时）、原响应 SHA256 及落盘响应 SHA256；密钥回显含 JSON 转义时也脱敏，并标记 `response_redacted`。未知响应、超限和损坏材料不当成完整正文。
 
@@ -141,3 +141,5 @@ CSS 必须唯一匹配、确认本人身份并包含现有完整原文；错误�
 基础验证：`python -m unittest discover -s tests -v`。安装可选依赖和浏览器后，设置环境变量 `MISSION_C_OPTIONAL_TESTS=1` 运行同一命令，加入动态页面和 OCR 验证。样本为虚构；网络用例只访问临时 `127.0.0.1` 服务。
 
 字段判定、姓名形态、已知模板及 OCR 模块来自 `normaltank/NewPlan` 提交 `645ef433766580777c76946a157494631381a2c5` 的根模块；字段/模板模块仅调整相对导入。独立入口、采集和导出由本目录维护，主工作台调用链未改。任务与验证见 [Issue #20](https://github.com/normaltank/NewPlan/issues/20)。
+
+私人分发包的构建、预配置与共享边界见 [WEB 私人分发](WEB.md#私人分发)。普通源码包不含凭据。

@@ -145,6 +145,8 @@ def create_app(data_root, *, policy=None, cache_manifest=None, private_config=No
     def web_summary(value, error=None):
         result = summary(value, error)
         processed = [t for t in value['tasks'] if t['state'] not in {'pending','running'}]
+        result['assistance_incomplete'] = sum(bool(t.get('assistance_errors')) for t in processed)
+        result['assistance_reasons'] = sorted({e['message'] + (' (HTTP '+str(e['provider_http_status'])+')' if e.get('provider_http_status') else '') for t in processed for e in t.get('assistance_errors',[])})
         result['delivery_counts'] = {
             'teachers':sum(bool(t['quality']['eligible_for_workbook']) for t in processed),
             'exceptions':sum(not t['quality']['eligible_for_workbook'] for t in processed)}
@@ -289,7 +291,7 @@ def create_app(data_root, *, policy=None, cache_manifest=None, private_config=No
         offset, limit = max(offset,0), min(max(limit,1),100)
         items = []
         for task in value['tasks'][offset:offset+limit]:
-            item = {key:task[key] for key in ('id','school','url','relations','sources','state','error','quality')}
+            item = {key:task[key] for key in ('id','school','url','relations','sources','state','error','quality','assistance_errors')}
             item['rawtext_saved'] = False
             item['preview'] = None
             item['original_candidate'] = None
