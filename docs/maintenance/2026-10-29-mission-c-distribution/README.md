@@ -2,6 +2,8 @@
 
 对应[规格 #43](https://github.com/normaltank/NewPlan/issues/43)、核心 #44、页面 #45、后台 #46，[PR #47](https://github.com/normaltank/NewPlan/pull/47)。当前使用见[简版说明](<../../../Mission C/使用说明.md>)、[页面维护](<../../../Mission C/WEB.md>)、[批次](<../../../Mission C/BATCH.md>)、[后台运行](<../../../Mission C/SERVER.md>)；本页保存当次证据。
 
+最终补档版本的新 CI 连接重置及测试轮询修复另见 [CI 跟进](ci-followup.md)，后续准确版本结果由 #43 追踪；下文的交付代码与原包核验保留当时事实。
+
 ## 范围与实际执行
 
 沿用已确认的原格式 Excel→持久后台批次→中断续跑→大学 Excel/全文 ZIP 边界。最初三票分别实施，核心真实合入后才释放页面与后台依赖；用户后续要求简化分发页，作为 #45 的前端交付调整，共用已验收核心，无需重拆后台。默认 `/` 是参考 Mission B 精简版的输入/进度/输出单卡，原工作台保留 `/workbench`。只读参考 B，不沿用其凭据、发信和 EXE 范围。

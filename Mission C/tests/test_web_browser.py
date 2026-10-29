@@ -27,7 +27,7 @@ class WebServer:
         try:
             for _ in range(150):
                 if self.process.poll() is not None:
-                    raise AssertionError((self.folder/'server.log').read_text(encoding='utf-8'))
+                    raise AssertionError(self.diagnostic())
                 try:
                     if httpx.get(self.url+'/api/config', trust_env=False).status_code == 200:
                         break
@@ -35,10 +35,14 @@ class WebServer:
                     pass
                 time.sleep(.1)
             else:
-                raise AssertionError('Local web server did not start')
+                raise AssertionError('Local web server did not start; '+self.diagnostic())
         except BaseException:
             self.close()
             raise
+
+    def diagnostic(self):
+        tail = (self.folder/'server.log').read_text(encoding='utf-8', errors='replace')[-8000:]
+        return f'pid={self.process.pid} returncode={self.process.poll()}; server.log tail:\n{tail}'
 
     def close(self):
         if self.process.poll() is None:

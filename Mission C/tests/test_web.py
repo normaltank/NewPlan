@@ -42,6 +42,9 @@ class HTTPFlow(unittest.TestCase):
 
     def server(self, *args):
         server = WebServer(self.folder, *args)
+        if not hasattr(self, 'http_servers'):
+            self.http_servers = {}
+        self.http_servers[server.url] = server
         self.addCleanup(server.close)
         client = httpx.Client(base_url=server.url, headers={'X-Mission-C':'1'}, trust_env=False, timeout=40)
         self.addCleanup(client.close)
@@ -53,14 +56,47 @@ class HTTPFlow(unittest.TestCase):
         return response.json()
 
     def until(self, client, ident, predicate):
+        server = getattr(self, 'http_servers', {}).get(str(client.base_url).rstrip('/'))
+        def diagnostic():
+            return server.diagnostic() if server else f'endpoint={client.base_url}/api/batches/{ident}'
+        remaining_retries = 2
+        retry_deadline = None
+        retrying = False
+        value = None
         for _ in range(250):
-            response = client.get('/api/batches/'+ident)
-            self.assertEqual(response.status_code,200,response.text)
+            if server and server.process.poll() is not None:
+                self.fail('server exited before status GET; '+diagnostic())
+            options = {}
+            if retrying:
+                remaining = retry_deadline-time.monotonic()
+                if remaining <= 0:
+                    self.fail('status GET ReadError recovery deadline exceeded; '+diagnostic())
+                options['timeout'] = remaining
+            try:
+                response = client.get('/api/batches/'+ident, **options)
+            except httpx.ReadError as error:
+                # Only this idempotent status read may reconnect. No client-wide
+                # transport retry can replay a start/import/paid mutation.
+                if remaining_retries == 0 or (retry_deadline is not None and time.monotonic() >= retry_deadline):
+                    self.fail(f'status GET ReadError recovery exhausted: {error}; '+diagnostic())
+                remaining_retries -= 1
+                if retry_deadline is None:
+                    retry_deadline = time.monotonic()+2
+                retrying = True
+                time.sleep(.1)
+                continue
+            except (httpx.ReadTimeout, httpx.ConnectTimeout, httpx.ConnectError) as error:
+                self.fail(f'status GET {type(error).__name__}: {error}; '+diagnostic())
+            if retrying and time.monotonic() >= retry_deadline:
+                self.fail('status GET ReadError recovery deadline exceeded; '+diagnostic())
+            retrying = False
+            if response.status_code != 200:
+                self.fail(f'status GET returned {response.status_code}: {response.text}; '+diagnostic())
             value = response.json()
             if predicate(value):
                 return value
             time.sleep(.1)
-        self.fail(f'Batch did not reach expected visible state: {value}')
+        self.fail(f'Batch did not reach expected visible state: {value}; '+diagnostic())
 
     def test_delivery_start_uses_demo_only_for_explicit_demo_and_preserves_policy(self):
         _,client=self.server()
