@@ -16,5 +16,6 @@
 | [2026-10-29 Mission C 简化分发](2026-10-29-mission-c-distribution/README.md) | 三票实际实施/集成、质量反例修复、精简前端、双轴审查与D目录交付证据 |
 
 | [2026-10-29 Mission C 私人预配置](2026-10-29-mission-c-private/README.md) | 私人包边界、批次预算、全局尝试去重、辅助失败可见与假接口验证 |
+| [2026-10-29 Mission C 服务器精简交接](2026-10-29-mission-c-server-handoff/README.md) | 无界面私人入口、26/29文件精确分发、逐页续跑、自动Excel/全文ZIP与旧队列阻断 |
 
 这里只登记证据入口。记录中的版本、结果和限制属于当次事实；待办与进度统一查 [GitHub Issues](https://github.com/normaltank/NewPlan/issues)。

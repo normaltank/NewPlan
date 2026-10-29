@@ -2,6 +2,16 @@
 
 本入口与[批次命令](BATCH.md)、[操作页面](WEB.md)共用 `--data-root` 下的持久批次、显式运行选项和进程锁。它调用同一采集器，不需要根工作台。请将数据放在本机磁盘；不支持多个主机通过网络盘共用锁。
 
+## 服务器同事精简包
+
+交接同事时，可在**源码仓库的 Mission C 目录**执行 `python build_server_package.py --output "Mission-C-server.zip"`。此构建入口和 `server_distribution` 模板仅在源码仓库，旧完整页面分发包不包含它们；现有完整包继续使用下文的 server.py。普通精简包无凭据，支持 preview/status/demo。
+
+获授权的分发者另加 `--private-config "受控目录/deployment.json"`，且输出文件名含 `PRIVATE`。复用已有 `deepseek-private-v1` 元数据，构建时只读取其受控 key_file，不把凭据写入公开源码或日志。PRIVATE 仅额外带 `.private/deployment.json`、`.private/credential.txt` 和 `PRIVATE.txt`。ZIP 记录 Unix 权限：sh 755、私人配置/凭据 600、其余644；Windows仍需接收者保护本机文件权限。
+
+精简包内只有唯一 `run.py` 和四项基础依赖，精确取用17个现有核心模块，不含页面/FastAPI/开发材料/输入输出/缓存/日志/环境；核心在Git中仍只有一套。解压后读包内 README.md，逐文件用途见 FILES.md；Windows用 setup.bat/start.bat，Linux用 setup.sh/start.sh。config.json 只配输入、数据、输出目录与扫描间隔，相对路径支持整体搬移。
+
+`preview` 不导入、不联网；`demo` 的虚构数据库与输出独立放在 data/offline-demo、output/offline-demo，不动正式队列。显式 `once`/`watch` 才读私人凭据并固定 Fetch supplement + model assist，为新批次按去重任务数保存2*N scope；旧无scope批次/队列保留并阻断，不重分额度。每次最多处理一页再检查停止信号，沿用核心全局unknown不重发；大学Excel与全文ZIP自动写入output，返回实际路径。收到停止信号后可按同一配置续跑，不重采已完成页，不覆盖原件与历史交付。安装脚本不注册系统任务或服务。
+
 ## 安装与第一次运行
 
 需要 Python 3.11+（CI 使用 3.12）。Windows 在本目录执行 `setup.bat`；Linux 执行 `./setup.sh`，发行版可能需要先安装 Python 的 venv 支持。页面依赖分别用 `setup.bat --web`、`./setup.sh --web` 安装。Linux 的 `--full` 另安装浏览器/OCR及 Chromium，可能还需系统浏览器依赖；后台基本扫描不需要它们。
