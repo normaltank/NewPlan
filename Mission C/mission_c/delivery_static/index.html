@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>教师资料采集</title><link rel="stylesheet" href="/delivery-assets/app.css"><script src="/delivery-assets/app.js" defer></script></head>
+<body><main>
+  <header><div class="mark" aria-hidden="true">↓</div><h1>教师资料采集</h1><p>放入原表，按学校下载教师资料。</p></header>
+  <section class="card" aria-label="采集操作">
+    <fieldset id="inputs" disabled>
+      <label class="upload" for="files"><span class="upload-icon" aria-hidden="true">↑</span><strong>选择 Excel 文件</strong><span>原格式双 Sheet · 最多 20 个 · 合计 20 MiB</span><input id="files" type="file" multiple accept=".xlsx" aria-label="选择 Excel 文件"></label>
+      <p id="file-names" class="hint" aria-live="polite">尚未选择文件</p>
+      <div class="try"><button id="demo" class="text-button" type="button">离线试用 / 查看示例</button></div>
+    </fieldset>
+    <p id="error" class="error" role="alert" hidden></p>
+    <section id="result" aria-live="polite" hidden>
+      <p id="preflight" class="preflight"></p>
+      <p id="schools" class="hint"></p>
+      <details id="import-problems" hidden><summary id="issue-title"></summary><div id="issues"></div><button id="more-issues" class="text-button" type="button" hidden>查看更多问题</button></details>
+      <p id="mode-help" class="hint"></p>
+      <button id="start" class="primary" type="button">开始采集</button>
+      <div id="progress-area" hidden>
+        <h2 id="status-title"></h2><p id="status-text" class="hint"></p>
+        <div class="progress-label"><span id="progress-text"></span><span id="progress-percent"></span></div>
+        <progress id="progress" max="100" value="0" aria-label="处理进度"></progress>
+        <button id="pause" class="text-button" type="button" hidden>暂停处理</button>
+        <button id="resume" class="primary" type="button" hidden>继续处理</button>
+      </div>
+      <div id="downloads"></div>
+    </section>
+  </section>
+  <footer>关闭或刷新页面可恢复进度，请保持本地服务运行。<br>处理完成不代表学院完整性已核实。</footer>
+</main></body></html>

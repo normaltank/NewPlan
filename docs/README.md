@@ -14,7 +14,7 @@
 | 安装、启动、定时运行、密钥、备份和排障 | [运维手册](operations.md) |
 | 输入、复核、批量处理、下载 | [使用与复核](review-and-delivery.md) |
 | 当前实现、模块职责、工具与能力边界 | [架构与模块](architecture.md) |
-| 直接输入教师个人主页、独立运行任务 C、导入缓存组合回放 | [Mission C 使用说明](<../Mission C/README.md>) |
+| 直接输入教师个人主页、独立运行任务 C、导入缓存组合回放 | [Mission C 入口](<../Mission C/README.md>)；分发使用者读 [简短使用说明](<../Mission C/使用说明.md>)，页面维护读 [WEB](<../Mission C/WEB.md>) |
 | Mission C 原格式 Excel、持久批次、无界面扫描与操作系统定时调用 | [批次入口](<../Mission C/BATCH.md>)、[后台运行](<../Mission C/SERVER.md>) |
 | 工具对照试验与保留方案 | [试验索引](../experiments/README.md) |
 | 已替代的说明、过去的试验结论 | [历史资料](history/README.md) |
