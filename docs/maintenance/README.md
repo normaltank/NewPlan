@@ -13,5 +13,6 @@
 | [2026-10-28 Mission C 姓名证据](2026-10-28-mission-c-name-evidence/README.md) | 栏目误识别、英文姓名截断的原件回放和独立 CLI 回归 |
 | [2026-10-28 Mission C 组合缓存](2026-10-28-mission-c-assisted-cache/README.md) | 20 页离线对照、独立便携包、实际目录交付、最终双维度审查及交付后查漏 |
 | [2026-10-29 Mission C 后台扫描](2026-10-29-mission-c-server/README.md) | 幂等目录导入、共享队列、持续 worker/watch、Windows/Linux 启动与 CI 验证边界 |
+| [2026-10-29 Mission C 简化分发](2026-10-29-mission-c-distribution/README.md) | 三票实际实施/集成、质量反例修复、精简前端、双轴审查与D目录交付证据 |
 
 这里只登记证据入口。记录中的版本、结果和限制属于当次事实；待办与进度统一查 [GitHub Issues](https://github.com/normaltank/NewPlan/issues)。
