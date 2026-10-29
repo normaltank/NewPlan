@@ -1,0 +1,5 @@
+-r requirements.txt
+fastapi==0.115.12
+starlette==0.46.2
+uvicorn==0.34.2
+python-multipart==0.0.20
