@@ -52,3 +52,5 @@ service.demo()
 批次新增 `task.quality`（category/reasons/eligible_for_workbook）与 `quality_counts`，和原始采集器 text_saved 独立。分类包括 not_read / personal_candidate / provider_candidate / origin_unavailable / temporarily_unavailable / suspected_non_personal / identity_review。只有个人材料候选及具有可靠身份的实际失败记录纳入教师表；其余输入保留 ZIP 的 records.json、exceptions.csv、原件和 batch.json。模板识别仅用主标题/主内容及新闻结构的强信号，个人页导航和研究术语不会仅因含“学院首页/维护/验证”而排除。该保守分类不是通用网页身份判定或学院完整性证明；弱信号交人工复核，不自动寻找新 URL。
 
 姓名候选本身不构成教师表准入：新批次复用既有采集器的姓名证据，要求主 h1/个人标题卡或明确姓名标签、页面标题佐证。仅由次级章节标题产生的候选留 identity_review；原 teachers.json/record.json 的候选不被改写，大学 records.json 与 exceptions.csv 保留去向。demo 保留“完整经历”旧提取误判反例，另含明确“姓名：李明”的可靠正例及无身份404，便于同时查看教师表和待核明细。
+
+网页预检示例使用 `service.prepare_demo()`，或 `python batch.py --data-root data demo --prepare-only`。返回 `{batch, cache_manifest}`；`cache_manifest` 是相对数据根的 POSIX 路径。新数据根中三任务均 pending、queued=false、artifact=null，不 enqueue/run/export。显式开始时调用 `service.enqueue(batch["id"], cache_manifest=service.root / prepared["cache_manifest"])`，后台 worker 再 `run(id)`。此入口与原完整 `demo()` 共用同一份虚构 Excel/HTML/缓存生成逻辑；原 demo 仍自动完成排队、处理和导出。
