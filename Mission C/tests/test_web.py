@@ -89,6 +89,7 @@ class HTTPFlow(unittest.TestCase):
         self.assertEqual(done['quality_counts'],{'personal_candidate':1})
         details=client.get('/api/batches/'+ident+'/tasks').json()
         self.assertTrue(details['items'][0]['rawtext_saved'])
+        self.assertEqual(details['items'][0]['preview']['name'],'李明')
         self.assertNotIn(long,client.get('/api/batches/'+ident).text)
         self.assertNotIn('biography',details['items'][0])
         exported=client.post('/api/batches/'+ident+'/exports').json()['exports'][0]

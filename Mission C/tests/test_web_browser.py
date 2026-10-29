@@ -79,6 +79,9 @@ class BrowserFlow(unittest.TestCase):
                 page.get_by_text('处理结束，有待核或失败条目', exact=True).wait_for()
                 self.assertEqual(page.url, selected)
                 page.get_by_text('身份或页面待核', exact=False).first.wait_for()
+                page.get_by_text('李明', exact=True).wait_for()
+                page.get_by_text('liming@example.edu',exact=False).wait_for()
+                self.assertNotIn('完整经历',page.locator('#tasks > tr').first.locator('td').first.inner_text())
                 page.screenshot(path=str(evidence/'02-demo-complete.png'), full_page=True)
                 page.get_by_role('button', name='准备大学下载').click()
                 with page.expect_download() as download_info:
@@ -147,6 +150,61 @@ class BrowserFlow(unittest.TestCase):
             self.assertTrue(all(event['url'].startswith((server.url,'edge://')) for event in events),events)
             self.assertEqual(errors,[])
             (evidence/'browser-upload-events.json').write_text(json.dumps(events,ensure_ascii=False,indent=2),encoding='utf-8')
+            browser.close()
+
+    def test_untrusted_school_and_filename_are_literal_text(self):
+        from openpyxl import Workbook
+        from playwright.sync_api import sync_playwright
+        temporary=tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        folder=Path(temporary.name)
+        original=folder/'输入 & 原表.xlsx'
+        name='<img src="http://untrusted.invalid/x" onerror="window.injected=1">'
+        book=Workbook()
+        book.active.title='Sheet1'
+        book.active.append(['ID','学校','学院','师资URL'])
+        book.active.append([1,name,'学院','https://example.edu/list'])
+        sheet=book.create_sheet('Sheet2')
+        sheet.append(['学院ID','个人URL'])
+        sheet.append([1,'https://example.edu/person'])
+        book.save(original)
+        book.close()
+        server=WebServer(folder)
+        self.addCleanup(server.close)
+        with sync_playwright() as play:
+            channel=os.environ.get('MISSION_C_BROWSER_CHANNEL','msedge')
+            browser=play.chromium.launch(**({'channel':channel} if channel!='chromium' else {}),headless=True)
+            page=browser.new_page()
+            page.goto(server.url)
+            page.locator('#files').set_input_files(str(original))
+            page.get_by_role('button',name='上传并预检').click()
+            page.get_by_text(name,exact=True).first.wait_for()
+            self.assertEqual(page.locator('#schools img').count(),0)
+            self.assertIsNone(page.evaluate('window.injected'))
+            self.assertIn('输入 & 原表.xlsx',page.locator('#tasks').inner_text())
+            evidence=Path(os.environ.get('MISSION_C_BROWSER_EVIDENCE',temporary.name))
+            evidence.mkdir(parents=True,exist_ok=True)
+            page.screenshot(path=str(evidence/'05-untrusted-text.png'),full_page=True)
+            browser.close()
+
+    def test_reopen_paused_batch_shows_its_saved_mode_without_running_sources(self):
+        from playwright.sync_api import sync_playwright
+        temporary=tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        server=WebServer(Path(temporary.name),'--allow-live')
+        self.addCleanup(server.close)
+        with httpx.Client(base_url=server.url,headers={'X-Mission-C':'1'},trust_env=False) as client:
+            ident=client.post('/api/demo').json()['id']
+            client.post('/api/batches/'+ident+'/pause').raise_for_status()
+            client.post('/api/batches/'+ident+'/start',json={'mode':'live'}).raise_for_status()
+        with sync_playwright() as play:
+            channel=os.environ.get('MISSION_C_BROWSER_CHANNEL','msedge')
+            browser=play.chromium.launch(**({'channel':channel} if channel!='chromium' else {}),headless=True)
+            page=browser.new_page()
+            page.goto(server.url+'/?batch='+ident)
+            page.get_by_text('已暂停（当前页结束后生效）',exact=True).wait_for()
+            self.assertTrue(page.locator('#live').is_checked())
+            self.assertEqual(httpx.get(server.url+'/api/batches/'+ident,trust_env=False).json()['processed'],0)
             browser.close()
 
 

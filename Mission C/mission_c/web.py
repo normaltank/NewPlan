@@ -256,11 +256,18 @@ def create_app(data_root, *, policy=None, cache_manifest=None):
         for task in value['tasks'][offset:offset+limit]:
             item = {key:task[key] for key in ('id','school','url','relations','sources','state','error','quality')}
             item['rawtext_saved'] = False
+            item['preview'] = None
+            item['original_candidate'] = None
             if task['artifact'] and task['state'] not in {'pending','running','artifact_missing','program_error'}:
                 try:
                     service.bound(task['artifact'])
                     record = json.loads((service.root/task['artifact']/'teachers.json').read_text(encoding='utf-8'))[0]
                     item['rawtext_saved'] = record.get('status') == 'text_saved'
+                    fields = {key:record.get(key, '') for key in ('name','title','email')}
+                    if task['quality']['eligible_for_workbook']:
+                        item['preview'] = fields
+                    else:
+                        item['original_candidate'] = fields
                 except (ValueError,OSError,KeyError,IndexError):
                     pass
             items.append(item)

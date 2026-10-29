@@ -12,7 +12,22 @@ async function action(fn){if(busy)return;busy=true;try{await fn();}catch(error){
 function metrics(target,items){target.replaceChildren(...items.map(([number,label])=>{const n=node('div',undefined,'metric');n.append(node('strong',number),node('span',label));return n;}));}
 function choose(id){selected=id;taskOffset=0;issueOffset=0;history.replaceState(null,'','?batch='+encodeURIComponent(id));$('downloads').replaceChildren();return refresh(true);}
 function mode(){return document.querySelector('input[name=mode]:checked').value;}
-function setOptions(){const live=mode()==='live';$('cache').disabled=live;const locked=!!current?.queued||!!current?.processed;$('start').disabled=locked||!current?.total;$('pause').disabled=!current?.queued||current.paused;$('resume').disabled=!current?.queued||!current.paused;document.querySelectorAll('input[name=mode],#cache,#fetch-mode,#model-mode,#paid,#budget').forEach(n=>{n.disabled=locked||(n.id==='live'&&!config.allow_live)||(n.id==='paid'&&!config.allow_paid)||(n.id==='budget'&&!config.allow_paid);});if(live)$('cache').disabled=true;$('mode-help').textContent=live?'会访问表内个人 URL；师资列表仅保留为来源。在线 Fetch/模型需要额外付费许可。':'只读取选定缓存，不访问网站、网络媒体或密钥。缓存缺少的 URL 会保留为异常。';}
+function setOptions(){
+  if(current?.mode)document.querySelector('input[name=mode][value='+current.mode+']').checked=true;
+  const live=mode()==='live',locked=!!current?.queued||!!current?.processed;
+  $('start').disabled=locked||!current?.total;
+  $('pause').disabled=!current?.queued||current.paused;
+  $('resume').disabled=!current?.queued||!current.paused;
+  document.querySelectorAll('input[name=mode],#cache,#fetch-mode,#model-mode,#paid,#budget').forEach(n=>{
+    n.disabled=locked||(n.id==='live'&&!config.allow_live)||(n.id==='paid'&&!config.allow_paid)||(n.id==='budget'&&!config.allow_paid);
+  });
+  if(live)$('cache').disabled=true;
+  $('mode-help').textContent=current?.queued?
+    '已保存的处理方式：'+(live?'在线访问':'严格缓存回放')+'。后台沿用开始时的材料和选项，继续不会改变运行方式。':
+    current?.processed?'此批次已处理。实际读取方式与完整来源保存在下载包的逐条记录中。':
+    live?'会访问表内个人 URL；师资列表仅保留为来源。在线 Fetch/模型需要额外付费许可。':
+    '只读取选定缓存，不访问网站、网络媒体或密钥。缓存缺少的 URL 会保留为异常。';
+}
 async function refresh(details=false){
   const batches=await api('/api/batches');$('batch-list').replaceChildren(...batches.slice().reverse().map(b=>{const title=b.preflight.schools.map(s=>s.school).join('、')||'无可运行条目';const btn=node('button',title+' · '+(b.queued&&!b.paused?'处理中':stateNames[b.state]||b.state));btn.className=b.id===selected?'selected':'';btn.addEventListener('click',()=>action(()=>choose(b.id)));return btn;}));
   if(!selected){if(batches.length)await choose(batches[batches.length-1].id);return;}
@@ -24,7 +39,41 @@ async function refresh(details=false){
   const q=current.quality_counts,c=current.counts;metrics($('quality'),[[q.personal_candidate||0,'个人材料候选'],[(q.identity_review||0)+(q.suspected_non_personal||0)+(q.provider_candidate||0),'身份 / 页面待核'],[q.temporarily_unavailable||0,'暂不可用'],[(c.failed||0)+(c.program_error||0)+(c.artifact_missing||0),'读取 / 程序失败']]);$('worker-error').textContent=current.worker_error||'';setOptions();
   if(details||++poll%3===0)await Promise.all([loadTasks(),loadIssues()]);
 }
-async function loadTasks(){if(!selected)return;const value=await api('/api/batches/'+selected+'/tasks?offset='+taskOffset+'&limit=25');$('tasks').replaceChildren(...value.items.map(t=>{const tr=node('tr'),identity=node('td'),url=node('td',t.url),status=node('td');identity.append(node('strong',t.school),node('span',t.relations.map(r=>r.college).join('、'),'sub'));identity.append(node('span',t.sources.map(s=>s.file+' / '+s.sheet+' 第'+s.row+'行').join('；'),'sub'));status.append(node('strong',(taskNames[t.state]||t.state)+' · '+(qualityNames[t.quality.category]||t.quality.category)),node('span',t.rawtext_saved?'正文已保存（仍按质量结论准入）':'正文未保存或尚未完成','sub'));if(t.quality.reasons?.length)status.append(node('span',t.quality.reasons.join('；'),'reason'));if(t.error)status.append(node('span',t.error,'reason'));tr.append(identity,url,status);return tr;}));$('task-page').textContent=value.total?(taskOffset+1)+'–'+Math.min(taskOffset+25,value.total)+' / '+value.total:'0 条';$('prev-tasks').disabled=taskOffset===0;$('next-tasks').disabled=taskOffset+25>=value.total;}
+function failureReason(task){
+  let error={};try{error=JSON.parse(task.error||'{}');}catch{}
+  if(error.code?.startsWith('http_'))return '原站返回 HTTP '+error.code.slice(5)+'，请核对链接与网站状态。';
+  if(error.code?.startsWith('cache_'))return '缓存缺失或不匹配，本次未联网。';
+  if(task.state==='program_error')return '处理程序异常，请展开详情查看。';
+  if(task.state==='artifact_missing')return '已完成产物缺失或变化，需要核对原件。';
+  if(error.code==='network_error')return '网络读取失败，已保留实际失败信息。';
+  return task.quality.reasons?.join('；')||'';
+}
+async function loadTasks(){
+  if(!selected)return;
+  const value=await api('/api/batches/'+selected+'/tasks?offset='+taskOffset+'&limit=25');
+  $('tasks').replaceChildren(...value.items.map(t=>{
+    const tr=node('tr'),identity=node('td'),url=node('td',t.url),status=node('td');
+    if(t.preview){
+      identity.append(node('strong',t.preview.name||'姓名待核'));
+      identity.append(node('span',(t.preview.title||'职称未获得')+' · '+(t.preview.email||'本人邮箱未获得'),'sub'));
+    }else identity.append(node('strong','姓名未确认'));
+    identity.append(node('span',t.school+' · '+[...new Set(t.relations.map(r=>r.college))].join('、'),'sub'));
+    identity.append(node('span',t.sources.map(s=>s.file+' / '+s.sheet+' 第'+s.row+'行').join('；'),'sub'));
+    status.append(node('strong',(taskNames[t.state]||t.state)+' · '+(qualityNames[t.quality.category]||t.quality.category)));
+    status.append(node('span',t.rawtext_saved?'正文已保存（仍按质量结论准入）':'正文未保存或尚未完成','sub'));
+    const reason=failureReason(t);if(reason)status.append(node('span',reason,'reason'));
+    if(t.original_candidate||t.error){
+      const detail=node('details');detail.append(node('summary','候选与错误详情'));
+      if(t.original_candidate)detail.append(node('span','原始姓名候选（未确认）：'+(t.original_candidate.name||'未获得'),'sub'));
+      if(t.error)detail.append(node('pre',t.error,'error-detail'));
+      if(t.quality.reasons?.length)detail.append(node('span',t.quality.reasons.join('；'),'sub'));
+      status.append(detail);
+    }
+    tr.append(identity,url,status);return tr;
+  }));
+  $('task-page').textContent=value.total?(taskOffset+1)+'–'+Math.min(taskOffset+25,value.total)+' / '+value.total:'0 条';
+  $('prev-tasks').disabled=taskOffset===0;$('next-tasks').disabled=taskOffset+25>=value.total;
+}
 async function loadIssues(){if(!selected)return;const value=await api('/api/batches/'+selected+'/issues?offset='+issueOffset+'&limit=25');$('issues').replaceChildren(...value.items.map(i=>node('div',[i.file,i.sheet,i.row?'第'+i.row+'行':'',i.reason,i.input_url].filter(Boolean).join(' · '))));if(!value.total)$('issues').append(node('div','未发现格式或关联问题；网页质量在处理后另行判断。'));$('more-issues').hidden=issueOffset+25>=value.total;}
 $('upload').addEventListener('click',()=>action(async()=>{if(!$('files').files.length)throw Error('请先选择 Excel 文件');const form=new FormData();for(const file of $('files').files)form.append('files',file);const result=await api('/api/import',{method:'POST',body:form});await choose(result.id);tell('输入已保存并完成预检，尚未开始处理。');}));
 $('demo').addEventListener('click',()=>action(async()=>{const result=await api('/api/demo',{method:'POST'});await choose(result.id);tell('已载入虚构离线示例。查看预检后，点击开始处理。');}));
