@@ -141,18 +141,13 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
             for taskrow in db.execute('SELECT * FROM tasks WHERE batch=? ORDER BY rowid', (batch_id,)):
                 task = json.loads(taskrow['payload'])
                 state = taskrow['state']
+                binding = {}
                 if state in {'success','review','failed'} and taskrow['artifact']:
-                    try: self.bound(taskrow['artifact'])
+                    try: binding = self.bound(taskrow['artifact'])
                     except (ValueError,OSError,KeyError): state = 'artifact_missing'
                 task.update(state=state, artifact=taskrow['artifact'], error=taskrow['error'])
-                quality = {'category':'not_read','eligible_for_workbook':False,'reasons':['尚未完成或产物不可用']}
-                if taskrow['artifact'] and state not in {'pending','running','artifact_missing','program_error'}:
-                    try: quality = self.bound(taskrow['artifact']).get('quality',quality)
-                    except (ValueError,OSError,KeyError): pass
-                task['assistance_errors'] = []
-                if taskrow['artifact'] and state not in {'pending','running','artifact_missing','program_error'}:
-                    try: task['assistance_errors'] = self.bound(taskrow['artifact']).get('assistance_errors', [])
-                    except (ValueError,OSError,KeyError): pass
+                quality = binding.get('quality', {'category':'not_read','eligible_for_workbook':False,'reasons':['尚未完成或产物不可用']})
+                task['assistance_errors'] = binding.get('assistance_errors', [])
                 task['quality'] = quality
                 category = quality['category']
                 result['quality_counts'][category] = result['quality_counts'].get(category,0)+1
@@ -231,6 +226,7 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
             cache_manifest = self.root/saved['cache_manifest'] if saved.get('cache_manifest') else None
             live, fetch_mode, model_mode = saved['live'], saved['fetch_mode'], saved['model_mode']
             allow_paid, paid_max_calls = saved['allow_paid'], saved['paid_max_calls']
+        paid_budget_scope = saved.get('paid_budget_scope') if saved else None
         if not live and not cache_manifest:
             raise ValueError('严格缓存模式需要 cache_manifest；在线必须显式 live=True')
         if live and cache_manifest:
@@ -262,7 +258,9 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
                 args = ['--url', task['url'], '--school', task['school'], '--college', '; '.join(dict.fromkeys(r['college'] for r in task['relations'])), '--output', str(output), '--fetch-mode', fetch_mode, '--model-mode', model_mode]
                 if cache_manifest: args += ['--cache-manifest',str(Path(cache_manifest).resolve())]
                 if allow_paid:
-                    args += ['--allow-paid','--paid-max-calls',str(paid_max_calls),'--paid-attempts',str(self.root/'paid-attempts'),'--paid-budget-scope',batch_id]
+                    args += ['--allow-paid','--paid-max-calls',str(paid_max_calls),'--paid-attempts',str(self.root/'paid-attempts')]
+                    if paid_budget_scope:
+                        args += ['--paid-budget-scope', paid_budget_scope]
                 state, error = 'failed', None
                 try:
                     with contextlib.redirect_stdout(sys.stderr): code = collect(args, key_loader=key_loader)
@@ -292,15 +290,19 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
 
 
     def enqueue(self, batch_id, *, cache_manifest=None, live=False, fetch_mode='off',
-                model_mode='off', allow_paid=False, paid_max_calls=0):
+                model_mode='off', allow_paid=False, paid_max_calls=0, private_budget=False):
         """Persist explicit run intent and self-contained offline inputs; never starts work."""
-        self.status(batch_id)
+        current = self.status(batch_id)
+        if private_budget and (not live or not allow_paid or fetch_mode != 'supplement' or model_mode != 'assist' or paid_max_calls != 2*len(current['tasks'])):
+            raise ValueError('私人批次必须使用固定方案及去重条目数两倍预算')
         if bool(cache_manifest) == bool(live): raise ValueError('选择缓存清单或显式 live')
         if fetch_mode not in {'off','fallback','supplement'} or model_mode not in {'off','assist'}:
             raise ValueError('无效采集模式')
         if paid_max_calls < 0: raise ValueError('付费预算不能为负数')
         options = dict(live=live, cache_manifest=None, fetch_mode=fetch_mode, model_mode=model_mode,
                        allow_paid=allow_paid, paid_max_calls=paid_max_calls)
+        if private_budget:
+            options['paid_budget_scope'] = batch_id
         with self.worker_lock(batch_id):
             if cache_manifest:
                 from .assisted import CacheManifest

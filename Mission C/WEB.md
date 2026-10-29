@@ -54,7 +54,7 @@ python -m unittest discover -s tests -p test_web.py -v
 
 ## 私人分发
 
-公开源码可运行 `python build_package.py --output 普通包.zip`。构建只收录显式运行文件与前端资源，不带输入、输出、缓存、data、日志、虚拟环境或私人目录。
+公开源码可运行 `python build_package.py --output 普通包.zip`。构建通过封闭清单收录已知模块、前端资源和虚构回放/调度示例，不带输入、输出、缓存、data、日志、虚拟环境或私人目录。
 
 所有者已授权的私人分发使用专属配置目录：`deployment.json` 内容为 `{"profile":"deepseek-private-v1","key_file":"credential.txt"}`，同目录 `credential.txt` 仅存凭据。此目录应放在 Git 忽略的 `.private/`，Linux 使用所有者可读写权限（600），Windows 限制为授权用户访问。只把这两个指定文件交给构建入口：
 
@@ -62,12 +62,12 @@ python -m unittest discover -s tests -p test_web.py -v
 python build_package.py --output Mission-C-PRIVATE.zip --private-config .private/deployment.json
 ```
 
-私人包含共享付费凭据，仅供授权接收者；任何拿到包的人都能提取和使用该凭据，不能公开上传或任意转发。包使用相对路径，可整体搬移至 Windows/Linux。解压后照常安装依赖并启动 `web.bat` / `web.sh`，启动器自动发现 `.private/deployment.json`，也可通过 `web.py --private-config 路径` 显式指定。普通构建始终不携带该目录。
+私人包含共享付费凭据，仅供授权接收者；任何拿到包的人都能提取和使用该凭据，不能公开上传或任意转发。包使用相对路径，可整体搬移至 Windows/Linux。解压后照常安装依赖并启动 `web.bat` / `web.sh`，启动器自动发现 `.private/deployment.json`，也可通过 `web.py --private-config 路径` 显式指定。普通构建始终不携带该目录。ZIP 成员统一标注 Unix 格式：已知 `.sh` 脚本 755、普通文件 644、私人配置与凭据 600，避免在 Windows 构建时丢失 Linux 可执行位。
 
 启动只读取方案元数据。上传、预检和离线示例不读取凭据或访问外网；实际输入明确点击开始后才检查凭据并排队。缺失、空白或非法凭据明确失败，不能静默降为普通处理。实际 HTTP 有效性与余额只有提供方请求能确认，本轮没有进行真实付费探测。
 
 私人方案固定 Fetch supplement + model assist：每页最多一次 Fetch、一次模型，批次预算为去重任务数的两倍。模型沿用 [Chat Completions](https://api-docs.deepseek.com/api/create-chat-completion/) 与 [JSON Output](https://api-docs.deepseek.com/guides/json_mode/) 的 deepseek-flash 适配器。浏览器不能更改方案、预算或凭据路径；私人部署的完整工作台可查看明细，开始操作使用简版入口。管理员指定缓存与离线示例仍严格离线、零付费。
 
-`data/paid-attempts` 同时保存按批次计数的预算与全局操作/URL/原件哈希尝试。新批次有自己的额度，同一已完成或结局未知的操作不会因换批次或重启而重发。不得删除尝试记录来“恢复预算”。没有 scope 的原 CLI 保持全局预算兼容；有 scope 的批次预算一旦使用不能扩大。
+`data/paid-attempts` 同时保存按批次计数的预算与全局操作/URL/原件哈希尝试。仅在新的私人方案显式开始时，服务将批次 scope 与 2*N 预算一并持久保存。旧队列和普通付费批次没有 scope，继续按共享目录全部历史消费计入全局预算，升级和续跑不自动分配新额度。同一已完成或结局未知的操作不会因换批次或重启而重发。不得删除尝试记录来“恢复预算”。没有 scope 的原 CLI 保持全局预算兼容；有 scope 的批次预算一旦使用不能扩大。
 
 付费失败、预算耗尽或未知结局会显示“辅助未完成”和原因，并写入 ZIP 的 `exceptions.csv`；已取得的可信教师资料仍可下载，提供方候选仍待核。该提示与教师资料是否可交付分别判断，不把本地成功冒充 DS 成功。

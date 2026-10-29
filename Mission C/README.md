@@ -130,7 +130,7 @@ CSS 必须唯一匹配、确认本人身份并包含现有完整原文；错误�
 
 模型固定 `POST https://api.deepseek.com/chat/completions`，默认 `--model deepseek-flash --model-thinking disabled`，要求 JSON output，输入明确包含 URL、来源类型及 SHA256。模型可配置，不运行探测请求。接口和 JSON 模式契约参见 [Chat Completions](https://api-docs.deepseek.com/api/create-chat-completion/) 与 [JSON Output](https://api-docs.deepseek.com/guides/json_mode/)；本票只验证虚构外部 HTTPX I/O，未运行真实付费调用。
 
-调用前原子保存 `fetch-<URL SHA256>.json` 或绑定 URL 与输入 hash 的 `model-*.json` 的 `unknown` 尝试；未指定 scope 的 CLI 将同一持久目录内所有已登记请求（含未知）计入预算；批次使用持久 scope 独立计数并保留全局尝试去重。同一操作/URL/原件哈希不自动重发。超时或断开仍保留未知状态，没有重试、probe 或重定向。并发锁残留时明确停止，需人工核对。保留该目录以跨运行防止重复付费，未知结局先核对提供方账单/记录。
+调用前原子保存 `fetch-<URL SHA256>.json` 或绑定 URL 与输入 hash 的 `model-*.json` 的 `unknown` 尝试；未指定 scope 的 CLI 将同一持久目录内所有已登记请求（含未知）计入预算；新私人方案显式开始的批次使用持久 scope 独立计数并保留全局尝试去重；旧队列和普通付费批次保持全局预算，不因升级自动取得 scope。同一操作/URL/原件哈希不自动重发。超时或断开仍保留未知状态，没有重试、probe 或重定向。并发锁残留时明确停止，需人工核对。保留该目录以跨运行防止重复付费，未知结局先核对提供方账单/记录。
 
 完整响应保存后原子登记 `completed`，HTTP 失败也计为一次已完成尝试。文件只保存脱敏响应、状态、时间、用量（提供方有返回时）、原响应 SHA256 及落盘响应 SHA256；密钥回显含 JSON 转义时也脱敏，并标记 `response_redacted`。未知响应、超限和损坏材料不当成完整正文。
 
