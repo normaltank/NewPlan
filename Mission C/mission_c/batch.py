@@ -290,8 +290,8 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
 
 
     def enqueue(self, batch_id, *, cache_manifest=None, live=False, fetch_mode='off',
-                model_mode='off', allow_paid=False, paid_max_calls=0, private_budget=False):
-        """Persist explicit run intent and self-contained offline inputs; never starts work."""
+                model_mode='off', allow_paid=False, paid_max_calls=0, private_budget=False, first_only=False):
+        """Persist run intent; first_only rejects any prior queue, work or related paid attempt."""
         current = self.status(batch_id)
         if private_budget and (not live or not allow_paid or fetch_mode != 'supplement' or model_mode != 'assist' or paid_max_calls != 2*len(current['tasks'])):
             raise ValueError('私人批次必须使用固定方案及去重条目数两倍预算')
@@ -303,7 +303,29 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
                        allow_paid=allow_paid, paid_max_calls=paid_max_calls)
         if private_budget:
             options['paid_budget_scope'] = batch_id
-        with self.worker_lock(batch_id):
+        with self.worker_lock(batch_id), self.connect() as db:
+            if first_only:
+                # Share the worker lock with enqueue/run and keep the latest DB
+                # checks and insert in one write transaction. Never replace a
+                # queue another public entry saved after a caller's snapshot.
+                db.execute('BEGIN IMMEDIATE')
+                tasks = db.execute('SELECT payload,state,artifact,error FROM tasks WHERE batch=?', (batch_id,)).fetchall()
+                if (db.execute('SELECT 1 FROM queue WHERE batch=?', (batch_id,)).fetchone() or not tasks
+                        or any(t['state'] != 'pending' or t['artifact'] is not None or t['error'] is not None for t in tasks)):
+                    raise ValueError('批次已有队列或执行记录；不覆盖首次运行选项')
+                # Recheck the shared ledger, but do not create its exclusive
+                # file lock: a crash here must leave an import recoverable.
+                # Standalone collectors still enforce global attempt identity
+                # under their own reservation lock before any paid request.
+                attempts = self.root / 'paid-attempts'
+                if (attempts / '.paid.lock').exists():
+                    raise ValueError('付费尝试记录忙碌；不保存首次运行选项')
+                urls = {json.loads(t['payload'])['url'] for t in tasks}
+                for path in attempts.glob('*.json'):
+                    if path.name.startswith(('fetch-', 'model-', 'budget-')):
+                        attempt = json.loads(path.read_text(encoding='utf-8'))
+                        if not isinstance(attempt, dict) or attempt.get('url') in urls or attempt.get('scope') == batch_id:
+                            raise ValueError('批次已有相关付费记录；不分配首次预算')
             if cache_manifest:
                 from .assisted import CacheManifest
                 cache_manifest = Path(cache_manifest).resolve()
@@ -325,8 +347,8 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
                 manifest = folder/'manifest.json'
                 (self.root/manifest).write_text(json.dumps(value,ensure_ascii=False),encoding='utf-8')
                 options['cache_manifest'] = manifest.as_posix()
-            with self.connect() as db:
-                db.execute('INSERT OR REPLACE INTO queue VALUES(?,?)',(batch_id,json.dumps(options)))
+            statement = 'INSERT INTO queue VALUES(?,?)' if first_only else 'INSERT OR REPLACE INTO queue VALUES(?,?)'
+            db.execute(statement, (batch_id,json.dumps(options)))
         return self.status(batch_id)
 
     def export(self, batch_id, school=None):

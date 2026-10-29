@@ -12,6 +12,8 @@
 
 `preview` 不导入、不联网；`demo` 的虚构数据库与输出独立放在 data/offline-demo、output/offline-demo，不动正式队列。显式 `once`/`watch` 才读私人凭据并固定 Fetch supplement + model assist，为新批次按去重任务数保存2*N scope；旧无scope批次/队列保留并阻断，不重分额度。导入前的拥有意图保存在data/server-import-intents：导入/排队之间中断时，仅匹配意图、全部pending、无已有选项/产物/相关付费尝试的任务可自动补首次scope，事件recovered列出批次；该目录随完整data备份。每次最多处理一页再检查停止信号，沿用核心全局unknown不重发；大学Excel与全文ZIP自动写入output，返回实际路径。收到停止信号后可按同一配置续跑，不重采已完成页，不覆盖原件与历史交付。安装脚本不注册系统任务或服务。
 
+精简入口的首次导入与恢复均调用核心 `enqueue(first_only=True)`，在同批次锁和SQLite写事务内核对最新无队列、全pending及无产物/错误。其他公开入口在扫描后保存的运行选项、暂停和预算会保留；冲突报告错误及blocked，待维护者核对。首次入队还重读相关付费账本并拒绝现有付费锁，但不创建该锁；独立单页采集与scope保存并未完全串行，实际收费由既有全局identity/unknown尝试记录继续保护。旧显式enqueue默认替换语义不变，接口参数见 [BATCH](BATCH.md#页面和后台共用-python-接口)。
+
 ## 安装与第一次运行
 
 需要 Python 3.11+（CI 使用 3.12）。Windows 在本目录执行 `setup.bat`；Linux 执行 `./setup.sh`，发行版可能需要先安装 Python 的 venv 支持。页面依赖分别用 `setup.bat --web`、`./setup.sh --web` 安装。Linux 的 `--full` 另安装浏览器/OCR及 Chromium，可能还需系统浏览器依赖；后台基本扫描不需要它们。
