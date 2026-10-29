@@ -1,6 +1,7 @@
 """Conservative batch admission, retaining every original and candidate verbatim."""
 import re
 from bs4 import BeautifulSoup
+from .extract import name_candidates
 
 
 def assess(record, folder):
@@ -27,5 +28,19 @@ def assess(record, folder):
     if record.get('biography_source') == 'deepseek-fetch':
         return {'category':'provider_candidate','eligible_for_workbook':False,'reasons':['提供方候选未证明原站或个人身份']}
     if record.get('name') and record.get('biography'):
+        # The collector's heading candidates include h2 section headings. A
+        # candidate is not identity proof: require an independent primary slot
+        # or its existing explicit-name/title evidence. Reuse the collector's
+        # vocabulary rather than building another name extractor here.
+        name = record['name']
+        evidence = record.get('field_evidence',{}).get('name_candidates',[])
+        corroborated = any(c.get('value') == name and c.get('rule') in
+                           {'labelled_name','page_title','known_profile_card'} for c in evidence)
+        primary = main.select('h1,.arti_title,.news_title,.jsbt')
+        primary_names = {c['value'] for node in primary
+                         for c in name_candidates(BeautifulSoup(str(node),'html.parser'))}
+        if not corroborated and name not in primary_names:
+            return {'category':'identity_review','eligible_for_workbook':False,
+                    'reasons':['采集器姓名仅有次级标题候选，缺少主身份位置或明确姓名/标题佐证；原候选保留']}
         return {'category':'personal_candidate','eligible_for_workbook':True,'reasons':['既有采集器取得个人姓名及正文；仍遵守字段待核状态']}
     return {'category':'identity_review','eligible_for_workbook':False,'reasons':['个人身份材料不足，保留候选待核；不据此断言非个人页']}

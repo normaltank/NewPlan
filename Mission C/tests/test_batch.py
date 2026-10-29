@@ -181,7 +181,7 @@ class BatchContract(unittest.TestCase):
         demo=self.cli('demo')
         self.assertEqual(demo['batch']['completeness'],'not_verified')
         self.assertTrue((self.data/demo['delivery']['exports'][0]['path']).is_file())
-        self.assertEqual(len(demo['batch']['tasks']),2)
+        self.assertEqual(len(demo['batch']['tasks']),3)
     def test_bad_workbook_conflicting_id_and_same_url_other_school_are_visible(self):
         broken=self.folder/'坏文件.xlsx';broken.write_bytes(b'not a zip')
         second=self.folder/'另一校.xlsx'
@@ -231,3 +231,17 @@ class BatchContract(unittest.TestCase):
         ident=self.cli('import',self.input)['id']
         done=self.cli('run',ident,'--cache-manifest',manifest)
         self.assertEqual(done['tasks'][0]['quality']['category'],'personal_candidate')
+    def test_secondary_section_name_without_primary_identity_stays_out_of_delivery(self):
+        import zipfile
+        demo=self.cli('demo')
+        task=next(t for t in demo['batch']['tasks'] if t['url']=='https://example.edu/demo')
+        record=json.loads((self.data/task['artifact']/'teachers.json').read_text(encoding='utf-8'))[0]
+        self.assertEqual(record['name'],'完整经历')
+        self.assertEqual(task['quality']['category'],'identity_review')
+        self.assertFalse(task['quality']['eligible_for_workbook'])
+        with zipfile.ZipFile(self.data/demo['delivery']['exports'][0]['path']) as package:
+            delivered=json.loads(package.read('teachers.json'))
+            all_records=json.loads(package.read('records.json'))
+            self.assertNotIn('完整经历',[r['name'] for r in delivered])
+            self.assertIn('完整经历',[r['name'] for r in all_records])
+            self.assertGreaterEqual(len(delivered),1)

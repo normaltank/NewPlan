@@ -328,10 +328,14 @@ CREATE TABLE IF NOT EXISTS tasks(batch TEXT, id TEXT, payload TEXT, state TEXT D
         sheet=book.create_sheet('Sheet2');sheet.append(['学院ID','个人URL'])
         sheet.append([1,'https://example.edu/demo']);sheet.append([2,'https://example.edu/demo'])
         sheet.append([1,'https://example.edu/unavailable'])
+        sheet.append([1,'https://example.edu/confirmed'])
         book.save(folder/'示例.xlsx');book.close()
         source=folder/'page.html'
         source.write_text('<meta charset="utf-8"><main><h1>示例教师</h1><p>职称：教授</p><p>本人邮箱：demo@example.edu</p><h2>完整经历</h2><p>虚构离线材料，仅供功能演示。</p></main>',encoding='utf-8')
+        confirmed=folder/'confirmed.html'
+        confirmed.write_text('<meta charset="utf-8"><main><h1>李明</h1><p>姓名：李明</p><p>职称：教授</p><p>本人邮箱：liming@example.edu</p><h2>个人简介</h2><p>虚构离线教师正例，研究光学。</p></main>',encoding='utf-8')
         manifest={'version':1,'entries':[{'url':'https://example.edu/demo','source':{'path':'page.html','sha256':digest(source),'observed_at':'2026-10-28T00:00:00Z'}},{'url':'https://example.edu/unavailable','source':{'http_status':404,'error':{'code':'http_404','message':'虚构的实际访问失败'},'observed_at':'2026-10-28T00:00:00Z'}}]}
+        manifest['entries'].append({'url':'https://example.edu/confirmed','source':{'path':'confirmed.html','sha256':digest(confirmed),'observed_at':'2026-10-28T00:00:00Z'}})
         (folder/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False),encoding='utf-8')
         batch=self.import_files([folder/'示例.xlsx'])
         self.enqueue(batch['id'],cache_manifest=folder/'manifest.json')
