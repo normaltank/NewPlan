@@ -352,7 +352,7 @@ def create_app(data_root, *, policy=None, cache_manifest=None, private_config=No
             private.load_key()  # Fail before persisting intent; never sent to the browser.
         result = service.enqueue(ident, cache_manifest=cache, live=cache is None,
             fetch_mode='supplement' if assisted else 'off', model_mode='assist' if assisted else 'off',
-            allow_paid=assisted, paid_max_calls=2*len(current['tasks']) if assisted else 0)
+            allow_paid=assisted, paid_max_calls=2*len(current['tasks']) if assisted else 0, private_budget=assisted)
         errors.pop(ident, None)
         return web_summary(result)
 
