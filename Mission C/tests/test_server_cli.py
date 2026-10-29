@@ -44,6 +44,21 @@ class ServerContract(unittest.TestCase):
         self.assertEqual(result.returncode, expected, result.stderr or result.stdout)
         return json.loads(result.stdout)
 
+    def wait_for_logged_work(self, log, count, nested=False):
+        import time
+        deadline = time.monotonic() + 10
+        while time.monotonic() < deadline:
+            events = []
+            for line in log.read_text(encoding='utf-8').splitlines():
+                try:
+                    events.append(json.loads(line))
+                except json.JSONDecodeError:
+                    pass  # A currently written last line is not a complete event yet.
+            if sum(len((event['worker'] if nested else event)['processed']) for event in events) >= count:
+                return
+            time.sleep(0.05)
+        self.fail('worker did not flush its completed public report')
+
     def test_scan_new_file_does_not_reprocess_unchanged_or_renamed_content(self):
         scanned = self.cli('server.py', 'scan', self.inputs, '--cache-manifest', self.manifest, '--run')
         self.assertEqual(len(scanned['imported']), 1)
@@ -111,6 +126,7 @@ class ServerContract(unittest.TestCase):
                 self.assertFalse(done['queued'])
                 self.assertEqual(done['quality_counts'], {'personal_candidate': 1})
                 self.assertEqual(self.cli('batch.py', 'status', other)['counts'], {'pending': 1})
+                self.wait_for_logged_work(log, 1)
             finally:
                 process.terminate()
                 process.wait(timeout=15)
@@ -140,6 +156,7 @@ class ServerContract(unittest.TestCase):
                 original = (artifact / 'binding.json').read_bytes()
                 self.workbook(self.inputs / '新文件.xlsx', '理学院')
                 completed(2)
+                self.wait_for_logged_work(log, 2, nested=True)
                 self.assertEqual((artifact / 'binding.json').read_bytes(), original)
             finally:
                 process.terminate()
