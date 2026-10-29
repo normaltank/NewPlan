@@ -16,6 +16,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from .batch import BatchService
 
 ASSETS = Path(__file__).with_name('web_static')
+DELIVERY_ASSETS = Path(__file__).with_name('delivery_static')
 MAX_UPLOAD = 20 * 1024 * 1024
 MAX_FILES = 20
 
@@ -129,6 +130,25 @@ def create_app(data_root, *, policy=None, cache_manifest=None):
     errors = {}
     stop = threading.Event()
 
+    def demo_manifest(ident):
+        marker = service.root/'web-demos'/(ident+'.json')
+        if not marker.is_file():
+            return None
+        path = (service.root/json.loads(marker.read_text(encoding='utf-8'))['cache_manifest']).resolve()
+        if not path.is_relative_to(service.root) or not path.is_file():
+            raise ValueError('离线示例材料缺失，请重新载入示例')
+        return path
+
+    def web_summary(value, error=None):
+        result = summary(value, error)
+        processed = [t for t in value['tasks'] if t['state'] not in {'pending','running'}]
+        result['delivery_counts'] = {
+            'teachers':sum(bool(t['quality']['eligible_for_workbook']) for t in processed),
+            'exceptions':sum(not t['quality']['eligible_for_workbook'] for t in processed)}
+        result['delivery_mode'] = ('demo' if demo_manifest(value['id']) else
+            'cache' if caches.get('local') else 'live' if policy.allow_live else 'unavailable')
+        return result
+
     def policy_error(options):
         if options['live'] and not policy.allow_live:
             return '当前服务未开放在线访问；请使用严格缓存模式'
@@ -173,6 +193,7 @@ def create_app(data_root, *, policy=None, cache_manifest=None):
     app = FastAPI(lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     app.add_middleware(LocalBoundary)
     app.mount('/assets', StaticFiles(directory=ASSETS), name='assets')
+    app.mount('/delivery-assets', StaticFiles(directory=DELIVERY_ASSETS), name='delivery-assets')
 
     @app.exception_handler(ValueError)
     async def value_error(request, error):
@@ -192,6 +213,10 @@ def create_app(data_root, *, policy=None, cache_manifest=None):
 
     @app.get('/')
     def index():
+        return FileResponse(DELIVERY_ASSETS/'index.html', media_type='text/html')
+
+    @app.get('/workbench')
+    def workbench():
         return FileResponse(ASSETS/'index.html', media_type='text/html')
 
     @app.get('/api/config')
@@ -204,7 +229,10 @@ def create_app(data_root, *, policy=None, cache_manifest=None):
     def demo():
         prepared = service.prepare_demo()
         caches['demo'] = service.root/prepared['cache_manifest']
-        return summary(prepared['batch'])
+        marker = service.root/'web-demos'/(prepared['batch']['id']+'.json')
+        marker.parent.mkdir(exist_ok=True)
+        marker.write_text(json.dumps({'cache_manifest':prepared['cache_manifest']}), encoding='utf-8')
+        return web_summary(prepared['batch'])
 
     @app.get('/api/sample.xlsx')
     def sample():
@@ -238,15 +266,15 @@ def create_app(data_root, *, policy=None, cache_manifest=None):
                             if len(archive.infolist())>2000 or sum(i.file_size for i in archive.infolist())>100*1024*1024:
                                 raise HTTPException(413, '工作簿解压后过大')
                     paths.append(target)
-                return summary(service.import_files(paths))
+                return web_summary(service.import_files(paths))
 
     @app.get('/api/batches')
     def batches():
-        return [summary(item, errors.get(item['id']) or errors.get('_service')) for item in service.list_batches()]
+        return [web_summary(item, errors.get(item['id']) or errors.get('_service')) for item in service.list_batches()]
 
     @app.get('/api/batches/{ident}')
     def status(ident: str):
-        return summary(batch(ident), errors.get(ident) or errors.get('_service'))
+        return web_summary(batch(ident), errors.get(ident) or errors.get('_service'))
 
     @app.get('/api/batches/{ident}/tasks')
     def tasks(ident: str, offset: int=0, limit: int=50):
@@ -299,6 +327,19 @@ def create_app(data_root, *, policy=None, cache_manifest=None):
         result = service.enqueue(ident, cache_manifest=cache, **setting)
         errors.pop(ident, None)
         return summary(result)
+
+    @app.post('/api/batches/{ident}/delivery-start')
+    def delivery_start(ident: str):
+        current = batch(ident)
+        if current['queued']:
+            raise HTTPException(409, '批次已经开始，请使用继续处理')
+        cache = demo_manifest(ident) or caches.get('local')
+        if cache is None and not policy.allow_live:
+            raise HTTPException(403, '当前服务尚未开放网页处理，请联系维护人员；也可先离线试用示例。')
+        result = service.enqueue(ident, cache_manifest=cache, live=cache is None,
+            fetch_mode='off', model_mode='off', allow_paid=False, paid_max_calls=0)
+        errors.pop(ident, None)
+        return web_summary(result)
 
     @app.post('/api/batches/{ident}/pause')
     def pause(ident: str):

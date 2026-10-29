@@ -62,6 +62,21 @@ class HTTPFlow(unittest.TestCase):
             time.sleep(.1)
         self.fail(f'Batch did not reach expected visible state: {value}')
 
+    def test_delivery_start_uses_demo_only_for_explicit_demo_and_preserves_policy(self):
+        _,client=self.server()
+        demo=client.post('/api/demo').json()
+        self.assertEqual(demo['delivery_mode'],'demo')
+        ident=demo['id']
+        self.assertEqual(client.post('/api/batches/'+ident+'/delivery-start').status_code,200)
+        done=self.until(client,ident,lambda v:not v['queued'])
+        self.assertEqual(done['processed'],3)
+        original=workbook(self.folder/'真实格式.xlsx',[(1,'https://example.edu/confirmed')])
+        uploaded=self.imported(client,original)
+        self.assertEqual(uploaded['delivery_mode'],'unavailable')
+        response=client.post('/api/batches/'+uploaded['id']+'/delivery-start')
+        self.assertEqual(response.status_code,403,response.text)
+        self.assertFalse(client.get('/api/batches/'+uploaded['id']).json()['queued'])
+
     def test_multifile_preview_is_not_collection_and_cached_download_preserves_full_text(self):
         page = self.folder/'page.html'
         long = '完整研究经历与成果。'*5000

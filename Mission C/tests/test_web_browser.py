@@ -67,7 +67,7 @@ class BrowserFlow(unittest.TestCase):
                 page_errors = []
                 page.on('pageerror', lambda error: page_errors.append(str(error)))
                 page.on('request', lambda req: events.append({'method': req.method, 'url':req.url}))
-                page.goto(server.url)
+                page.goto(server.url+'/workbench')
                 page.get_by_role('button', name='载入离线示例').click()
                 page.get_by_text('虚构示例大学', exact=True).first.wait_for()
                 page.get_by_text('尚未开始', exact=True).wait_for()
@@ -110,7 +110,7 @@ class BrowserFlow(unittest.TestCase):
             context.on('request', lambda req: events.append({'method':req.method, 'url':req.url}))
             page = context.new_page()
             page.on('pageerror', lambda error: errors.append(str(error)))
-            page.goto(server.url)
+            page.goto(server.url+'/workbench')
             with page.expect_download() as sample_info:
                 page.get_by_role('link', name='下载虚构双 Sheet 示例').click()
             first, second = folder/'原格式甲.xlsx', folder/'原格式乙.xlsx'
@@ -175,7 +175,7 @@ class BrowserFlow(unittest.TestCase):
             channel=os.environ.get('MISSION_C_BROWSER_CHANNEL','msedge')
             browser=play.chromium.launch(**({'channel':channel} if channel!='chromium' else {}),headless=True)
             page=browser.new_page()
-            page.goto(server.url)
+            page.goto(server.url+'/workbench')
             page.locator('#files').set_input_files(str(original))
             page.get_by_role('button',name='上传并预检').click()
             page.get_by_text(name,exact=True).first.wait_for()
@@ -201,7 +201,7 @@ class BrowserFlow(unittest.TestCase):
             channel=os.environ.get('MISSION_C_BROWSER_CHANNEL','msedge')
             browser=play.chromium.launch(**({'channel':channel} if channel!='chromium' else {}),headless=True)
             page=browser.new_page()
-            page.goto(server.url+'/?batch='+ident)
+            page.goto(server.url+'/workbench?batch='+ident)
             page.get_by_text('已暂停（当前页结束后生效）',exact=True).wait_for()
             self.assertTrue(page.locator('#live').is_checked())
             self.assertEqual(httpx.get(server.url+'/api/batches/'+ident,trust_env=False).json()['processed'],0)
