@@ -77,7 +77,7 @@ class ServerDistribution(unittest.TestCase):
             demo, _ = self.cli('demo')
         exported = demo[-1]['deliveries'][0]
         self.assertEqual(service.list_batches(), [before])
-        self.assertEqual(Path(demo[-1]['output_dir']), self.folder / '交付 output' / 'offline-demo')
+        self.assertTrue(Path(demo[-1]['output_dir']).samefile(self.folder / '交付 output' / 'offline-demo'))
         workbook = Path(demo[-1]['output_dir']) / exported['excel']
         book = load_workbook(workbook)
         self.assertEqual(book.sheetnames, ['有邮箱教师', '无邮箱教师', '主页失效教师'])
