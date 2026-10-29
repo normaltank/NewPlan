@@ -1,0 +1,289 @@
+test_cached_failed_origin_keeps_original_bytes_time_and_http_failure_without_extracting_error_page (test_assisted_fetch_cli.AssistedFetchCLI.test_cached_failed_origin_keeps_original_bytes_time_and_http_failure_without_extracting_error_page) ... ok
+test_fetch_fallback_retains_local_failure_and_delivers_provider_candidate (test_assisted_fetch_cli.AssistedFetchCLI.test_fetch_fallback_retains_local_failure_and_delivers_provider_candidate) ... ok
+test_incomplete_failure_metadata_and_wrong_page_response_do_not_abort_batch (test_assisted_fetch_cli.AssistedFetchCLI.test_incomplete_failure_metadata_and_wrong_page_response_do_not_abort_batch) ... ok
+test_live_json_escaped_secret_is_redacted_before_candidate_or_metadata_is_written (test_assisted_fetch_cli.AssistedFetchCLI.test_live_json_escaped_secret_is_redacted_before_candidate_or_metadata_is_written) ... ok
+test_multi_url_manifest_reads_relative_sources_without_network_including_attachments (test_assisted_fetch_cli.AssistedFetchCLI.test_multi_url_manifest_reads_relative_sources_without_network_including_attachments) ... ok
+test_off_and_unneeded_fallback_are_explicit_and_manifest_never_reads_key_even_when_paid (test_assisted_fetch_cli.AssistedFetchCLI.test_off_and_unneeded_fallback_are_explicit_and_manifest_never_reads_key_even_when_paid) ... ok
+test_online_fetch_requires_paid_permission_key_and_budget_before_external_post (test_assisted_fetch_cli.AssistedFetchCLI.test_online_fetch_requires_paid_permission_key_and_budget_before_external_post) ... ok
+test_online_post_persists_attempt_before_send_redacts_response_and_enforces_durable_budget (test_assisted_fetch_cli.AssistedFetchCLI.test_online_post_persists_attempt_before_send_redacts_response_and_enforces_durable_budget) ... ok
+test_provider_failures_and_malformed_responses_are_isolated_with_raw_bytes (test_assisted_fetch_cli.AssistedFetchCLI.test_provider_failures_and_malformed_responses_are_isolated_with_raw_bytes) ... ok
+test_robots_denial_never_automatically_routes_to_online_fetch (test_assisted_fetch_cli.AssistedFetchCLI.test_robots_denial_never_automatically_routes_to_online_fetch) ... ok
+test_supplement_preserves_local_full_text_and_separate_provider_evidence (test_assisted_fetch_cli.AssistedFetchCLI.test_supplement_preserves_local_full_text_and_separate_provider_evidence) ... ok
+test_unknown_online_outcome_is_persisted_and_same_url_is_never_resent (test_assisted_fetch_cli.AssistedFetchCLI.test_unknown_online_outcome_is_persisted_and_same_url_is_never_resent) ... ok
+test_url_hash_missing_cache_and_model_binding_failures_are_explicit_per_url (test_assisted_fetch_cli.AssistedFetchCLI.test_url_hash_missing_cache_and_model_binding_failures_are_explicit_per_url) ... ok
+test_contact_cannot_borrow_identity_past_another_person_heading (test_assisted_fields_cli.AssistedFieldsCLI.test_contact_cannot_borrow_identity_past_another_person_heading) ... ok
+test_contact_subsections_keep_other_person_ownership (test_assisted_fields_cli.AssistedFieldsCLI.test_contact_subsections_keep_other_person_ownership) ... ok
+test_contact_subsections_keep_public_and_collaborator_boundaries (test_assisted_fields_cli.AssistedFieldsCLI.test_contact_subsections_keep_public_and_collaborator_boundaries) ... ok
+test_english_split_public_labels_reject_contacts_but_personal_email_remains_valid (test_assisted_fields_cli.AssistedFieldsCLI.test_english_split_public_labels_reject_contacts_but_personal_email_remains_valid) ... ok
+test_fetch_only_model_uses_provider_text_binding_without_css_or_origin_success (test_assisted_fields_cli.AssistedFieldsCLI.test_fetch_only_model_uses_provider_text_binding_without_css_or_origin_success) ... ok
+test_fetch_plaintext_does_not_borrow_public_or_other_person_contacts (test_assisted_fields_cli.AssistedFieldsCLI.test_fetch_plaintext_does_not_borrow_public_or_other_person_contacts) ... ok
+test_invalid_cached_response_is_explicit_and_does_not_change_source_fields (test_assisted_fields_cli.AssistedFieldsCLI.test_invalid_cached_response_is_explicit_and_does_not_change_source_fields) ... ok
+test_live_model_http_failure_saved_and_unknown_timeout_never_resent (test_assisted_fields_cli.AssistedFieldsCLI.test_live_model_http_failure_saved_and_unknown_timeout_never_resent) ... ok
+test_live_model_uses_json_and_persistent_budget_shared_with_fetch (test_assisted_fields_cli.AssistedFieldsCLI.test_live_model_uses_json_and_persistent_budget_shared_with_fetch) ... ok
+test_model_recovers_missing_personal_card_email_and_preserves_original_text (test_assisted_fields_cli.AssistedFieldsCLI.test_model_recovers_missing_personal_card_email_and_preserves_original_text) ... ok
+test_ordinary_contact_labels_stay_with_their_field (test_assisted_fields_cli.AssistedFieldsCLI.test_ordinary_contact_labels_stay_with_their_field) ... ok
+test_ordinary_label_does_not_hide_a_new_person_heading (test_assisted_fields_cli.AssistedFieldsCLI.test_ordinary_label_does_not_hide_a_new_person_heading) ... ok
+[1/1] not_extracted
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp7spwtfrc\result
+[1/1] provider_candidate
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmprlp5g772\result
+[1/2] not_extracted
+[2/2] not_extracted
+已保存 2 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp707e4xnq\result
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpseaefmg1\result
+[1/2] text_saved
+[2/2] text_saved
+已保存 2 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpv3m1mym6\result
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmphbopdpua\result
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmphbopdpua\result
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmphbopdpua\result
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpc1v1oi_z\result0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpc1v1oi_z\result1
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpc1v1oi_z\result2
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp33nrp7co\first
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp33nrp7co\second
+[1/6] not_extracted
+[2/6] not_extracted
+[3/6] not_extracted
+[4/6] not_extracted
+[5/6] not_extracted
+[6/6] provider_candidate
+已保存 6 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp7l4_of02\result
+[1/1] not_extracted
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmprrls30hc\result
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpoc32fxul\result
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpo0ccv7ga\first
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpo0ccv7ga\second
+[1/6] text_saved
+[2/6] not_extracted
+[3/6] not_extracted
+[4/6] not_extracted
+[5/6] text_saved
+[6/6] not_extracted
+已保存 6 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpusu1xhcu\result
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpxvh_th30\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp6z6raj_j\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp6z6raj_j\out-1
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp6z6raj_j\out-2
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpqjt53rvl\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpqjt53rvl\out-1
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpqjt53rvl\out-2
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpqjt53rvl\out-3
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpqjt53rvl\out-4
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpqjt53rvl\out-5
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpqjt53rvl\out-6
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpqjt53rvl\out-7
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpqjt53rvl\out-8
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpqjt53rvl\out-9
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpqjt53rvl\out-10
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpk45rihny\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpk45rihny\out-1
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpk45rihny\out-2
+[1/1] provider_candidate
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpjt0oqvu4\provider-out
+[1/1] provider_candidate
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmprrexvfsx\split-0out
+[1/1] provider_candidate
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmprrexvfsx\split-1out
+[1/1] provider_candidate
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmprrexvfsx\split-2out
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpa32750dm\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpa32750dm\out-1
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpa32750dm\out-2
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpa32750dm\out-3
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpa32750dm\out-4
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpa32750dm\out-5
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpa32750dm\out-6
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpa32750dm\out-7
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpa32750dm\out-8
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpa32750dm\out-9
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpthu6jqs0\1
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpthu6jqs0\2
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpthu6jqs0\3
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpdr5c32r5\live-1
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpdr5c32r5\live-2
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpdr5c32r5\live-3
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmppyl1auu6\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp7vzard6l\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp7vzard6l\out-1
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp7vzard6l\out-2
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp7vzard6l\out-3
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp7vzard6l\out-4
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp7vzard6l\out-5
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp7vzard6l\out-6
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp6j2phfae\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-1
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-2
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-3
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-4
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-5
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-6
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-7
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-8
+[1/1] text_saved
+test_owner_outline_survives_wrapper_metadata_and_nested_subsections (test_assisted_fields_cli.AssistedFieldsCLI.test_owner_outline_survives_wrapper_metadata_and_nested_subsections) ... ok
+test_personal_card_owns_contact_after_completed_neighbor_card (test_assisted_fields_cli.AssistedFieldsCLI.test_personal_card_owns_contact_after_completed_neighbor_card) ... ok
+test_personal_fields_reject_public_contacts_collaborators_advisors_and_conflicts (test_assisted_fields_cli.AssistedFieldsCLI.test_personal_fields_reject_public_contacts_collaborators_advisors_and_conflicts) ... ok
+test_personal_template_sibling_card_and_split_name_label_are_bound (test_assisted_fields_cli.AssistedFieldsCLI.test_personal_template_sibling_card_and_split_name_label_are_bound) ... ok
+test_rejected_expected_identity_cannot_be_restored_by_model (test_assisted_fields_cli.AssistedFieldsCLI.test_rejected_expected_identity_cannot_be_restored_by_model) ... ok
+test_selector_requires_unique_identity_and_full_existing_coverage_without_model_summary (test_assisted_fields_cli.AssistedFieldsCLI.test_selector_requires_unique_identity_and_full_existing_coverage_without_model_summary) ... ok
+test_split_public_and_collaborator_labels_are_not_personal_email (test_assisted_fields_cli.AssistedFieldsCLI.test_split_public_and_collaborator_labels_are_not_personal_email) ... ok
+test_wrapped_owner_heading_keeps_nested_contact_ownership (test_assisted_fields_cli.AssistedFieldsCLI.test_wrapped_owner_heading_keeps_nested_contact_ownership) ... ok
+test_wrapped_owner_is_independent_of_preceding_field_label (test_assisted_fields_cli.AssistedFieldsCLI.test_wrapped_owner_is_independent_of_preceding_field_label) ... ok
+test_imported_bundle_moves_and_replays_combination_without_original_paths (test_cache_delivery_cli.CacheDeliveryCLI.test_imported_bundle_moves_and_replays_combination_without_original_paths) ... ok
+test_batch_urls_keep_success_and_report_unavailable_or_disallowed_pages (test_cli.MissionCContract.test_batch_urls_keep_success_and_report_unavailable_or_disallowed_pages) ... ok
+test_detached_folder_runs_and_name_conflict_does_not_guess (test_cli.MissionCContract.test_detached_folder_runs_and_name_conflict_does_not_guess) ... ok
+test_dynamic_page_can_be_explicitly_rendered (test_cli.MissionCContract.test_dynamic_page_can_be_explicitly_rendered) ... ok
+test_embedded_object_pdf_is_explicitly_unread_during_offline_replay (test_cli.MissionCContract.test_embedded_object_pdf_is_explicitly_unread_during_offline_replay) ... ok
+test_empty_links_do_not_abort_a_readable_homepage (test_cli.MissionCContract.test_empty_links_do_not_abort_a_readable_homepage) ... ok
+test_export_keeps_long_text_and_treats_sheet_values_as_data (test_cli.MissionCContract.test_export_keeps_long_text_and_treats_sheet_values_as_data) ... ok
+test_image_text_is_an_explicit_local_ocr_candidate (test_cli.MissionCContract.test_image_text_is_an_explicit_local_ocr_candidate) ... ok
+test_known_sibling_name_card_remains_bound_to_the_biography (test_cli.MissionCContract.test_known_sibling_name_card_remains_bound_to_the_biography) ... ok
+test_profile_pdf_full_text_is_saved_and_unread_images_are_reported (test_cli.MissionCContract.test_profile_pdf_full_text_is_saved_and_unread_images_are_reported) ... ok
+test_publication_contact_and_supervisor_rank_are_not_personal_fields (test_cli.MissionCContract.test_publication_contact_and_supervisor_rank_are_not_personal_fields) ... ok
+test_saved_homepage_retains_complete_biography_and_evidence (test_cli.MissionCContract.test_saved_homepage_retains_complete_biography_and_evidence) ... ok
+test_separate_profile_sections_are_not_silently_dropped (test_cli.MissionCContract.test_separate_profile_sections_are_not_silently_dropped) ... ok
+test_sidebar_name_cannot_own_the_teachers_fields (test_cli.MissionCContract.test_sidebar_name_cannot_own_the_teachers_fields) ... ok
+test_sidebar_profile_card_cannot_supply_another_persons_email (test_cli.MissionCContract.test_sidebar_profile_card_cannot_supply_another_persons_email) ... ok
+test_a_news_heading_is_not_a_person (test_name_evidence_cli.NameEvidenceContract.test_a_news_heading_is_not_a_person) ... ok
+test_a_research_group_is_not_a_person (test_name_evidence_cli.NameEvidenceContract.test_a_research_group_is_not_a_person) ... ok
+test_chinese_title_separator_does_not_need_spaces (test_name_evidence_cli.NameEvidenceContract.test_chinese_title_separator_does_not_need_spaces) ... ok
+test_competing_person_headings_remain_a_conflict (test_name_evidence_cli.NameEvidenceContract.test_competing_person_headings_remain_a_conflict) ... ok
+test_page_is_preserved_when_it_is_the_persons_surname (test_name_evidence_cli.NameEvidenceContract.test_page_is_preserved_when_it_is_the_persons_surname) ... ok
+test_personal_title_keeps_an_apostrophe_and_ignores_the_site_name (test_name_evidence_cli.NameEvidenceContract.test_personal_title_keeps_an_apostrophe_and_ignores_the_site_name) ... ok
+test_personal_title_keeps_the_hyphenated_full_name (test_name_evidence_cli.NameEvidenceContract.test_personal_title_keeps_the_hyphenated_full_name) ... ok
+test_school_title_cannot_borrow_the_person_from_a_sidebar (test_name_evidence_cli.NameEvidenceContract.test_school_title_cannot_borrow_the_person_from_a_sidebar) ... ok
+test_school_title_uses_the_visible_person_instead_of_the_homepage_label (test_name_evidence_cli.NameEvidenceContract.test_school_title_uses_the_visible_person_instead_of_the_homepage_label) ... ok
+
+----------------------------------------------------------------------
+Ran 58 tests in 56.423s
+
+OK
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-9
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-10
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-11
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-12
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-13
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-14
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-15
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-16
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpir52h9yc\out-17
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpssv3yn12\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpssv3yn12\out-1
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpssv3yn12\out-2
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpssv3yn12\out-3
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpucse1cie\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpucse1cie\out-1
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpucse1cie\out-2
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpucse1cie\out-3
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpucse1cie\out-4
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp4musxo1z\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp4musxo1z\out-1
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmp84lv9i2w\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpfc_b1ee1\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpfc_b1ee1\out-1
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpfc_b1ee1\out-2
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpfc_b1ee1\out-3
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpfc_b1ee1\out-4
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpv_4h_pev\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpv_4h_pev\out-1
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpv_4h_pev\out-2
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpvejqq3u0\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpk3jg3atj\out-0
+[1/1] text_saved
+已保存 1 条个人页记录：C:\Users\27451\AppData\Local\Temp\tmpk3jg3atj\out-1

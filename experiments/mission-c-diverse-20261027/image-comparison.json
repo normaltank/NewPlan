@@ -1,0 +1,529 @@
+[
+  {
+    "id": "n11_chnu_zhanghongyan",
+    "image": "image-original-2.jpg",
+    "source": {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n11_chnu_zhanghongyan\\image-original-2.jpg",
+      "sha256": "4b51f1413604131ed45a4e313a06093c3e474fd62f1e926a54110165fd992997",
+      "bytes": 605226
+    },
+    "visual_reference": {
+      "source": "image-original-2.jpg",
+      "region": "图片中段",
+      "text": "一种平面设计用品携带工具箱",
+      "verified": "current_source_visually_read"
+    },
+    "results": {
+      "rapidocr": {
+        "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n11_chnu_zhanghongyan\\image-original-2.jpg",
+        "source_sha256": "4b51f1413604131ed45a4e313a06093c3e474fd62f1e926a54110165fd992997",
+        "started_at": "2026-10-27T15:26:35.922784+00:00",
+        "network": "forbidden",
+        "method": "rapidocr",
+        "status": "ocr_candidate",
+        "low_confidence_lines": 0,
+        "versions": {
+          "rapidocr-onnxruntime": "1.4.4",
+          "onnxruntime": "1.31.0"
+        },
+        "finished_at": "2026-10-27T15:26:50.235271+00:00",
+        "elapsed_seconds": 14.312
+      },
+      "docling": {
+        "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n11_chnu_zhanghongyan\\image-original-2.jpg",
+        "source_sha256": "4b51f1413604131ed45a4e313a06093c3e474fd62f1e926a54110165fd992997",
+        "started_at": "2026-10-27T15:26:46.484937+00:00",
+        "network": "forbidden",
+        "method": "docling",
+        "status": "ConversionStatus.SUCCESS",
+        "errors": [],
+        "tables": 0,
+        "texts": 22,
+        "pages": 1,
+        "table_rows": [],
+        "versions": {
+          "docling": "2.140.0",
+          "docling-core": "2.102.0",
+          "rapidocr": "3.10.0",
+          "onnxruntime": "1.31.0"
+        },
+        "finished_at": "2026-10-27T15:27:41.776488+00:00",
+        "elapsed_seconds": 55.297
+      }
+    },
+    "check": {
+      "section": "图片中段",
+      "quote": "一种平面设计用品携带工具箱",
+      "source_verified": true,
+      "methods": {
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 42,
+            "end_line": 42,
+            "matched_normalized_excerpt": "一种平面设计用品携带工具箱"
+          }
+        },
+        "rapidocr": {
+          "status": "retained",
+          "lines": {
+            "start_line": 31,
+            "end_line": 31,
+            "matched_normalized_excerpt": "一种平面设计用品携带工具箱"
+          }
+        },
+        "docling": {
+          "status": "retained",
+          "lines": {
+            "start_line": 24,
+            "end_line": 24,
+            "matched_normalized_excerpt": "一种平面设计用品携带工具箱"
+          }
+        }
+      },
+      "source_basis": "manual visual reference, not OCR text coordinates"
+    }
+  },
+  {
+    "id": "n11_chnu_zhanghongyan",
+    "image": "image-original-3.jpg",
+    "source": {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n11_chnu_zhanghongyan\\image-original-3.jpg",
+      "sha256": "ec6787b8927c2e5b45319af4d86e03be62def4993834e7a25e512f3a6f8d4381",
+      "bytes": 559616
+    },
+    "visual_reference": {
+      "source": "image-original-3.jpg",
+      "region": "图片末段",
+      "text": "2019年十一届大广赛安徽赛区优秀指导教师",
+      "verified": "current_source_visually_read"
+    },
+    "results": {
+      "rapidocr": {
+        "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n11_chnu_zhanghongyan\\image-original-3.jpg",
+        "source_sha256": "ec6787b8927c2e5b45319af4d86e03be62def4993834e7a25e512f3a6f8d4381",
+        "started_at": "2026-10-27T15:26:50.237270+00:00",
+        "network": "forbidden",
+        "method": "rapidocr",
+        "status": "ocr_candidate",
+        "low_confidence_lines": 0,
+        "versions": {
+          "rapidocr-onnxruntime": "1.4.4",
+          "onnxruntime": "1.31.0"
+        },
+        "finished_at": "2026-10-27T15:27:00.240494+00:00",
+        "elapsed_seconds": 10.0
+      },
+      "docling": {
+        "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n11_chnu_zhanghongyan\\image-original-3.jpg",
+        "source_sha256": "ec6787b8927c2e5b45319af4d86e03be62def4993834e7a25e512f3a6f8d4381",
+        "started_at": "2026-10-27T15:27:41.779046+00:00",
+        "network": "forbidden",
+        "method": "docling",
+        "status": "ConversionStatus.SUCCESS",
+        "errors": [],
+        "tables": 0,
+        "texts": 22,
+        "pages": 1,
+        "table_rows": [],
+        "versions": {
+          "docling": "2.140.0",
+          "docling-core": "2.102.0",
+          "rapidocr": "3.10.0",
+          "onnxruntime": "1.31.0"
+        },
+        "finished_at": "2026-10-27T15:27:46.140481+00:00",
+        "elapsed_seconds": 4.36
+      }
+    },
+    "check": {
+      "section": "图片末段",
+      "quote": "2019年十一届大广赛安徽赛区优秀指导教师",
+      "source_verified": true,
+      "methods": {
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 87,
+            "end_line": 87,
+            "matched_normalized_excerpt": "2019年十一届大广赛安徽赛区优秀指导教师"
+          }
+        },
+        "rapidocr": {
+          "status": "retained",
+          "lines": {
+            "start_line": 27,
+            "end_line": 27,
+            "matched_normalized_excerpt": "2019年十一届大广赛安徽赛区优秀指导教师"
+          }
+        },
+        "docling": {
+          "status": "retained",
+          "lines": {
+            "start_line": 19,
+            "end_line": 19,
+            "matched_normalized_excerpt": "2019年十一届大广赛安徽赛区优秀指导教师"
+          }
+        }
+      },
+      "source_basis": "manual visual reference, not OCR text coordinates"
+    }
+  },
+  {
+    "id": "n12_chnu_baoxiangzhi",
+    "image": "image-original-1.png",
+    "source": {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n12_chnu_baoxiangzhi\\image-original-1.png",
+      "sha256": "b2687be9d3088b7cd802ed50faeabb14cac6cdbf7a2bb4cb93f692a19ca45424",
+      "bytes": 200401
+    },
+    "visual_reference": {
+      "source": "image-original-1.png",
+      "region": "图片首",
+      "text": "历史学博士、讲师",
+      "verified": "current_source_visually_read"
+    },
+    "results": {
+      "rapidocr": {
+        "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n12_chnu_baoxiangzhi\\image-original-1.png",
+        "source_sha256": "b2687be9d3088b7cd802ed50faeabb14cac6cdbf7a2bb4cb93f692a19ca45424",
+        "started_at": "2026-10-27T15:27:00.241481+00:00",
+        "network": "forbidden",
+        "method": "rapidocr",
+        "status": "ocr_candidate",
+        "low_confidence_lines": 1,
+        "versions": {
+          "rapidocr-onnxruntime": "1.4.4",
+          "onnxruntime": "1.31.0"
+        },
+        "finished_at": "2026-10-27T15:27:05.819345+00:00",
+        "elapsed_seconds": 5.578
+      },
+      "docling": {
+        "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n12_chnu_baoxiangzhi\\image-original-1.png",
+        "source_sha256": "b2687be9d3088b7cd802ed50faeabb14cac6cdbf7a2bb4cb93f692a19ca45424",
+        "started_at": "2026-10-27T15:27:46.141481+00:00",
+        "network": "forbidden",
+        "method": "docling",
+        "status": "ConversionStatus.SUCCESS",
+        "errors": [],
+        "tables": 1,
+        "texts": 1,
+        "pages": 1,
+        "table_rows": [
+          [
+            [
+              "姓名： 鲍相志",
+              "性别：男",
+              "出生年月：1991.05"
+            ],
+            [
+              "职务： 职称：",
+              "职务： 职称：",
+              "历史学博士、讲师"
+            ],
+            [
+              "招生专业名称",
+              "美术与书法",
+              "美术与书法"
+            ],
+            [
+              "主要研究方向",
+              "中国古代书画鉴定与研究、题画诗词",
+              "中国书画史、明清文化史"
+            ],
+            [
+              "个人简历",
+              "鲍相志，1991年生，江苏泰州人。2025年毕业于南京大学历 史学院，获历史学博士学位。师从杨休教授、罗时进教授、周学鹰 教授，主要着力于中国古代书画鉴定、明清史、明清文学等方面的 研究。",
+              "鲍相志，1991年生，江苏泰州人。2025年毕业于南京大学历 史学院，获历史学博士学位。师从杨休教授、罗时进教授、周学鹰 教授，主要着力于中国古代书画鉴定、明清史、明清文学等方面的 研究。"
+            ],
+            [
+              "学术兼职",
+              "",
+              ""
+            ],
+            [
+              "主要学术成就",
+              "1、《时代性的书写 —— 王冬龄的当代书法艺术个案探讨》，2025年 第4期，《南京艺术学院学报（美术与设计版)》。（CSSCI） 2、《清中期“微物”工艺史的中兴 ——以“曼生壶”作为文化样本 的讨论》，《苏州大学学报（哲学社会科学版)》2023年第4期。 (CSSCI) 3、《托新意于古法一论唐寅枯木寒林类画作的内涵与创新》，《艺 术百家》2021年第4期。（CSSCI） 4、《最后一位书画玩家一溥心畬》等15篇艺术评论，发表在南京 大学主办公众号《群学书院》“烟云过眼”专栏，同时被澎湃新闻、 新浪网、搜狐网、腾讯网等多家媒体转载。",
+              "1、《时代性的书写 —— 王冬龄的当代书法艺术个案探讨》，2025年 第4期，《南京艺术学院学报（美术与设计版)》。（CSSCI） 2、《清中期“微物”工艺史的中兴 ——以“曼生壶”作为文化样本 的讨论》，《苏州大学学报（哲学社会科学版)》2023年第4期。 (CSSCI) 3、《托新意于古法一论唐寅枯木寒林类画作的内涵与创新》，《艺 术百家》2021年第4期。（CSSCI） 4、《最后一位书画玩家一溥心畬》等15篇艺术评论，发表在南京 大学主办公众号《群学书院》“烟云过眼”专栏，同时被澎湃新闻、 新浪网、搜狐网、腾讯网等多家媒体转载。"
+            ]
+          ]
+        ],
+        "versions": {
+          "docling": "2.140.0",
+          "docling-core": "2.102.0",
+          "rapidocr": "3.10.0",
+          "onnxruntime": "1.31.0"
+        },
+        "finished_at": "2026-10-27T15:27:51.641288+00:00",
+        "elapsed_seconds": 5.5
+      }
+    },
+    "check": {
+      "section": "图片首",
+      "quote": "历史学博士、讲师",
+      "source_verified": true,
+      "methods": {
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 11,
+            "end_line": 11,
+            "matched_normalized_excerpt": "历史学博士、讲师"
+          }
+        },
+        "rapidocr": {
+          "status": "retained",
+          "lines": {
+            "start_line": 6,
+            "end_line": 6,
+            "matched_normalized_excerpt": "历史学博士、讲师"
+          }
+        },
+        "docling": {
+          "status": "retained",
+          "lines": {
+            "start_line": 5,
+            "end_line": 5,
+            "matched_normalized_excerpt": "历史学博士、讲师"
+          }
+        }
+      },
+      "source_basis": "manual visual reference, not OCR text coordinates"
+    }
+  },
+  {
+    "id": "n12_chnu_baoxiangzhi",
+    "image": "image-original-1.png",
+    "source": {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n12_chnu_baoxiangzhi\\image-original-1.png",
+      "sha256": "b2687be9d3088b7cd802ed50faeabb14cac6cdbf7a2bb4cb93f692a19ca45424",
+      "bytes": 200401
+    },
+    "visual_reference": {
+      "source": "image-original-1.png",
+      "region": "研究中",
+      "text": "中国古代书画鉴定与研究",
+      "verified": "current_source_visually_read"
+    },
+    "results": {
+      "rapidocr": {
+        "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n12_chnu_baoxiangzhi\\image-original-1.png",
+        "source_sha256": "b2687be9d3088b7cd802ed50faeabb14cac6cdbf7a2bb4cb93f692a19ca45424",
+        "started_at": "2026-10-27T15:27:00.241481+00:00",
+        "network": "forbidden",
+        "method": "rapidocr",
+        "status": "ocr_candidate",
+        "low_confidence_lines": 1,
+        "versions": {
+          "rapidocr-onnxruntime": "1.4.4",
+          "onnxruntime": "1.31.0"
+        },
+        "finished_at": "2026-10-27T15:27:05.819345+00:00",
+        "elapsed_seconds": 5.578
+      },
+      "docling": {
+        "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n12_chnu_baoxiangzhi\\image-original-1.png",
+        "source_sha256": "b2687be9d3088b7cd802ed50faeabb14cac6cdbf7a2bb4cb93f692a19ca45424",
+        "started_at": "2026-10-27T15:27:46.141481+00:00",
+        "network": "forbidden",
+        "method": "docling",
+        "status": "ConversionStatus.SUCCESS",
+        "errors": [],
+        "tables": 1,
+        "texts": 1,
+        "pages": 1,
+        "table_rows": [
+          [
+            [
+              "姓名： 鲍相志",
+              "性别：男",
+              "出生年月：1991.05"
+            ],
+            [
+              "职务： 职称：",
+              "职务： 职称：",
+              "历史学博士、讲师"
+            ],
+            [
+              "招生专业名称",
+              "美术与书法",
+              "美术与书法"
+            ],
+            [
+              "主要研究方向",
+              "中国古代书画鉴定与研究、题画诗词",
+              "中国书画史、明清文化史"
+            ],
+            [
+              "个人简历",
+              "鲍相志，1991年生，江苏泰州人。2025年毕业于南京大学历 史学院，获历史学博士学位。师从杨休教授、罗时进教授、周学鹰 教授，主要着力于中国古代书画鉴定、明清史、明清文学等方面的 研究。",
+              "鲍相志，1991年生，江苏泰州人。2025年毕业于南京大学历 史学院，获历史学博士学位。师从杨休教授、罗时进教授、周学鹰 教授，主要着力于中国古代书画鉴定、明清史、明清文学等方面的 研究。"
+            ],
+            [
+              "学术兼职",
+              "",
+              ""
+            ],
+            [
+              "主要学术成就",
+              "1、《时代性的书写 —— 王冬龄的当代书法艺术个案探讨》，2025年 第4期，《南京艺术学院学报（美术与设计版)》。（CSSCI） 2、《清中期“微物”工艺史的中兴 ——以“曼生壶”作为文化样本 的讨论》，《苏州大学学报（哲学社会科学版)》2023年第4期。 (CSSCI) 3、《托新意于古法一论唐寅枯木寒林类画作的内涵与创新》，《艺 术百家》2021年第4期。（CSSCI） 4、《最后一位书画玩家一溥心畬》等15篇艺术评论，发表在南京 大学主办公众号《群学书院》“烟云过眼”专栏，同时被澎湃新闻、 新浪网、搜狐网、腾讯网等多家媒体转载。",
+              "1、《时代性的书写 —— 王冬龄的当代书法艺术个案探讨》，2025年 第4期，《南京艺术学院学报（美术与设计版)》。（CSSCI） 2、《清中期“微物”工艺史的中兴 ——以“曼生壶”作为文化样本 的讨论》，《苏州大学学报（哲学社会科学版)》2023年第4期。 (CSSCI) 3、《托新意于古法一论唐寅枯木寒林类画作的内涵与创新》，《艺 术百家》2021年第4期。（CSSCI） 4、《最后一位书画玩家一溥心畬》等15篇艺术评论，发表在南京 大学主办公众号《群学书院》“烟云过眼”专栏，同时被澎湃新闻、 新浪网、搜狐网、腾讯网等多家媒体转载。"
+            ]
+          ]
+        ],
+        "versions": {
+          "docling": "2.140.0",
+          "docling-core": "2.102.0",
+          "rapidocr": "3.10.0",
+          "onnxruntime": "1.31.0"
+        },
+        "finished_at": "2026-10-27T15:27:51.641288+00:00",
+        "elapsed_seconds": 5.5
+      }
+    },
+    "check": {
+      "section": "研究中",
+      "quote": "中国古代书画鉴定与研究",
+      "source_verified": true,
+      "methods": {
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 13,
+            "end_line": 13,
+            "matched_normalized_excerpt": "中国古代书画鉴定与研究"
+          }
+        },
+        "rapidocr": {
+          "status": "retained",
+          "lines": {
+            "start_line": 9,
+            "end_line": 9,
+            "matched_normalized_excerpt": "中国古代书画鉴定与研究"
+          }
+        },
+        "docling": {
+          "status": "retained",
+          "lines": {
+            "start_line": 7,
+            "end_line": 7,
+            "matched_normalized_excerpt": "中国古代书画鉴定与研究"
+          }
+        }
+      },
+      "source_basis": "manual visual reference, not OCR text coordinates"
+    }
+  },
+  {
+    "id": "n12_chnu_baoxiangzhi",
+    "image": "image-original-1.png",
+    "source": {
+      "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n12_chnu_baoxiangzhi\\image-original-1.png",
+      "sha256": "b2687be9d3088b7cd802ed50faeabb14cac6cdbf7a2bb4cb93f692a19ca45424",
+      "bytes": 200401
+    },
+    "visual_reference": {
+      "source": "image-original-1.png",
+      "region": "图片尾",
+      "text": "新华网、腾讯网等多家媒体转载",
+      "verified": "current_source_visually_read"
+    },
+    "results": {
+      "rapidocr": {
+        "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n12_chnu_baoxiangzhi\\image-original-1.png",
+        "source_sha256": "b2687be9d3088b7cd802ed50faeabb14cac6cdbf7a2bb4cb93f692a19ca45424",
+        "started_at": "2026-10-27T15:27:00.241481+00:00",
+        "network": "forbidden",
+        "method": "rapidocr",
+        "status": "ocr_candidate",
+        "low_confidence_lines": 1,
+        "versions": {
+          "rapidocr-onnxruntime": "1.4.4",
+          "onnxruntime": "1.31.0"
+        },
+        "finished_at": "2026-10-27T15:27:05.819345+00:00",
+        "elapsed_seconds": 5.578
+      },
+      "docling": {
+        "source": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n12_chnu_baoxiangzhi\\image-original-1.png",
+        "source_sha256": "b2687be9d3088b7cd802ed50faeabb14cac6cdbf7a2bb4cb93f692a19ca45424",
+        "started_at": "2026-10-27T15:27:46.141481+00:00",
+        "network": "forbidden",
+        "method": "docling",
+        "status": "ConversionStatus.SUCCESS",
+        "errors": [],
+        "tables": 1,
+        "texts": 1,
+        "pages": 1,
+        "table_rows": [
+          [
+            [
+              "姓名： 鲍相志",
+              "性别：男",
+              "出生年月：1991.05"
+            ],
+            [
+              "职务： 职称：",
+              "职务： 职称：",
+              "历史学博士、讲师"
+            ],
+            [
+              "招生专业名称",
+              "美术与书法",
+              "美术与书法"
+            ],
+            [
+              "主要研究方向",
+              "中国古代书画鉴定与研究、题画诗词",
+              "中国书画史、明清文化史"
+            ],
+            [
+              "个人简历",
+              "鲍相志，1991年生，江苏泰州人。2025年毕业于南京大学历 史学院，获历史学博士学位。师从杨休教授、罗时进教授、周学鹰 教授，主要着力于中国古代书画鉴定、明清史、明清文学等方面的 研究。",
+              "鲍相志，1991年生，江苏泰州人。2025年毕业于南京大学历 史学院，获历史学博士学位。师从杨休教授、罗时进教授、周学鹰 教授，主要着力于中国古代书画鉴定、明清史、明清文学等方面的 研究。"
+            ],
+            [
+              "学术兼职",
+              "",
+              ""
+            ],
+            [
+              "主要学术成就",
+              "1、《时代性的书写 —— 王冬龄的当代书法艺术个案探讨》，2025年 第4期，《南京艺术学院学报（美术与设计版)》。（CSSCI） 2、《清中期“微物”工艺史的中兴 ——以“曼生壶”作为文化样本 的讨论》，《苏州大学学报（哲学社会科学版)》2023年第4期。 (CSSCI) 3、《托新意于古法一论唐寅枯木寒林类画作的内涵与创新》，《艺 术百家》2021年第4期。（CSSCI） 4、《最后一位书画玩家一溥心畬》等15篇艺术评论，发表在南京 大学主办公众号《群学书院》“烟云过眼”专栏，同时被澎湃新闻、 新浪网、搜狐网、腾讯网等多家媒体转载。",
+              "1、《时代性的书写 —— 王冬龄的当代书法艺术个案探讨》，2025年 第4期，《南京艺术学院学报（美术与设计版)》。（CSSCI） 2、《清中期“微物”工艺史的中兴 ——以“曼生壶”作为文化样本 的讨论》，《苏州大学学报（哲学社会科学版)》2023年第4期。 (CSSCI) 3、《托新意于古法一论唐寅枯木寒林类画作的内涵与创新》，《艺 术百家》2021年第4期。（CSSCI） 4、《最后一位书画玩家一溥心畬》等15篇艺术评论，发表在南京 大学主办公众号《群学书院》“烟云过眼”专栏，同时被澎湃新闻、 新浪网、搜狐网、腾讯网等多家媒体转载。"
+            ]
+          ]
+        ],
+        "versions": {
+          "docling": "2.140.0",
+          "docling-core": "2.102.0",
+          "rapidocr": "3.10.0",
+          "onnxruntime": "1.31.0"
+        },
+        "finished_at": "2026-10-27T15:27:51.641288+00:00",
+        "elapsed_seconds": 5.5
+      }
+    },
+    "check": {
+      "section": "图片尾",
+      "quote": "新华网、腾讯网等多家媒体转载",
+      "source_verified": false,
+      "methods": {
+        "deepseek_fetch_raw": {
+          "status": "unverifiable",
+          "lines": null
+        },
+        "rapidocr": {
+          "status": "unverifiable",
+          "lines": null
+        },
+        "docling": {
+          "status": "unverifiable",
+          "lines": null
+        }
+      },
+      "source_basis": "earlier visual short quote is ambiguous at 621x696; do not treat as truth"
+    }
+  }
+]

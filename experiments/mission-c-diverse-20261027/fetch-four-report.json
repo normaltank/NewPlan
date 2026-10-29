@@ -1,0 +1,1312 @@
+{
+  "issue": "https://github.com/normaltank/NewPlan/issues/25",
+  "parent_spec": "https://github.com/normaltank/NewPlan/issues/24",
+  "generated_at": "2026-10-27T14:38:51.677676+00:00",
+  "new_fetch_calls": 4,
+  "new_model_calls": 0,
+  "retry_calls": 0,
+  "billing_verified": false,
+  "method": "short official-source checkpoints, manual attribution; whitespace/NFKC/Markdown punctuation unescape only; no length-based completeness",
+  "samples": [
+    {
+      "id": "suda",
+      "url": "https://web.suda.edu.cn/hj1/",
+      "name": "何剑",
+      "source": {
+        "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\live-tools-20261027\\browser\\suda\\source.html",
+        "sha256": "bf04d8fcc2cb50fc0de6ed6bbb2ca009b9c507cb2b70807f52638d3ba4fc53c2",
+        "observed_at": "2026-10-27T12:35:07.140418+00:00",
+        "http_status": 200,
+        "text_coordinates": "BeautifulSoup(source.html).get_text(newline, strip=True), 1-based lines"
+      },
+      "fetch": {
+        "method": "deepseek-fetch",
+        "url": "https://web.suda.edu.cn/hj1/",
+        "provider_http_status": 200,
+        "observed_at": "2026-10-27T14:31:01.502609+00:00",
+        "started_at": "2026-10-27T14:30:46.554022+00:00",
+        "provider_response_sha256": "f1640f7c903118568c17aadf9a42fce9b8deb1382f61300765acdc0441125da8",
+        "response_credential_redacted": false,
+        "origin_http_status": null,
+        "text_saved": true,
+        "failure": null,
+        "provider_title": "何剑 教授",
+        "characters": 5069,
+        "content_sha256": "77297f4ba616e139db31fa2974e4ed79d3d94ddf0e58849aa15b2649f9619b3e",
+        "calls": 1,
+        "not_origin_html": true,
+        "completeness": "not_verified"
+      },
+      "fetch_evidence_path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\live-tools-20261027\\deepseek-fetch\\suda",
+      "saved_content_file_sha256": "7f338f8d175a777ab1292bc381d07b60c1b3e5bf904ec3eed2a3dc916fe02ef2",
+      "content_sha256_scope": "provider content string encoded as UTF-8; saved file hash separately records Windows newline conversion",
+      "fields": {
+        "name": {
+          "value": "何剑",
+          "attribution": "manually_checked_against_saved_official_html",
+          "official_evidence": {
+            "start_line": 6,
+            "end_line": 7,
+            "matched_normalized_excerpt": "何剑教授"
+          },
+          "fetch_field_source": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "何剑教授"
+          },
+          "label": "name",
+          "reference_quote": "何剑",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 6,
+            "end_line": 6,
+            "matched_normalized_excerpt": "何剑"
+          },
+          "fetch_text": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "何剑"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        "title": {
+          "value": "教授",
+          "attribution": "manually_checked_against_saved_official_html",
+          "official_evidence": {
+            "start_line": 6,
+            "end_line": 7,
+            "matched_normalized_excerpt": "何剑教授"
+          },
+          "fetch_field_source": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "何剑教授"
+          },
+          "label": "title",
+          "reference_quote": "教授",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 7,
+            "end_line": 7,
+            "matched_normalized_excerpt": "教授"
+          },
+          "fetch_text": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "教授"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        "email": {
+          "value": "drhejian@suda.edu.cn",
+          "attribution": "manually_checked_against_saved_official_html",
+          "official_evidence": {
+            "start_line": 34,
+            "end_line": 35,
+            "matched_normalized_excerpt": "电子邮箱:drhejian@suda.edu.cn"
+          },
+          "fetch_field_source": {
+            "start_line": 8,
+            "end_line": 8,
+            "matched_normalized_excerpt": "电子邮箱:drhejian@suda.edu.cn"
+          },
+          "label": "email",
+          "reference_quote": "drhejian@suda.edu.cn",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 35,
+            "end_line": 35,
+            "matched_normalized_excerpt": "drhejian@suda.edu.cn"
+          },
+          "fetch_text": {
+            "start_line": 8,
+            "end_line": 8,
+            "matched_normalized_excerpt": "drhejian@suda.edu.cn"
+          },
+          "saved_ds_selected_text_contains": true
+        }
+      },
+      "checkpoints": [
+        {
+          "label": "简介首",
+          "reference_quote": "何剑，苏州大学教授、博导，电子科技大学博士",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 62,
+            "end_line": 62,
+            "matched_normalized_excerpt": "何剑,苏州大学教授、博导,电子科技大学博士"
+          },
+          "fetch_text": {
+            "start_line": 39,
+            "end_line": 39,
+            "matched_normalized_excerpt": "何剑,苏州大学教授、博导,电子科技大学博士"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "简介中",
+          "reference_quote": "中国微米纳米学会微系统与微执行器分会理事",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 76,
+            "end_line": 76,
+            "matched_normalized_excerpt": "中国微米纳米学会微系统与微执行器分会理事"
+          },
+          "fetch_text": {
+            "start_line": 39,
+            "end_line": 39,
+            "matched_normalized_excerpt": "中国微米纳米学会微系统与微执行器分会理事"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "简介尾/招生",
+          "reference_quote": "085501 机械工程（专硕）",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 186,
+            "end_line": 186,
+            "matched_normalized_excerpt": "085501机械工程(专硕)"
+          },
+          "fetch_text": {
+            "start_line": 125,
+            "end_line": 125,
+            "matched_normalized_excerpt": "085501机械工程(专硕)"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "教育",
+          "reference_quote": "2009.09-2014.12, 光学工程, 电子科技大学, 博士",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 51,
+            "end_line": 51,
+            "matched_normalized_excerpt": "2009.09-2014.12,光学工程,电子科技大学,博士"
+          },
+          "fetch_text": {
+            "start_line": 22,
+            "end_line": 22,
+            "matched_normalized_excerpt": "2009.09-2014.12,光学工程,电子科技大学,博士"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "工作",
+          "reference_quote": "2026.03-至今, 苏州大学未来科学与工程学院, 副院长",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 55,
+            "end_line": 55,
+            "matched_normalized_excerpt": "2026.03-至今,苏州大学未来科学与工程学院,副院长"
+          },
+          "fetch_text": {
+            "start_line": 29,
+            "end_line": 29,
+            "matched_normalized_excerpt": "2026.03-至今,苏州大学未来科学与工程学院,副院长"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "研究",
+          "reference_quote": "无人平台：具身智能、无人值守、人工智能算法、测试评估",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 117,
+            "end_line": 119,
+            "matched_normalized_excerpt": "无人平台:具身智能、无人值守、人工智能算法、测试评估"
+          },
+          "fetch_text": {
+            "start_line": 49,
+            "end_line": 49,
+            "matched_normalized_excerpt": "无人平台:具身智能、无人值守、人工智能算法、测试评估"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "项目首",
+          "reference_quote": "基于铁电单晶电畴精密调控的太赫兹产生机理",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 126,
+            "end_line": 126,
+            "matched_normalized_excerpt": "基于铁电单晶电畴精密调控的太赫兹产生机理"
+          },
+          "fetch_text": {
+            "start_line": 61,
+            "end_line": 61,
+            "matched_normalized_excerpt": "基于铁电单晶电畴精密调控的太赫兹产生机理"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "项目尾",
+          "reference_quote": "9、xxx传感器件, 2019.01- 至今, 主持, 航天、兵器集团等单位横向课题, 3000万",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 134,
+            "end_line": 134,
+            "matched_normalized_excerpt": "9、xxx传感器件,2019.01-至今,主持,航天、兵器集团等单位横向课题,3000万"
+          },
+          "fetch_text": {
+            "start_line": 69,
+            "end_line": 69,
+            "matched_normalized_excerpt": "9、xxx传感器件,2019.01-至今,主持,航天、兵器集团等单位横向课题,3000万"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "论文首",
+          "reference_quote": "Chip-less,Self-powered electronic patch for wireless sensing and communication",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 137,
+            "end_line": 137,
+            "matched_normalized_excerpt": "Chip-less,Self-poweredelectronicpatchforwirelesssensingandcommunication"
+          },
+          "fetch_text": {
+            "start_line": 75,
+            "end_line": 75,
+            "matched_normalized_excerpt": "Chip-less,Self-poweredelectronicpatchforwirelesssensingandcommunication"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "论文尾",
+          "reference_quote": "Flexible wide-range multidimensional force sensors inspired by bones embedded in muscle.",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 142,
+            "end_line": 142,
+            "matched_normalized_excerpt": "Flexiblewide-rangemultidimensionalforcesensorsinspiredbybonesembeddedinmuscle."
+          },
+          "fetch_text": {
+            "start_line": 80,
+            "end_line": 80,
+            "matched_normalized_excerpt": "Flexiblewide-rangemultidimensionalforcesensorsinspiredbybonesembeddedinmuscle."
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "专利首",
+          "reference_quote": "一种高密度微纳线圈柔性异质集成方法",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 149,
+            "end_line": 149,
+            "matched_normalized_excerpt": "一种高密度微纳线圈柔性异质集成方法"
+          },
+          "fetch_text": {
+            "start_line": 88,
+            "end_line": 88,
+            "matched_normalized_excerpt": "一种高密度微纳线圈柔性异质集成方法"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "专利尾",
+          "reference_quote": "ZL202311617338.7.",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 154,
+            "end_line": 154,
+            "matched_normalized_excerpt": "ZL202311617338.7."
+          },
+          "fetch_text": {
+            "start_line": 93,
+            "end_line": 93,
+            "matched_normalized_excerpt": "ZL202311617338.7."
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "软件著作",
+          "reference_quote": "运动数据同步分析工具软件V1.0",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 146,
+            "end_line": 146,
+            "matched_normalized_excerpt": "运动数据同步分析工具软件V1.0"
+          },
+          "fetch_text": {
+            "start_line": 86,
+            "end_line": 86,
+            "matched_normalized_excerpt": "运动数据同步分析工具软件V1.0"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "奖励尾",
+          "reference_quote": "自驱动智能感知微系统技术及应用",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 163,
+            "end_line": 163,
+            "matched_normalized_excerpt": "自驱动智能感知微系统技术及应用"
+          },
+          "fetch_text": {
+            "start_line": 105,
+            "end_line": 105,
+            "matched_normalized_excerpt": "自驱动智能感知微系统技术及应用"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "招生尾邮箱",
+          "reference_quote": "欢迎联系：drhejian@suda.edu.cn",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 187,
+            "end_line": 187,
+            "matched_normalized_excerpt": "欢迎联系:drhejian@suda.edu.cn"
+          },
+          "fetch_text": {
+            "start_line": 127,
+            "end_line": 127,
+            "matched_normalized_excerpt": "欢迎联系:drhejian@suda.edu.cn"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "专利小标题",
+          "reference_quote": "专利：",
+          "status": "omitted",
+          "official_html_visible_text": {
+            "start_line": 148,
+            "end_line": 148,
+            "matched_normalized_excerpt": "专利:"
+          },
+          "fetch_text": null,
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "空课程教学标签",
+          "reference_quote": "课程教学：",
+          "status": "omitted",
+          "official_html_visible_text": {
+            "start_line": 123,
+            "end_line": 123,
+            "matched_normalized_excerpt": "课程教学:"
+          },
+          "fetch_text": null,
+          "saved_ds_selected_text_contains": true
+        }
+      ],
+      "saved_ds_comparison": {
+        "new_model_calls": 0,
+        "body_selector": "#container-1",
+        "source_sha256": "bf04d8fcc2cb50fc0de6ed6bbb2ca009b9c507cb2b70807f52638d3ba4fc53c2",
+        "same_source": true
+      },
+      "notes": [
+        "专利小标题和空的课程教学标签遗漏；专利首尾和六条专利正文仍在。",
+        "标题/列表、邮箱及英文标点大量反斜杠转义；这不是独立字段抽取结果。"
+      ],
+      "completeness": "not_verified_by_spot_checks"
+    },
+    {
+      "id": "ncepu",
+      "url": "https://electric.ncepu.edu.cn/szdw/jsxx/gdyyjyjsyjs/a207300faea944298a27ba0a6d0c6c7b.htm",
+      "name": "王健",
+      "source": {
+        "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\live-tools-20261027\\browser\\ncepu\\source.html",
+        "sha256": "66bb6a155765c474408572867ef40d009bd98e53a0d86d69024321f37c428ba4",
+        "observed_at": "2026-10-27T12:35:16.908711+00:00",
+        "http_status": 200,
+        "text_coordinates": "BeautifulSoup(source.html).get_text(newline, strip=True), 1-based lines"
+      },
+      "fetch": {
+        "method": "deepseek-fetch",
+        "url": "https://electric.ncepu.edu.cn/szdw/jsxx/gdyyjyjsyjs/a207300faea944298a27ba0a6d0c6c7b.htm",
+        "provider_http_status": 200,
+        "observed_at": "2026-10-27T14:31:13.197332+00:00",
+        "started_at": "2026-10-27T14:31:08.285689+00:00",
+        "provider_response_sha256": "5c181f8f5ac1253a445ec51b5cb2b19365b589b3054850ef697ad8dc10146337",
+        "response_credential_redacted": false,
+        "origin_http_status": null,
+        "text_saved": true,
+        "failure": null,
+        "provider_title": "高电压与绝缘技术研究所",
+        "characters": 10627,
+        "content_sha256": "c714a3e8dd609d666392270d64be6a31af616a9fd1b0d118156844f2493dd292",
+        "calls": 1,
+        "not_origin_html": true,
+        "completeness": "not_verified"
+      },
+      "fetch_evidence_path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\live-tools-20261027\\deepseek-fetch\\ncepu",
+      "saved_content_file_sha256": "84116f841c519ea68aef1717ef69611ac5a19bfd2d65811e7eaeddf8c3bf9275",
+      "content_sha256_scope": "provider content string encoded as UTF-8; saved file hash separately records Windows newline conversion",
+      "fields": {
+        "name": {
+          "value": "王健",
+          "attribution": "manually_checked_against_saved_official_html",
+          "official_evidence": {
+            "start_line": 152,
+            "end_line": 153,
+            "matched_normalized_excerpt": "姓名:王健"
+          },
+          "fetch_field_source": {
+            "start_line": 5,
+            "end_line": 5,
+            "matched_normalized_excerpt": "姓名:王健"
+          },
+          "label": "name",
+          "reference_quote": "王健",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 146,
+            "end_line": 146,
+            "matched_normalized_excerpt": "王健"
+          },
+          "fetch_text": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "王健"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        "title": {
+          "value": "教授",
+          "attribution": "manually_checked_against_saved_official_html",
+          "official_evidence": {
+            "start_line": 154,
+            "end_line": 155,
+            "matched_normalized_excerpt": "职称:教授,博士生导师"
+          },
+          "fetch_field_source": {
+            "start_line": 7,
+            "end_line": 7,
+            "matched_normalized_excerpt": "职称:教授,博士生导师"
+          },
+          "label": "title",
+          "reference_quote": "教授",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 19,
+            "end_line": 19,
+            "matched_normalized_excerpt": "教授"
+          },
+          "fetch_text": {
+            "start_line": 7,
+            "end_line": 7,
+            "matched_normalized_excerpt": "教授"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        "email": {
+          "value": "wangjian31791@ncepu.edu.cn",
+          "attribution": "manually_checked_against_saved_official_html",
+          "official_evidence": {
+            "start_line": 165,
+            "end_line": 165,
+            "matched_normalized_excerpt": "电子邮箱:wangjian31791@ncepu.edu.cn"
+          },
+          "fetch_field_source": {
+            "start_line": 25,
+            "end_line": 25,
+            "matched_normalized_excerpt": "电子邮箱:wangjian31791@ncepu.edu.cn"
+          },
+          "label": "email",
+          "reference_quote": "wangjian31791@ncepu.edu.cn",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 165,
+            "end_line": 165,
+            "matched_normalized_excerpt": "wangjian31791@ncepu.edu.cn"
+          },
+          "fetch_text": {
+            "start_line": 25,
+            "end_line": 25,
+            "matched_normalized_excerpt": "wangjian31791@ncepu.edu.cn"
+          },
+          "saved_ds_selected_text_contains": true
+        }
+      },
+      "checkpoints": [
+        {
+          "label": "简介首",
+          "reference_quote": "王健，男，1985年12月生，教授，博士生导师",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 168,
+            "end_line": 168,
+            "matched_normalized_excerpt": "王健,男,1985年12月生,教授,博士生导师"
+          },
+          "fetch_text": {
+            "start_line": 31,
+            "end_line": 31,
+            "matched_normalized_excerpt": "王健,男,1985年12月生,教授,博士生导师"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "教育",
+          "reference_quote": "2017年在华北电力大学获得高电压与绝缘技术博士学位",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 170,
+            "end_line": 170,
+            "matched_normalized_excerpt": "2017年在华北电力大学获得高电压与绝缘技术博士学位"
+          },
+          "fetch_text": {
+            "start_line": 31,
+            "end_line": 31,
+            "matched_normalized_excerpt": "2017年在华北电力大学获得高电压与绝缘技术博士学位"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "研究",
+          "reference_quote": "先进绝缘材料（Advanced Insulation Materials）",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 162,
+            "end_line": 162,
+            "matched_normalized_excerpt": "先进绝缘材料(AdvancedInsulationMaterials)"
+          },
+          "fetch_text": {
+            "start_line": 19,
+            "end_line": 19,
+            "matched_normalized_excerpt": "先进绝缘材料(AdvancedInsulationMaterials)"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "简介中/学生培养",
+          "reference_quote": "中国研究生“双碳”创新与创意大赛二等奖",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 228,
+            "end_line": 228,
+            "matched_normalized_excerpt": "中国研究生“双碳”创新与创意大赛二等奖"
+          },
+          "fetch_text": {
+            "start_line": 105,
+            "end_line": 105,
+            "matched_normalized_excerpt": "中国研究生“双碳”创新与创意大赛二等奖"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "项目首",
+          "reference_quote": "高经济性多端异构换流装备轻量化集成研制",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 231,
+            "end_line": 231,
+            "matched_normalized_excerpt": "高经济性多端异构换流装备轻量化集成研制"
+          },
+          "fetch_text": {
+            "start_line": 111,
+            "end_line": 111,
+            "matched_normalized_excerpt": "高经济性多端异构换流装备轻量化集成研制"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "项目尾",
+          "reference_quote": "高压大功率****寿命及可靠性强化技术",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 241,
+            "end_line": 241,
+            "matched_normalized_excerpt": "高压大功率****寿命及可靠性强化技术"
+          },
+          "fetch_text": {
+            "start_line": 129,
+            "end_line": 129,
+            "matched_normalized_excerpt": "高压大功率****寿命及可靠性强化技术"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "奖励尾",
+          "reference_quote": "2023年日内瓦国际发明铜奖",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 248,
+            "end_line": 248,
+            "matched_normalized_excerpt": "2023年日内瓦国际发明铜奖"
+          },
+          "fetch_text": {
+            "start_line": 143,
+            "end_line": 143,
+            "matched_normalized_excerpt": "2023年日内瓦国际发明铜奖"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "论文首",
+          "reference_quote": "Gas-Generation Mechanism of Silicone Gel in High-Temperature Thermal Decomposition",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 251,
+            "end_line": 251,
+            "matched_normalized_excerpt": "Gas-GenerationMechanismofSiliconeGelinHigh-TemperatureThermalDecomposition"
+          },
+          "fetch_text": {
+            "start_line": 147,
+            "end_line": 147,
+            "matched_normalized_excerpt": "Gas-GenerationMechanismofSiliconeGelinHigh-TemperatureThermalDecomposition"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "论文中",
+          "reference_quote": "Motion Analysis of the Spherical Metal Particle in AC Gas-Insulated Lines",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 595,
+            "end_line": 595,
+            "matched_normalized_excerpt": "MotionAnalysisoftheSphericalMetalParticleinACGas-InsulatedLines"
+          },
+          "fetch_text": {
+            "start_line": 199,
+            "end_line": 199,
+            "matched_normalized_excerpt": "MotionAnalysisoftheSphericalMetalParticleinACGas-InsulatedLines"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "论文尾/简介尾",
+          "reference_quote": "含苯硫醚基团的低介损聚酰亚胺薄膜合成及其性能调控机制",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 892,
+            "end_line": 892,
+            "matched_normalized_excerpt": "含苯硫醚基团的低介损聚酰亚胺薄膜合成及其性能调控机制"
+          },
+          "fetch_text": {
+            "start_line": 247,
+            "end_line": 247,
+            "matched_normalized_excerpt": "含苯硫醚基团的低介损聚酰亚胺薄膜合成及其性能调控机制"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "论文尾页码",
+          "reference_quote": "4623-4633",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 899,
+            "end_line": 899,
+            "matched_normalized_excerpt": "4623-4633"
+          },
+          "fetch_text": {
+            "start_line": 247,
+            "end_line": 247,
+            "matched_normalized_excerpt": "4623-4633"
+          },
+          "saved_ds_selected_text_contains": true
+        }
+      ],
+      "saved_ds_comparison": {
+        "new_model_calls": 0,
+        "body_selector": "div.gp-article1",
+        "source_sha256": "66bb6a155765c474408572867ef40d009bd98e53a0d86d69024321f37c428ba4",
+        "same_source": true
+      },
+      "notes": [
+        "专业职称为教授；博士生导师另属导师资格，未代入职称。",
+        "官网本文无独立专利条目可核对，不能把该项记为Fetch遗漏。"
+      ],
+      "completeness": "not_verified_by_spot_checks"
+    },
+    {
+      "id": "shu",
+      "url": "https://physics.shu.edu.cn/info/1082/5653.htm",
+      "name": "张惠芳",
+      "source": {
+        "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\live-tools-20261027\\browser\\shu\\source.html",
+        "sha256": "fbe8b3c1da14819213ad8ef7fb8a9ab3b2d2f6506389ee8c4f6df09c55a3928a",
+        "observed_at": "2026-10-27T12:35:23.864243+00:00",
+        "http_status": 200,
+        "text_coordinates": "BeautifulSoup(source.html).get_text(newline, strip=True), 1-based lines"
+      },
+      "fetch": {
+        "method": "deepseek-fetch",
+        "url": "https://physics.shu.edu.cn/info/1082/5653.htm",
+        "provider_http_status": 200,
+        "observed_at": "2026-10-27T14:31:24.027717+00:00",
+        "started_at": "2026-10-27T14:31:19.192611+00:00",
+        "provider_response_sha256": "23d33a0eeb7cc2d7e29066f502d54fe96eb834a0ce3f43d538d2f4900519d18b",
+        "response_credential_redacted": false,
+        "origin_http_status": null,
+        "text_saved": true,
+        "failure": null,
+        "provider_title": "教师个人主页-张惠芳-上海大学理学院物理系",
+        "characters": 6309,
+        "content_sha256": "e4fec04075a84f66506b155f8553bc7040ea92c97ad29ab382b72ce82a5253d0",
+        "calls": 1,
+        "not_origin_html": true,
+        "completeness": "not_verified"
+      },
+      "fetch_evidence_path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\live-tools-20261027\\deepseek-fetch\\shu",
+      "saved_content_file_sha256": "1b97727138ece37720f592d260fe336cb73ef736e9e1ff6e6d653187a62cedb8",
+      "content_sha256_scope": "provider content string encoded as UTF-8; saved file hash separately records Windows newline conversion",
+      "fields": {
+        "name": {
+          "value": "张惠芳",
+          "attribution": "manually_checked_against_saved_official_html",
+          "official_evidence": {
+            "start_line": 69,
+            "end_line": 70,
+            "matched_normalized_excerpt": "姓名:张惠芳"
+          },
+          "fetch_field_source": {
+            "start_line": 5,
+            "end_line": 7,
+            "matched_normalized_excerpt": "姓名:张惠芳"
+          },
+          "label": "name",
+          "reference_quote": "张惠芳",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "张惠芳"
+          },
+          "fetch_text": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "张惠芳"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        "title": {
+          "value": "副研究员",
+          "attribution": "manually_checked_against_saved_official_html",
+          "official_evidence": {
+            "start_line": 71,
+            "end_line": 72,
+            "matched_normalized_excerpt": "职称:副研究员"
+          },
+          "fetch_field_source": {
+            "start_line": 11,
+            "end_line": 13,
+            "matched_normalized_excerpt": "职称:副研究员"
+          },
+          "label": "title",
+          "reference_quote": "副研究员",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 72,
+            "end_line": 72,
+            "matched_normalized_excerpt": "副研究员"
+          },
+          "fetch_text": {
+            "start_line": 13,
+            "end_line": 13,
+            "matched_normalized_excerpt": "副研究员"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        "email": {
+          "value": "hfzhang1967@shu.edu.cn",
+          "attribution": "manually_checked_against_saved_official_html",
+          "official_evidence": {
+            "start_line": 88,
+            "end_line": 88,
+            "matched_normalized_excerpt": "hfzhang1967@shu.edu.cn"
+          },
+          "fetch_field_source": {
+            "start_line": 27,
+            "end_line": 27,
+            "matched_normalized_excerpt": "hfzhang1967@shu.edu.cn"
+          },
+          "label": "email",
+          "reference_quote": "hfzhang1967@shu.edu.cn",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 88,
+            "end_line": 88,
+            "matched_normalized_excerpt": "hfzhang1967@shu.edu.cn"
+          },
+          "fetch_text": {
+            "start_line": 27,
+            "end_line": 27,
+            "matched_normalized_excerpt": "hfzhang1967@shu.edu.cn"
+          },
+          "saved_ds_selected_text_contains": true
+        }
+      },
+      "checkpoints": [
+        {
+          "label": "简介首/本人身份",
+          "reference_quote": "姓名：张惠芳",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 69,
+            "end_line": 70,
+            "matched_normalized_excerpt": "姓名:张惠芳"
+          },
+          "fetch_text": {
+            "start_line": 5,
+            "end_line": 7,
+            "matched_normalized_excerpt": "姓名:张惠芳"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "教育",
+          "reference_quote": "1998-09 至 2003-07, 吉林大学物理学院, 光学专业, 理学博士",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 97,
+            "end_line": 97,
+            "matched_normalized_excerpt": "1998-09至2003-07,吉林大学物理学院,光学专业,理学博士"
+          },
+          "fetch_text": {
+            "start_line": 45,
+            "end_line": 45,
+            "matched_normalized_excerpt": "1998-09至2003-07,吉林大学物理学院,光学专业,理学博士"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "工作",
+          "reference_quote": "2005-04 至 今, 上海大学, 理学院物理系, 副研究员",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 102,
+            "end_line": 102,
+            "matched_normalized_excerpt": "2005-04至今,上海大学,理学院物理系,副研究员"
+          },
+          "fetch_text": {
+            "start_line": 55,
+            "end_line": 55,
+            "matched_normalized_excerpt": "2005-04至今,上海大学,理学院物理系,副研究员"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "研究",
+          "reference_quote": "微纳光子学、超材料、量子光学",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 92,
+            "end_line": 92,
+            "matched_normalized_excerpt": "微纳光子学、超材料、量子光学"
+          },
+          "fetch_text": {
+            "start_line": 35,
+            "end_line": 35,
+            "matched_normalized_excerpt": "微纳光子学、超材料、量子光学"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "简介中/论文",
+          "reference_quote": "Tunable surface plasmon polaritons in the graphene and metamaterials structures",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 157,
+            "end_line": 157,
+            "matched_normalized_excerpt": "Tunablesurfaceplasmonpolaritonsinthegrapheneandmetamaterialsstructures"
+          },
+          "fetch_text": {
+            "start_line": 87,
+            "end_line": 87,
+            "matched_normalized_excerpt": "Tunablesurfaceplasmonpolaritonsinthegrapheneandmetamaterialsstructures"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "论文首",
+          "reference_quote": "Tunable multiple plasmon-induced transparencies in multiple T-shaped cavities waveguide based on Dirac semimetals",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 110,
+            "end_line": 110,
+            "matched_normalized_excerpt": "Tunablemultipleplasmon-inducedtransparenciesinmultipleT-shapedcavitieswaveguidebasedonDiracsemimetals"
+          },
+          "fetch_text": {
+            "start_line": 67,
+            "end_line": 67,
+            "matched_normalized_excerpt": "Tunablemultipleplasmon-inducedtransparenciesinmultipleT-shapedcavitieswaveguidebasedonDiracsemimetals"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "论文尾",
+          "reference_quote": "Quantum-interference effects on the index of refraction in an Er3+-doped Yttrium Aluminum Garnet crystal",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 269,
+            "end_line": 271,
+            "matched_normalized_excerpt": "Quantum-interferenceeffectsontheindexofrefractioninanEr3+-dopedYttriumAluminumGarnetcrystal"
+          },
+          "fetch_text": {
+            "start_line": 117,
+            "end_line": 117,
+            "matched_normalized_excerpt": "Quantum-interferenceeffectsontheindexofrefractioninanEr3+-dopedYttriumAluminumGarnetcrystal"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "专利",
+          "reference_quote": "ZL03111442.3",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 276,
+            "end_line": 276,
+            "matched_normalized_excerpt": "ZL03111442.3"
+          },
+          "fetch_text": {
+            "start_line": 121,
+            "end_line": 121,
+            "matched_normalized_excerpt": "ZL03111442.3"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "专利批准号",
+          "reference_quote": "CN1188742.C",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 277,
+            "end_line": 277,
+            "matched_normalized_excerpt": "CN1188742.C"
+          },
+          "fetch_text": {
+            "start_line": 121,
+            "end_line": 121,
+            "matched_normalized_excerpt": "CN1188742.C"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "项目首",
+          "reference_quote": "11804219",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 281,
+            "end_line": 281,
+            "matched_normalized_excerpt": "11804219"
+          },
+          "fetch_text": {
+            "start_line": 127,
+            "end_line": 127,
+            "matched_normalized_excerpt": "11804219"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "项目尾",
+          "reference_quote": "基于飞秒脉冲整形和绝热传输实现超快相干布局转移控制研究",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 291,
+            "end_line": 291,
+            "matched_normalized_excerpt": "基于飞秒脉冲整形和绝热传输实现超快相干布局转移控制研究"
+          },
+          "fetch_text": {
+            "start_line": 133,
+            "end_line": 133,
+            "matched_normalized_excerpt": "基于飞秒脉冲整形和绝热传输实现超快相干布局转移控制研究"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "简介尾",
+          "reference_quote": "鼓励和督促学生学习考研",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 295,
+            "end_line": 295,
+            "matched_normalized_excerpt": "鼓励和督促学生学习考研"
+          },
+          "fetch_text": {
+            "start_line": 141,
+            "end_line": 141,
+            "matched_normalized_excerpt": "鼓励和督促学生学习考研"
+          },
+          "saved_ds_selected_text_contains": true
+        }
+      ],
+      "saved_ds_comparison": {
+        "new_model_calls": 0,
+        "body_selector": "div.v_news_content",
+        "source_sha256": "fbe8b3c1da14819213ad8ef7fb8a9ab3b2d2f6506389ee8c4f6df09c55a3928a",
+        "same_source": true
+      },
+      "notes": [
+        "硕士生导师属于导师资格；官网表格明确专业职称为副研究员。",
+        "表格转为分散行并出现转义的---|---，姓名/职称/邮箱文字仍在，表格结构不再可靠。"
+      ],
+      "completeness": "not_verified_by_spot_checks"
+    },
+    {
+      "id": "ecnu",
+      "url": "https://faculty.ecnu.edu.cn/_s41/lyq2/main.psp",
+      "name": "李艳青",
+      "source": {
+        "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\live-tools-20261027\\browser\\ecnu\\source.html",
+        "sha256": "4481b16ede48017eb6e0058f81ad751f735964e6c194d676c05b2cc80998579b",
+        "observed_at": "2026-10-27T12:35:26.952498+00:00",
+        "http_status": 200,
+        "text_coordinates": "BeautifulSoup(source.html).get_text(newline, strip=True), 1-based lines"
+      },
+      "fetch": {
+        "method": "deepseek-fetch",
+        "url": "https://faculty.ecnu.edu.cn/_s41/lyq2/main.psp",
+        "provider_http_status": 200,
+        "observed_at": "2026-10-27T14:31:37.942455+00:00",
+        "started_at": "2026-10-27T14:31:32.752125+00:00",
+        "provider_response_sha256": "2ec691db7d9694cc5058398f13c71e54713d9a5366429ddb77fac7191187c84a",
+        "response_credential_redacted": false,
+        "origin_http_status": null,
+        "text_saved": true,
+        "failure": null,
+        "provider_title": "华东师范大学 East China Normal University 李艳青",
+        "characters": 886,
+        "content_sha256": "d8513b879f83489574cdea11c27de35787317332940b222646ab4ba19ed7419c",
+        "calls": 1,
+        "not_origin_html": true,
+        "completeness": "not_verified"
+      },
+      "fetch_evidence_path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\live-tools-20261027\\deepseek-fetch\\ecnu",
+      "saved_content_file_sha256": "e0effcff3fab29e19d0a13687347400ec55514d5bdd5f1374ae610f29687f21c",
+      "content_sha256_scope": "provider content string encoded as UTF-8; saved file hash separately records Windows newline conversion",
+      "fields": {
+        "name": {
+          "value": "李艳青",
+          "attribution": "manually_checked_against_saved_official_html",
+          "official_evidence": {
+            "start_line": 8,
+            "end_line": 9,
+            "matched_normalized_excerpt": "李艳青教授"
+          },
+          "fetch_field_source": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "李艳青"
+          },
+          "label": "name",
+          "reference_quote": "李艳青",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "李艳青"
+          },
+          "fetch_text": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "李艳青"
+          },
+          "saved_ds_selected_text_contains": false
+        },
+        "title": {
+          "value": "教授",
+          "attribution": "manually_checked_against_saved_official_html",
+          "official_evidence": {
+            "start_line": 52,
+            "end_line": 53,
+            "matched_normalized_excerpt": "2019年-至今,华东师范大学,物理与电子科学学院,教授"
+          },
+          "fetch_field_source": {
+            "start_line": 27,
+            "end_line": 27,
+            "matched_normalized_excerpt": "2019年-至今,华东师范大学,物理与电子科学学院,教授"
+          },
+          "label": "title",
+          "reference_quote": "教授",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 9,
+            "end_line": 9,
+            "matched_normalized_excerpt": "教授"
+          },
+          "fetch_text": {
+            "start_line": 27,
+            "end_line": 27,
+            "matched_normalized_excerpt": "教授"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        "email": {
+          "value": "yqli@phy.ecnu.edu.cn",
+          "attribution": "manually_checked_against_saved_official_html",
+          "official_evidence": {
+            "start_line": 39,
+            "end_line": 40,
+            "matched_normalized_excerpt": "电子邮箱:yqli@phy.ecnu.edu.cn"
+          },
+          "fetch_field_source": {
+            "start_line": 13,
+            "end_line": 13,
+            "matched_normalized_excerpt": "电子邮箱:yqli@phy.ecnu.edu.cn"
+          },
+          "label": "email",
+          "reference_quote": "yqli@phy.ecnu.edu.cn",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 40,
+            "end_line": 40,
+            "matched_normalized_excerpt": "yqli@phy.ecnu.edu.cn"
+          },
+          "fetch_text": {
+            "start_line": 13,
+            "end_line": 13,
+            "matched_normalized_excerpt": "yqli@phy.ecnu.edu.cn"
+          },
+          "saved_ds_selected_text_contains": true
+        }
+      },
+      "checkpoints": [
+        {
+          "label": "简介首/教育",
+          "reference_quote": "2004年-2008年，香港城市大学，材料物理，博士",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 46,
+            "end_line": 47,
+            "matched_normalized_excerpt": "2004年-2008年,香港城市大学,材料物理,博士"
+          },
+          "fetch_text": {
+            "start_line": 19,
+            "end_line": 19,
+            "matched_normalized_excerpt": "2004年-2008年,香港城市大学,材料物理,博士"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "教育尾",
+          "reference_quote": "1997年-2001年，浙江大学，物理学，学士",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 49,
+            "end_line": 50,
+            "matched_normalized_excerpt": "1997年-2001年,浙江大学,物理学,学士"
+          },
+          "fetch_text": {
+            "start_line": 23,
+            "end_line": 23,
+            "matched_normalized_excerpt": "1997年-2001年,浙江大学,物理学,学士"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "工作",
+          "reference_quote": "2003年-2004年，新加坡材料研究及工程研究所（IMRE），研究助理",
+          "status": "format_changed",
+          "official_html_visible_text": {
+            "start_line": 60,
+            "end_line": 60,
+            "matched_normalized_excerpt": "2003年-2004年,新加坡材料研究及工程研究所(IMRE),研究助理"
+          },
+          "fetch_text": {
+            "start_line": 33,
+            "end_line": 33,
+            "matched_normalized_excerpt": "2003年-2004年,新加坡材料研究及工程研究所(IMRE),研究助理"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "简介中/论文概述",
+          "reference_quote": "等期刊发表SCI论文200余篇，引用1万余次，H因子58",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 66,
+            "end_line": 75,
+            "matched_normalized_excerpt": "等期刊发表SCI论文200余篇,引用1万余次,H因子58"
+          },
+          "fetch_text": {
+            "start_line": 37,
+            "end_line": 37,
+            "matched_normalized_excerpt": "等期刊发表SCI论文200余篇,引用1万余次,H因子58"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "专利概述",
+          "reference_quote": "授权发明专利20余项",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 77,
+            "end_line": 79,
+            "matched_normalized_excerpt": "授权发明专利20余项"
+          },
+          "fetch_text": {
+            "start_line": 37,
+            "end_line": 37,
+            "matched_normalized_excerpt": "授权发明专利20余项"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "项目概述",
+          "reference_quote": "科技部国家重点研发计划课题",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 86,
+            "end_line": 86,
+            "matched_normalized_excerpt": "科技部国家重点研发计划课题"
+          },
+          "fetch_text": {
+            "start_line": 37,
+            "end_line": 37,
+            "matched_normalized_excerpt": "科技部国家重点研发计划课题"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "研究首",
+          "reference_quote": "新型显示发光材料与器件",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 89,
+            "end_line": 89,
+            "matched_normalized_excerpt": "新型显示发光材料与器件"
+          },
+          "fetch_text": {
+            "start_line": 43,
+            "end_line": 43,
+            "matched_normalized_excerpt": "新型显示发光材料与器件"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "简介尾/研究尾",
+          "reference_quote": "柔性光电材料与器件集成",
+          "status": "retained",
+          "official_html_visible_text": {
+            "start_line": 91,
+            "end_line": 91,
+            "matched_normalized_excerpt": "柔性光电材料与器件集成"
+          },
+          "fetch_text": {
+            "start_line": 47,
+            "end_line": 47,
+            "matched_normalized_excerpt": "柔性光电材料与器件集成"
+          },
+          "saved_ds_selected_text_contains": true
+        },
+        {
+          "label": "姓名卡职称",
+          "reference_quote": "李艳青教授教授物理与电子科学学院",
+          "status": "omitted",
+          "official_html_visible_text": {
+            "start_line": 8,
+            "end_line": 11,
+            "matched_normalized_excerpt": "李艳青教授教授物理与电子科学学院"
+          },
+          "fetch_text": null,
+          "saved_ds_selected_text_contains": false
+        }
+      ],
+      "saved_ds_comparison": {
+        "new_model_calls": 0,
+        "body_selector": "#container-1",
+        "source_sha256": "4481b16ede48017eb6e0058f81ad751f735964e6c194d676c05b2cc80998579b",
+        "same_source": true
+      },
+      "notes": [
+        "姓名卡中独立的教授标签被省去；2019年至今的工作经历仍明确保留教授。",
+        "官网科研项目/学术成果标题下无独立明细；本页仅能核对简介中的项目、论文和专利概述。"
+      ],
+      "completeness": "not_verified_by_spot_checks"
+    }
+  ]
+}

@@ -1,0 +1,213 @@
+{
+  "id": "n02_zju_yingxiaoying",
+  "source": {
+    "path": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C\\outputs\\diverse-pages-20261027\\cohort\\n02_zju_yingxiaoying\\cli\\0001\\source.html",
+    "sha256": "91130859ae152643361af18c6600742b9ebe46144a069856b841a740b690fafc",
+    "bytes": 18786
+  },
+  "fields": {
+    "name": {
+      "source_value": "应晓英",
+      "source_lines": {
+        "start_line": 23,
+        "end_line": 23,
+        "matched_normalized_excerpt": "应晓英"
+      },
+      "baseline": "",
+      "baseline_matches": false,
+      "fetch_raw_presence": {
+        "start_line": 22,
+        "end_line": 22,
+        "matched_normalized_excerpt": "应晓英"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "browser": "",
+        "crawlee": null,
+        "crawl4ai": null,
+        "trafilatura": ""
+      }
+    },
+    "title": {
+      "source_value": "研究员",
+      "source_lines": {
+        "start_line": 25,
+        "end_line": 25,
+        "matched_normalized_excerpt": "研究员"
+      },
+      "baseline": "",
+      "baseline_matches": false,
+      "fetch_raw_presence": {
+        "start_line": 24,
+        "end_line": 24,
+        "matched_normalized_excerpt": "研究员"
+      },
+      "fetch_binding": "presence only; no independent structured field extraction",
+      "methods": {
+        "browser": "",
+        "crawlee": null,
+        "crawl4ai": null,
+        "trafilatura": ""
+      }
+    }
+  },
+  "checkpoints": [
+    {
+      "section": "姓名卡",
+      "quote": "应晓英",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 23,
+        "end_line": 23,
+        "matched_normalized_excerpt": "应晓英"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 22,
+            "end_line": 22,
+            "matched_normalized_excerpt": "应晓英"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 22,
+            "end_line": 22,
+            "matched_normalized_excerpt": "应晓英"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 12,
+            "end_line": 12,
+            "matched_normalized_excerpt": "应晓英"
+          }
+        },
+        "crawlee_raw": {
+          "status": "omitted",
+          "lines": null
+        },
+        "crawl4ai_raw": {
+          "status": "omitted",
+          "lines": null
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 1,
+            "end_line": 1,
+            "matched_normalized_excerpt": "应晓英"
+          }
+        }
+      }
+    },
+    {
+      "section": "研究元数据",
+      "quote": "药剂学",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 29,
+        "end_line": 29,
+        "matched_normalized_excerpt": "药剂学"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 28,
+            "end_line": 28,
+            "matched_normalized_excerpt": "药剂学"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 28,
+            "end_line": 28,
+            "matched_normalized_excerpt": "药剂学"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 17,
+            "end_line": 17,
+            "matched_normalized_excerpt": "药剂学"
+          }
+        },
+        "crawlee_raw": {
+          "status": "omitted",
+          "lines": null
+        },
+        "crawl4ai_raw": {
+          "status": "omitted",
+          "lines": null
+        },
+        "trafilatura_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 10,
+            "end_line": 10,
+            "matched_normalized_excerpt": "药剂学"
+          }
+        }
+      }
+    },
+    {
+      "section": "末端栏目",
+      "quote": "研究与成果",
+      "source_verified": true,
+      "source_lines": {
+        "start_line": 32,
+        "end_line": 32,
+        "matched_normalized_excerpt": "研究与成果"
+      },
+      "methods": {
+        "baseline_biography": {
+          "status": "retained",
+          "lines": {
+            "start_line": 31,
+            "end_line": 31,
+            "matched_normalized_excerpt": "研究与成果"
+          }
+        },
+        "deepseek_fetch_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 31,
+            "end_line": 31,
+            "matched_normalized_excerpt": "研究与成果"
+          }
+        },
+        "browser_raw": {
+          "status": "retained",
+          "lines": {
+            "start_line": 20,
+            "end_line": 20,
+            "matched_normalized_excerpt": "研究与成果"
+          }
+        },
+        "crawlee_raw": {
+          "status": "omitted",
+          "lines": null
+        },
+        "crawl4ai_raw": {
+          "status": "omitted",
+          "lines": null
+        },
+        "trafilatura_raw": {
+          "status": "omitted",
+          "lines": null
+        }
+      }
+    }
+  ],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "原HTTP和Fetch主要是姓名/研究员/药剂学/栏目名；正常Edge也未取得完整简介或成果。Crawlee与Crawl4AI均403，不能当教师正文。元数据可见不证明动态内容已读。",
+  "scope_gaps": [
+    "HTTP原件只有个人元数据和栏目名，未取到学习/工作/成果正文；不能由script存在推定JS渲染成功"
+  ]
+}

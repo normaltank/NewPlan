@@ -1,0 +1,14 @@
+{
+  "model": "fictional-cache-example",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "message": {
+        "content": "{\"url\": \"https://example.edu/chen\", \"name\": {\"value\": \"陈晨\", \"evidence\": \"陈晨\"}, \"title\": {\"value\": \"教授\", \"evidence\": \"陈晨，教授。邮箱：chen@example.edu\"}, \"email\": {\"value\": \"chen@example.edu\", \"evidence\": \"陈晨，教授。邮箱：chen@example.edu\"}, \"body_selector\": \"main\"}"
+      }
+    }
+  ],
+  "usage": {
+    "total_tokens": 42
+  }
+}

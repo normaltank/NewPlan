@@ -1,0 +1,211 @@
+{
+  "baseline": "aebe8d9b440466b6b786f93461ff75715fbd935e",
+  "reviewed_payload_head": "5b1a28ca866a67399f9d29ea3fc8caaf2afc2b86",
+  "payload_tree": "d2eab90594c85c83b3bdffe4c23cbb87d811154c",
+  "roles": [
+    {
+      "role": "core implementer",
+      "agent": "/root/v2_batch_core_implementer",
+      "issue": 44,
+      "source": "20c29ae885b59b347884a9876add0d9740791a10"
+    },
+    {
+      "role": "initial UI implementer",
+      "agent": "/root/v2_ui_implementer",
+      "issue": 45,
+      "source": "dcfc41cdd82a71d211a185787c1413e3c186c3d7"
+    },
+    {
+      "role": "server implementer",
+      "agent": "/root/v2_server_implementer",
+      "issue": 46,
+      "source": "f28b6633010e7ee22907e1cd67b0830a81fa4135"
+    },
+    {
+      "role": "concentrated review-fix implementer",
+      "agent": "/root/v2_review_fixer",
+      "source": "0c5455a66a3582761b001d5e942f83fe6081594c"
+    },
+    {
+      "role": "simple UI implementer",
+      "agent": "/root/v2_simple_ui_implementer",
+      "issue": 45,
+      "source": "54feb6165266fb7a2c818bf51673022fe10331b8"
+    },
+    {
+      "role": "serial merger",
+      "agent": "/root/v2_batch_merger",
+      "integration": "5b1a28ca866a67399f9d29ea3fc8caaf2afc2b86"
+    },
+    {
+      "role": "Standards reviewer",
+      "agent": "/root/v2_standards_review"
+    },
+    {
+      "role": "Spec reviewer",
+      "agent": "/root/v2_spec_review"
+    }
+  ],
+  "agent_configuration": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "fork_turns": "none"
+  },
+  "integration_chain": [
+    "d36e87c830f6a93720513618dae9189f96fe7447",
+    "1778658e286937c64ae12265664dfa472129c385",
+    "0296ef6860a0b26ddc8f304faf25b04d68188f0b",
+    "0ddd82130074397c6af5c0f2b61de89aee835f7e",
+    "1636ea9fb1117dfe0c246a80f12480eaede0c39c",
+    "7ad0e16a3ef55656613fc08962d5cd74cbbbbb31",
+    "2b80f8bc6469e168b42dfbee22eb46e7d4163a48",
+    "5b1a28ca866a67399f9d29ea3fc8caaf2afc2b86"
+  ],
+  "review_history": {
+    "1636": "Standards blocking0/nonblocking1; Spec P1 news/maintenance",
+    "7ad": "Standards P3 archived-title text; Spec remaining P1 common service headings",
+    "5b": "Standards blocking0/newnonblocking0, prior CLI smell deferred; Spec PASS0"
+  },
+  "exact_code_verification": {
+    "merger_delivery_http": {
+      "tests": 3,
+      "seconds": 21.786
+    },
+    "merger_simple_edge": {
+      "tests": 3,
+      "seconds": 44.487
+    },
+    "merger_workbench_edge": {
+      "tests": 1,
+      "seconds": 16.442
+    },
+    "independent_spec_qc": {
+      "synthetic_tasks": 11,
+      "teachers": 3,
+      "exceptions": 8,
+      "originals_exact": 11
+    },
+    "standards_focused": {
+      "qc_tests": 2,
+      "http_tests": 1
+    }
+  },
+  "historical_optional_regression": {
+    "head": "1636ea9fb1117dfe0c246a80f12480eaede0c39c",
+    "tests": 84,
+    "seconds": 331.06,
+    "skipped": 0
+  },
+  "historical_ci": [
+    {
+      "head": "1636ea9",
+      "run": 40798763723,
+      "all_three_jobs": "success"
+    },
+    {
+      "head": "7ad0e16",
+      "run": 40800444806,
+      "all_three_jobs": "success"
+    }
+  ],
+  "final_ci_record": "https://github.com/normaltank/NewPlan/issues/43",
+  "physical_delivery": {
+    "directory": "D:\\Agent Workspace\\Intern\\MyPlan\\OpenSource\\Mission C",
+    "tracked_files": 69,
+    "real_input_files": 19,
+    "real_input_tasks": 1180,
+    "real_processed": 0,
+    "input_hashes_unchanged": true,
+    "other_dirty_entries_unchanged": 53,
+    "simple_download": {
+      "teachers": 1,
+      "records": 3,
+      "exceptions": 2,
+      "binding_files_verified": 20
+    },
+    "headless_once_exit": 0,
+    "completed_artifact_files_unchanged": 23,
+    "desktop_and_mobile": true
+  },
+  "payload_sha256": {
+    "Mission C/.gitignore": "da4379132edf3f4505e35601daf4123f4d67c58496a766ee2e023e7c58ef3c2d",
+    "Mission C/BATCH.md": "2766863bba8ef41ac35a7955c4a9a7f5ddf58ec7fd7a139ae568a76b8fd81685",
+    "Mission C/README.md": "627005335516e2068624a8132bf57e22960c354de71484006643cbe5d2d680e3",
+    "Mission C/SERVER.md": "0ccb11c66fac03f71c8d39d75fd222580998dfbcc3e105434b5b96eb5560c76e",
+    "Mission C/WEB.md": "3404c279b96ccd599ec16109a13e91829a8079980c0b1bae32f80f0f5e12c1be",
+    "Mission C/batch.py": "f940c5fa7b710ea24f924ddf46aaf9429aec40cdded671d64b197ca653cc2ab5",
+    "Mission C/collect.py": "d1811b137db5dc13e39c8f2bc29bb3b5f6f6b6560b51dfd27784a4b21437b02a",
+    "Mission C/examples/assisted-cache/.gitattributes": "abc5814fac29fc8a0647b1261c80e8df028959f96715b218ba14deef01544026",
+    "Mission C/examples/assisted-cache/fallback.json": "bb7681bf4df959463bff87ceaa64116009bcbbfdac927ec4f6349868bf95e325",
+    "Mission C/examples/assisted-cache/local.html": "27a64cf4d566b8ecc9894d703531b1a106c428d3c9aabec0d352065681fa12ef",
+    "Mission C/examples/assisted-cache/manifest.json": "a7b2a21712023835ef422b3ab821999bf341992d76f025826e8c4e46795b0979",
+    "Mission C/examples/assisted-cache/model.json": "ba9123482fc2b35f8a80d1c0079c598f68845fd9fe3c9717e28618f05442038b",
+    "Mission C/examples/assisted-cache/supplement.json": "2785945df176082c80bc0248c9f70af6ea0f4d88c198ae3ea313da198ac42d3e",
+    "Mission C/examples/teacher.html": "7bf261f5bc6b50634ed91059023b36e0e3b04ab467c7f027e85c84f403d2bf41",
+    "Mission C/mission_c/__init__.py": "8af00f25415eb1a211a1e8a7160bd42a18168cb269077595b92aa6bf96af0594",
+    "Mission C/mission_c/assisted.py": "660e4a032e97700f254619c47d5a0341eaf738da8bdece061d0c94dff8e8205b",
+    "Mission C/mission_c/batch.py": "0718aa6cf4d73e0656b0a2b80ab73953a91bd6cbeec19951f9371857bbee0946",
+    "Mission C/mission_c/batch_delivery.py": "caeeddc2f45aaa6861b876504cde1ac0ab693c17c0d02f43a420cc99485d69dc",
+    "Mission C/mission_c/batch_quality.py": "60cbf0697c7fa99ae8d29b520ec426af464ab8a85efed1d38a62c28707f18ed1",
+    "Mission C/mission_c/cli.py": "a4492b4354e13acf1f5202af87e32ff6f5d090c828bc9d39384d5fba535e3b17",
+    "Mission C/mission_c/delivery_static/app.css": "ad23a3e74443a5970f2a015bd9a63dd6fd260f5775ecbcc0a1117e60d9412194",
+    "Mission C/mission_c/delivery_static/app.js": "90b578ff77f03ad84d4501bd7f12bff9a66612ba22ebc38a9ac236b8ca917e65",
+    "Mission C/mission_c/delivery_static/index.html": "6751aa76d754ff5ca11e63b78f5b46f4e52aee72c2a305c891da2e158bea3be6",
+    "Mission C/mission_c/export.py": "690c16d3456c527f88e60a431c7780b18057aee84a8752d021a8467099375453",
+    "Mission C/mission_c/extract.py": "a9ed1cbc77e81afe76c9b6cd2f8042050d00fcdac1eef8e7bd71ea8a0eba1ff1",
+    "Mission C/mission_c/fetch.py": "cc1775b91620cfbc1bfed52468b930c6f88165f1d85032f13b223c25b4b74d0e",
+    "Mission C/mission_c/media.py": "44b317ac491f562f20a6148dd3afd6033610f563645025ef214fa25ada2fbe5c",
+    "Mission C/mission_c/model_assist.py": "e52eb61eaf499b1a29c9366c5d942030b0edac00e26c7cd23c3c384c47021f66",
+    "Mission C/mission_c/ocr_media.py": "0a0d169adf096dafe33332d94456830d932d8a1046d670fe6d5cb9a0eabaa240",
+    "Mission C/mission_c/person_names.py": "b7d9a0182c6d6f08d5361dfad14688b81b255459f564a0acf2d20810c606a7f3",
+    "Mission C/mission_c/profile_layouts.py": "d454ae078b309387250671c3f318bcc8b78bbd9d2e9f8e40b534a8e750e4b71c",
+    "Mission C/mission_c/quality_fields.py": "3a14e3c206c7ffbc54ede86c0358883e738bb3859e69b59583e107c98f081517",
+    "Mission C/mission_c/render.py": "c37216e9b7a0c7afeed7287ed844e92996f0e5bd394b2c35d90d0869d8def1ab",
+    "Mission C/mission_c/web.py": "6fa19a914c53de4d1d9a3e251443cee0c7408bc28f35178d71e0dda2b908e691",
+    "Mission C/mission_c/web_static/app.js": "6ce5db495dd8886445cf2984dbd53a88ed5627451264f324753d9446251c30f3",
+    "Mission C/mission_c/web_static/index.html": "0d75ff58020ecc670723fd272ceb1b3adeea7eea0da747a0bc7efd3c8fb0f09f",
+    "Mission C/mission_c/web_static/style.css": "87c3d400718a0ebc43a15449dffca5a84ca351189eec81595712d7a3d077fe5e",
+    "Mission C/prepare_cache.py": "6b1011503440cfdea8321d2e57ed98b60686100141abb4a2650054cb04869ae4",
+    "Mission C/replay.bat": "97f43685b2c79f192266ba43c8c4121c06fb3c1007cf4ad5d29fceae9992b7b5",
+    "Mission C/replay.py": "f0387cf946de6cd8405cfb9d466e6d1d3ba909db93a60f2de90a1f1f68d949e4",
+    "Mission C/requirements-browser.txt": "1e9ae3a00467e4dc890396bb45de8dc76110ed6cc38684194cef37ac0fa7a713",
+    "Mission C/requirements-ocr.txt": "f9c282fad5d7767248530eb1616603daad8cdc559ba9a29b207d6f70d9b9e194",
+    "Mission C/requirements-web.txt": "8180ab0e2e2fe22cc5bf83d3d6d7a4c9b260de58b3ea87e767293262165f421b",
+    "Mission C/requirements.txt": "8443bba648cce42d7e7068c266848d4b0d4a8ac61727a598a98c7c2b2ecadfd6",
+    "Mission C/run.bat": "c7b5f523faac1845a1a09bb74b79e6cd66e3db103d601eba58515d15a63141ab",
+    "Mission C/schedule-examples/cron.example": "9d343d125bc4613f63222328ccb8b795772d2734a2e2a891be72c7ea3918c9c4",
+    "Mission C/schedule-examples/mission-c-scan.service": "2bcd4e71bdf8b5c7f661f6552f4e97bff08b921f40e3fe47eedebc9a1f7509fb",
+    "Mission C/schedule-examples/mission-c-scan.timer": "a076951e5a7a863fe82afd5ea1548770dd0a99af56b1e3220d67801901f7913e",
+    "Mission C/schedule-examples/mission-c-watch.service": "31d6d05a111aad05d2746f1a587354427e6992c74c87e1bee8a86930d52abd3c",
+    "Mission C/schedule-examples/windows-scan.ps1": "958df0794b05cfd2c38c4513d1d40fffe5fb33a7b538c89e3a844d12e7addb76",
+    "Mission C/server.bat": "c1f5b2ea8aa26994e5894840355ae3d78da08dc0eaeba9836893d9fa9dea1fcb",
+    "Mission C/server.py": "6e76fda2f607f50f5557f1804f51687dcfc9e65a7201dc403aadeb11173b66ab",
+    "Mission C/server.sh": "008ef7dbd9044947a7fd7ece49480884165db507d1e1183077eaf6c08120ffd3",
+    "Mission C/setup.bat": "fd20c273b751b46683b22faf4ec438fd8ae34b2e843824843e4ac4a1cd790111",
+    "Mission C/setup.sh": "e29dbb8fac8ee736001805507b15f85c5490be49950d61c143d4de0b1f9688c8",
+    "Mission C/tests/test_assisted_fetch_cli.py": "989996efbc7d541e1b4afca7948ff074b7f80746ec42d5b5301560649214456d",
+    "Mission C/tests/test_assisted_fields_cli.py": "9b66dad39db817187f0ec12943c231402a2892d00a5427755ab9330e70a309c1",
+    "Mission C/tests/test_batch.py": "25a6cc3c4c241e595c8bc5785c568f159c3a367d859e8fc74d809af9ef5cb5b4",
+    "Mission C/tests/test_cache_delivery_cli.py": "e6d2311d3bd2aaa2699f4179bfb1638120a4017cfb4c79e97a2cf04dbb209845",
+    "Mission C/tests/test_cli.py": "8c557c2b7b85fb367d1c99d4b6d711af592e90d3e4693cb671920e3d67a20bc3",
+    "Mission C/tests/test_delivery_browser.py": "fae5a1bb16ceb56627b81a2f28188b7dea4deb75f837eebec48ef0a3d2fcee08",
+    "Mission C/tests/test_name_evidence_cli.py": "288ba60595dc930279d1203e011bde0e7ee9f4d57b874210d24b20faa9642428",
+    "Mission C/tests/test_server_cli.py": "7c8c062e506f1f5cee843d72817a0f1887de96812663174cb3e492f3323be085",
+    "Mission C/tests/test_web.py": "fbf5a689f7207fbf628c9b0238c31abc27041be8fed8eba249c5e705420af9d7",
+    "Mission C/tests/test_web_browser.py": "8c8a2b897c2761826d6261cd30f27ef3ba899323631a074aca979535eec52369",
+    "Mission C/web.bat": "8383c742e4d04003e3e827ec5cbe0a92e220411da09f32bcbab5f44c44abea93",
+    "Mission C/web.py": "9c33e850ba64896716fd087ef2fe1709e25538232dda60bf70f4156886c12f04",
+    "Mission C/web.sh": "0e04dfb27a3dbd020880c94b81d8579250ed3246218b24236e390e1824a834fe",
+    "Mission C/使用说明.md": "9ae2b659f6473f126c011a1c8adf1a22c9367b28df3ebd5416641af28feb5638"
+  },
+  "environment_deviation": "Initial UI work accidentally added python-multipart0.0.20 to shared root development venv; no upgrades/removals. Disclosed, not blindly reverted. Later UI tests use TEMP isolated venv; delivered program uses its own Mission C/.venv.",
+  "root_work": "Coordinator handled GitHub/dispatch, protected file copies, actual D page verification, docs and packaging; implementation/merger/review roles are recorded separately.",
+  "not_executed": [
+    "new real teacher collection",
+    "paid calls/key reads",
+    "remote deployment",
+    "task/service registration",
+    "existing PR merge",
+    "Mission B modification"
+  ]
+}

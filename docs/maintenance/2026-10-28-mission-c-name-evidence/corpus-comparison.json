@@ -1,0 +1,119 @@
+[
+  {
+    "id": "n01_ustc_weizian",
+    "reference_name": "卫子安",
+    "before": "中文主页",
+    "after": "卫子安",
+    "name_regression": false,
+    "biography_unchanged": true,
+    "source_sha256": "e754d63919ae17a01083c1c6c42f57fefa291fe30e46a635c0987c2da2aff5ab"
+  },
+  {
+    "id": "n02_zju_yingxiaoying",
+    "reference_name": "应晓英",
+    "before": "",
+    "after": "",
+    "name_regression": false,
+    "biography_unchanged": true,
+    "source_sha256": "91130859ae152643361af18c6600742b9ebe46144a069856b841a740b690fafc"
+  },
+  {
+    "id": "n03_nju_zhouzh",
+    "reference_name": "Zhi-Hua Zhou",
+    "before": "Hua Zhou's Homepage",
+    "after": "Zhi-Hua Zhou",
+    "name_regression": false,
+    "biography_unchanged": true,
+    "source_sha256": "d555374df9a09a4ede24ce3523c0cdab754cce24f76468ba359feee68289935b"
+  },
+  {
+    "id": "n05_dlut_xuchang",
+    "reference_name": "许畅",
+    "before": "",
+    "after": "",
+    "name_regression": false,
+    "biography_unchanged": true,
+    "source_sha256": "de1ac37e29a1b443282fadcc6d7f79aaa50f54afc91f1ee33bad377519f44a0c"
+  },
+  {
+    "id": "n08_xtu_xiaoyuelong",
+    "reference_name": "肖跃龙",
+    "before": "肖跃龙",
+    "after": "肖跃龙",
+    "name_regression": false,
+    "biography_unchanged": true,
+    "source_sha256": "b05830fb467d8fa124e80e2a09fc6adc8d21505e4c06acf43b6c90ce2594cfa8"
+  },
+  {
+    "id": "n09_wzbc_xiabingnan",
+    "reference_name": "夏冰楠",
+    "before": "夏冰楠",
+    "after": "夏冰楠",
+    "name_regression": false,
+    "biography_unchanged": true,
+    "source_sha256": "16f5f74c2680606f6b510276d04dd4a2889a309abbc3d53e7510fbfe2afe5d75"
+  },
+  {
+    "id": "n10_nchu_zhangyaokun",
+    "reference_name": "张耀坤",
+    "before": "张耀坤",
+    "after": "张耀坤",
+    "name_regression": false,
+    "biography_unchanged": true,
+    "source_sha256": "7435743a97c3f302dacec116ad7ecbd5da4e77cba2c27182a61620807f3fab21"
+  },
+  {
+    "id": "n11_chnu_zhanghongyan",
+    "reference_name": "张红岩",
+    "before": "张红岩",
+    "after": "张红岩",
+    "name_regression": false,
+    "biography_unchanged": true,
+    "source_sha256": "32ba5f6d5fdc5530be9eba8d5fa729ddae0efed48d829cbb83d3e33d5b3db902"
+  },
+  {
+    "id": "n12_chnu_baoxiangzhi",
+    "reference_name": "鲍相志",
+    "before": "鲍相志",
+    "after": "鲍相志",
+    "name_regression": false,
+    "biography_unchanged": true,
+    "source_sha256": "ca57e847359c8b5204de9aa6a8347606a396ddac7e8f87ff81620439fc83ac47"
+  },
+  {
+    "id": "old_suda",
+    "reference_name": "何剑",
+    "before": "何剑",
+    "after": "何剑",
+    "name_regression": false,
+    "biography_unchanged": true,
+    "source_sha256": "bf04d8fcc2cb50fc0de6ed6bbb2ca009b9c507cb2b70807f52638d3ba4fc53c2"
+  },
+  {
+    "id": "old_ncepu",
+    "reference_name": "王健",
+    "before": "王健",
+    "after": "王健",
+    "name_regression": false,
+    "biography_unchanged": true,
+    "source_sha256": "66bb6a155765c474408572867ef40d009bd98e53a0d86d69024321f37c428ba4"
+  },
+  {
+    "id": "old_shu",
+    "reference_name": "张惠芳",
+    "before": "张惠芳",
+    "after": "张惠芳",
+    "name_regression": false,
+    "biography_unchanged": true,
+    "source_sha256": "fbe8b3c1da14819213ad8ef7fb8a9ab3b2d2f6506389ee8c4f6df09c55a3928a"
+  },
+  {
+    "id": "old_ecnu",
+    "reference_name": "李艳青",
+    "before": "",
+    "after": "",
+    "name_regression": false,
+    "biography_unchanged": true,
+    "source_sha256": "4481b16ede48017eb6e0058f81ad751f735964e6c194d676c05b2cc80998579b"
+  }
+]

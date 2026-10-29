@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily Mission C input scan (server local timezone)
+
+[Timer]
+OnCalendar=*-*-* 02:00:00
+Persistent=true
+Unit=mission-c-scan.service
+
+[Install]
+WantedBy=timers.target

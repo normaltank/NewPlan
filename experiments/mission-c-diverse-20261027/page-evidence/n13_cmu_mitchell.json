@@ -1,0 +1,11 @@
+{
+  "id": "n13_cmu_mitchell",
+  "source": null,
+  "fields": {},
+  "checkpoints": [],
+  "passage_scope": "all visible HTML text including noise; not a completeness metric",
+  "notes": "原版robots_unavailable；Fetch保存英文主页长文，但本地无对应原件，字段/全文无法独立核实。resume.pdf仍为分立未读材料，未运行本机PDF转换。",
+  "scope_gaps": [
+    "CLI robots_unavailable；官方搜索主页和resume.pdf仅为provider线索，不计本机PDF覆盖"
+  ]
+}
