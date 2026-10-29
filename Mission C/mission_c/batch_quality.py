@@ -17,13 +17,25 @@ def assess(record, folder):
     for tag in main.select('nav,header,footer'): tag.decompose()
     page = main.get_text(' ',strip=True)
     maintenance = re.search(r'^(?:(?:系统|网站)(?:正在)?(?:维护|升级)|安全验证(?:\s|$)|访问验证(?:\s|$)|人机验证(?:\s|$)|网站暂时无法访问|service unavailable|under maintenance|just a moment|verify you are human)',headings,re.I)
+    notice = re.search(r'^(?:系统|网站)?(?:维护|升级)(?:公告|通知)(?:\s|$)',headings)
+    interrupted = re.search(r'(?:网站|系统)(?:正在)?(?:维护|升级).{0,80}(?:暂停访问|暂时无法访问|稍后(?:重试|访问))',page)
+    if notice and interrupted:
+        maintenance = notice
     if maintenance:
         return {'category':'temporarily_unavailable','eligible_for_workbook':False,'reasons':['维护或验证模板标题: '+maintenance.group(0)]}
+    if notice:
+        return {'category':'identity_review','eligible_for_workbook':False,'reasons':['维护公告标题缺少明确服务中断正文，页面身份待核；原候选保留']}
     nonpersonal = re.search(r'^(?:.*学院首页|学院概况|师资队伍|教师名单|师资列表|新闻动态|新闻详情|新闻中心|学院新闻|通知公告)(?:\s|$)',headings)
     home = '欢迎访问' in page and sum(word in page for word in ['师资队伍','学院概况','新闻动态','人才培养']) >= 3
+    primary = main.select('h1,.arti_title,.news_title,.jsbt')
+    primary_names = {c['value'] for node in primary
+                     for c in name_candidates(BeautifulSoup(str(node),'html.parser'))}
     news_structure = main.name == 'article' and any('news' in str(value).lower() for value in [main.get('class',[]),main.get('id','')]) and bool(main.select_one('time,[class*=time],[class*=date]'))
     news_report = bool(re.search(r'参加|出席|应邀|报告会|举行|召开|来访',headings))
-    if nonpersonal or home or (news_structure and news_report):
+    # A timestamped news article with a report headline is not a profile merely
+    # because its body labels a person's name. A profile identity heading still
+    # permits reused article templates and their publication metadata.
+    if nonpersonal or home or (news_structure and (news_report or not primary_names)):
         return {'category':'suspected_non_personal','eligible_for_workbook':False,'reasons':['明确首页/名单/新闻模板信号，需人工核对']}
     if record.get('biography_source') == 'deepseek-fetch':
         return {'category':'provider_candidate','eligible_for_workbook':False,'reasons':['提供方候选未证明原站或个人身份']}
@@ -36,9 +48,6 @@ def assess(record, folder):
         evidence = record.get('field_evidence',{}).get('name_candidates',[])
         corroborated = any(c.get('value') == name and c.get('rule') in
                            {'labelled_name','page_title','known_profile_card'} for c in evidence)
-        primary = main.select('h1,.arti_title,.news_title,.jsbt')
-        primary_names = {c['value'] for node in primary
-                         for c in name_candidates(BeautifulSoup(str(node),'html.parser'))}
         if not corroborated and name not in primary_names:
             return {'category':'identity_review','eligible_for_workbook':False,
                     'reasons':['采集器姓名仅有次级标题候选，缺少主身份位置或明确姓名/标题佐证；原候选保留']}

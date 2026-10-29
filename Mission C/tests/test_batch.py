@@ -226,12 +226,57 @@ class BatchContract(unittest.TestCase):
         import hashlib
         manifest=self.cache()
         source=self.folder/'page.html'
-        source.write_text('<title>李明-师资队伍-学院首页</title><nav>学院首页 师资队伍 系统维护 安全验证</nav><main><h1>李明</h1><p>职称：教授</p><p>本人邮箱：liming@example.edu</p><h2>研究方向</h2><p>研究系统维护与安全验证方法。</p></main>',encoding='utf-8')
+        source.write_text('<title>李明-师资队伍-学院首页</title><nav>学院首页 师资队伍 系统维护 安全验证 新闻动态</nav><article class="news"><time>2026-10-28</time><h1>李明</h1><p>职称：教授</p><p>本人邮箱：liming@example.edu</p><h2>研究方向</h2><p>研究系统维护与安全验证方法。</p><h2>个人获奖经历</h2><p>荣获教学竞赛一等奖。</p></article>',encoding='utf-8')
         value=json.loads(manifest.read_text());value['entries'][0]['source']['sha256']=hashlib.sha256(source.read_bytes()).hexdigest()
         manifest.write_text(json.dumps(value),encoding='utf-8')
         ident=self.cli('import',self.input)['id']
         done=self.cli('run',ident,'--cache-manifest',manifest)
         self.assertEqual(done['tasks'][0]['quality']['category'],'personal_candidate')
+    def test_award_news_with_named_person_keeps_candidate_outside_teacher_workbook(self):
+        import csv, hashlib, io, zipfile
+        from openpyxl import load_workbook
+        html='<meta charset="utf-8"><title>李明教授荣获教学竞赛一等奖</title><article class="news"><time>2026-10-28</time><h1>李明教授荣获教学竞赛一等奖</h1><p>姓名：李明</p><p>我院李明教授荣获本年度教学竞赛一等奖。本新闻由学院办公室编辑发布。</p></article>'
+        manifest=self.cache();source=self.folder/'page.html';source.write_text(html,encoding='utf-8')
+        value=json.loads(manifest.read_text());value['entries'][0]['source']['sha256']=hashlib.sha256(source.read_bytes()).hexdigest()
+        manifest.write_text(json.dumps(value),encoding='utf-8')
+        ident=self.cli('import',self.input)['id']
+        task=self.cli('run',ident,'--cache-manifest',manifest)['tasks'][0]
+        delivery=self.cli('export',ident)
+        with zipfile.ZipFile(self.data/delivery['exports'][0]['path']) as package:
+            records=json.loads(package.read('records.json'))
+            self.assertEqual(records[0]['name'],'李明')
+            self.assertIn('我院李明教授荣获本年度教学竞赛一等奖',records[0]['biography'])
+            self.assertEqual(package.read(records[0]['source_file']).decode('utf-8'),html)
+            self.assertEqual(task['quality']['category'],'suspected_non_personal')
+            self.assertFalse(task['quality']['eligible_for_workbook'])
+            self.assertEqual(json.loads(package.read('teachers.json')),[])
+            book=load_workbook(io.BytesIO(package.read('teachers.xlsx')))
+            self.assertEqual(sum(sheet.max_row-1 for sheet in book),0)
+            exceptions=list(csv.DictReader(io.StringIO(package.read('exceptions.csv').decode('utf-8-sig'))))
+            self.assertEqual(len(exceptions),1)
+    def test_maintenance_notice_keeps_extracted_candidate_and_original_outside_workbook(self):
+        import csv, hashlib, io, zipfile
+        from openpyxl import load_workbook
+        html='<meta charset="utf-8"><title>维护公告</title><main><h1>维护公告</h1><p>网站正在维护升级，暂停访问，请稍后重试。</p></main>'
+        manifest=self.cache();source=self.folder/'page.html';source.write_text(html,encoding='utf-8')
+        value=json.loads(manifest.read_text());value['entries'][0]['source']['sha256']=hashlib.sha256(source.read_bytes()).hexdigest()
+        manifest.write_text(json.dumps(value),encoding='utf-8')
+        ident=self.cli('import',self.input)['id']
+        task=self.cli('run',ident,'--cache-manifest',manifest)['tasks'][0]
+        delivery=self.cli('export',ident)
+        with zipfile.ZipFile(self.data/delivery['exports'][0]['path']) as package:
+            records=json.loads(package.read('records.json'))
+            self.assertEqual(records[0]['name'],'维护公告')
+            self.assertIn('网站正在维护升级，暂停访问，请稍后重试。',records[0]['biography'])
+            self.assertEqual(package.read(records[0]['source_file']).decode('utf-8'),html)
+            self.assertEqual(task['quality']['category'],'temporarily_unavailable')
+            self.assertFalse(task['quality']['eligible_for_workbook'])
+            self.assertEqual(json.loads(package.read('teachers.json')),[])
+            book=load_workbook(io.BytesIO(package.read('teachers.xlsx')))
+            self.assertEqual(book.sheetnames,['有邮箱教师','无邮箱教师','主页失效教师'])
+            self.assertEqual(sum(sheet.max_row-1 for sheet in book),0)
+            exceptions=list(csv.DictReader(io.StringIO(package.read('exceptions.csv').decode('utf-8-sig'))))
+            self.assertEqual(len(exceptions),1)
     def test_secondary_section_name_without_primary_identity_stays_out_of_delivery(self):
         import zipfile
         demo=self.cli('demo')
