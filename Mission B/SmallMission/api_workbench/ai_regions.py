@@ -5,7 +5,7 @@ import re
 from html import escape
 from bs4 import BeautifulSoup, Comment
 from audit import (url_key, without_scheme, pagination_family, disabled_link, fixed_paging_target,
-                   component_pagers, component_page_matches)
+                   component_pagers, component_page_matches, observed_pagers, observed_page_shape)
 
 CONTRACT = 'mission-b-source-regions-v1'
 PAGER = '.pb_sys_common, .wp_paging, #wp_pager'
@@ -221,6 +221,8 @@ def apply_plan(soup, nodes, anchors, answer, url):
     containers = [nodes[i] for i in pagers] + list(soup.select(PAGER))
     components, component_issues = component_pagers(containers, url)
     issues.extend(component_issues)
+    observed, observed_issues = observed_pagers(containers, url)
+    issues.extend(observed_issues)
     pages = []
     for i in sorted(pager_ids):
         a = anchors[i]
@@ -228,8 +230,9 @@ def apply_plan(soup, nodes, anchors, answer, url):
             continue
         target = a['url'] or a.get('page_url')
         if target:
-            if (pagination_family(target) == pagination_family(url)
-                    or any(component_page_matches(item, target) for item in components)):
+            if ((not observed and not observed_page_shape(target) and not observed_page_shape(url) and pagination_family(target) == pagination_family(url))
+                    or any(component_page_matches(item, target) for item in components)
+                    or any(target in item['urls'] for item in observed)):
                 if target not in pages:
                     pages.append(target)
             else:
@@ -247,6 +250,7 @@ def apply_plan(soup, nodes, anchors, answer, url):
             'scope_conflicts': scope_conflicts, 'coverage_conflicts': coverage_conflicts,
             'included_ids': included_ids, 'excluded': {str(i): why for i, why in excluded.items()},
             'pagination_urls': pages, 'component_pagers': components,
+            'observed_pagers': observed,
             'selected_anchors': len(selected), 'selected_regions': roots,
             'occurrences': len(included_ids)}
 

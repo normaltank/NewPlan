@@ -90,12 +90,122 @@ def pagination_family(url):
     path = re.sub(r'/(shizi|szdw)_\d+$', r'/\1', path)
     query = tuple(sorted((k, v) for k, v in parse_qsl(p.query, keep_blank_values=True)
                          if k.lower() not in ('page', 'pageno', 'pagenum')))
-    return p.netloc.lower(), path, query
+    return p.netloc.lower(), path, query, p.fragment
 
 
 def disabled_link(node):
     return (node.has_attr('disabled') or node.get('aria-disabled') == 'true'
             or 'disabled' in node.get('class', []))
+
+
+def declared_pages(node):
+    """Read an explicit counter, or a unique current marker and full digit range."""
+    text = node.get_text(' ', strip=True)
+    pairs = {(int(a), int(b)) for a, b in re.findall(r'(?<!\d)(\d+)\s*/\s*(\d+)(?!\d)', text)}
+    markers = node.select('.active,.this-page,.p_no_d')
+    if len(markers) > 1:
+        return []
+    if len(markers) == 1 and markers[0].get_text(strip=True).isdigit():
+        current = int(markers[0].get_text(strip=True))
+        digits = {int(a.get_text(strip=True)) for a in node.select('a') if a.get_text(strip=True).isdigit()} | {current}
+        if not 0 < min(digits) <= max(digits) <= 10000:
+            return sorted(pairs)
+        last = [int(m[1]) for a in node.select('a[href]') if a.get_text(strip=True) in {'末页', '尾页'}
+                for m in [re.search(r'_(\d+)\.html?$', urlsplit(a['href']).path)] if m]
+        if len(set(last)) == 1:
+            pairs.add((current, last[0]))
+        elif digits == set(range(1, max(digits) + 1)):
+            pairs.add((current, max(digits)))
+    return sorted(pairs)
+
+
+def observed_page_shape(url):
+    """Only the captured CMS shapes; preserve column identity and extension."""
+    p = urlsplit(url)
+    match = re.fullmatch(r'(.*/)(lists_\d+)_([1-9]\d*)(\.html)', p.path)
+    if match:
+        return ('lists', match[1], match[2], match[4]), int(match[3])
+    match = re.fullmatch(r'(.*/)(C\d+index)_([1-9]\d*)(\.htm)', p.path)
+    if match:
+        return ('prefixed', match[1], match[2], match[4]), int(match[3])
+    pairs = parse_qsl(p.query, keep_blank_values=True)
+    query = dict(pairs)
+    if (len(query) == len(pairs) and query.get('PAGENUM', '').isdigit()
+            and query.get('totalpage', '').isdigit()):
+        fixed = tuple(sorted((k, v) for k, v in pairs if k not in {'PAGENUM', 'totalpage'}))
+        return ('pagenum', p.path, fixed, int(query['totalpage'])), int(query['PAGENUM'])
+    return None
+
+
+def observed_pagers(containers, base):
+    source = urlsplit(base)
+    evidence, issues, seen = [], [], set()
+    for region in containers:
+        if id(region) in seen:
+            continue
+        seen.add(id(region))
+        candidates = []
+        for a in region.select('a[href]'):
+            target = url_key(a['href'], base)
+            if target and not disabled_link(a) and observed_page_shape(target):
+                candidates.append((target, a.get_text(strip=True)))
+        source_shape = observed_page_shape(base)
+        if source_shape:
+            candidates.append((base, str(source_shape[1])))
+        if not candidates:
+            continue
+        counters = declared_pages(region)
+        if len(counters) != 1:
+            issues.append('分页当前页与总页数证据不唯一，完整性未确认')
+            continue
+        current, total = counters[0]
+        shapes = {observed_page_shape(u)[0] for u, _ in candidates}
+        if len(shapes) != 1:
+            issues.append('分页栏目证据不唯一，完整性未确认')
+            continue
+        shape = next(iter(shapes))
+        if not (0 < current <= total <= 10000):
+            issues.append('分页当前页或总页数矛盾')
+            continue
+        source_fixed = tuple(sorted(parse_qsl(source.query, keep_blank_values=True)))
+        first_page = current == 1 and ((shape[0] == 'lists' and source.path == shape[1]) or
+                    (shape[0] == 'pagenum' and source.path == shape[1] and source_fixed == shape[2]))
+        if source_shape != (shape, current) and not first_page:
+            issues.append('分页地址与当前页或栏目声明矛盾')
+            continue
+        fixed = list(shape[2]) if shape[0] == 'pagenum' else sorted(parse_qsl(source.query, keep_blank_values=True))
+        if shape[0] == 'pagenum' and shape[3] != total:
+            issues.append('分页totalpage与控件总页数矛盾')
+            continue
+        valid = []
+        for target, label in candidates:
+            p = urlsplit(target)
+            _, number = observed_page_shape(target)
+            target_fixed = sorted((k, v) for k, v in parse_qsl(p.query, keep_blank_values=True)
+                                  if shape[0] != 'pagenum' or k not in {'PAGENUM', 'totalpage'})
+            if ((p.netloc.lower(), p.fragment, target_fixed) !=
+                    (source.netloc.lower(), source.fragment, fixed) or not 0 < number <= total
+                    or (label.isdigit() and int(label) != number)):
+                issues.append('分页固定边界或页码声明矛盾：' + target)
+            else:
+                valid.append(target)
+        for anchor in region.select('a[href]'):
+            target = url_key(anchor['href'], base)
+            if not target or disabled_link(anchor):
+                continue
+            p = urlsplit(target)
+            if ((p.netloc.lower(), p.fragment, p.query) == (source.netloc.lower(), source.fragment, source.query)
+                    and shape[0] == 'lists' and p.path == shape[1]
+                    and anchor.get_text(strip=True) in {'1', '首页', '第一页'}):
+                valid.append(target)
+            if (shape[0] == 'pagenum' and (p.netloc.lower(), p.path, p.fragment) ==
+                    (source.netloc.lower(), source.path, source.fragment)
+                    and tuple(sorted(parse_qsl(p.query, keep_blank_values=True))) == shape[2]
+                    and anchor.get_text(strip=True) in {'1', '首页', '第一页'}):
+                valid.append(target)
+        evidence.append({'key': repr((source.netloc.lower(), source.fragment, shape, fixed)),
+                         'current': current, 'total': total, 'urls': valid + [base]})
+    return evidence, issues
 
 
 def component_query(url):
@@ -125,7 +235,7 @@ def component_pagers(containers, base):
     fixed = source_query[4] if source_query else sorted(parse_qsl(source.query, keep_blank_values=True))
     evidence, issues, seen = [], [], set()
     for container in containers:
-        regions = ([container] if 'p_pages' in container.get('class', []) else []) + container.select('.p_pages')
+        regions = ([container] if 'p_pages' in container.get('class', []) else container.select('.p_pages')) or [container]
         for region in regions:
             if id(region) in seen:
                 continue
@@ -149,12 +259,19 @@ def component_pagers(containers, base):
             if not candidates:
                 continue
             signatures = {(triple[0], triple[1], triple[3]) for triple, _ in candidates}
-            current_nodes = region.select('.p_no_d')
-            if len(signatures) != 1 or len(current_nodes) != 1 or not current_nodes[0].get_text(strip=True).isdigit():
+            current_nodes = region.select('.p_no_d,.this-page')
+            explicit = sorted({(int(a), int(b)) for a, b in re.findall(
+                r'(?<!\d)(\d+)\s*/\s*(\d+)(?!\d)', region.get_text(' ', strip=True))})
+            current = (int(current_nodes[0].get_text(strip=True)) if len(current_nodes) == 1
+                       and current_nodes[0].get_text(strip=True).isdigit() else
+                       explicit[0][0] if not current_nodes and len(explicit) == 1 else None)
+            if len(signatures) != 1 or current is None:
                 issues.append('组件分页的组件、总页数或当前页证据不唯一，完整性未确认')
                 continue
             component, total, size = next(iter(signatures))
-            current = int(current_nodes[0].get_text(strip=True))
+            if explicit and explicit != [(current, total)]:
+                issues.append('组件分页的当前页或总页数声明矛盾，完整性未确认')
+                continue
             numbered = [(triple, label) for triple, label in candidates if label.isdigit()]
             if (not 0 < current <= total or not numbered or any(int(label) != triple[2] for triple, label in numbered)
                     or (source_query and source_query[:4] != (component, total, current, size))
