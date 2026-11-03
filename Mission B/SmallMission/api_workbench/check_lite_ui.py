@@ -177,6 +177,26 @@ async def exercise_ui(base, token, out, server=None):
                 await expect(page.locator('#summary tbody tr')).to_have_count(2)
                 await expect(page.locator('#download')).to_be_visible()
                 await page.screenshot(path=str(out / '无错误仍可下载界面.png'), full_page=True)
+            async def until_cancelled(args, on_progress, should_cancel):
+                while not should_cancel():
+                    await asyncio.sleep(.05)
+                raise InterruptedError('fixture cancellation')
+            await page.locator('#files').set_input_files(out / '示例名单.txt')
+            with patch('app.run', until_cancelled):
+                await page.locator('#start').click()
+                await expect(page.locator('#status-title')).to_have_text('正在核验…')
+                await expect(page.locator('#progress-percent')).to_have_text('0%')
+                await page.locator('#cancel').click()
+                await expect(page.locator('#status-title')).to_have_text('已停止', timeout=15000)
+                await expect(page.locator('#progress-area')).to_be_hidden()
+                await expect(page.locator('#download')).to_be_hidden()
+                await expect(page.locator('#start')).to_be_enabled()
+                await page.reload()
+                await expect(page.locator('#status-title')).to_have_text('已停止')
+                await expect(page.locator('#progress-area')).to_be_hidden()
+                await expect(page.locator('#download')).to_be_hidden()
+                await asyncio.to_thread(server.store.worker.join, 10)
+                await page.screenshot(path=str(out / '停止核验界面.png'), full_page=True)
             async def fail(*a, **k):
                 raise RuntimeError('simulated private provider reason ' + KEY)
             await page.locator('summary').click()
@@ -196,6 +216,7 @@ async def exercise_ui(base, token, out, server=None):
             'page_rows_equal_api':True, 'download_files':download_files, 'only_error_link_documents':True, 'export_summary_equals_page':True,
             'max_files':20, 'upload_limit_browser_checked':True, 'upload_limit_api_checked':True,
             'twenty_files_ui_accepted':True, 'no_error_completion_checked':bool(server),
+            'stop_and_refresh_checked':bool(server), 'failure_hides_progress_checked':bool(server),
             'refresh_download':True, 'mobile_overflow':False, 'browser_errors':errors,
             'completion_progress':100, 'progress_lifecycle_checked':bool(server),
             'export_sha256':hashlib.sha256(target.read_bytes()).hexdigest()}
@@ -218,7 +239,8 @@ async def main():
         if not os.environ.get('PLAYWRIGHT_BROWSERS_PATH'):
             candidates = sorted(APP_ROOT.glob('.lite-stage-*/MissionB*/.browsers'))
             os.environ['PLAYWRIGHT_BROWSERS_PATH'] = str(candidates[-1])
-        with patch.dict(os.environ, {'DEEPSEEK_API_KEY':''}):
+        # Source checks never load local SMTP configuration or send real mail.
+        with patch.dict(os.environ, {'DEEPSEEK_API_KEY':''}), patch('lite_app.load_config', return_value=None):
             server = make_server(out / 'lite-data')
         server.store.api_key = KEY
         server.store.journal.protect(KEY)
@@ -231,6 +253,8 @@ async def main():
             server.server_close()
             thread.join(5)
         value['input_and_paste'] = value['failure_log'] = value['log_restore'] = True
+        value['automatic_mail_disabled'] = server.store.mail is None
+        value['real_api_calls'] = value['real_mail_sends'] = 0
     else:
         out = root / ('portable-' + stamp)
         out.mkdir()
