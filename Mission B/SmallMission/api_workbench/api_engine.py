@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 from deepseek_api import DeepSeekJSON, DEFAULT_MODEL, ApiFailure
 from ai_regions import prepare, apply_plan, render_evidence, SYSTEM, CHECK_SYSTEM, CONTRACT, sha
 from audit import write_json, pagination_family, without_scheme, disabled_link
+from client_pagination import PAGING_ISSUE, selected_preloads, observe
 
 
 def empty_result(message):
@@ -146,7 +147,7 @@ class ModelEngine:
         self.cache_hits = 0
         self.on_progress, self.should_cancel = on_progress, should_cancel
         self.contract = sha((SYSTEM + CHECK_SYSTEM + CONTRACT + '\n'.join(
-            (Path(__file__).parent/f).read_text('utf-8') for f in ('ai_regions.py','api_engine.py','audit.py'))).encode())
+            (Path(__file__).parent/f).read_text('utf-8') for f in ('ai_regions.py','api_engine.py','audit.py','client_pagination.py'))).encode())
 
     async def __aenter__(self):
         await self.api.__aenter__()
@@ -223,6 +224,7 @@ class ModelEngine:
                     analysis['recheck'] = 'completed'
                 else:
                     analysis['recheck'] = 'budget_insufficient'
+            analysis['client_preloads'] = selected_preloads(nodes, plans, url) if PAGING_ISSUE in result['issues'] else []
             write_json(folder/'plans.json', {'fingerprint':fingerprint,'analysis':analysis,'plans':plans})
             write_json(folder/'anchors.json', list(anchors.values()))
             render_evidence(folder/'links.html', url, anchors, *parses)
@@ -267,5 +269,17 @@ class ModelEngine:
                     source['attempts'].append({**meta,'selected_after_identical_render':True})
             else:
                 source['attempts'].append({**meta,'selected_after_browser_failure':True})
+        parsed = source['parsed']
+        if PAGING_ISSUE in parsed['issues'] and not replay and fetcher.use_browser:
+            proof = await observe(fetcher, task, parsed.get('analysis',{}).get('client_preloads',[]),
+                                  parsed['links'], self.should_cancel,
+                                  reference_sha256=parsed.get('analysis',{}).get('raw_html_sha256'))
+            parsed['client_pagination'] = proof
+            if proof['complete']:
+                parsed['issues'] = [x for x in parsed['issues'] if x != PAGING_ISSUE]
+                parsed['notes'].append('实际客户端分页已逐页观察并核对条目多重集与URL集合')
+            else:
+                parsed['issues'].extend(proof['issues'])
+            parsed['complete'] = not parsed['issues']
         source['failure_kind'] = None if source['parsed']['complete'] else 'structure'
         return source
