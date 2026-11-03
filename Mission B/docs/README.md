@@ -48,7 +48,7 @@
 | `maintenance/20261028-log-triage/README.md` | 4 份日志、75 学院的离线还原与维护分流；4 个学院存在已复现程序问题、1 个模型复核候选，尚未实施修复；关联 [Issue #35](https://github.com/normaltank/NewPlan/issues/35) |
 | `maintenance/20261028-log-repair/README.md` | 平行名单覆盖、确切空操作和同栏目组件分页的分票修复与 1.0.9 交付；各阶段实际验证及限制查目录内记录，不以源码版本代替最终包验收；关联 [Issue #37](https://github.com/normaltank/NewPlan/issues/37)，交付实施见 `implement-41/` 与 [Issue #41](https://github.com/normaltank/NewPlan/issues/41) |
 | `maintenance/20261102-log-maintenance/README.md` | 17 份回传日志的观测分页地址与标准附加跳转修复；103／116 冻结跳转页恢复、13 页仍待人工的边界及最终组合验证分别留证。关联 [Issue #50](https://github.com/normaltank/NewPlan/issues/50)，分页／跳转实施见 `implement-pages/`、`implement-jump/`，1.0.10／3.0.6 交付实施见 `implement-delivery/` 与 [Issue #53](https://github.com/normaltank/NewPlan/issues/53)；构建、实际 EXE、新模型验证和 CI 状态以目录内对应阶段记录为准 |
-| `maintenance/20261103-special-repair/implement-collective/README.md` | 集体师资文章的资格提示修正：真实旧计划失败回放、新提示两来源实际模型对照、江苏九链接及零链接冻结回归；关联 [Issue #58](https://github.com/normaltank/NewPlan/issues/58)。本切片不代表整体验收或全院完整性 |
+| `maintenance/20261103-special-repair/` | 有限客户端预载分页、集体师资文章资格修正及 1.0.11／3.0.7 分发准备；关联 [Issue #56](https://github.com/normaltank/NewPlan/issues/56)。客户端与集体介绍实施见 `implement-client-pages/README.md`（[Issue #57](https://github.com/normaltank/NewPlan/issues/57)）、`implement-collective/README.md`（[Issue #58](https://github.com/normaltank/NewPlan/issues/58)），交付实施见 `implement-delivery/README.md`（[Issue #59](https://github.com/normaltank/NewPlan/issues/59)）。各阶段实际回放、模型、构建、EXE、审查及 CI 结果以对应记录为准；分票实施不代表整体验收或全院完整性 |
 
 历史运行的 `.planning/` 文件记录当时执行过程，供复盘查阅；任务当前状态到 GitHub Issue 核对，不从旧计划自动恢复工作。新增记录写清问题、来源、根因、修改、实际验证和剩余限制；完成后从本索引或负责文档提供一个入口。
 
