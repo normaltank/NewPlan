@@ -726,7 +726,7 @@ async def run(args, on_progress=None, should_cancel=None):
     out.mkdir(parents=True)
     (out / 'inputs').mkdir()
     (out / 'code').mkdir()
-    for name in ('audit.py', 'reporting.py', 'input_adapter.py', 'runtime_paths.py', 'requirements.txt', 'api_engine.py', 'ai_regions.py', 'deepseek_api.py'):
+    for name in ('audit.py', 'reporting.py', 'input_adapter.py', 'runtime_paths.py', 'requirements.txt', 'api_engine.py', 'ai_regions.py', 'deepseek_api.py', 'client_pagination.py'):
         shutil.copy2(ASSETS / name, out / 'code' / name)
     for f in files:
         shutil.copy2(input_dir / f['name'], out / 'inputs' / f['name'])

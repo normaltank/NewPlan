@@ -85,6 +85,12 @@ SNAPSHOT = r'''scope => {
  const pagers=[...document.querySelectorAll('.pb_sys_common')].filter(visible);
  if(pagers.length!==1)throw Error('客户端分页容器不唯一');
  const pager=pagers[0];
+ const otherPagers=[...document.querySelectorAll('.pb_sys_common,.wp_paging,#wp_pager')]
+   .filter(e=>e!==pager && !pager.contains(e));
+ const otherNext=otherPagers.flatMap(e=>[...e.querySelectorAll('a')]).filter(a=>!pager.contains(a) &&
+   ['下页','下一页','Next','next','尾页','末页'].includes(a.textContent.trim()) &&
+   !a.hasAttribute('disabled') && a.getAttribute('aria-disabled')!=='true' && !a.classList.contains('disabled'))
+   .map(a=>({text:a.textContent.trim(),href:a.getAttribute('href')}));
  if(events(pager) || [...(function*(e){while(e){yield e;e=e.parentElement}})(pager.parentElement)]
    .some(e=>[...e.attributes].some(a=>/^on/i.test(a.name))))throw Error('分页控件含额外内联事件');
  const current=[...pager.querySelectorAll('.p_no_d')].map(e=>e.textContent.trim());
@@ -97,7 +103,7 @@ SNAPSHOT = r'''scope => {
  const disabled=label=>[...pager.querySelectorAll('span')].filter(e=>label.includes(e.textContent.trim()) &&
    !e.querySelector('a') && (e.classList.contains('p_fun_d') || e.getAttribute('aria-disabled')==='true')).length===1;
  const declared=[...pager.querySelectorAll('*')].map(e=>e.textContent.trim()).filter(t=>/^\d+\s*\/\s*\d+$/.test(t));
- return {source:entries(source),entries:entries(list),list_id:list.id,current:+current[0],
+ return {source:entries(source),entries:entries(list),list_id:list.id,current:+current[0],other_next:otherNext,
    next:next.map(a=>+a.dataset.page),last:last.map(a=>+a.dataset.page),
    terminal:disabled(['下页','下一页','Next','next'])&&disabled(['尾页','末页']),
    targets:links.map(a=>+a.dataset.page),declared:[...new Set(declared)],url:location.href};
@@ -169,6 +175,8 @@ async def observe(fetcher, task, scopes, expected_urls, should_cancel=None, refe
                         'page':number,'status':response.status}
                 fetcher.save(task['id'], 'client-page-'+str(number), html, meta)
                 proof['pages'].append({**state, **meta})
+                if state['other_next']:
+                    raise ValueError('存在独立未决下一页或尾页控件，不能由当前分页证明结束')
                 if proof['blocked_requests']:
                     raise ValueError('客户端分页产生额外document/xhr/fetch请求，已拦截')
                 if (urldefrag(page.url)[0] != urldefrag(task['roster_url'])[0] or state['current'] != number
