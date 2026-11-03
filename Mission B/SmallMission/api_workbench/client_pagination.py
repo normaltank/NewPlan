@@ -87,9 +87,12 @@ SNAPSHOT = r'''scope => {
  const pager=pagers[0];
  const otherPagers=[...document.querySelectorAll('.pb_sys_common,.wp_paging,#wp_pager')]
    .filter(e=>e!==pager && !pager.contains(e));
- const otherNext=otherPagers.flatMap(e=>[...e.querySelectorAll('a')]).filter(a=>!pager.contains(a) &&
+ const unresolved=a=>{const href=(a.getAttribute('href')||'').trim();
+   return !href || /[\s<>]/.test(href) || !/^https?:\/\//i.test(a.href) || events(a);};
+ const otherNext=[...document.querySelectorAll('a')].filter(a=>!pager.contains(a) &&
    ['下页','下一页','Next','next','尾页','末页'].includes(a.textContent.trim()) &&
-   !a.hasAttribute('disabled') && a.getAttribute('aria-disabled')!=='true' && !a.classList.contains('disabled'))
+   !a.hasAttribute('disabled') && a.getAttribute('aria-disabled')!=='true' && !a.classList.contains('disabled') &&
+   (otherPagers.some(e=>e.contains(a)) || unresolved(a)))
    .map(a=>({text:a.textContent.trim(),href:a.getAttribute('href')}));
  if(events(pager) || [...(function*(e){while(e){yield e;e=e.parentElement}})(pager.parentElement)]
    .some(e=>[...e.attributes].some(a=>/^on/i.test(a.name))))throw Error('分页控件含额外内联事件');

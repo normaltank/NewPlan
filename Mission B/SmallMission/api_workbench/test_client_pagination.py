@@ -285,6 +285,38 @@ class ClientPaginationTests(unittest.TestCase):
         self.assertIsNotNone(BeautifulSoup(evidence[proof['pages'][-1]['html_path']], 'lxml').select_one('.wp_paging'))
         self.assertTrue(all(p == '/staff.html' for p in requests), requests)
 
+    def test_unwrapped_unresolved_next_stays_pending_on_initial_render_and_after_click(self):
+        variants = [('unknown', '<a href="javascript:unknown()">下页</a>'),
+                    ('empty', '<a href="">下页</a>'),
+                    ('event', '<a href="/unread.html" onclick="unknown()">下页</a>')]
+        for timing in ('initial', 'click'):
+            for kind, anchor in variants:
+                with self.subTest(timing=timing, kind=kind):
+                    insert = "document.body.insertAdjacentHTML('beforeend'," + json.dumps(anchor) + ');'
+                    html = (HTML.replace(';render(1);', ';render(1);'+insert) if timing == 'initial' else
+                            HTML.replace('history.replaceState', 'if(n===2){'+insert+'}history.replaceState'))
+                    source, result, requests, evidence = self.read(html)
+                    self.assertTrue(result['needs_human'], result['reason'])
+                    self.assertFalse(result['complete'])
+                    self.assertIn('下一页依赖脚本', result['reason'])
+                    self.assertEqual(result['corrected_urls'], [])
+                    self.assertEqual(result['diffs'][0]['action'], '未判定，原样保留')
+                    proof = source['parsed']['client_pagination']
+                    self.assertFalse(proof['complete'])
+                    self.assertIsNone(BeautifulSoup(evidence[source['attempts'][-1]['html_path']], 'lxml').select_one('body > a'))
+                    self.assertEqual([p['page'] for p in proof['pages']], [1] if timing == 'initial' else [1,2])
+                    self.assertIsNotNone(BeautifulSoup(evidence[proof['pages'][-1]['html_path']], 'lxml').select_one('body > a'))
+                    self.assertTrue(all(p == '/staff.html' for p in requests), requests)
+
+    def test_unwrapped_plain_http_next_text_does_not_block_client_proof(self):
+        html = HTML.replace(';render(1);', ';render(1);document.body.insertAdjacentHTML(\'beforeend\',\'<a href="/person/a">下页</a>\');')
+        source, result, requests, _ = self.read(html)
+        self.assertTrue(result['complete'], result['reason'])
+        self.assertFalse(result['needs_human'])
+        self.assertTrue(source['parsed']['client_pagination']['complete'])
+        self.assertEqual(len(result['corrected_urls']), 1)
+        self.assertTrue(all(p == '/staff.html' for p in requests), requests)
+
     def test_new_independent_http_next_is_not_covered_by_client_pager(self):
         html = HTML.replace(';render(1);', ';render(1);document.body.insertAdjacentHTML(\'beforeend\',\'<div class="wp_paging"><a href="/unread.html">下一页</a></div>\');')
         source, result, requests, _ = self.read(html)
