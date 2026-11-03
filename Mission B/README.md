@@ -10,3 +10,7 @@ Mission B 核对输入表中的 URL 与指定师资名单页面的实际链接�
 | 让 agent 修改 Mission B | [维护入口](AGENTS.md) |
 
 当前实现位于 `SmallMission/api_workbench/`；`SmallMission` 顶层的无 API 版和 `experimental_deepseek` 是保留的旧实现、试验及证据。原始名单位于本地 `学院列表/`，生成结果不会覆盖原件。正式分发请使用干净发行包。
+
+## 服务器交接
+
+[跨平台服务器源码包说明](SmallMission/api_workbench/README_server.md)：无界面一次批次CLI、外部数据目录、有限配置、四列结果ZIP与脚本用途。只交接安装运行，不代表服务器已部署；桌面入口和旧包保留。关联规格[#61](https://github.com/normaltank/NewPlan/issues/61)、交付[#63](https://github.com/normaltank/NewPlan/issues/63)。

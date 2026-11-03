@@ -1,0 +1,1 @@
+{"files_per_batch":200,"data_rows_per_batch":250000,"input_file_bytes":67108864,"xlsx_expanded_bytes":268435456,"sheet_cells":4000000,"merged_cells":500000,"source_pages_per_college":1000,"api_calls_per_batch":20000,"model_input_chars":1000000,"model_output_tokens":8192,"client_pages":1000,"client_observation_seconds":600}
