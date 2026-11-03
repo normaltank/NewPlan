@@ -47,6 +47,7 @@
 | `maintenance/20261026-workflow-contract/README.md` | Mission B 维护分流、实施派工与验收记录的流程修正；关联 [Issue #17](https://github.com/normaltank/NewPlan/issues/17) |
 | `maintenance/20261028-log-triage/README.md` | 4 份日志、75 学院的离线还原与维护分流；4 个学院存在已复现程序问题、1 个模型复核候选，尚未实施修复；关联 [Issue #35](https://github.com/normaltank/NewPlan/issues/35) |
 | `maintenance/20261028-log-repair/README.md` | 平行名单覆盖、确切空操作和同栏目组件分页的分票修复与 1.0.9 交付；各阶段实际验证及限制查目录内记录，不以源码版本代替最终包验收；关联 [Issue #37](https://github.com/normaltank/NewPlan/issues/37)，交付实施见 `implement-41/` 与 [Issue #41](https://github.com/normaltank/NewPlan/issues/41) |
+| `maintenance/20261102-log-maintenance/README.md` | 17 份回传日志的观测分页地址与标准附加跳转修复；103／116 冻结跳转页恢复、13 页仍待人工的边界及最终组合验证分别留证。关联 [Issue #50](https://github.com/normaltank/NewPlan/issues/50)，分页／跳转实施见 `implement-pages/`、`implement-jump/`，1.0.10／3.0.6 交付实施见 `implement-delivery/` 与 [Issue #53](https://github.com/normaltank/NewPlan/issues/53)；构建、实际 EXE、新模型验证和 CI 状态以目录内对应阶段记录为准 |
 
 历史运行的 `.planning/` 文件记录当时执行过程，供复盘查阅；任务当前状态到 GitHub Issue 核对，不从旧计划自动恢复工作。新增记录写清问题、来源、根因、修改、实际验证和剩余限制；完成后从本索引或负责文档提供一个入口。
 
