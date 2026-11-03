@@ -11,6 +11,7 @@
 | 维护任务分流、实施派工与业务验收证据 | [维护执行约定](maintenance-workflow.md) | 维护的分流或验收方式改变；公共规则仍由根目录工作流维护 |
 | 完整版启动、输入、URL 核验和四列汇总规则 | [api_workbench/README.md](../SmallMission/api_workbench/README.md) | 当前实现或核验契约改变 |
 | 精简版操作、展示边界、日志、邮件与构建 | [README_lite.md](../SmallMission/api_workbench/README_lite.md) | 精简版行为或分发维护改变 |
+| 服务器CLI、有限配置、源码包与跨平台交接 | [README_server.md](../SmallMission/api_workbench/README_server.md) | 服务器入口、构建或交接行为改变 |
 | 任务、规格、验收状态 | [根目录任务管理](../../docs/agents/issue-tracker.md) | 在对应 GitHub Issue 更新，不再维护第二份待办表 |
 | 术语、长期设计决定 | [根目录领域文档约定](../../docs/agents/domain.md) | 出现需要明确的术语或决定时按需记录 |
 
@@ -49,6 +50,10 @@
 | `maintenance/20261028-log-repair/README.md` | 平行名单覆盖、确切空操作和同栏目组件分页的分票修复与 1.0.9 交付；各阶段实际验证及限制查目录内记录，不以源码版本代替最终包验收；关联 [Issue #37](https://github.com/normaltank/NewPlan/issues/37)，交付实施见 `implement-41/` 与 [Issue #41](https://github.com/normaltank/NewPlan/issues/41) |
 | `maintenance/20261102-log-maintenance/README.md` | 17 份回传日志的观测分页地址与标准附加跳转修复；103／116 冻结跳转页恢复、13 页仍待人工的边界及最终组合验证分别留证。关联 [Issue #50](https://github.com/normaltank/NewPlan/issues/50)，分页／跳转实施见 `implement-pages/`、`implement-jump/`，1.0.10／3.0.6 交付实施见 `implement-delivery/` 与 [Issue #53](https://github.com/normaltank/NewPlan/issues/53)；构建、实际 EXE、新模型验证和 CI 状态以目录内对应阶段记录为准 |
 | `maintenance/20261103-special-repair/` | 有限客户端预载分页、集体师资文章资格修正及 1.0.11／3.0.7 分发准备；关联 [Issue #56](https://github.com/normaltank/NewPlan/issues/56)。客户端与集体介绍实施见 `implement-client-pages/README.md`（[Issue #57](https://github.com/normaltank/NewPlan/issues/57)）、`implement-collective/README.md`（[Issue #58](https://github.com/normaltank/NewPlan/issues/58)），交付实施见 `implement-delivery/README.md`（[Issue #59](https://github.com/normaltank/NewPlan/issues/59)）。审查修复见 `implement-reviewfix/README.md`（整次核验提示记录、代码快照依赖与渲染后独立未决分页保护），无包装未决控件补验见 `implement-reviewfix-followup/README.md`。各阶段实际回放、模型、构建、EXE、审查及 CI 结果以对应记录为准；分票实施不代表整体验收或全院完整性 |
+| `maintenance/20261103-server-handoff/ticket62/` | 服务器有限配置、整文件拒绝后继续处理、学院来源与双路模型／客户端预算的输入入口及 `audit.run` 红绿和离线验证；关联 [Issue #62](https://github.com/normaltank/NewPlan/issues/62)、父规格 [Issue #61](https://github.com/normaltank/NewPlan/issues/61)。核心配置说明见 [服务器有限配置](../SmallMission/api_workbench/README.md#服务器有限配置)；独立 CLI／源码包与整体验收由依赖工单另行交付，不代表服务器部署完成 |
+| `maintenance/20261103-server-handoff/ticket63/` | 独立服务器CLI、明确依赖清单源码包、仅错误学院下载、本地HTTP／假模型／真实Chromium的公开入口验证；关联 [Issue #63](https://github.com/normaltank/NewPlan/issues/63)。安装运行与脚本用途见 [README_server.md](../SmallMission/api_workbench/README_server.md)；正式包、整体审查与双平台CI以交接记录为准，不代表实际部署 |
+
+服务器 [PR #64](https://github.com/normaltank/NewPlan/pull/64) 的 BOM 规则计划兼容与拒绝文件说明修复，红绿及受影响验证见本地 `maintenance/20261103-server-handoff/implement-reviewfix64/README.md`；独立复审、正式包和最终 CI 由交接阶段另行确认。
 
 历史运行的 `.planning/` 文件记录当时执行过程，供复盘查阅；任务当前状态到 GitHub Issue 核对，不从旧计划自动恢复工作。新增记录写清问题、来源、根因、修改、实际验证和剩余限制；完成后从本索引或负责文档提供一个入口。
 

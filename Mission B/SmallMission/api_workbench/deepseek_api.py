@@ -9,6 +9,7 @@ import time
 from pathlib import Path
 
 import httpx
+from run_limits import LimitExceeded
 
 BASE_URL = 'https://api.deepseek.com'
 DEFAULT_MODEL = 'deepseek-flash'
@@ -92,12 +93,16 @@ class DeepSeekJSON:
             row.update({'id':data.get('id'),'returned_model':data.get('model'),
                         'usage':data.get('usage',{}),'finish_reason':data['choices'][0].get('finish_reason')})
             self.save(f'{index:02}-{label}-response.json',data)
+            if row['finish_reason']=='length':
+                raise LimitExceeded('model_output_tokens', max_tokens, max_tokens, '模型输出达到配置tokens上限，未正常结束；未完成核验')
             if row['finish_reason']!='stop':
                 raise ApiFailure('Model output did not finish normally')
             result=json.loads(data['choices'][0]['message']['content'])
             if not isinstance(result,dict):
                 raise ApiFailure('Expected a JSON object')
             return result
+        except LimitExceeded:
+            raise
         except (httpx.HTTPError,ValueError,KeyError,IndexError) as exc:
             row['error_type']=type(exc).__name__
             raise ApiFailure(f'API request or structured response failed: {type(exc).__name__}') from None

@@ -36,8 +36,12 @@ jobs:
           python -m unittest discover -s . -p 'test_*.py' -v
 
   mission-b:
-    runs-on: windows-latest
-    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
     defaults:
       run:
         working-directory: Mission B/SmallMission/api_workbench
@@ -56,6 +60,6 @@ jobs:
       - name: Install Mission B dependencies
         run: python -m pip install -r requirements.txt
       - name: Install Mission B Chromium
-        run: python -m playwright install chromium
+        run: python -m playwright install --with-deps chromium
       - name: Run Mission B offline tests
         run: python -m unittest discover -s . -p 'test_*.py' -v

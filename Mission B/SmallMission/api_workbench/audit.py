@@ -24,7 +24,8 @@ from urllib.parse import parse_qsl, urljoin, urlsplit, urlunsplit
 
 import httpx
 from bs4 import BeautifulSoup
-from input_adapter import read_directory, tasks_from_rows
+from input_adapter import read_directory, tasks_from_rows, file_sha256
+from run_limits import RunLimits, DESKTOP_LIMITS
 from runtime_paths import APP_ROOT, ASSETS, VERSION, browser_path, plans_path
 
 ROOT = APP_ROOT
@@ -108,13 +109,13 @@ def declared_pages(node):
     if len(markers) == 1 and markers[0].get_text(strip=True).isdigit():
         current = int(markers[0].get_text(strip=True))
         digits = {int(a.get_text(strip=True)) for a in node.select('a') if a.get_text(strip=True).isdigit()} | {current}
-        if not 0 < min(digits) <= max(digits) <= 10000:
+        if not 0 < min(digits) <= max(digits):
             return sorted(pairs)
         last = [int(m[1]) for a in node.select('a[href]') if a.get_text(strip=True) in {'末页', '尾页'}
                 for m in [re.search(r'_(\d+)\.html?$', urlsplit(a['href']).path)] if m]
         if len(set(last)) == 1:
             pairs.add((current, last[0]))
-        elif digits == set(range(1, max(digits) + 1)):
+        elif min(digits) == 1 and len(digits) == max(digits):
             pairs.add((current, max(digits)))
     return sorted(pairs)
 
@@ -164,7 +165,7 @@ def observed_pagers(containers, base):
             issues.append('分页栏目证据不唯一，完整性未确认')
             continue
         shape = next(iter(shapes))
-        if not (0 < current <= total <= 10000):
+        if not (0 < current <= total):
             issues.append('分页当前页或总页数矛盾')
             continue
         source_fixed = tuple(sorted(parse_qsl(source.query, keep_blank_values=True)))
@@ -221,7 +222,7 @@ def component_query(url):
     if set(values) != {'t', 'p', 'c'} or not all(value.isdigit() for value in values.values()):
         return None
     total, current, size = (int(values[key]) for key in ('t', 'p', 'c'))
-    if not (0 < current <= total <= 10000 and size > 0):
+    if not (0 < current <= total and size > 0):
         return None
     component = fields[0][0][1]
     fixed = sorted((key, value) for key, value in pairs if key not in {component + key for key in 'tpc'})
@@ -714,24 +715,58 @@ async def run(args, on_progress=None, should_cancel=None):
     def progress(event, **data):
         if on_progress:
             on_progress(event, data)
+    server_limits = getattr(args, 'limits', None)
+    limits = RunLimits.load(server_limits) if server_limits is not None else DESKTOP_LIMITS
     input_dir = args.input.resolve()
     out = args.output.resolve() if args.output else ROOT / 'outputs' / datetime.now().strftime('%Y%m%d-%H%M%S')
-    if not out.is_relative_to(ROOT) or out == ROOT:
+    if server_limits is None and (not out.is_relative_to(ROOT) or out == ROOT):
         raise ValueError('所有输出必须在SmallMission的独立子目录中')
     if out.exists():
         raise ValueError('输出目录已存在，请使用新目录，避免覆盖历史核验')
-    tasks, files = load_inputs(input_dir)
+    if server_limits is not None:
+        rows, files, errors, _ = read_directory(input_dir, limits=limits)
+        if errors:
+            raise ValueError('\n'.join(errors))
+        tasks = tasks_from_rows(rows)
+    else:
+        tasks, files = load_inputs(input_dir)
     config_path = args.plans.resolve()
-    config = json.loads(config_path.read_text(encoding='utf-8'))
+    config = json.loads(config_path.read_text(encoding='utf-8-sig'))
     out.mkdir(parents=True)
     (out / 'inputs').mkdir()
     (out / 'code').mkdir()
-    for name in ('audit.py', 'reporting.py', 'input_adapter.py', 'runtime_paths.py', 'requirements.txt', 'api_engine.py', 'ai_regions.py', 'deepseek_api.py', 'client_pagination.py'):
+    for name in ('audit.py', 'reporting.py', 'input_adapter.py', 'runtime_paths.py', 'requirements.txt', 'api_engine.py', 'ai_regions.py', 'deepseek_api.py', 'client_pagination.py', 'run_limits.py'):
         shutil.copy2(ASSETS / name, out / 'code' / name)
     for f in files:
+        if f.get('unread'):
+            continue
         shutil.copy2(input_dir / f['name'], out / 'inputs' / f['name'])
     write_json(out / 'source_plans.json', config)
     results = []
+    for entry in files:
+        if entry.get('status') != 'rejected':
+            continue
+        empty = {'complete': False, 'issues': [entry['reason']], 'notes': [], 'links': {}, 'anchors': [], 'root_count': 0}
+        task = {'school': '', 'college': '', 'rows': [], 'roster_url': '', 'roster_urls': [],
+                'id': sha(('input-file:' + entry['name']).encode())[:12], 'input_file': entry['name'],
+                'record_type': 'input_file'}
+        results.append({**{k:v for k,v in task.items() if k != 'rows'}, **reconcile(task, empty),
+                        'source': empty, 'sources': [], 'plan': {}, 'attempts': [{'method': '输入检查'}]})
+    write_json(out/'limits.json', limits.as_dict())
+    write_json(out/'results.json', results)
+    limit_events = []
+    college_urls = defaultdict(dict)
+    for task in tasks:
+        for url in task['roster_urls']:
+            college_urls[(task['school'], task['college'])][without_scheme(url)] = url
+    limited_colleges = {}
+    for pair, urls in college_urls.items():
+        if server_limits is not None and len(urls) > limits.source_pages_per_college:
+            event = {'kind': 'source_pages_per_college', 'school': pair[0], 'college': pair[1],
+                     'limit': limits.source_pages_per_college, 'unprocessed_urls': list(urls.values()),
+                     'reason': '学院给定来源超过配置页数上限，本学院未完成全量核验'}
+            limited_colleges[pair] = event
+            limit_events.append(event)
     mode = getattr(args, 'mode', 'rules')
     engine = None
     async with AsyncExitStack() as stack:
@@ -739,7 +774,8 @@ async def run(args, on_progress=None, should_cancel=None):
         if mode == 'deepseek':
             from api_engine import ModelEngine
             engine = await stack.enter_async_context(ModelEngine(out, getattr(args, 'cache_dir', None) or ROOT/'data'/'model-cache',
-                getattr(args, 'api_key', None), max_calls=getattr(args, 'max_api_calls', 200),
+                getattr(args, 'api_key', None), max_calls=limits.api_calls_per_batch if server_limits is not None else getattr(args, 'max_api_calls', 200),
+                limits=limits if server_limits is not None else None,
                 on_progress=on_progress, should_cancel=should_cancel))
         for index, task in enumerate(tasks):
             if should_cancel and should_cancel():
@@ -760,17 +796,55 @@ async def run(args, on_progress=None, should_cancel=None):
                          source_index=source_index, source_total=len(queue))
                 source_task = {**task, 'roster_url': url,
                                'id': sha('\n'.join((task['school'], task['college'], url)).encode())[:12]}
-                source = (await engine.read(fetcher, source_task, args.replay, queue) if engine else
-                          await read_source(fetcher, source_task, config, args.replay, queue, follow_pagination=True))
+                pair = (task['school'], task['college'])
+                if pair in limited_colleges:
+                    event = limited_colleges[pair]
+                    if url not in event.setdefault('unprocessed_urls', []):
+                        event['unprocessed_urls'].append(url)
+                    source = {'roster_url': url, 'plan': {}, 'failure_kind': 'limit',
+                              'attempts': [{'method': '上限检查'}],
+                              'parsed': {'complete': False, 'issues': [event['reason']], 'notes': [],
+                                         'links': {}, 'anchors': [], 'root_count': 0}}
+                else:
+                    source = (await engine.read(fetcher, source_task, args.replay, queue) if engine else
+                              await read_source(fetcher, source_task, config, args.replay, queue, follow_pagination=True))
+                for event in source['parsed'].get('analysis', {}).get('limit_events', []):
+                    detail = {**event, 'school': task['school'], 'college': task['college'], 'url': url}
+                    limit_events.append(detail)
+                    if server_limits is not None:
+                        limited_colleges[(task['school'], task['college'])] = detail
+                proof = source['parsed'].get('client_pagination', {})
+                if proof.get('limit_event'):
+                    detail = {**proof['limit_event'], 'school': task['school'], 'college': task['college'],
+                              'url': url, 'unprocessed_pages': proof.get('unprocessed_pages'),
+                              'reason': '；'.join(proof['issues'])}
+                    limit_events.append(detail)
+                    if server_limits is not None:
+                        limited_colleges[(task['school'], task['college'])] = detail
                 source['discovered_from'] = discovered_from.get(url)
                 sources.append(source)
                 for page_url in source['parsed'].get('pagination_urls', []):
                     if without_scheme(page_url) not in {without_scheme(u) for u in queue}:
-                        if len(queue) >= 200:
+                        college_scope = college_urls[(task['school'], task['college'])]
+                        over_limit = (without_scheme(page_url) not in college_scope and len(college_scope) >= limits.source_pages_per_college
+                                      if server_limits is not None else len(queue) >= limits.source_pages_per_college)
+                        if over_limit:
+                            reason = '学院来源分页超过配置页数上限，本学院未完成全量核验'
+                            event = limited_colleges.get((task['school'], task['college']))
+                            if not event or event['kind'] != 'source_pages_per_college':
+                                event = {'kind': 'source_pages_per_college', 'school': task['school'], 'college': task['college'],
+                                         'limit': limits.source_pages_per_college, 'unprocessed_urls': [], 'reason': reason}
+                                if server_limits is not None:
+                                    limited_colleges[(task['school'], task['college'])] = event
+                            if event not in limit_events:
+                                limit_events.append(event)
+                            if page_url not in event['unprocessed_urls']:
+                                event['unprocessed_urls'].append(page_url)
                             source['parsed']['complete'] = False
-                            source['parsed']['issues'].append('同一学院分页超过200页，本次未完成全量核验')
-                            source['failure_kind'] = 'structure'
-                            break
+                            source['parsed']['issues'].append(reason)
+                            source['failure_kind'] = 'limit'
+                            continue
+                        college_scope[without_scheme(page_url)] = page_url
                         # Reuse only this verified column's plan, never a sibling column.
                         if not lookup_plan(config, page_url):
                             config['plans'][page_url] = source['plan']
@@ -794,9 +868,18 @@ async def run(args, on_progress=None, should_cancel=None):
             if sys.stdout:
                 print(json.dumps({'school': task['school'], 'college': task['college'],
                                   'verdict': result['verdict'], **result['stats']}, ensure_ascii=False), flush=True)
+    if limited_colleges:
+        task_by_id = {t['id']: t for t in tasks}
+        for result in results:
+            event = limited_colleges.get((result['school'], result['college']))
+            if event:
+                result['source']['complete'] = False
+                result['source']['issues'].append(event['reason'])
+                result.update(reconcile(task_by_id[result['id']], result['source']))
+                result['limit_events'] = [event]
     # No writes are made to source workbooks, and verify that they remained unchanged.
     for f in files:
-        if sha((input_dir / f['name']).read_bytes()) != f['sha256']:
+        if f['sha256'] is not None and file_sha256(input_dir / f['name']) != f['sha256']:
             raise RuntimeError('输入文件在核验过程中发生变化，请重新运行：' + f['name'])
     versions = {}
     for name in ('httpx', 'beautifulsoup4', 'lxml', 'openpyxl', 'playwright', 'xlrd'):
@@ -812,6 +895,10 @@ async def run(args, on_progress=None, should_cancel=None):
                 'python': sys.version.split()[0], 'dependencies': versions, 'model_api_calls': 0, 'explicit_profile_fetches': 0,
                 'needs_human': sum(r['needs_human'] for r in results), 'colleges': len(results),
                 'configuration_note': '只在来源页面与已核实名单区域配置相符时完成对账；未知结构标明未完成，不宣称新站点零配置通用'}
+    manifest['limit_events'] = limit_events
+    manifest['limits'] = limits.as_dict()
+    manifest['limit_profile'] = 'server' if server_limits is not None else 'desktop'
+    manifest['input_rejections'] = [f for f in files if f.get('status') == 'rejected']
     manifest['engine'] = mode
     manifest['summary_rule'] = 'url_set_v1'
     if engine:

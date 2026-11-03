@@ -12,6 +12,7 @@ import time
 from urllib.parse import urldefrag
 
 from audit import disabled_link, url_key, write_json
+from run_limits import RunLimits, DESKTOP_LIMITS
 
 PAGING_ISSUE = '下一页依赖脚本或空目标，尚未确认分页已结束'
 MAX_PAGES = 30
@@ -113,10 +114,13 @@ SNAPSHOT = r'''scope => {
 }'''
 
 
-async def observe(fetcher, task, scopes, expected_urls, should_cancel=None, reference_sha256=None):
+async def observe(fetcher, task, scopes, expected_urls, should_cancel=None, reference_sha256=None, limits=None):
     """Observe a finite client pager, saving every page and all rejected traffic."""
+    limits = RunLimits.load(limits) if limits is not None else DESKTOP_LIMITS
+    max_pages = limits.client_pages
+    max_seconds = limits.client_observation_seconds
     proof = {'complete': False, 'pages': [], 'blocked_requests': [], 'issues': [],
-             'requested_url': task['roster_url'], 'max_pages': MAX_PAGES, 'max_seconds': MAX_SECONDS,
+             'requested_url': task['roster_url'], 'max_pages': max_pages, 'max_seconds': max_seconds,
              'selected_html_sha256':reference_sha256, 'selected_urls':sorted(expected_urls)}
     page, context = None, None
     started = time.monotonic()
@@ -124,7 +128,7 @@ async def observe(fetcher, task, scopes, expected_urls, should_cancel=None, refe
         if should_cancel and should_cancel():
             raise InterruptedError('任务已停止；原表和已取得证据保留')
     try:
-        async with asyncio.timeout(MAX_SECONDS):
+        async with asyncio.timeout(max_seconds):
             cancelled()
             await fetcher.start_browser()
             # Isolated context: a pager must never open a teacher/new tab or issue a
@@ -166,12 +170,16 @@ async def observe(fetcher, task, scopes, expected_urls, should_cancel=None, refe
             scope, state = matches[0]
             proof['scope'] = scope
             total = state['last'][0] if len(state['last']) == 1 else None
-            if state['current'] != 1 or not total or total < 2 or total > MAX_PAGES:
-                raise ValueError('分页首末页或上限无法确认')
+            if total and total > max_pages:
+                proof['unprocessed_pages'] = {'first': 1, 'last': total}
+                proof['limit_event'] = {'kind': 'client_pages', 'limit': max_pages, 'observed': total}
+                raise ValueError('客户端分页超过配置页数上限，未完成全量观察')
+            if state['current'] != 1 or not total or total < 2:
+                raise ValueError('分页首末页无法确认')
             combined, seen, list_id = [], set(), state['list_id']
             for number in range(1, total + 1):
                 cancelled()
-                if time.monotonic() - started > MAX_SECONDS:
+                if time.monotonic() - started > max_seconds:
                     raise ValueError('客户端分页达到时间上限')
                 html = await page.content()
                 meta = {'method':'客户端分页观察','requested_url':task['roster_url'], 'final_url':page.url,
@@ -212,6 +220,7 @@ async def observe(fetcher, task, scopes, expected_urls, should_cancel=None, refe
         proof['issues'].append('任务已停止；客户端分页未完成')
         raise
     except TimeoutError:
+        proof['limit_event'] = {'kind': 'client_observation_seconds', 'limit': max_seconds}
         proof['issues'].append('客户端分页达到时间上限')
     except Exception as exc:
         proof['issues'].append(str(exc) if isinstance(exc,ValueError) else '客户端分页观察失败：'+type(exc).__name__)
