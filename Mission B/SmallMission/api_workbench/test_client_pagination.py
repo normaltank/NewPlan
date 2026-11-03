@@ -308,6 +308,40 @@ class ClientPaginationTests(unittest.TestCase):
                     self.assertIsNotNone(BeautifulSoup(evidence[proof['pages'][-1]['html_path']], 'lxml').select_one('body > a'))
                     self.assertTrue(all(p == '/staff.html' for p in requests), requests)
 
+    def test_unwrapped_hash_next_stays_pending_on_initial_render_and_after_click(self):
+        for timing in ('initial', 'click'):
+            for href in ('#', '  #  '):
+                with self.subTest(timing=timing, href=href):
+                    anchor = '<a href="'+href+'">下页</a>'
+                    insert = "document.body.insertAdjacentHTML('beforeend'," + json.dumps(anchor) + ');'
+                    html = (HTML.replace(';render(1);', ';render(1);'+insert) if timing == 'initial' else
+                            HTML.replace('history.replaceState', 'if(n===2){'+insert+'}history.replaceState'))
+                    source, result, requests, evidence = self.read(html)
+                    self.assertTrue(result['needs_human'], result['reason'])
+                    self.assertFalse(result['complete'])
+                    self.assertIn('下一页依赖脚本', result['reason'])
+                    self.assertEqual(result['corrected_urls'], [])
+                    self.assertEqual(result['diffs'][0]['action'], '未判定，原样保留')
+                    proof = source['parsed']['client_pagination']
+                    self.assertFalse(proof['complete'])
+                    self.assertEqual([p['page'] for p in proof['pages']], [1] if timing == 'initial' else [1,2])
+                    self.assertIsNone(BeautifulSoup(evidence[source['attempts'][-1]['html_path']], 'lxml').select_one('body > a'))
+                    rendered = BeautifulSoup(evidence[proof['pages'][-1]['html_path']], 'lxml').select_one('body > a')
+                    self.assertEqual(rendered['href'].strip(), '#')
+                    self.assertTrue(all(p == '/staff.html' for p in requests), requests)
+
+    def test_unwrapped_http_and_nonempty_fragment_next_text_remain_ordinary_links(self):
+        for href in ('/person/a', '#details'):
+            with self.subTest(href=href):
+                anchor = '<a href="'+href+'">下页</a>'
+                insert = "document.body.insertAdjacentHTML('beforeend'," + json.dumps(anchor) + ');'
+                source, result, requests, _ = self.read(HTML.replace(';render(1);', ';render(1);'+insert))
+                self.assertTrue(result['complete'], result['reason'])
+                self.assertFalse(result['needs_human'])
+                self.assertTrue(source['parsed']['client_pagination']['complete'])
+                self.assertEqual(result['corrected_urls'], [source['roster_url'].replace('/staff.html','/person/a')])
+                self.assertTrue(all(p == '/staff.html' for p in requests), requests)
+
     def test_unwrapped_plain_http_next_text_does_not_block_client_proof(self):
         html = HTML.replace(';render(1);', ';render(1);document.body.insertAdjacentHTML(\'beforeend\',\'<a href="/person/a">下页</a>\');')
         source, result, requests, _ = self.read(html)

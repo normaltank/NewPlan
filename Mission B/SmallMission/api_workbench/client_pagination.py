@@ -88,7 +88,7 @@ SNAPSHOT = r'''scope => {
  const otherPagers=[...document.querySelectorAll('.pb_sys_common,.wp_paging,#wp_pager')]
    .filter(e=>e!==pager && !pager.contains(e));
  const unresolved=a=>{const href=(a.getAttribute('href')||'').trim();
-   return !href || /[\s<>]/.test(href) || !/^https?:\/\//i.test(a.href) || events(a);};
+   return ['', '#'].includes(href) || /[\s<>]/.test(href) || !/^https?:\/\//i.test(a.href) || events(a);};
  const otherNext=[...document.querySelectorAll('a')].filter(a=>!pager.contains(a) &&
    ['下页','下一页','Next','next','尾页','末页'].includes(a.textContent.trim()) &&
    !a.hasAttribute('disabled') && a.getAttribute('aria-disabled')!=='true' && !a.classList.contains('disabled') &&
