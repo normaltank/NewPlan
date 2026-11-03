@@ -1,19 +1,26 @@
 """Client paging through real source reads and a local Chromium origin."""
 import asyncio
+import hashlib
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
 from pathlib import Path
 import shutil
+import subprocess
+import sys
 import tempfile
 import threading
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 from api_engine import ModelEngine
-from audit import Fetcher, reconcile
+from audit import Fetcher, reconcile, run
+from openpyxl import load_workbook
+from runtime_paths import APP_ROOT
+from test_multisource import paired_file
 
 
 HTML = '''<html><head><meta charset="utf-8"><title>名单</title><link rel="icon" href="data:,"></head><body><main class="roster">
@@ -81,7 +88,7 @@ class ClientPaginationTests(unittest.TestCase):
                 task = {'rows':[{'url':u,'value':u,'file':'input','sheet':'1','row':i,'hyperlink_mismatch':False}
                                 for i,u in enumerate([urljoin(url,u) for u in inputs] if inputs is not None else [target],1)]}
                 result = reconcile(task, source['parsed'])
-                evidence = {str(p.relative_to(out)):p.read_text('utf-8') for p in out.rglob('*.json')}
+                evidence = {p.relative_to(out).as_posix():p.read_text('utf-8') for p in out.rglob('*') if p.suffix in {'.json','.html'}}
                 (out/'public-results.json').write_text(json.dumps({'source':source,'result':result,'requests':requests},ensure_ascii=False,indent=2),encoding='utf-8')
                 return source, result, requests, evidence
             finally:
@@ -99,6 +106,67 @@ class ClientPaginationTests(unittest.TestCase):
         self.assertTrue(all(p == '/staff.html' for p in requests), requests)
         self.assertIn('client_pagination', source['parsed'])
         self.assertEqual([len(p['entries']) for p in source['parsed']['client_pagination']['pages']], [2,1])
+
+    def test_api_run_exports_client_pages_with_exact_urls_and_three_categories(self):
+        requests = []
+        class Handler(BaseHTTPRequestHandler):
+            def do_GET(self):
+                requests.append(self.path)
+                self.send_response(200 if self.path in {'/staff.html','/wrong.html','/pending.html'} else 404)
+                self.send_header('Content-Type', 'text/html; charset=utf-8'); self.end_headers()
+                body = HTML.replace('id="preload"', 'id="preload" hidden') if self.path == '/pending.html' else HTML
+                self.wfile.write(body.encode('utf-8'))
+            def log_message(self, *args): pass
+        server = ThreadingHTTPServer(('127.0.0.1',0), Handler)
+        thread = threading.Thread(target=server.serve_forever, daemon=True); thread.start()
+        base = 'http://127.0.0.1:' + str(server.server_port)
+        with tempfile.TemporaryDirectory(dir=APP_ROOT) as directory:
+            root = Path(directory); inputs = root/'input'; inputs.mkdir()
+            for index, (college, page, target) in enumerate([
+                    ('正确学院','staff','/person/a'), ('差异学院','wrong','/person/other'),
+                    ('待核学院','pending','/person/original')]):
+                paired_file(inputs/(str(index)+'.xlsx'), '本地大学', college, [base+'/'+page+'.html'], [base+target])
+            config = root/'plans.json'; config.write_text('{"plans":{}}',encoding='utf-8')
+            args = SimpleNamespace(input=inputs, output=root/'output', plans=config, no_browser=False,
+                                   replay=None, mode='deepseek', cache_dir=root/'cache')
+            client = Client()
+            try:
+                with patch.dict(os.environ, {'NO_PROXY':'127.0.0.1,localhost'}), \
+                        patch('api_engine.DeepSeekJSON', return_value=client):
+                    out, results, manifest = asyncio.run(run(args))
+                by_college = {r['college']:r for r in results}
+                for college in ('正确学院','差异学院'):
+                    self.assertTrue(by_college[college]['complete'], by_college[college]['reason'])
+                    self.assertEqual(by_college[college]['corrected_urls'], [base+'/person/a'])
+                self.assertEqual((by_college['差异学院']['stats']['missing'],
+                                  by_college['差异学院']['stats']['extra']), (1,1))
+                pending = by_college['待核学院']
+                self.assertTrue(pending['needs_human'])
+                self.assertEqual(pending['corrected_urls'], [])
+                self.assertEqual(pending['diffs'][0]['action'], '未判定，原样保留')
+                self.assertIn('标记为隐藏', pending['reason'])
+                summary = load_workbook(out/manifest['summary_filename'], read_only=True)
+                rows = list(summary.active.values); summary.close()
+                self.assertEqual({r[1]:r[2] for r in rows[1:]},
+                                 {'正确学院':'正确','差异学院':'错误','待核学院':'特殊情况'})
+                details = load_workbook(out/manifest['report_filename'], read_only=True)
+                self.assertEqual(list(details['核验汇总'].values), rows); details.close()
+                self.assertEqual(json.loads((out/'results.json').read_text('utf-8')), results)
+                imported = subprocess.run([sys.executable, '-I', '-c',
+                    'import sys; sys.path.insert(0,sys.argv[1]); import api_engine; print(api_engine.__file__)',
+                    str(out/'code')], cwd=out/'code', capture_output=True, text=True, timeout=30)
+                self.assertEqual(imported.returncode, 0, imported.stderr)
+                self.assertEqual(Path(imported.stdout.strip()), out/'code'/'api_engine.py')
+                saved = out/'code'/'client_pagination.py'
+                self.assertEqual(saved.read_bytes(), Path(__file__).with_name('client_pagination.py').read_bytes())
+                self.assertEqual(manifest['code_sha256']['client_pagination.py'], hashlib.sha256(saved.read_bytes()).hexdigest())
+                self.assertTrue(all(p in {'/staff.html','/wrong.html','/pending.html'} for p in requests), requests)
+            finally:
+                if os.environ.get('CLIENT_PAGING_EVIDENCE'):
+                    destination = Path(os.environ['CLIENT_PAGING_EVIDENCE'])/self._testMethodName
+                    destination.mkdir(parents=True,exist_ok=True)
+                    shutil.copytree(root,destination/str(len(list(destination.iterdir()))+1))
+                server.shutdown(); server.server_close(); thread.join()
 
     def test_same_url_set_and_entry_count_cannot_hide_a_missing_plain_entry(self):
         changed = HTML.replace('cards.slice((n-1)*2,n*2)', '(n===2?[cards[1]]:cards.slice(0,2))')
@@ -186,6 +254,60 @@ class ClientPaginationTests(unittest.TestCase):
         _, result, _, _ = self.read(html)
         self.assertTrue(result['needs_human'], result['reason'])
         self.assertIn('条目多重集不一致', result['reason'])
+
+    def test_unresolved_next_added_on_initial_render_preserves_pending_paging(self):
+        html = HTML.replace(';render(1);', ';render(1);document.body.insertAdjacentHTML(\'beforeend\',\'<div class="wp_paging"><a href="javascript:unknown()">下页</a></div>\');')
+        source, result, requests, evidence = self.read(html)
+        self.assertTrue(result['needs_human'], result['reason'])
+        self.assertFalse(result['complete'])
+        self.assertIn('下一页依赖脚本', result['reason'])
+        self.assertEqual(result['corrected_urls'], [])
+        self.assertEqual(result['diffs'][0]['action'], '未判定，原样保留')
+        proof = source['parsed']['client_pagination']
+        self.assertFalse(proof['complete'])
+        self.assertIsNone(BeautifulSoup(evidence[source['attempts'][-1]['html_path']], 'lxml').select_one('.wp_paging'))
+        self.assertIsNotNone(BeautifulSoup(evidence[proof['initial']['html_path']], 'lxml').select_one('.wp_paging'))
+        self.assertTrue(all(p == '/staff.html' for p in requests), requests)
+
+    def test_unresolved_next_added_after_client_click_preserves_pending_paging(self):
+        html = HTML.replace('history.replaceState', 'if(n===2)document.body.insertAdjacentHTML(\'beforeend\',\'<div class="wp_paging"><a href="javascript:unknown()">下页</a></div>\');history.replaceState')
+        source, result, requests, evidence = self.read(html)
+        self.assertTrue(result['needs_human'], result['reason'])
+        self.assertFalse(result['complete'])
+        self.assertIn('下一页依赖脚本', result['reason'])
+        self.assertEqual(result['corrected_urls'], [])
+        self.assertEqual(result['diffs'][0]['action'], '未判定，原样保留')
+        proof = source['parsed']['client_pagination']
+        self.assertFalse(proof['complete'])
+        for path in (source['attempts'][-1]['html_path'], proof['initial']['html_path']):
+            self.assertIsNone(BeautifulSoup(evidence[path], 'lxml').select_one('.wp_paging'))
+        self.assertEqual([p['page'] for p in proof['pages']], [1,2])
+        self.assertIsNotNone(BeautifulSoup(evidence[proof['pages'][-1]['html_path']], 'lxml').select_one('.wp_paging'))
+        self.assertTrue(all(p == '/staff.html' for p in requests), requests)
+
+    def test_new_independent_http_next_is_not_covered_by_client_pager(self):
+        html = HTML.replace(';render(1);', ';render(1);document.body.insertAdjacentHTML(\'beforeend\',\'<div class="wp_paging"><a href="/unread.html">下一页</a></div>\');')
+        source, result, requests, _ = self.read(html)
+        self.assertTrue(result['needs_human'], result['reason'])
+        self.assertFalse(result['complete'])
+        self.assertEqual(result['corrected_urls'], [])
+        self.assertEqual(result['diffs'][0]['action'], '未判定，原样保留')
+        self.assertFalse(source['parsed']['client_pagination']['complete'])
+        self.assertTrue(all(p == '/staff.html' for p in requests), requests)
+
+    def test_roster_entry_named_next_and_disabled_other_pager_do_not_block_proof(self):
+        for html, pending in ((HTML.replace('>甲<', '>下一页<'), True),
+                     (HTML.replace(';render(1);', ';render(1);document.body.insertAdjacentHTML(\'beforeend\',\'<div class="wp_paging"><a aria-disabled="true" href="/unread.html">下一页</a></div>\');'), False)):
+            with self.subTest(pending=pending):
+                source, result, requests, _ = self.read(html)
+                self.assertTrue(source['parsed']['client_pagination']['complete'], result['reason'])
+                self.assertEqual(result['needs_human'], pending)
+                if pending:
+                    self.assertIn('存在未被识别为分页区域的翻页入口', result['reason'])
+                else:
+                    self.assertTrue(result['complete'], result['reason'])
+                    self.assertEqual(len(result['corrected_urls']), 1)
+                self.assertTrue(all(p == '/staff.html' for p in requests), requests)
 
     def test_second_unresolved_pager_cannot_be_cleared_by_first_pager_evidence(self):
         html = HTML.replace('</body>', '<div class="wp_paging"><a href="javascript:;">下页</a></div></body>')

@@ -277,7 +277,8 @@ class ModelEngine:
             parsed['client_pagination'] = proof
             if proof['complete']:
                 parsed['issues'] = [x for x in parsed['issues'] if x != PAGING_ISSUE]
-                parsed['notes'].append('实际客户端分页已逐页观察并核对条目多重集与URL集合')
+                parsed['notes'].append({'kind':'客户端分页已核验', 'name':'', 'url':task['roster_url'],
+                                        'message':'实际客户端分页已逐页观察并核对条目多重集与URL集合'})
             else:
                 parsed['issues'].extend(proof['issues'])
             parsed['complete'] = not parsed['issues']
