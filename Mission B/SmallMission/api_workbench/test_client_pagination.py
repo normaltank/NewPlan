@@ -9,6 +9,7 @@ import tempfile
 import threading
 import unittest
 from unittest.mock import patch
+from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 from api_engine import ModelEngine
@@ -78,7 +79,7 @@ class ClientPaginationTests(unittest.TestCase):
                     source = asyncio.run(run())
                 target = url.replace('/staff.html','/person/a')
                 task = {'rows':[{'url':u,'value':u,'file':'input','sheet':'1','row':i,'hyperlink_mismatch':False}
-                                for i,u in enumerate(inputs or [target],1)]}
+                                for i,u in enumerate([urljoin(url,u) for u in inputs] if inputs is not None else [target],1)]}
                 result = reconcile(task, source['parsed'])
                 evidence = {str(p.relative_to(out)):p.read_text('utf-8') for p in out.rglob('*.json')}
                 (out/'public-results.json').write_text(json.dumps({'source':source,'result':result,'requests':requests},ensure_ascii=False,indent=2),encoding='utf-8')
@@ -138,8 +139,11 @@ class ClientPaginationTests(unittest.TestCase):
 
     def test_observed_original_cards_cover_16_plus_2_and_seven_exact_urls(self):
         html = (Path(__file__).parent/'fixtures/client_preload_observed.html').read_text('utf-8')
-        source, result, requests, _ = self.read(html, selector='.page-layout')
+        inputs = ['/squ_wxy/contents/4021/'+name+'.html' for name in
+                  ('12926','12927','14536','13209','13210','14931','15036')]
+        source, result, requests, _ = self.read(html, selector='.page-layout',inputs=inputs)
         self.assertTrue(result['complete'], result['reason'])
+        self.assertEqual((result['stats']['matched'],result['stats']['missing'],result['stats']['extra']),(7,0,0))
         proof = source['parsed']['client_pagination']
         self.assertEqual([len(p['entries']) for p in proof['pages']], [16,2])
         self.assertEqual(proof['entry_count'],18)
@@ -148,6 +152,8 @@ class ClientPaginationTests(unittest.TestCase):
                           '4021/13210.html','4021/14931.html','4021/15036.html'})
         self.assertEqual(sum(not e['urls'] for p in proof['pages'] for e in p['entries']),11)
         self.assertTrue(all(p == '/staff.html' for p in requests), requests)
+        self.assertEqual(source['attempts'][-1]['method'],'HTTP')
+        self.assertEqual(proof['selected_html_sha256'],source['attempts'][-1]['html_sha256'])
 
     def test_loop_missing_terminal_contradiction_preload_change_and_limit_stay_pending(self):
         variants = [
@@ -167,6 +173,26 @@ class ClientPaginationTests(unittest.TestCase):
         _, result, _, _ = self.read(selector=('#preload','#visible'))
         self.assertTrue(result['needs_human'])
         self.assertIn('两次结构判断', result['reason'])
+
+    def test_equal_input_count_with_different_url_still_reports_missing_and_extra(self):
+        _, result, _, _ = self.read(inputs=['https://example.edu.cn/unrelated'])
+        self.assertTrue(result['complete'], result['reason'])
+        self.assertEqual((result['stats']['missing'],result['stats']['extra']),(1,1))
+        self.assertEqual(len(result['corrected_urls']),1)
+
+    def test_equal_page_entry_count_with_replaced_url_is_not_certified(self):
+        html = HTML.replace('<div class="card">丙</div>', '<a class="card" href="/person/b">丙</a>')
+        html = html.replace("map(x=>x.outerHTML)", "map(x=>n===2?x.outerHTML.replace('/person/b','/person/c'):x.outerHTML)")
+        _, result, _, _ = self.read(html)
+        self.assertTrue(result['needs_human'], result['reason'])
+        self.assertIn('条目多重集不一致', result['reason'])
+
+    def test_second_unresolved_pager_cannot_be_cleared_by_first_pager_evidence(self):
+        html = HTML.replace('</body>', '<div class="wp_paging"><a href="javascript:;">下页</a></div></body>')
+        source, result, _, _ = self.read(html)
+        self.assertTrue(result['needs_human'])
+        self.assertIn('下一页依赖脚本',result['reason'])
+        self.assertFalse(source['parsed']['client_pagination']['complete'])
 
     def test_stop_preserves_evidence_and_interrupts_before_client_clicks(self):
         calls = []
