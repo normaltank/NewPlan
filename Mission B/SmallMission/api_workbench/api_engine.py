@@ -74,7 +74,8 @@ def qualification(soup, nodes, anchors, plans, url):
     if not a['links']:
         issues.append('名单零链接须人工确认，模型判断不能自动清空原表')
     counters = sorted(set(pager_numbers(soup, nodes, plans) +
-                          [(item['current'], item['total']) for item in a['component_pagers']]))
+                          [(item['current'], item['total']) for item in
+                           a['component_pagers'] + a['observed_pagers'] + a['jump_pagers']]))
     if len({total for _, total in counters}) > 1:
         issues.append('同页分页总数相互矛盾')
     if len({current for current, _ in counters}) > 1:
@@ -91,7 +92,7 @@ def qualification(soup, nodes, anchors, plans, url):
               'links': {u: {'url': u, 'names': v['names'], 'occurrences': len(v['anchor_ids'])} for u, v in a['links'].items()},
               'anchors': [], 'title': soup.title.get_text(' ', strip=True) if soup.title else '',
               'root_count': len(a['selected_regions']), 'pagination_urls': bounded_query_pages(a['pagination_urls'], url, counters),
-              'pager_counters': counters, 'component_pagers': a['component_pagers']}
+              'pager_counters': counters, 'component_pagers': a['component_pagers'], 'observed_pagers': a['observed_pagers']}
     for aid, anchor in anchors.items():
         owner = next((j for j, rid in enumerate(a['selected_regions'], 1)
                       if nodes[aid] is nodes[rid] or any(parent is nodes[rid] for parent in nodes[aid].parents)), 0)
@@ -107,7 +108,12 @@ def check_coverage(sources):
     by_family = defaultdict(list)
     for s in sources:
         components = s['parsed'].get('component_pagers', [])
-        if components:
+        observed = s['parsed'].get('observed_pagers', [])
+        if observed:
+            for item in observed:
+                if s not in by_family[('observed', item['key'])]:
+                    by_family[('observed', item['key'])].append(s)
+        elif components:
             for item in components:
                 key = ('component', item['host'], item['path'], item['fragment'],
                        tuple(map(tuple, item['fixed_query'])), item['component'], item['page_size'])
