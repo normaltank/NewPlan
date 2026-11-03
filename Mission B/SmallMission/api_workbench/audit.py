@@ -586,21 +586,22 @@ class Fetcher:
             self.save(task['id'], 'http', html, meta)
         return html, meta
 
+    async def start_browser(self):
+        if self.pw is None:
+            from playwright.async_api import async_playwright
+            executable = browser_path()
+            self.pw = await async_playwright().start()
+            self.browser = await self.pw.chromium.launch(headless=True, executable_path=executable)
+            self.context = await self.browser.new_context()
+        if self.browser is None:
+            raise RuntimeError('独立浏览器不可用')
+
     async def browser_fetch(self, task):
         meta = {'requested_url': task['roster_url'], 'method': '独立浏览器',
                 'captured_at': datetime.now(timezone.utc).isoformat()}
         html, page = '', None
         try:
-            if self.pw is None:
-                from playwright.async_api import async_playwright
-                # Browser location must be set BEFORE spawning the Node driver;
-                # the frozen driver otherwise assumes its own .local-browsers.
-                executable = browser_path()
-                self.pw = await async_playwright().start()
-                self.browser = await self.pw.chromium.launch(headless=True, executable_path=executable)
-                self.context = await self.browser.new_context()
-            if self.browser is None:
-                raise RuntimeError('独立浏览器不可用')
+            await self.start_browser()
             await self.pace(task['roster_url'])
             page = await self.context.new_page()
             navigations = []
