@@ -86,6 +86,59 @@ class StandardJumpTests(unittest.TestCase):
         self.assertEqual((result['stats']['missing'], result['stats']['extra']), (1, 1))
         self.assertEqual(set(result['corrected_urls']), set(component.TARGETS))
 
+    def test_http_next_or_last_with_unknown_events_keeps_input_for_human_review(self):
+        for label, target in [('Next', component.PAGES[1]), ('尾页', component.PAGES[3])]:
+            for event in ('onclick="unknown();return false"', 'onmouseover="sideEffect()"'):
+                with self.subTest(label=label, event=event):
+                    pages = jump_pages()
+                    extra = '<a href="' + target + '" ' + event + '>' + label + '</a>'
+                    pages[component.SOURCE] = pages[component.SOURCE][:-6] + extra + '</div>'
+                    result, requested = component.ComponentPaginationTests().audit(pages=pages)
+                    self.assertTrue(result['needs_human'], result['reason'])
+                    self.assertFalse(result['complete'])
+                    self.assertEqual([row['new_url'] for row in result['diffs']], component.TARGETS)
+                    self.assertTrue(all(row['action'] == '未判定，原样保留' for row in result['diffs']))
+                    self.assertEqual(result['corrected_urls'], [])
+                    self.assertEqual(set(result['source']['links']), set(component.TARGETS))
+                    self.assertEqual(requested, component.PAGES)
+
+    def test_next_or_last_accepts_plain_http_and_strict_literal_controls(self):
+        for label, target in [('Next', component.PAGES[1]), ('尾页', component.PAGES[3])]:
+            controls = ['<a href="' + target + '">' + label + '</a>',
+                        '<a href="#" onclick="location.href=encodeURI(\'' + target + '\');">' + label + '</a>']
+            for control in controls:
+                with self.subTest(control=control):
+                    pages = jump_pages()
+                    pages[component.SOURCE] = pages[component.SOURCE][:-6] + control + '</div>'
+                    result, requested = component.ComponentPaginationTests().audit(pages=pages)
+                    self.assertTrue(result['complete'], result['reason'])
+                    self.assertEqual(requested, component.PAGES)
+                    self.assertEqual(set(result['corrected_urls']), set(component.TARGETS))
+
+    def test_strict_literal_with_extra_event_and_unknown_event_without_jump_stay_human(self):
+        for label, target in [('Next', component.PAGES[1]), ('尾页', component.PAGES[3])]:
+            for control, jump in [
+                ('<a href="#" onclick="location.href=encodeURI(\'' + target
+                 + '\');" onmouseover="sideEffect()">' + label + '</a>', JUMP),
+                ('<a href="' + target + '" onclick="unknown();return false">' + label + '</a>', '')]:
+                with self.subTest(control=control, jump=bool(jump)):
+                    pages = jump_pages(jump)
+                    pages[component.SOURCE] = pages[component.SOURCE][:-6] + control + '</div>'
+                    result, _ = component.ComponentPaginationTests().audit(pages=pages)
+                    self.assertTrue(result['needs_human'], result['reason'])
+                    self.assertFalse(result['complete'])
+                    self.assertEqual([row['new_url'] for row in result['diffs']], component.TARGETS)
+                    self.assertEqual(result['corrected_urls'], [])
+
+    def test_teacher_http_event_does_not_change_roster_url_rules(self):
+        pages = {url: html.replace('href="/person/', 'onclick="unknown();return false" href="/person/')
+                 for url, html in jump_pages().items()}
+        result, requested = component.ComponentPaginationTests().audit(pages=pages)
+        self.assertTrue(result['complete'], result['reason'])
+        self.assertEqual(requested, component.PAGES)
+        self.assertEqual(set(result['corrected_urls']), set(component.TARGETS))
+
+
     def test_explicit_single_page_is_terminal_without_a_synthetic_paging_url(self):
         control = JUMP.replace('(4,', '(1,')
         html = ('<div class="roster"><a href="/person/1">条目</a></div>'

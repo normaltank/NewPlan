@@ -45,6 +45,13 @@ def key(url):
     return without_scheme(url)
 
 
+def paging_target_matches(target, base, components, observed):
+    return ((not observed and not observed_page_shape(target) and not observed_page_shape(base)
+             and pagination_family(target) == pagination_family(base))
+            or any(component_page_matches(item, target) for item in components)
+            or any(target in item['urls'] for item in observed))
+
+
 def supplemental_jump(node, soup, base):
     """Recognize the observed input-only adjunct, never evaluate its handler.
 
@@ -64,8 +71,10 @@ def supplemental_jump(node, soup, base):
         return None
     if any(a.get_text(' ', strip=True) in {'下一页', '下页', 'Next', 'next', '末页', '尾页'}
            and not disabled_link(a)
-           and not ((url_key(a['href'], base) if a['href'].strip() not in {'', '#'} else None)
-                    or fixed_paging_target(a, base)) for a in container.select('a[href]')):
+           and not ((not any(k.lower().startswith('on') for k in a.attrs)
+                     and a['href'].strip() not in {'', '#'} and url_key(a['href'], base))
+                    or ({k.lower() for k in a.attrs if k.lower().startswith('on')} == {'onclick'}
+                        and fixed_paging_target(a, base))) for a in container.select('a[href]')):
         return None
     regions = container.find_all(class_='p_pages', recursive=False)
     currents = container.select('.p_no_d,.this-page')
@@ -102,10 +111,7 @@ def supplemental_jump(node, soup, base):
             continue
         target = url_key(anchor['href'], base)
         if (not target or any(k.lower().startswith('on') for k in anchor.attrs)
-                or not ((not observed and not observed_page_shape(target) and not observed_page_shape(base)
-                         and pagination_family(target) == pagination_family(base))
-                        or any(component_page_matches(item, target) for item in components)
-                        or any(target in item['urls'] for item in observed))):
+                or not paging_target_matches(target, base, components, observed)):
             return None
         numbered.append((int(label), target))
     declared = re.findall(r'(?<!\d)(\d+)\s*/\s*(\d+)(?!\d)', container.get_text(' ', strip=True))
@@ -138,7 +144,9 @@ def prepare(html, url):
     for index, node in enumerate(soup.find_all(True), 1):
         if node.name == 'a':
             anchor_events[index] = {k: v for k, v in node.attrs.items() if k.lower().startswith('on')}
-        page_target = fixed_paging_target(node, base_url) if node.name == 'a' else None
+        page_target = (fixed_paging_target(node, base_url)
+                       if node.name == 'a' and set(k.lower() for k in anchor_events[index]) == {'onclick'}
+                       else None)
         node.attrs = {k: v for k, v in node.attrs.items() if k in
                       {'id', 'class', 'href', 'src', 'title', 'alt', 'role', 'aria-label', 'aria-disabled', 'aria-hidden', 'hidden', 'disabled', 'rel', 'colspan', 'rowspan'}}
         node['data-mb-id'] = str(index)
@@ -306,11 +314,12 @@ def apply_plan(soup, nodes, anchors, answer, url):
         a = anchors[i]
         if disabled_link(nodes[i]):
             continue
+        if (a['text'].strip() in {'下一页', '下页', 'Next', 'next', '末页', '尾页'}
+                and a.get('events') and not a.get('page_url')):
+            issues.append('分页控件含未知事件，目标尚未确定')
         target = a['url'] or a.get('page_url')
         if target:
-            if ((not observed and not observed_page_shape(target) and not observed_page_shape(url) and pagination_family(target) == pagination_family(url))
-                    or any(component_page_matches(item, target) for item in components)
-                    or any(target in item['urls'] for item in observed)):
+            if paging_target_matches(target, url, components, observed):
                 if target not in pages:
                     pages.append(target)
             else:
