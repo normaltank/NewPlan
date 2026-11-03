@@ -9,8 +9,11 @@ import re
 from urllib.parse import urlsplit, urlunsplit
 import zipfile
 from types import SimpleNamespace
+from xml.etree.ElementTree import iterparse
 
 from openpyxl import load_workbook
+from openpyxl.utils.cell import range_boundaries
+from run_limits import RunLimits, DESKTOP_LIMITS
 
 SUPPORTED = {'.xlsx', '.xlsm', '.xls', '.csv', '.tsv', '.txt'}
 MAX_ROWS = 50000
@@ -213,29 +216,61 @@ def paired_sheets(datasets, path):
     return rows, errors, warnings
 
 
-def parse_file(path):
+def check_xlsx_ranges(archive, limits):
+    """Validate ranges before openpyxl allocates cells for merged rectangles."""
+    merged = 0
+    for name in archive.namelist():
+        if not name.startswith('xl/worksheets/') or not name.endswith('.xml'):
+            continue
+        max_row = max_col = 0
+        with archive.open(name) as source:
+            for _, element in iterparse(source, events=('end',)):
+                tag = element.tag.rsplit('}', 1)[-1]
+                if tag in {'dimension', 'mergeCell', 'c'}:
+                    ref = element.get('ref' if tag != 'c' else 'r')
+                    if ref:
+                        left, top, right, bottom = range_boundaries(ref)
+                        if not all((left, top, right, bottom)):
+                            raise ValueError('工作表范围无法确认')
+                        max_row, max_col = max(max_row, bottom), max(max_col, right)
+                        if max_row * max_col > limits.sheet_cells:
+                            raise ValueError('工作表范围超过配置单元格上限')
+                        if tag == 'mergeCell':
+                            merged += (right-left+1)*(bottom-top+1)
+                            if merged > limits.merged_cells:
+                                raise ValueError('合并区域总展开超过配置单元格上限')
+                element.clear()
+
+
+def parse_file(path, limits=None):
+    server = limits is not None
+    limits = RunLimits.load(limits) if server else DESKTOP_LIMITS
     errors, warnings, parsed = [], [], []
     if path.suffix.lower() not in SUPPORTED:
         return [], [f'{path.name}：不支持此格式'], []
-    if path.stat().st_size > MAX_FILE_BYTES:
-        return [], [f'{path.name}：单个文件不能超过10MB'], []
+    if path.stat().st_size > limits.input_file_bytes:
+        return [], [f'{path.name}：单个文件超过配置字节上限'], []
     datasets = []
     book = None
+    merged_count = 0
     try:
         ext = path.suffix.lower()
         if ext in ('.xlsx', '.xlsm'):
             with zipfile.ZipFile(path) as z:
-                if sum(i.file_size for i in z.infolist()) > 100 * 1024 * 1024:
+                if sum(i.file_size for i in z.infolist()) > limits.xlsx_expanded_bytes:
                     raise ValueError('工作簿解压后的内容过大，请拆分文件')
+                if server:
+                    check_xlsx_ranges(z, limits)
             book = load_workbook(path, read_only=False, data_only=False, keep_links=False)
             for ws in book.worksheets:
-                if ws.max_row > MAX_ROWS + 100:
-                    raise ValueError('单个工作表超过50000行，请拆分')
-                if ws.max_row * ws.max_column > 2000000:
+                if not server and ws.max_row > limits.data_rows_per_batch + 100:
+                    raise ValueError('单个工作表超过配置行数范围，请拆分')
+                if ws.max_row * ws.max_column > limits.sheet_cells:
                     raise ValueError('工作表范围过大，请去除多余的空行空列后重试')
                 merged = {}
                 for area in ws.merged_cells.ranges:
-                    if (area.max_col - area.min_col + 1) * (area.max_row - area.min_row + 1) > MAX_ROWS:
+                    merged_count += (area.max_col-area.min_col+1)*(area.max_row-area.min_row+1)
+                    if (merged_count if server else (area.max_col-area.min_col+1)*(area.max_row-area.min_row+1)) > limits.merged_cells:
                         raise ValueError('合并区域过大，请取消合并后导入')
                     for row in range(area.min_row, area.max_row + 1):
                         for col in range(area.min_col, area.max_col + 1):
@@ -251,11 +286,14 @@ def parse_file(path):
             import xlrd
             xls = xlrd.open_workbook(str(path), formatting_info=True)
             for ws in xls.sheets():
-                if ws.nrows > MAX_ROWS + 100:
-                    raise ValueError('单个工作表超过50000行，请拆分')
+                if not server and ws.nrows > limits.data_rows_per_batch + 100:
+                    raise ValueError('单个工作表超过配置行数范围，请拆分')
+                if server and ws.nrows * ws.ncols > limits.sheet_cells:
+                    raise ValueError("工作表范围超过配置单元格上限")
                 merged = {}
                 for rlo, rhi, clo, chi in ws.merged_cells:
-                    if (rhi-rlo)*(chi-clo) > MAX_ROWS:
+                    merged_count += (rhi-rlo)*(chi-clo)
+                    if (merged_count if server else (rhi-rlo)*(chi-clo)) > limits.merged_cells:
                         raise ValueError('合并区域过大')
                     for r in range(rlo, rhi):
                         for c in range(clo, chi):
@@ -274,11 +312,15 @@ def parse_file(path):
                         records.append((r + 1, values, cells))
                 datasets.append((ws.name, records))
         else:
+            csv.field_size_limit(max(csv.field_size_limit(), limits.input_file_bytes))
             datasets = [('文本', text_rows(decode_text(path.read_bytes()), ext))]
         if ext in ('.xlsx', '.xlsm', '.xls') and any(
                 records and set(header_fields(records[0][1])) in ({0, 1, 2}, {0, 1, 3})
                 for _, records in datasets):
-            return paired_sheets(datasets, path)
+            result = paired_sheets(datasets, path)
+            if server and len(result[0]) > limits.data_rows_per_batch:
+                return [], [path.name + '：超过配置数据行上限，整文件未处理'], []
+            return result
         for sheet, records in datasets:
             columns, first, has_header = None, True, False
             for number, values, cells in records:
@@ -324,21 +366,51 @@ def parse_file(path):
     finally:
         if book:
             book.close()
+    if server and len(parsed) > limits.data_rows_per_batch:
+        return [], [path.name + '：超过配置数据行上限，整文件未处理'], []
     return parsed, errors, warnings
 
 
-def read_directory(directory):
+def file_sha256(path):
+    digest = hashlib.sha256()
+    with path.open('rb') as stream:
+        for block in iter(lambda: stream.read(1024*1024), b''):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def read_directory(directory, limits=None):
+    server = limits is not None
+    limits = RunLimits.load(limits) if server else DESKTOP_LIMITS
     rows, files, errors, warnings = [], [], [], []
     for path in sorted(directory.iterdir()):
         if not path.is_file() or path.suffix.lower() not in SUPPORTED or path.name.startswith('~$'):
             continue
-        found, issues, notes = parse_file(path)
+        size = path.stat().st_size
+        entry = {'name': path.name, 'bytes': size, 'sha256': None}
+        files.append(entry)
+        # Refuse before parsing, hashing or copying the contents.
+        refusal = ('超过配置每批文件数上限' if server and len(files) > limits.files_per_batch else
+                   '超过配置单文件字节上限' if size > limits.input_file_bytes else None)
+        if refusal:
+            if server:
+                entry.update(status='rejected', reason=path.name + '：' + refusal, unread=True)
+            else:
+                errors.append(path.name + '：单个文件不能超过10MB')
+            continue
+        found, issues, notes = parse_file(path, limits=limits if server else None)
+        entry['sha256'] = file_sha256(path)
+        if server and not issues and len(rows) + len(found) > limits.data_rows_per_batch:
+            issues = [path.name + '：超过配置本批累计数据行上限，整文件未处理']
+        if server and issues:
+            entry.update(status='rejected', reason='；'.join(issues), unread=False)
+            continue
+        if server:
+            entry['status'] = 'accepted'
         rows.extend(found); errors.extend(issues); warnings.extend(notes)
-        raw = path.read_bytes()
-        files.append({'name': path.name, 'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw)})
     if not files:
         errors.append('请粘贴四列数据，或导入Excel、CSV、TSV、TXT文件')
-    if len(rows) > MAX_ROWS:
+    if not server and len(rows) > MAX_ROWS:
         errors.append('本批超过50000行，请拆分')
     return rows, files, errors, warnings
 

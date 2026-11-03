@@ -112,9 +112,9 @@ def verification_summary(result):
 def college_summaries(results):
     groups = {}
     for result in results:
-        groups.setdefault((result['school'], result['college']), []).append(result)
+        groups.setdefault((result['school'], result['college'], result.get('input_file')), []).append(result)
     summaries = []
-    for (school, college), members in groups.items():
+    for (school, college, input_file), members in groups.items():
         assessments = [verification_summary(r) for r in members]
         statuses = [a['verification_result'] for a in assessments]
         # A confirmed difference proves an original-input error even if a different

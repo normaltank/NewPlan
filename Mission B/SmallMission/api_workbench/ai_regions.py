@@ -4,6 +4,7 @@ import json
 import re
 from html import escape
 from bs4 import BeautifulSoup, Comment
+from run_limits import LimitExceeded
 from audit import (url_key, without_scheme, pagination_family, disabled_link, fixed_paging_target,
                    component_pagers, component_page_matches, observed_pagers, observed_page_shape)
 
@@ -90,7 +91,7 @@ def supplemental_jump(node, soup, base):
             or inputs[0].get('type', 'text').lower() != 'text'):
         return None
     current = int(currents[0].get_text(strip=True))
-    if not 0 < current <= total <= 10000:
+    if not 0 < current <= total:
         return None
     input_events = {k.lower(): v for k, v in inputs[0].attrs.items() if k.lower().startswith('on')}
     # The observed Enter key binding may repeat exactly the same jump call.
@@ -130,7 +131,7 @@ def supplemental_jump(node, soup, base):
     return {'current': current, 'total': total}
 
 
-def prepare(html, url):
+def prepare(html, url, max_input_chars=220000):
     soup = BeautifulSoup(html, 'lxml')
     for node in soup.select('script,style,noscript,link,meta'):
         node.decompose()
@@ -161,8 +162,8 @@ def prepare(html, url):
     body = soup.body or soup
     compact = str(body)
     # Never silently feed only the beginning of a roster to the model.
-    if len(compact) > 220000:
-        raise ValueError('页面超过本次试验的完整输入上限；未截断后冒充完整读取')
+    if len(compact) > max_input_chars:
+        raise LimitExceeded('model_input_chars', max_input_chars, len(compact), '页面超过配置的完整输入字符上限；未截断后冒充完整读取')
     anchors = {}
     for a in soup.select('a[href]'):
         ident = int(a['data-mb-id'])
