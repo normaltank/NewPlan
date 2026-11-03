@@ -22,7 +22,7 @@
 
 1.0.9 在双路共同漏选可比的平行条目时触发结构复核，不直接补链接；无内联事件的确切空操作不再阻断已取得的 HTTP(S) 名单。同栏目组件分页依赖实际控件及固定参数证据，未知脚本、边界变化和未完成覆盖仍需人工处理。详细边界见 [完整版核验说明](README.md#怎样限制错误)，维护及最终分发验收记录见 [Issue #37](https://github.com/normaltank/NewPlan/issues/37) 与本地 `maintenance/20261028-log-repair/README.md`。源码版本、离线测试和冻结回放不能代替最终 EXE 或新模型选择的验收。
 
-1.0.10 支持控件证据绑定的 `lists` 固定栏目 ID、`C数字index`、`PAGENUM` 附固定 `totalpage` 及 `.this-page` 组件分页，保留栏目、固定参数和片段边界。标准附加输入跳转不再阻断完整 HTTP 分页；单页 1／1 必须另有独立 DOM 页数证据，未知 Next、其他事件、缺页或矛盾仍需人工处理。本轮 116 个冻结跳转页面中 103 个恢复，13 个缺少独立 DOM 总页数证据仍待人工；冻结回放不代表新模型选择或全院完整性。详细边界见 [完整版核验说明](README.md#怎样限制错误)，本轮实施与最终包验收查 [Issue #50](https://github.com/normaltank/NewPlan/issues/50)、[Issue #53](https://github.com/normaltank/NewPlan/issues/53) 及本地 `maintenance/20261102-log-maintenance/README.md`。
+1.0.10 支持控件证据绑定的 `lists` 固定栏目 ID、`C数字index`、`PAGENUM` 附固定 `totalpage` 及 `.this-page` 组件分页，保留栏目、固定参数和片段边界。标准附加输入跳转不再阻断完整 HTTP 分页；单页 1／1 必须另有独立 DOM 页数证据，未知 Next、其他事件、缺页或矛盾仍需人工处理；Next／尾页的 HTTP 地址不能消除未知事件的风险。冻结回放不代表新模型选择或全院完整性。详细边界见 [完整版核验说明](README.md#怎样限制错误)，本轮实施与最终包验收查 [Issue #50](https://github.com/normaltank/NewPlan/issues/50)、[Issue #53](https://github.com/normaltank/NewPlan/issues/53) 及本地 `maintenance/20261102-log-maintenance/README.md`。
 
 ## 结果边界
 
