@@ -45,6 +45,82 @@ def key(url):
     return without_scheme(url)
 
 
+def supplemental_jump(node, soup, base):
+    """Recognize the observed input-only adjunct, never evaluate its handler.
+
+    The HTTP numbered controls and unique current marker are the evidence;
+    the function's total is only checked against them, never used as a URL.
+    Read before sanitizing so extra events cannot disappear from this check.
+    """
+    events = {k.lower(): v for k, v in node.attrs.items() if k.lower().startswith('on')}
+    match = re.fullmatch(r'\s*_simple_list_gotopage_fun\(\s*([1-9]\d*)\s*,\s*([\'"])(u\d+_goto)\2\s*,\s*2\s*\)\s*;?\s*',
+                         str(events.get('onclick', '')))
+    if (node.name != 'a' or node.get('href', '').strip() != 'javascript:;'
+            or node.get_text(strip=True) != '跳转' or set(events) != {'onclick'} or not match):
+        return None
+    container = next((parent for parent in node.parents
+                      if parent.find(class_='p_pages', recursive=False)), None)
+    if container is None:
+        return None
+    if any(a.get_text(' ', strip=True) in {'下一页', '下页', 'Next', 'next', '末页', '尾页'}
+           and not disabled_link(a)
+           and not ((url_key(a['href'], base) if a['href'].strip() not in {'', '#'} else None)
+                    or fixed_paging_target(a, base)) for a in container.select('a[href]')):
+        return None
+    regions = container.find_all(class_='p_pages', recursive=False)
+    currents = container.select('.p_no_d,.this-page')
+    inputs = soup.find_all(id=match[3])
+    total = int(match[1])
+    if (len(regions) != 1 or len(currents) != 1 or not currents[0].get_text(strip=True).isdigit()
+            or not any(parent is regions[0] for parent in currents[0].parents)
+            or len(inputs) != 1 or inputs[0].name != 'input'
+            or not any(parent is container for parent in inputs[0].parents)
+            or inputs[0].get('type', 'text').lower() != 'text'):
+        return None
+    current = int(currents[0].get_text(strip=True))
+    if not 0 < current <= total <= 10000:
+        return None
+    input_events = {k.lower(): v for k, v in inputs[0].attrs.items() if k.lower().startswith('on')}
+    # The observed Enter key binding may repeat exactly the same jump call.
+    if input_events:
+        expected = ('if(event.keyCode==13){' + re.sub(r'\s+', '', events['onclick']).rstrip(';') + '}')
+        if set(input_events) != {'onkeydown'} or re.sub(r'\s+', '', input_events['onkeydown']) != expected:
+            return None
+    if any(any(k.lower().startswith('on') for k in parent.attrs)
+           for element in (node, inputs[0]) for parent in element.parents
+           if parent is container or any(p is container for p in parent.parents)):
+        return None
+    components, component_issues = component_pagers([container], base)
+    observed, observed_issues = observed_pagers([container], base)
+    if (component_issues or observed_issues
+            or any((item['current'], item['total']) != (current, total) for item in components + observed)):
+        return None
+    numbered = []
+    for anchor in regions[0].select('a[href]'):
+        label = anchor.get_text(strip=True)
+        if not label.isdigit() or disabled_link(anchor):
+            continue
+        target = url_key(anchor['href'], base)
+        if (not target or any(k.lower().startswith('on') for k in anchor.attrs)
+                or not ((not observed and not observed_page_shape(target) and not observed_page_shape(base)
+                         and pagination_family(target) == pagination_family(base))
+                        or any(component_page_matches(item, target) for item in components)
+                        or any(target in item['urls'] for item in observed))):
+            return None
+        numbered.append((int(label), target))
+    declared = re.findall(r'(?<!\d)(\d+)\s*/\s*(\d+)(?!\d)', container.get_text(' ', strip=True))
+    single_terminal = current == total == 1 and declared and not regions[0].select('a[href]')
+    if ((not numbered and not single_terminal)
+            or any(not 0 < number <= total or number == current for number, _ in numbered)
+            or max([current] + [number for number, _ in numbered]) != total
+            or len({number for number, _ in numbered}) != len(numbered)
+            or len({target for _, target in numbered}) != len(numbered)):
+        return None
+    if any((int(a), int(b)) != (current, total) for a, b in declared):
+        return None
+    return {'current': current, 'total': total}
+
+
 def prepare(html, url):
     soup = BeautifulSoup(html, 'lxml')
     for node in soup.select('script,style,noscript,link,meta'):
@@ -55,6 +131,7 @@ def prepare(html, url):
         comment.extract()
     base_tag = soup.select_one('base[href]')
     base_url = (url_key(base_tag['href'], url) if base_tag else url) or url
+    jumps = {id(a): supplemental_jump(a, soup, base_url) for a in soup.select('a[onclick]')}
     nodes = {}
     # Preserve inline handlers before sanitizing; a placeholder can still navigate.
     anchor_events = {}
@@ -85,6 +162,7 @@ def prepare(html, url):
         anchors[ident] = {'id': ident, 'text': label, 'href': href, 'url': target,
                           'clickable': bool(label or a.select('img,svg')), 'html': str(a),
                           'page_url': a.get('data-mb-page-target'),
+                          'jump_pager': jumps.get(id(a)),
                           'events': anchor_events[ident],
                           # Only these exact script bodies are known inert.
                           'noop': bool(re.fullmatch(r'(?i:javascript):(?:;|void\(0\);?)', href))
@@ -237,6 +315,8 @@ def apply_plan(soup, nodes, anchors, answer, url):
                     pages.append(target)
             else:
                 issues.append('分页范围需要核实：' + target)
+        elif a.get('jump_pager'):
+            continue
         elif a.get('events') or not (a.get('noop') or a['href'] in {'', '#'}):
             issues.append('分页目标不是可读取的HTTP地址')
     for i, a in anchors.items():
@@ -251,6 +331,7 @@ def apply_plan(soup, nodes, anchors, answer, url):
             'included_ids': included_ids, 'excluded': {str(i): why for i, why in excluded.items()},
             'pagination_urls': pages, 'component_pagers': components,
             'observed_pagers': observed,
+            'jump_pagers': [anchors[i]['jump_pager'] for i in sorted(pager_ids) if anchors[i].get('jump_pager')],
             'selected_anchors': len(selected), 'selected_regions': roots,
             'occurrences': len(included_ids)}
 

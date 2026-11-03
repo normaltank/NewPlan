@@ -74,7 +74,8 @@ def qualification(soup, nodes, anchors, plans, url):
     if not a['links']:
         issues.append('名单零链接须人工确认，模型判断不能自动清空原表')
     counters = sorted(set(pager_numbers(soup, nodes, plans) +
-                          [(item['current'], item['total']) for item in a['component_pagers'] + a['observed_pagers']]))
+                          [(item['current'], item['total']) for item in
+                           a['component_pagers'] + a['observed_pagers'] + a['jump_pagers']]))
     if len({total for _, total in counters}) > 1:
         issues.append('同页分页总数相互矛盾')
     if len({current for current, _ in counters}) > 1:
