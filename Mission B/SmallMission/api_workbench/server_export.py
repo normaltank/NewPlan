@@ -4,11 +4,9 @@ from reporting import college_summary_rows, new_book, sheet
 
 
 def export_download(out, results):
-    # File rejections have no reliable affiliation and must remain separate records.
+    # Keep college rows before file rejections; shared reporting keeps each file separate.
     normal = [r for r in results if r.get('record_type') != 'input_file']
-    rows = college_summary_rows(normal)
-    rows += [['', '', '特殊情况', r['input_file'] + '：' + r['reason']]
-             for r in results if r.get('record_type') == 'input_file']
+    rows = college_summary_rows(sorted(results, key=lambda r: r.get('record_type') == 'input_file'))
     book = new_book()
     sheet(book, '核验汇总', ['学校', '学院', '核验结果', '特殊情况说明'], rows)
     summary = out/'server-summary.xlsx'

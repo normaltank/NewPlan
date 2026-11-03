@@ -36,7 +36,7 @@ export DEEPSEEK_API_KEY='由运行人员设置'
 
 `--input` 是 CSV、TSV、TXT、XLSX、XLSM、XLS 所在目录。表中提供学校、学院、师资URL、教师URL；已有输入适配及逐URL集合判定沿用核心。每次 `--output` 必须是新目录，已有目录拒绝运行；`--cache-dir` 可复用外部模型缓存。务必保留输出中的原始输入副本和审计证据。
 
-规则模式需要人工核实的显式 `--plans` JSON，格式如 `{"plans":{"http://127.0.0.1/list":{"selector":".roster"}}}`。仅给已确认名单区域，不把空示例当作自动识别计划。例：`python -B server_run.py --mode rules --plans /data/plans.json --input /data/input --output /data/run-002 --cache-dir /data/cache`。
+规则模式需要人工核实的显式 `--plans` JSON，使用 UTF-8（允许 BOM），格式如 `{"plans":{"http://127.0.0.1/list":{"selector":".roster"}}}`。仅给已确认名单区域，不把空示例当作自动识别计划。例：`python -B server_run.py --mode rules --plans /data/plans.json --input /data/input --output /data/run-002 --cache-dir /data/cache`。
 
 规则模式搭配本地HTTP或 `--replay` 保存页面可用于离线验收；一般 rules 批次仍会请求给定网页。deepseek 的 `--replay` 只回放页面，模型缓存未命中仍可能联网付费，不能当作离线开关。`--no-browser` 禁用 Chromium 回退，会减少动态页面能力。
 

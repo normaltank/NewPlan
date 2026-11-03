@@ -53,6 +53,8 @@
 | `maintenance/20261103-server-handoff/ticket62/` | 服务器有限配置、整文件拒绝后继续处理、学院来源与双路模型／客户端预算的输入入口及 `audit.run` 红绿和离线验证；关联 [Issue #62](https://github.com/normaltank/NewPlan/issues/62)、父规格 [Issue #61](https://github.com/normaltank/NewPlan/issues/61)。核心配置说明见 [服务器有限配置](../SmallMission/api_workbench/README.md#服务器有限配置)；独立 CLI／源码包与整体验收由依赖工单另行交付，不代表服务器部署完成 |
 | `maintenance/20261103-server-handoff/ticket63/` | 独立服务器CLI、明确依赖清单源码包、仅错误学院下载、本地HTTP／假模型／真实Chromium的公开入口验证；关联 [Issue #63](https://github.com/normaltank/NewPlan/issues/63)。安装运行与脚本用途见 [README_server.md](../SmallMission/api_workbench/README_server.md)；正式包、整体审查与双平台CI以交接记录为准，不代表实际部署 |
 
+服务器 [PR #64](https://github.com/normaltank/NewPlan/pull/64) 的 BOM 规则计划兼容与拒绝文件说明修复，红绿及受影响验证见本地 `maintenance/20261103-server-handoff/implement-reviewfix64/README.md`；独立复审、正式包和最终 CI 由交接阶段另行确认。
+
 历史运行的 `.planning/` 文件记录当时执行过程，供复盘查阅；任务当前状态到 GitHub Issue 核对，不从旧计划自动恢复工作。新增记录写清问题、来源、根因、修改、实际验证和剩余限制；完成后从本索引或负责文档提供一个入口。
 
 ## 存放与保留

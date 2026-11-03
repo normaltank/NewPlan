@@ -731,7 +731,7 @@ async def run(args, on_progress=None, should_cancel=None):
     else:
         tasks, files = load_inputs(input_dir)
     config_path = args.plans.resolve()
-    config = json.loads(config_path.read_text(encoding='utf-8'))
+    config = json.loads(config_path.read_text(encoding='utf-8-sig'))
     out.mkdir(parents=True)
     (out / 'inputs').mkdir()
     (out / 'code').mkdir()

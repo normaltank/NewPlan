@@ -39,6 +39,46 @@ class ServerCLITests(CLIRunner, unittest.TestCase):
 
 
 class ServerBatchTests(CLIRunner, unittest.TestCase):
+    def test_bom_plan_check_and_rules_batch_preserve_original_plan(self):
+        from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+        from threading import Thread
+        class Handler(BaseHTTPRequestHandler):
+            def do_GET(self):
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(b'<div class="roster"><a href="/a">Alice</a></div>')
+            def log_message(self, *args):
+                pass
+        server = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
+        thread = Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        try:
+            with tempfile.TemporaryDirectory() as temp:
+                root = Path(temp)
+                inputs = root/'input'
+                inputs.mkdir()
+                base = f'http://127.0.0.1:{server.server_port}'
+                (inputs/'in.tsv').write_text(f'S\tC\t{base}/list\t{base}/a\n', encoding='utf-8')
+                plans = root/'plans.json'
+                plans.write_text(json.dumps({'plans': {base+'/list': {'selector': '.roster'}}}), encoding='utf-8-sig')
+                original = plans.read_bytes()
+                check = self.cli('--check', '--mode', 'rules', '--plans', plans)
+                self.assertEqual(check.returncode, 0, check.stderr)
+                out = root/'out'
+                run = self.cli('--input', inputs, '--output', out, '--cache-dir', root/'cache',
+                               '--mode', 'rules', '--plans', plans, '--no-browser')
+                self.assertEqual(run.returncode, 0, run.stderr)
+                result = json.loads((out/'results.json').read_text(encoding='utf-8'))[0]
+                self.assertTrue(result['complete'], result['reason'])
+                self.assertEqual(result['corrected_urls'], [base+'/a'])
+                self.assertEqual(json.loads((out/'server-status.json').read_text())['status'], 'completed')
+                self.assertEqual(plans.read_bytes(), original)
+                preserve(out, self._testMethodName)
+        finally:
+            server.shutdown()
+            server.server_close()
+            thread.join()
+
     def test_batch_three_outcomes_and_only_errors_downloaded(self):
         from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
         from threading import Thread
@@ -159,8 +199,8 @@ class StandaloneBatchTests(CLIRunner, unittest.TestCase):
             rows = list(book.active.values)[1:]
             self.assertEqual(len(rows), 2)
             self.assertTrue(all(row[:3] == (None, None, '特殊情况') for row in rows))
-            self.assertIn('a.tsv', rows[0][3])
-            self.assertIn('b.tsv', rows[1][3])
+            self.assertEqual(rows[0][3], 'a.tsv：超过配置单文件字节上限')
+            self.assertEqual(rows[1][3], 'b.tsv：超过配置单文件字节上限')
             book.close()
             preserve(out, self._testMethodName)
 
