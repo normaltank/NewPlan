@@ -16,7 +16,7 @@ from lite_mail import load_config
 
 ROOT = Path(__file__).resolve().parent
 FILES = ['app.py', 'lite_app.py', 'lite_mail.py', 'audit.py', 'reporting.py', 'input_adapter.py', 'runtime_paths.py',
-         'api_engine.py', 'ai_regions.py', 'deepseek_api.py', 'requirements.txt', 'source_plans.json']
+         'api_engine.py', 'ai_regions.py', 'deepseek_api.py', 'client_pagination.py', 'requirements.txt', 'source_plans.json']
 BROWSER_ARCHIVE = ROOT / 'release' / 'MissionB-Windows-x64-v3.0.1.zip'
 BROWSER_ARCHIVE_SHA256 = 'ab03c09f86cc9b1b6f5fe78d5b00a193e42529d96f81f9c86df488cd3c7f366a'
 
