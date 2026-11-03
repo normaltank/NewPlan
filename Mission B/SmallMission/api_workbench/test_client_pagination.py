@@ -63,7 +63,7 @@ class ClientPaginationTests(unittest.TestCase):
         if not Path(executable).exists():
             raise unittest.SkipTest('Chromium not installed; no download attempted')
 
-    def read(self, html=HTML, selector='.roster', cancel=None, inputs=None, browser=True):
+    def read(self, html=HTML, selector='.roster', cancel=None, inputs=None, browser=True, limits=None):
         requests = []
         class Handler(BaseHTTPRequestHandler):
             def do_GET(self):
@@ -79,7 +79,7 @@ class ClientPaginationTests(unittest.TestCase):
             out = Path(directory)
             async def run():
                 async with Fetcher(out, browser=browser) as fetcher, ModelEngine(out, out/'cache', None,
-                        client=Client(selector), should_cancel=cancel) as engine:
+                        client=Client(selector), should_cancel=cancel, limits=limits) as engine:
                     return await engine.read(fetcher, {'id':'local','roster_url':url}, None, [url])
             try:
                 with patch.dict(os.environ, {'NO_PROXY':'127.0.0.1,localhost'}):

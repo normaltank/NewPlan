@@ -1,6 +1,7 @@
 """Evidence-bound model plans; no teacher identity inference or generated URLs."""
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
+from itertools import islice
 import json
 from pathlib import Path
 import re
@@ -39,7 +40,7 @@ def pager_numbers(soup, nodes, plans):
             current, total = node.select_one('.curr_page'), node.select_one('.all_pages')
             if current and total and current.get_text(strip=True).isdigit() and total.get_text(strip=True).isdigit():
                 matches = [(current.get_text(strip=True), total.get_text(strip=True))]
-        counters.update((int(a), int(b)) for a, b in matches if 0 < int(a) <= int(b) <= 10000)
+        counters.update((int(a), int(b)) for a, b in matches if 0 < int(a) <= int(b))
     return sorted(counters)
 
 
@@ -131,23 +132,28 @@ def check_coverage(sources):
         elif totals:
             total = next(iter(totals))
             present = {current for s in members if s['parsed']['complete'] for current, _ in s['parsed'].get('pager_counters', [])}
-            missing = sorted(set(range(1, total + 1)) - present)
-            if missing:
-                issues.append('分页未完整读取，缺少页码：' + ','.join(map(str, missing[:30])))
+            if len({n for n in present if 1 <= n <= total}) < total:
+                missing = list(islice((n for n in range(1, total + 1) if n not in present), 30))
+                issues.append('分页未完整读取，缺少页码：' + ','.join(map(str, missing)))
         if issues:
             members[0]['parsed']['complete'] = False
             members[0]['parsed']['issues'].extend(issues)
             members[0]['failure_kind'] = 'structure'
 
 
+from run_limits import RunLimits, DESKTOP_LIMITS, LimitExceeded
+
+
 class ModelEngine:
-    def __init__(self, out, cache, api_key, max_calls=200, on_progress=None, should_cancel=None, client=None):
+    def __init__(self, out, cache, api_key, max_calls=None, on_progress=None, should_cancel=None, client=None, limits=None):
+        self.server_limits = limits is not None
+        self.limits = RunLimits.load(limits) if limits is not None else DESKTOP_LIMITS
         self.out, self.cache = Path(out), Path(cache)
-        self.api = client or DeepSeekJSON(self.out/'api', api_key=api_key, max_calls=max_calls)
+        self.api = client or DeepSeekJSON(self.out/'api', api_key=api_key, max_calls=max_calls if max_calls is not None else self.limits.api_calls_per_batch)
         self.cache_hits = 0
         self.on_progress, self.should_cancel = on_progress, should_cancel
-        self.contract = sha((SYSTEM + CHECK_SYSTEM + CONTRACT + '\n'.join(
-            (Path(__file__).parent/f).read_text('utf-8') for f in ('ai_regions.py','api_engine.py','audit.py','client_pagination.py'))).encode())
+        self.contract = sha((SYSTEM + CHECK_SYSTEM + CONTRACT + json.dumps(self.limits.as_dict(), sort_keys=True) + '\n'.join(
+            (Path(__file__).parent/f).read_text('utf-8') for f in ('ai_regions.py','api_engine.py','audit.py','client_pagination.py','run_limits.py'))).encode())
 
     async def __aenter__(self):
         await self.api.__aenter__()
@@ -162,7 +168,14 @@ class ModelEngine:
         for call in self.api.calls:
             tokens.update({k:v for k,v in call.get('usage',{}).items() if isinstance(v,int)})
         return {'model': self.api.model, 'calls': len(self.api.calls), 'max_calls': self.api.max_calls,
-                'cache_hits': self.cache_hits, 'tokens': dict(tokens), 'contract': self.contract}
+                'limits': self.limits.as_dict(), 'cache_hits': self.cache_hits, 'tokens': dict(tokens), 'contract': self.contract}
+
+    async def ask(self, label, system, payload):
+        # Count the actual messages sent, including recheck feedback, never only an HTML prefix.
+        size = len(system) + len(json.dumps(payload, ensure_ascii=False))
+        if self.server_limits and size > self.limits.model_input_chars:
+            raise LimitExceeded('model_input_chars', self.limits.model_input_chars, size, '模型输入超过配置字符上限；完整输入未发送，未完成核验')
+        return await self.api.ask(label, system, payload, max_tokens=self.limits.model_output_tokens)
 
     async def analyze(self, html, url, folder):
         folder = Path(folder)
@@ -171,7 +184,7 @@ class ModelEngine:
                     'contract':self.contract, 'raw_html_sha256':sha(html.encode()),
                     'warning':'自动结构检查不等于独立人工验收或全院完整性保证'}
         try:
-            soup, nodes, anchors, payload = prepare(html, url)
+            soup, nodes, anchors, payload = prepare(html, url, self.limits.model_input_chars)
             fingerprint = sha(json.dumps({'payload':payload,'model':self.api.model,'contract':self.contract},sort_keys=True,ensure_ascii=False).encode())
             cached = self.cache/(fingerprint+'.json')
             plans = None
@@ -189,14 +202,14 @@ class ModelEngine:
                     pass
             if plans is None:
                 if self.api.max_calls-len(self.api.calls) < 2:
-                    raise ApiFailure('本批API调用额度不足以完成两次结构检查；保留原表，未完成核验')
+                    raise LimitExceeded('api_calls_per_batch', self.api.max_calls, len(self.api.calls)+2, '本批API调用额度不足以完成两次结构检查；保留原表，未完成核验')
                 plans = []
                 for label, system in [('locate', SYSTEM), ('check', CHECK_SYSTEM)]:
                     if self.should_cancel and self.should_cancel():
                         raise InterruptedError('任务已停止；原表和已取得证据保留')
                     if self.on_progress:
                         self.on_progress('model_started', {'url':url,'phase':label,'api':self.stats()})
-                    plans.append(await self.api.ask(label, system, payload, max_tokens=5500))
+                    plans.append(await self.ask(label, system, payload))
             result, parses = qualification(soup, nodes, anchors, plans, url)
             needs_recheck = (any(p['scope_conflicts'] or p['coverage_conflicts'] for p in parses)
                              or parses[0]['included_ids'] != parses[1]['included_ids'])
@@ -218,12 +231,15 @@ class ModelEngine:
                         instruction = ('\n本次是结构纠错。previous_selection是你自己的上次选择；structural_feedback来自程序实际DOM检查。'
                                        '依据完整HTML重新选择。若反馈含DOM父子路径，则该路径证明排除区域覆盖了名单，不能用文字理由否认这个包含关系。'
                                        '应缩小导航排除范围或重新选择名单；仍不能确定则返回uncertain。不得盲目删除排除规则或采用更多链接。')
-                        revised.append(await self.api.ask(label, system + instruction, review, max_tokens=5500))
+                        revised.append(await self.ask(label, system + instruction, review))
                     plans = revised
                     result, parses = qualification(soup, nodes, anchors, plans, url)
                     analysis['recheck'] = 'completed'
                 else:
                     analysis['recheck'] = 'budget_insufficient'
+                    analysis.setdefault('limit_events', []).append({'kind': 'api_calls_per_batch',
+                        'limit': self.api.max_calls, 'observed': len(self.api.calls)+2,
+                        'reason': 'API剩余额度不足两路结构复核，未完成核验'})
             analysis['client_preloads'] = selected_preloads(nodes, plans, url) if PAGING_ISSUE in result['issues'] else []
             write_json(folder/'plans.json', {'fingerprint':fingerprint,'analysis':analysis,'plans':plans})
             write_json(folder/'anchors.json', list(anchors.values()))
@@ -236,6 +252,8 @@ class ModelEngine:
             raise
         except Exception as exc:
             # Provider exceptions must not expose request headers or credentials.
+            if isinstance(exc, LimitExceeded):
+                analysis.setdefault('limit_events', []).append(exc.event)
             result = empty_result(str(exc) if isinstance(exc,(ApiFailure,ValueError)) else '结构检查失败：'+type(exc).__name__)
         result['analysis'] = analysis
         write_json(folder/'analysis.json', {'analysis':analysis,'issues':result['issues']})
@@ -260,7 +278,7 @@ class ModelEngine:
             source['attempts'].append(rendered_meta)
             if not rendered_meta.get('error') and (rendered_meta.get('status') or 500)<400 and BeautifulSoup(rendered,'lxml').get_text(strip=True):
                 try:
-                    changed = prepare(rendered,rendered_meta.get('final_url') or task['roster_url'])[3] != prepare(html,meta.get('final_url') or task['roster_url'])[3]
+                    changed = prepare(rendered,rendered_meta.get('final_url') or task['roster_url'], self.limits.model_input_chars)[3] != prepare(html,meta.get('final_url') or task['roster_url'], self.limits.model_input_chars)[3]
                 except ValueError:
                     changed = True  # analyze records an oversized page as pending.
                 if changed:
@@ -273,7 +291,7 @@ class ModelEngine:
         if PAGING_ISSUE in parsed['issues'] and not replay and fetcher.use_browser:
             proof = await observe(fetcher, task, parsed.get('analysis',{}).get('client_preloads',[]),
                                   parsed['links'], self.should_cancel,
-                                  reference_sha256=parsed.get('analysis',{}).get('raw_html_sha256'))
+                                  reference_sha256=parsed.get('analysis',{}).get('raw_html_sha256'), limits=self.limits)
             parsed['client_pagination'] = proof
             if proof['complete']:
                 parsed['issues'] = [x for x in parsed['issues'] if x != PAGING_ISSUE]
