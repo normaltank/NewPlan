@@ -5,7 +5,7 @@ import sys
 
 ASSETS = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent))
 APP_ROOT = Path(sys.executable).resolve().parent if getattr(sys, 'frozen', False) else Path(__file__).resolve().parent
-VERSION = '3.0.6'
+VERSION = '3.0.7'
 
 
 def plans_path():

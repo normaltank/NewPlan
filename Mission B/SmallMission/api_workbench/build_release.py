@@ -16,7 +16,7 @@ from runtime_paths import VERSION
 STAGE=ROOT/('.release-stage-'+datetime.now().strftime('%Y%m%d-%H%M%S'))
 RELEASE=ROOT/'release'
 SOURCE_FILES=['app.py','audit.py','reporting.py','input_adapter.py','runtime_paths.py','bootstrap.py',
-              'api_engine.py','ai_regions.py','deepseek_api.py','test_api_engine.py','test_result_summary.py',
+              'api_engine.py','ai_regions.py','deepseek_api.py','client_pagination.py','test_api_engine.py','test_result_summary.py',
               'requirements.txt','source_plans.json','run.sh','start-macos.command','start-windows.cmd',
               'test_audit.py','test_distribution.py','test_bootstrap.py','test_multisource.py','test_site_support.py',
               'install-macos.command','install-linux.sh']
@@ -87,7 +87,7 @@ def main():
         command=[sys.executable,'-m','PyInstaller','--noconfirm','--clean','--onedir','--windowed','--noupx',
                  '--name','MissionB','--distpath',str(STAGE),'--workpath',str(ROOT/'.build-work'),
                  '--specpath',str(ROOT/'.build-spec')]
-        for name in ['web','templates','source_plans.json','audit.py','reporting.py','input_adapter.py','runtime_paths.py','requirements.txt','api_engine.py','ai_regions.py','deepseek_api.py']:
+        for name in ['web','templates','source_plans.json','audit.py','reporting.py','input_adapter.py','runtime_paths.py','requirements.txt','api_engine.py','ai_regions.py','deepseek_api.py','client_pagination.py']:
             command+=['--add-data',str(ROOT/name)+';'+(name if (ROOT/name).is_dir() else '.')]
         for name in ('httpx','beautifulsoup4','lxml','openpyxl','playwright','xlrd'):
             command+=['--copy-metadata',name]
